@@ -29,6 +29,130 @@
   z-index: 1;
 }
 
+/* Admin Top Identity & Session Strip */
+.admin-session-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: #0d0f18;
+  border: 1px solid #202434;
+  border-radius: 1rem;
+  padding: 0.85rem 1.25rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.admin-session-user {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.admin-session-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 0.6rem;
+  background: rgba(250, 204, 21, 0.1);
+  border: 1px solid rgba(250, 204, 21, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #facc15;
+}
+
+.admin-session-details {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.admin-session-name {
+  font-size: 0.875rem;
+  color: #e5e7eb;
+}
+
+.role-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.role-pill-badge.global {
+  background: rgba(245, 158, 11, 0.12);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.role-pill-badge.course {
+  background: rgba(59, 130, 246, 0.12);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.role-pill-badge.jobs {
+  background: rgba(16, 185, 129, 0.12);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.role-pill-badge.submissions {
+  background: rgba(168, 85, 247, 0.12);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.admin-session-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.admin-session-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 0.55rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1px solid;
+}
+
+.admin-session-btn.lock {
+  background: #141724;
+  border-color: #272c40;
+  color: #d1d5db;
+}
+
+.admin-session-btn.lock:hover {
+  background: #1c2133;
+  color: #facc15;
+  border-color: rgba(250, 204, 21, 0.3);
+}
+
+.admin-session-btn.logout {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+}
+
+.admin-session-btn.logout:hover {
+  background: rgba(239, 68, 68, 0.18);
+  color: #fca5a5;
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+
 /* Toast */
 .admin-toast {
   position: fixed;

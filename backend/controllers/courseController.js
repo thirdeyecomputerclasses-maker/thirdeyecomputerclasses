@@ -1,24 +1,16 @@
 const CourseStore = require("../storage/courseStore");
 const { isImageKitConfigured, uploadBufferToImageKit } = require("../config/imagekit");
 
-/**
- * Upload single image: strictly to ImageKit CDN (no local file saving)
- */
 const uploadSingleImage = async (file) => {
   if (!file) return null;
 
   if (!isImageKitConfigured()) {
-    throw new Error(
-      "ImageKit credentials are not configured in backend/.env. Please configure IMAGEKIT_PUBLIC_KEY, IMAGEKIT_PRIVATE_KEY, and IMAGEKIT_URL_ENDPOINT."
-    );
+    throw new Error("ImageKit credentials are not configured in backend/.env.");
   }
 
   return await uploadBufferToImageKit(file.buffer, file.originalname, "/third_eye_courses");
 };
 
-/**
- * Controller: Get all courses
- */
 const getCourses = async (req, res) => {
   try {
     const { category, search } = req.query;
@@ -29,9 +21,6 @@ const getCourses = async (req, res) => {
   }
 };
 
-/**
- * Controller: Get single course
- */
 const getCourse = async (req, res) => {
   try {
     const { idOrSlug } = req.params;
@@ -45,9 +34,6 @@ const getCourse = async (req, res) => {
   }
 };
 
-/**
- * Controller: Create course
- */
 const createCourse = async (req, res) => {
   try {
     const data = req.body;
@@ -56,12 +42,10 @@ const createCourse = async (req, res) => {
       return res.status(400).json({ error: "Course title is required" });
     }
 
-    // Handle file upload if present in multipart form
     if (req.file) {
       data.image = await uploadSingleImage(req.file);
     }
 
-    // Parse JSON stringified fields if submitted via multipart/form-data
     if (typeof data.tools === "string") {
       try { data.tools = JSON.parse(data.tools); } catch (_) {}
     }
@@ -79,9 +63,6 @@ const createCourse = async (req, res) => {
   }
 };
 
-/**
- * Controller: Update course
- */
 const updateCourse = async (req, res) => {
   try {
     const { id } = req.params;
@@ -111,9 +92,6 @@ const updateCourse = async (req, res) => {
   }
 };
 
-/**
- * Controller: Delete course
- */
 const deleteCourse = async (req, res) => {
   try {
     const { id } = req.params;
@@ -127,9 +105,6 @@ const deleteCourse = async (req, res) => {
   }
 };
 
-/**
- * Controller: Standalone image upload to Cloudinary
- */
 const uploadImage = async (req, res) => {
   try {
     if (!req.file) {

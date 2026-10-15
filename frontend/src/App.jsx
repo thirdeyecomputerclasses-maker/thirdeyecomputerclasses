@@ -3,6 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./appRoutes/AppRoutes";
 import Preloader from "./components/Preloader";
 import { SoundProvider } from "./context/SoundContext";
+import ClerkSafeProvider from "./context/ClerkSafeProvider";
 
 function App() {
   const [isPreloading, setIsPreloading] = useState(true);
@@ -20,13 +21,16 @@ function App() {
   }, [isPreloading]);
 
   return (
-    <SoundProvider>
-      {isPreloading && <Preloader onComplete={() => setIsPreloading(false)} />}
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
-    </SoundProvider>
+    <ClerkSafeProvider>
+      <SoundProvider>
+        {isPreloading && <Preloader onComplete={() => setIsPreloading(false)} />}
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
+      </SoundProvider>
+    </ClerkSafeProvider>
   );
 }
 
-export default App;
+export default App;
+

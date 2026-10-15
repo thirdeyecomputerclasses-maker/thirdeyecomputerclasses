@@ -1,7 +1,6 @@
 const Course = require("../models/Course");
 const { getDBStatus } = require("../config/db");
 
-// Auto generate URL-friendly slug
 const generateSlug = (title) => {
   const cleaned = (title || "")
     .toLowerCase()
@@ -12,7 +11,6 @@ const generateSlug = (title) => {
   return cleaned || `course-${Date.now()}`;
 };
 
-// Initial Flagship Starter Courses (Auto-seeded when MongoDB has 0 courses)
 const INITIAL_SEED_COURSES = [
   {
     title: "Full Stack Web Development",
@@ -70,56 +68,43 @@ const INITIAL_SEED_COURSES = [
   },
 ];
 
-/**
- * Course Storage Service (MongoDB Only)
- */
 const CourseStore = {
   checkDB() {
     if (!getDBStatus()) {
-      throw new Error("MongoDB database is not connected. All course operations strictly require an active MongoDB connection.");
+      throw new Error("MongoDB database is not connected.");
     }
   },
 
-  // Seed starter courses if collection is completely empty
   async seedIfEmpty() {
     try {
       if (!getDBStatus()) return;
       const count = await Course.countDocuments();
       if (count === 0) {
-        console.log("🌱 [MongoDB] Seeding flagship Courses into database...");
         await Course.insertMany(INITIAL_SEED_COURSES);
-        console.log("✅ [MongoDB] Flagship Courses successfully seeded!");
       }
-    } catch (err) {
-      console.warn("⚠️ [MongoDB] Course seeding note:", err.message);
-    }
+    } catch (err) {}
   },
 
-  // Sanitize incoming course payload
   sanitizePayload(data) {
     const payload = { ...data };
 
-    // Remove empty or invalid _id / id so Mongoose doesn't fail cast
     if (!payload._id || typeof payload._id !== "string" || !payload._id.match(/^[0-9a-fA-F]{24}$/)) {
       delete payload._id;
     }
     delete payload.id;
 
-    // Filter tools with non-empty names
     if (Array.isArray(payload.tools)) {
       payload.tools = payload.tools.filter(
         (t) => t && typeof t.name === "string" && t.name.trim().length > 0
       );
     }
 
-    // Filter modules with non-empty titles
     if (Array.isArray(payload.modules)) {
       payload.modules = payload.modules.filter(
         (m) => m && typeof m.title === "string" && m.title.trim().length > 0
       );
     }
 
-    // Filter prerequisites
     if (Array.isArray(payload.prerequisites)) {
       payload.prerequisites = payload.prerequisites.filter(
         (p) => p && typeof p === "string" && p.trim().length > 0
@@ -129,7 +114,6 @@ const CourseStore = {
     return payload;
   },
 
-  // 1. Get All Courses
   async getAll(query = {}) {
     this.checkDB();
     await this.seedIfEmpty();
@@ -148,7 +132,6 @@ const CourseStore = {
     return await Course.find(filter).sort({ createdAt: -1 });
   },
 
-  // 2. Find Course by Slug or ID
   async getBySlugOrId(identifier) {
     this.checkDB();
     await this.seedIfEmpty();
@@ -165,7 +148,6 @@ const CourseStore = {
     return course;
   },
 
-  // 3. Create Course
   async create(data) {
     this.checkDB();
     const payload = this.sanitizePayload(data);
@@ -173,7 +155,6 @@ const CourseStore = {
     let baseSlug = payload.slug ? generateSlug(payload.slug) : generateSlug(payload.title);
     let finalSlug = baseSlug;
 
-    // Ensure unique slug without throwing duplicate key error
     let attempts = 0;
     while (await Course.findOne({ slug: finalSlug })) {
       attempts++;
@@ -185,7 +166,6 @@ const CourseStore = {
     return await course.save();
   },
 
-  // 4. Update Course
   async update(id, data) {
     this.checkDB();
     const payload = this.sanitizePayload(data);
@@ -194,7 +174,6 @@ const CourseStore = {
       payload.slug = generateSlug(payload.title);
     }
 
-    // If slug is being updated, verify it doesn't conflict with another course
     if (payload.slug) {
       const existing = await Course.findOne({ slug: payload.slug, _id: { $ne: id } });
       if (existing) {
@@ -208,7 +187,6 @@ const CourseStore = {
     });
   },
 
-  // 5. Delete Course
   async delete(id) {
     this.checkDB();
     const cleanId = (id || "").trim();

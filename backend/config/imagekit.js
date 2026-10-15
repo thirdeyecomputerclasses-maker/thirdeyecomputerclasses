@@ -3,9 +3,6 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-/**
- * Check if ImageKit credentials are validly supplied
- */
 const isImageKitConfigured = () => {
   return Boolean(
     process.env.IMAGEKIT_PUBLIC_KEY &&
@@ -27,14 +24,7 @@ const getImageKit = () => {
   return imageKitInstance;
 };
 
-/**
- * Upload a file buffer directly to ImageKit
- * @param {Buffer} buffer - File buffer from multer memoryStorage
- * @param {string} originalName - Original filename
- * @param {string} folder - Target ImageKit directory folder
- * @returns {Promise<string>} - ImageKit CDN URL
- */
-const uploadBufferToImageKit = async (buffer, originalName = "course_image.jpg", folder = "/third_eye_courses") => {
+const uploadBufferToImageKit = async (buffer, originalName = "upload.jpg", folder = "/third_eye_courses") => {
   const ik = getImageKit();
   if (!ik) {
     throw new Error("ImageKit credentials are not configured in backend/.env");
@@ -45,7 +35,7 @@ const uploadBufferToImageKit = async (buffer, originalName = "course_image.jpg",
   const result = await ik.upload({
     file: buffer,
     fileName: safeFileName,
-    folder: folder,
+    folder,
     useUniqueFileName: true,
   });
 

@@ -15,6 +15,8 @@ const getCleanBaseUrl = () => {
   return "";
 };
 
+import { getAuthHeaders } from "./authApi";
+
 const BASE_URL = getCleanBaseUrl();
 const API_BASE = `${BASE_URL}/api/courses`;
 const UPLOAD_API = `${BASE_URL}/api/upload`;
@@ -77,6 +79,7 @@ export async function uploadImageToImageKit(file) {
 
   const res = await fetch(UPLOAD_API, {
     method: "POST",
+    headers: getAuthHeaders(true),
     body: formData,
   });
 
@@ -117,7 +120,7 @@ export async function createCourse(courseData, imageFile = null) {
 
   const res = await fetch(API_BASE, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),
     body: JSON.stringify(payload),
   });
 
@@ -159,7 +162,7 @@ export async function updateCourse(id, courseData, imageFile = null) {
 
   const res = await fetch(`${API_BASE}/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),
     body: JSON.stringify(payload),
   });
 
@@ -185,6 +188,7 @@ export async function updateCourse(id, courseData, imageFile = null) {
 export async function deleteCourse(id) {
   const res = await fetch(`${API_BASE}/${id}`, {
     method: "DELETE",
+    headers: getAuthHeaders(),
   });
 
   if (!res.ok) {
