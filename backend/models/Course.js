@@ -80,7 +80,6 @@ const CourseSchema = new mongoose.Schema(
   }
 );
 
-// Pre-validate hook: sanitize empty tools, modules, and prerequisites
 CourseSchema.pre("validate", function () {
   if (Array.isArray(this.tools)) {
     this.tools = this.tools.filter(

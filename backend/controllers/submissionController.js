@@ -1,16 +1,13 @@
 const submissionStore = require("../storage/submissionStore");
 const { uploadBufferToImageKit } = require("../config/imagekit");
 
-// POST /api/submissions
 exports.createSubmission = async (req, res) => {
   try {
     const body = req.body || {};
     const data = { ...body };
 
-    // If candidate attached a resume file (PDF, DOCX, etc.), upload to ImageKit CDN
     if (req.file) {
       try {
-        console.log(`[ImageKit] Uploading candidate resume "${req.file.originalname}"...`);
         const resumeUrl = await uploadBufferToImageKit(
           req.file.buffer,
           req.file.originalname,
@@ -18,9 +15,7 @@ exports.createSubmission = async (req, res) => {
         );
         data.resumeUrl = resumeUrl;
         data.resumeFileName = req.file.originalname;
-        console.log(`[ImageKit] Candidate resume uploaded successfully: ${resumeUrl}`);
       } catch (ikError) {
-        console.error("ImageKit upload error for resume:", ikError.message);
         data.resumeFileName = req.file.originalname;
       }
     }
@@ -52,7 +47,6 @@ exports.createSubmission = async (req, res) => {
       data: created,
     });
   } catch (error) {
-    console.error("Error creating submission:", error);
     res.status(500).json({
       success: false,
       message: error.message || "Failed to submit form inquiry.",
@@ -60,7 +54,6 @@ exports.createSubmission = async (req, res) => {
   }
 };
 
-// POST /api/submissions/upload-resume (Standalone resume upload)
 exports.uploadResume = async (req, res) => {
   try {
     if (!req.file) {
@@ -77,7 +70,6 @@ exports.uploadResume = async (req, res) => {
       fileName: req.file.originalname,
     });
   } catch (error) {
-    console.error("Error uploading resume to ImageKit:", error);
     res.status(500).json({
       success: false,
       message: error.message || "Failed to upload resume to ImageKit.",
@@ -85,7 +77,6 @@ exports.uploadResume = async (req, res) => {
   }
 };
 
-// GET /api/submissions
 exports.getSubmissions = async (req, res) => {
   try {
     const submissions = await submissionStore.getAll(req.query);
@@ -95,7 +86,6 @@ exports.getSubmissions = async (req, res) => {
       data: submissions,
     });
   } catch (error) {
-    console.error("Error fetching submissions:", error);
     res.status(500).json({
       success: false,
       message: error.message || "Failed to retrieve form submissions.",
@@ -103,7 +93,6 @@ exports.getSubmissions = async (req, res) => {
   }
 };
 
-// GET /api/submissions/stats
 exports.getSubmissionStats = async (req, res) => {
   try {
     const stats = await submissionStore.getStats();
@@ -112,7 +101,6 @@ exports.getSubmissionStats = async (req, res) => {
       data: stats,
     });
   } catch (error) {
-    console.error("Error fetching submission stats:", error);
     res.status(500).json({
       success: false,
       message: "Failed to retrieve submission statistics.",
@@ -120,7 +108,6 @@ exports.getSubmissionStats = async (req, res) => {
   }
 };
 
-// PATCH /api/submissions/:id/status
 exports.updateSubmissionStatus = async (req, res) => {
   try {
     const { id } = req.params;
@@ -140,7 +127,6 @@ exports.updateSubmissionStatus = async (req, res) => {
       data: updated,
     });
   } catch (error) {
-    console.error("Error updating submission status:", error);
     res.status(500).json({
       success: false,
       message: error.message || "Failed to update submission status.",
@@ -148,7 +134,6 @@ exports.updateSubmissionStatus = async (req, res) => {
   }
 };
 
-// DELETE /api/submissions/:id
 exports.deleteSubmission = async (req, res) => {
   try {
     const { id } = req.params;
@@ -166,7 +151,6 @@ exports.deleteSubmission = async (req, res) => {
       message: "Submission removed from MongoDB.",
     });
   } catch (error) {
-    console.error("Error deleting submission:", error);
     res.status(500).json({
       success: false,
       message: error.message || "Failed to delete submission.",

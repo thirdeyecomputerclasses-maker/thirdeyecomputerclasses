@@ -68,6 +68,8 @@ export async function createSubmission(submissionData, resumeFile = null) {
   return json.data;
 }
 
+import { getAuthHeaders } from "./authApi";
+
 /**
  * Fetch all form submissions with optional filtering
  * @param {Object} params { formType, status, search }
@@ -85,7 +87,9 @@ export async function getSubmissions(params = {}) {
     url.searchParams.set("search", params.search);
   }
 
-  const res = await fetch(url.toString());
+  const res = await fetch(url.toString(), {
+    headers: getAuthHeaders(),
+  });
   if (!res.ok) {
     throw new Error(`Failed to fetch submissions (${res.status})`);
   }
@@ -98,7 +102,9 @@ export async function getSubmissions(params = {}) {
  * Fetch aggregated submission stats for admin metrics
  */
 export async function getSubmissionStats() {
-  const res = await fetch(`${API_BASE}/stats`);
+  const res = await fetch(`${API_BASE}/stats`, {
+    headers: getAuthHeaders(),
+  });
   if (!res.ok) {
     throw new Error(`Failed to fetch stats (${res.status})`);
   }
@@ -115,7 +121,7 @@ export async function getSubmissionStats() {
 export async function updateSubmissionStatus(id, status, adminNotes = null) {
   const res = await fetch(`${API_BASE}/${id}/status`, {
     method: "PATCH",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),
     body: JSON.stringify({ status, adminNotes }),
   });
 
@@ -133,6 +139,7 @@ export async function updateSubmissionStatus(id, status, adminNotes = null) {
 export async function deleteSubmission(id) {
   const res = await fetch(`${API_BASE}/${id}`, {
     method: "DELETE",
+    headers: getAuthHeaders(),
   });
 
   const json = await res.json();
@@ -141,3 +148,4 @@ export async function deleteSubmission(id) {
   }
   return true;
 }
+

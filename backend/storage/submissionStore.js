@@ -4,11 +4,10 @@ const { getDBStatus } = require("../config/db");
 const submissionStore = {
   checkDB() {
     if (!getDBStatus()) {
-      console.warn("MongoDB is not currently connected. Submissions might fail to persist.");
+      throw new Error("MongoDB is not connected.");
     }
   },
 
-  // 1. Get all submissions with filters
   async getAll(query = {}) {
     this.checkDB();
 
@@ -39,13 +38,11 @@ const submissionStore = {
     return await Submission.find(filter).sort({ createdAt: -1 });
   },
 
-  // 2. Get single submission by ID
   async getById(id) {
     this.checkDB();
     return await Submission.findById(id);
   },
 
-  // 3. Create submission
   async create(data) {
     this.checkDB();
 
@@ -71,7 +68,6 @@ const submissionStore = {
     return await submission.save();
   },
 
-  // 4. Update status and/or admin notes
   async updateStatus(id, status, adminNotes = null) {
     this.checkDB();
 
@@ -85,13 +81,11 @@ const submissionStore = {
     });
   },
 
-  // 5. Delete submission
   async delete(id) {
     this.checkDB();
     return await Submission.findByIdAndDelete(id);
   },
 
-  // 6. Aggregated stats for the admin console
   async getStats() {
     this.checkDB();
 

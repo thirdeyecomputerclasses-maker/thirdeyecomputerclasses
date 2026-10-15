@@ -30,7 +30,6 @@ const SubmissionSchema = new mongoose.Schema(
       trim: true,
       default: "",
     },
-    // Franchise-specific fields
     city: {
       type: String,
       trim: true,
@@ -46,7 +45,6 @@ const SubmissionSchema = new mongoose.Schema(
       trim: true,
       default: "",
     },
-    // Job Application-specific fields
     jobTitle: {
       type: String,
       trim: true,
@@ -77,7 +75,6 @@ const SubmissionSchema = new mongoose.Schema(
       trim: true,
       default: "",
     },
-    // Status management
     status: {
       type: String,
       enum: ["new", "in_review", "contacted", "resolved", "archived"],
@@ -89,7 +86,6 @@ const SubmissionSchema = new mongoose.Schema(
       trim: true,
       default: "",
     },
-    // Flexible payload for any future custom fields
     metadata: {
       type: mongoose.Schema.Types.Mixed,
       default: {},
@@ -100,7 +96,6 @@ const SubmissionSchema = new mongoose.Schema(
   }
 );
 
-// Indexes for fast lookup in admin console
 SubmissionSchema.index({ createdAt: -1 });
 SubmissionSchema.index({ formType: 1, status: 1 });
 

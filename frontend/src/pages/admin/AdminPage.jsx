@@ -28,7 +28,14 @@ import {
   AlertCircle,
   FileCheck,
   Send,
+  Crown,
+  KeyRound,
+  LogOut,
+  ShieldCheck,
+  Lock,
+  UserCheck,
 } from "lucide-react";
+import { useClerk } from "@clerk/react";
 import {
   getCourses,
   createCourse,
@@ -48,14 +55,25 @@ import {
   updateSubmissionStatus,
   deleteSubmission,
 } from "../../services/submissionApi";
+import { getStoredSession, clearAdminSession } from "../../services/authApi";
 import CourseFormModal from "./components/CourseFormModal";
 import JobFormModal from "./components/JobFormModal";
 import DeleteConfirmModal from "./components/DeleteConfirmModal";
+import AdminGateScreen from "./AdminGateScreen";
+import SecurityManagerTab from "./components/SecurityManagerTab";
 import "./AdminPage.css";
 
 export default function AdminPage() {
-  // Navigation: "courses" | "jobs" | "forms"
-  const [activeSection, setActiveSection] = useState("courses");
+  const { signOut } = useClerk();
+  const [adminSession, setAdminSession] = useState(() => getStoredSession());
+
+  // Navigation: "courses" | "jobs" | "forms" | "security"
+  const [activeSection, setActiveSection] = useState(() => {
+    const s = getStoredSession();
+    if (s?.role === "jobs_admin") return "jobs";
+    if (s?.role === "submissions_admin") return "forms";
+    return "courses";
+  });
 
   // Courses state
   const [courses, setCourses] = useState([]);
@@ -533,6 +551,45 @@ export default function AdminPage() {
     }
   };
 
+  const handleLockSession = () => {
+    clearAdminSession();
+    setAdminSession(null);
+  };
+
+  const handleClerkSignOut = async () => {
+    clearAdminSession();
+    setAdminSession(null);
+    try {
+      await signOut();
+    } catch (e) {
+      console.warn("Sign out err:", e);
+    }
+  };
+
+  // Gate Check: If not cleared, display Gate 1 (Clerk) & Gate 2 (Role Passcode)
+  if (!adminSession || !adminSession.role) {
+    return (
+      <AdminGateScreen
+        onClearanceSuccess={(sessionData) => {
+          setAdminSession(sessionData);
+          if (sessionData.role === "jobs_admin") {
+            setActiveSection("jobs");
+          } else if (sessionData.role === "submissions_admin") {
+            setActiveSection("forms");
+          } else if (sessionData.role === "course_admin") {
+            setActiveSection("courses");
+          }
+        }}
+      />
+    );
+  }
+
+  const role = adminSession?.role;
+  const canAccessCourses = role === "global_admin" || role === "course_admin";
+  const canAccessJobs = role === "global_admin" || role === "jobs_admin";
+  const canAccessForms = role === "global_admin" || role === "submissions_admin";
+  const canAccessSecurity = role === "global_admin";
+
   return (
     <div className="admin-page">
       {/* Toast Notification */}
@@ -544,6 +601,64 @@ export default function AdminPage() {
       )}
 
       <div className="admin-container">
+        {/* Top Security & Identity Strip */}
+        <div className="admin-session-strip">
+          <div className="admin-session-user">
+            <div className="admin-session-avatar">
+              <UserCheck size={16} />
+            </div>
+            <div className="admin-session-details">
+              <div className="admin-session-name">
+                <span className="text-zinc-400">Authenticated:</span>{" "}
+                <strong className="text-white">{adminSession?.clerkName || "Admin"}</strong>
+              </div>
+              <div className="admin-session-role-pill">
+                {role === "global_admin" && (
+                  <span className="role-pill-badge global">
+                    <Crown size={12} /> Master Global Admin
+                  </span>
+                )}
+                {role === "course_admin" && (
+                  <span className="role-pill-badge course">
+                    <BookOpen size={12} /> Courses Sub-Admin
+                  </span>
+                )}
+                {role === "jobs_admin" && (
+                  <span className="role-pill-badge jobs">
+                    <Briefcase size={12} /> Job Openings Sub-Admin
+                  </span>
+                )}
+                {role === "submissions_admin" && (
+                  <span className="role-pill-badge submissions">
+                    <Inbox size={12} /> Queries & Forms Sub-Admin
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="admin-session-actions">
+            <button
+              type="button"
+              onClick={handleLockSession}
+              className="admin-session-btn lock"
+              title="Lock panel and require passcode re-entry"
+            >
+              <Lock size={14} />
+              <span>Lock Panel</span>
+            </button>
+            <button
+              type="button"
+              onClick={handleClerkSignOut}
+              className="admin-session-btn logout"
+              title="Sign out of Clerk completely"
+            >
+              <LogOut size={14} />
+              <span>Sign Out</span>
+            </button>
+          </div>
+        </div>
+
         {/* Top Header */}
         <div className="admin-header">
           <div>
@@ -572,14 +687,17 @@ export default function AdminPage() {
               {activeSection === "courses" && "Course Management"}
               {activeSection === "jobs" && "Jobs & Placements Management"}
               {activeSection === "forms" && "Website Form Submissions"}
+              {activeSection === "security" && "Security Clearance & Access Keys"}
             </h1>
             <p className="admin-subtitle">
               {activeSection === "courses" &&
-                "Add, edit, remove, and manage all live courses dynamically with ImageKit CDN uploads."}
+                "Add, edit, and manage all live courses dynamically with ImageKit CDN uploads."}
               {activeSection === "jobs" &&
                 "Add, edit, remove, and manage real-time job openings stored in MongoDB Atlas."}
               {activeSection === "forms" &&
                 "Live applicant messages and leads uploaded to MongoDB from Contact Us, Franchise Inquiries, and Job Applications."}
+              {activeSection === "security" &&
+                "Configure passwords for each of the 4 admin levels and inspect recent login audit events."}
             </p>
           </div>
 
@@ -589,7 +707,7 @@ export default function AdminPage() {
               onClick={() => {
                 if (activeSection === "courses") loadCourses();
                 else if (activeSection === "jobs") loadJobs();
-                else loadSubmissions();
+                else if (activeSection === "forms") loadSubmissions();
               }}
               title="Refresh data"
             >
@@ -604,19 +722,19 @@ export default function AdminPage() {
                 }
               />
             </button>
-            {activeSection === "courses" && (
+            {activeSection === "courses" && canAccessCourses && (
               <button className="admin-add-btn" onClick={handleOpenCreateCourse}>
                 <Plus size={18} />
                 <span>Add New Course</span>
               </button>
             )}
-            {activeSection === "jobs" && (
+            {activeSection === "jobs" && canAccessJobs && (
               <button className="admin-add-btn" onClick={handleOpenCreateJob}>
                 <Plus size={18} />
                 <span>Add New Job Opening</span>
               </button>
             )}
-            {activeSection === "forms" && (
+            {activeSection === "forms" && canAccessForms && (
               <button
                 className="admin-add-btn forms-refresh"
                 onClick={loadSubmissions}
@@ -629,48 +747,67 @@ export default function AdminPage() {
           </div>
         </div>
 
-        {/* Section Navigation Tabs: Courses vs Jobs vs Forms */}
+        {/* Section Navigation Tabs: Filtered based on role */}
         <div className="admin-section-tabs">
-          <button
-            type="button"
-            className={`admin-section-tab-btn ${
-              activeSection === "courses" ? "active" : ""
-            }`}
-            onClick={() => setActiveSection("courses")}
-          >
-            <BookOpen size={18} />
-            <span>Courses</span>
-            <span className="section-count-badge">{courses.length}</span>
-          </button>
+          {canAccessCourses && (
+            <button
+              type="button"
+              className={`admin-section-tab-btn ${
+                activeSection === "courses" ? "active" : ""
+              }`}
+              onClick={() => setActiveSection("courses")}
+            >
+              <BookOpen size={18} />
+              <span>Courses</span>
+              <span className="section-count-badge">{courses.length}</span>
+            </button>
+          )}
 
-          <button
-            type="button"
-            className={`admin-section-tab-btn ${
-              activeSection === "jobs" ? "active" : ""
-            }`}
-            onClick={() => setActiveSection("jobs")}
-          >
-            <Briefcase size={18} />
-            <span>Job Openings</span>
-            <span className="section-count-badge">{jobs.length}</span>
-          </button>
+          {canAccessJobs && (
+            <button
+              type="button"
+              className={`admin-section-tab-btn ${
+                activeSection === "jobs" ? "active" : ""
+              }`}
+              onClick={() => setActiveSection("jobs")}
+            >
+              <Briefcase size={18} />
+              <span>Job Openings</span>
+              <span className="section-count-badge">{jobs.length}</span>
+            </button>
+          )}
 
-          <button
-            type="button"
-            className={`admin-section-tab-btn ${
-              activeSection === "forms" ? "active" : ""
-            }`}
-            onClick={() => setActiveSection("forms")}
-          >
-            <Inbox size={18} />
-            <span>Form Submissions</span>
-            <span className="section-count-badge">
-              {submissions.length}
-              {submissionStats.newSubmissions > 0 && (
-                <span className="badge-new-dot" title={`${submissionStats.newSubmissions} unhandled leads`} />
-              )}
-            </span>
-          </button>
+          {canAccessForms && (
+            <button
+              type="button"
+              className={`admin-section-tab-btn ${
+                activeSection === "forms" ? "active" : ""
+              }`}
+              onClick={() => setActiveSection("forms")}
+            >
+              <Inbox size={18} />
+              <span>Form Submissions</span>
+              <span className="section-count-badge">
+                {submissions.length}
+                {submissionStats.newSubmissions > 0 && (
+                  <span className="badge-new-dot" title={`${submissionStats.newSubmissions} unhandled leads`} />
+                )}
+              </span>
+            </button>
+          )}
+
+          {canAccessSecurity && (
+            <button
+              type="button"
+              className={`admin-section-tab-btn ${
+                activeSection === "security" ? "active" : ""
+              }`}
+              onClick={() => setActiveSection("security")}
+            >
+              <KeyRound size={18} />
+              <span>Security & Passwords</span>
+            </button>
+          )}
         </div>
 
         {/* ========================================================= */}
@@ -836,14 +973,16 @@ export default function AdminPage() {
                           <Edit2 size={15} />
                           <span>Edit</span>
                         </button>
-                        <button
-                          className="admin-action-btn delete"
-                          onClick={() => handleOpenDeleteCourse(course)}
-                          title="Delete course"
-                        >
-                          <Trash2 size={15} />
-                          <span>Delete</span>
-                        </button>
+                        {role === "global_admin" && (
+                          <button
+                            className="admin-action-btn delete"
+                            onClick={() => handleOpenDeleteCourse(course)}
+                            title="Delete course (Global Admin only)"
+                          >
+                            <Trash2 size={15} />
+                            <span>Delete</span>
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -1451,6 +1590,13 @@ export default function AdminPage() {
               </div>
             )}
           </>
+        )}
+
+        {/* ========================================================= */}
+        {/* TAB 4: SECURITY & PASSWORDS (GLOBAL ADMIN ONLY)           */}
+        {/* ========================================================= */}
+        {activeSection === "security" && role === "global_admin" && (
+          <SecurityManagerTab showToast={showToast} />
         )}
       </div>
 

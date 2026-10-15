@@ -81,7 +81,6 @@ const JobSchema = new mongoose.Schema(
   }
 );
 
-// Helpful index on slug and active status
 JobSchema.index({ slug: 1, isActive: 1 });
 
 module.exports = mongoose.model("Job", JobSchema);

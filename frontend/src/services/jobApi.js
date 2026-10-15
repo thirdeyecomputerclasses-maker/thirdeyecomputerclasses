@@ -5,6 +5,7 @@
  */
 
 import { JOB_OPENINGS as FALLBACK_JOBS, getJobBySlug as fallbackGetBySlug } from "../pages/placements/jobsData";
+import { getAuthHeaders } from "./authApi";
 
 const getCleanBaseUrl = () => {
   const envUrl = (import.meta.env.VITE_API_URL || "").trim().replace(/\/+$/, "");
@@ -84,9 +85,7 @@ export async function getJobBySlug(slug) {
 export async function createJob(jobData) {
   const res = await fetch(API_BASE, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: getAuthHeaders(),
     body: JSON.stringify(jobData),
   });
 
@@ -104,9 +103,7 @@ export async function createJob(jobData) {
 export async function updateJob(id, jobData) {
   const res = await fetch(`${API_BASE}/${id}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: getAuthHeaders(),
     body: JSON.stringify(jobData),
   });
 
@@ -124,6 +121,7 @@ export async function updateJob(id, jobData) {
 export async function deleteJob(id) {
   const res = await fetch(`${API_BASE}/${id}`, {
     method: "DELETE",
+    headers: getAuthHeaders(),
   });
 
   if (!res.ok) {
@@ -133,3 +131,4 @@ export async function deleteJob(id) {
 
   return await res.json();
 }
+

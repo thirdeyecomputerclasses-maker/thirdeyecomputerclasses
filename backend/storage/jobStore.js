@@ -1,7 +1,6 @@
 const Job = require("../models/Job");
 const { getDBStatus } = require("../config/db");
 
-// Initial 6 seed jobs for auto-initialization in MongoDB
 const INITIAL_SEED_JOBS = [
   {
     title: "Account Executive",
@@ -173,7 +172,6 @@ const INITIAL_SEED_JOBS = [
   },
 ];
 
-// Helper to generate a clean URL slug
 const generateSlug = (text) => {
   return text
     .toLowerCase()
@@ -186,28 +184,20 @@ const generateSlug = (text) => {
 const JobStore = {
   checkDB() {
     if (!getDBStatus()) {
-      throw new Error(
-        "MongoDB is not connected. All Job operations strictly require an active MongoDB connection."
-      );
+      throw new Error("MongoDB is not connected.");
     }
   },
 
-  // 1. Seed initial jobs if collection is completely empty
   async seedIfEmpty() {
     try {
       if (!getDBStatus()) return;
       const count = await Job.countDocuments();
       if (count === 0) {
-        console.log("🌱 [MongoDB] Seeding initial Job Openings into database...");
         await Job.insertMany(INITIAL_SEED_JOBS);
-        console.log("✅ [MongoDB] Initial Job Openings successfully seeded!");
       }
-    } catch (err) {
-      console.warn("⚠️ [MongoDB] Job seeding note:", err.message);
-    }
+    } catch (err) {}
   },
 
-  // 2. Get All Jobs with filtering
   async getAll(query = {}) {
     this.checkDB();
     await this.seedIfEmpty();
@@ -235,31 +225,26 @@ const JobStore = {
     return await Job.find(filter).sort({ createdAt: -1 });
   },
 
-  // 3. Get Single Job by Slug, Alias, or MongoDB ID
   async getBySlugOrId(identifier) {
     this.checkDB();
     await this.seedIfEmpty();
 
     const cleanId = (identifier || "").trim().toLowerCase();
 
-    // Check by valid Mongo ObjectId
     if (cleanId.match(/^[0-9a-fA-F]{24}$/)) {
       const byId = await Job.findById(cleanId);
       if (byId) return byId;
     }
 
-    // Check by exact slug
     let job = await Job.findOne({ slug: cleanId });
     if (job) return job;
 
-    // Check by aliases array
     job = await Job.findOne({ aliases: cleanId });
     if (job) return job;
 
     return null;
   },
 
-  // 4. Create Job in MongoDB
   async create(data) {
     this.checkDB();
 
@@ -269,7 +254,6 @@ const JobStore = {
       ? `${baseSlug}-${Date.now().toString().slice(-4)}`
       : baseSlug;
 
-    // Parse array fields if passed as strings or json
     const responsibilities = Array.isArray(data.responsibilities)
       ? data.responsibilities
       : typeof data.responsibilities === "string"
@@ -299,7 +283,6 @@ const JobStore = {
     return await job.save();
   },
 
-  // 5. Update Job in MongoDB
   async update(id, data) {
     this.checkDB();
 
@@ -342,7 +325,6 @@ const JobStore = {
     return updated;
   },
 
-  // 6. Delete Job from MongoDB
   async delete(id) {
     this.checkDB();
     const deleted = await Job.findByIdAndDelete(id);
