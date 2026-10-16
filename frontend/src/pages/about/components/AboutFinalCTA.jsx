@@ -20,14 +20,14 @@ export default function AboutFinalCTA() {
             <span className="font-mono uppercase tracking-wider text-[11px]">Next Generation Creators</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight max-w-2xl mx-auto mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight max-w-2xl mx-auto mb-6">
             Bold ideas become reality through{" "}
             <span className="bg-gradient-to-r from-[#ffeab0] via-[#f6d96b] to-[#f59e0b] bg-clip-text text-transparent">
               thoughtful execution.
             </span>
           </h2>
 
-          <p className="text-sm sm:text-base md:text-lg text-zinc-300 font-light leading-relaxed max-w-xl mx-auto mb-10">
+          <p className="text-sm sm:text-base md:text-lg text-zinc-300 font-normal leading-relaxed max-w-xl mx-auto mb-10">
             Whether your dream is mastering 3D Animation, Hollywood-grade VFX, Full-Stack Software Engineering, or CAD Architecture — your journey begins at Third Eye.
           </p>
 

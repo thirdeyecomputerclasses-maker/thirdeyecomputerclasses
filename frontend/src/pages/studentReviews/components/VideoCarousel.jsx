@@ -7,7 +7,18 @@ const VELOCITY_THRESHOLD = 400;
 const GAP = 22;
 const SPRING_OPTIONS = { type: 'spring', stiffness: 280, damping: 28 };
 
-function VideoCarouselCard({ item, index, itemWidth, trackItemOffset, x, transition, onSelectVideo }) {
+function VideoCarouselCard({
+  item,
+  index,
+  itemWidth,
+  trackItemOffset,
+  x,
+  transition,
+  onSelectVideo,
+  isPriority = false,
+  loadRest = false
+}) {
+  const [imageLoaded, setImageLoaded] = useState(isPriority);
   const range = [
     -(index + 1) * trackItemOffset,
     -index * trackItemOffset,
@@ -18,6 +29,7 @@ function VideoCarouselCard({ item, index, itemWidth, trackItemOffset, x, transit
   const scale = useTransform(x, range, [0.92, 1, 0.92], { clamp: false });
 
   const thumbnailUrl = `https://img.youtube.com/vi/${item.videoId}/hqdefault.jpg`;
+  const shouldRenderImage = isPriority || loadRest;
 
   return (
     <motion.div
@@ -32,12 +44,23 @@ function VideoCarouselCard({ item, index, itemWidth, trackItemOffset, x, transit
     >
       {/* Video Thumbnail */}
       <div className="video-thumbnail-wrapper">
-        <img
-          src={thumbnailUrl}
-          alt={item.title}
-          className="video-thumbnail-img"
-          loading="lazy"
-        />
+        {shouldRenderImage ? (
+          <img
+            src={thumbnailUrl}
+            alt={item.title}
+            className={`video-thumbnail-img ${imageLoaded ? 'loaded' : 'loading'}`}
+            loading={isPriority ? 'eager' : 'lazy'}
+            fetchPriority={isPriority ? 'high' : 'low'}
+            decoding="async"
+            onLoad={() => setImageLoaded(true)}
+          />
+        ) : null}
+
+        {/* Shimmer skeleton until thumbnail is loaded */}
+        {!imageLoaded && (
+          <div className="video-skeleton-placeholder" aria-hidden="true" />
+        )}
+
         <div className="video-play-overlay">
           <div className="video-play-btn" title="Watch Student Video">
             <svg className="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24">
@@ -106,8 +129,43 @@ export default function VideoCarousel({
   const [isHovered, setIsHovered] = useState(false);
   const [isJumping, setIsJumping] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [loadRest, setLoadRest] = useState(false);
 
   const containerRef = useRef(null);
+
+  // Progressive background loading for remaining videos after initial mount
+  useEffect(() => {
+    let idleId;
+    let timerId;
+
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      idleId = window.requestIdleCallback(() => setLoadRest(true), { timeout: 600 });
+    } else {
+      timerId = setTimeout(() => setLoadRest(true), 350);
+    }
+
+    return () => {
+      if (idleId && 'cancelIdleCallback' in window) window.cancelIdleCallback(idleId);
+      if (timerId) clearTimeout(timerId);
+    };
+  }, []);
+
+  // When loadRest activates, progressively warm remaining video thumbnails with gentle staggered delays
+  useEffect(() => {
+    if (!loadRest || items.length === 0) return;
+    const remainingVideos = items.filter(v => v && v.id > 3);
+    const timers = remainingVideos.map((video, idx) =>
+      setTimeout(() => {
+        const img = new Image();
+        img.src = `https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`;
+      }, idx * 120)
+    );
+    return () => timers.forEach(clearTimeout);
+  }, [loadRest, items]);
+
+  const handleUserInteraction = () => {
+    if (!loadRest) setLoadRest(true);
+  };
 
   // Autoplay
   useEffect(() => {
@@ -206,6 +264,7 @@ export default function VideoCarousel({
   }, [activeVideo, isJumping, itemsForRender.length, loop]);
 
   const prevSlide = () => {
+    handleUserInteraction();
     if (isJumping) return;
     setPosition(prev => {
       if (loop) {
@@ -219,6 +278,7 @@ export default function VideoCarousel({
   };
 
   const nextSlide = () => {
+    handleUserInteraction();
     if (isJumping) return;
     setPosition(prev => {
       if (loop) {
@@ -236,8 +296,13 @@ export default function VideoCarousel({
       <div
         ref={containerRef}
         className="video-carousel-container"
-        onMouseEnter={() => setIsHovered(true)}
+        onMouseEnter={() => {
+          setIsHovered(true);
+          handleUserInteraction();
+        }}
         onMouseLeave={() => setIsHovered(false)}
+        onTouchStart={handleUserInteraction}
+        onMouseDown={handleUserInteraction}
       >
         <motion.div
           className="video-carousel-track"
@@ -251,21 +316,29 @@ export default function VideoCarousel({
           onDragEnd={handleDragEnd}
           animate={{ x: -(position * trackItemOffset) }}
           transition={effectiveTransition}
-          onAnimationStart={() => setIsAnimating(true)}
+          onAnimationStart={() => {
+            handleUserInteraction();
+            setIsAnimating(true);
+          }}
           onAnimationComplete={handleAnimationComplete}
         >
-          {itemsForRender.map((item, index) => (
-            <VideoCarouselCard
-              key={`${item?.id ?? index}-${index}`}
-              item={item}
-              index={index}
-              itemWidth={itemWidth}
-              trackItemOffset={trackItemOffset}
-              x={x}
-              transition={effectiveTransition}
-              onSelectVideo={video => setActiveVideo(video)}
-            />
-          ))}
+          {itemsForRender.map((item, index) => {
+            const isPriority = Boolean(item?.id && item.id <= 3);
+            return (
+              <VideoCarouselCard
+                key={`${item?.id ?? index}-${index}`}
+                item={item}
+                index={index}
+                itemWidth={itemWidth}
+                trackItemOffset={trackItemOffset}
+                x={x}
+                transition={effectiveTransition}
+                onSelectVideo={video => setActiveVideo(video)}
+                isPriority={isPriority}
+                loadRest={loadRest}
+              />
+            );
+          })}
         </motion.div>
 
         {/* Floating Side Arrow Left */}

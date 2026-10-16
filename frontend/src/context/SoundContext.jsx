@@ -1,18 +1,48 @@
 import React, { createContext, useContext, useState, useEffect, useRef } from "react";
-import userBackgroundMusic from "../assets/audio/ambient_music_theme.mp3";
+import track1 from "../assets/audio/ambient_music_theme.mp3";
+import track2 from "../assets/audio/ambient_track_2.mp3";
+import track3 from "../assets/audio/ambient_track_3.mp3";
+import track4 from "../assets/audio/ambient_track_4.mp3";
+
+export const SONGS = [
+  { id: "ambient-1", title: "Ambient Theme 1", src: track1 },
+  { id: "ambient-2", title: "Ambient Theme 2", src: track2 },
+  { id: "ambient-3", title: "Ambient Theme 3", src: track3 },
+  { id: "ambient-4", title: "Ambient Theme 4", src: track4 },
+];
 
 const SoundContext = createContext();
+
+const getRandomIndex = (excludeIndex = -1) => {
+  if (SONGS.length <= 1) return 0;
+  let nextIdx;
+  let attempts = 0;
+  do {
+    nextIdx = Math.floor(Math.random() * SONGS.length);
+    attempts++;
+  } while (nextIdx === excludeIndex && attempts < 10);
+  return nextIdx;
+};
 
 export function SoundProvider({ children }) {
   // Sound is ALWAYS strictly ON by default
   const [isMuted, setIsMuted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.35); // Pleasant ambient volume
+  const [currentSong, setCurrentSong] = useState(() => {
+    const idx = getRandomIndex();
+    return SONGS[idx];
+  });
 
   const audioRef = useRef(null);
   const isMutedRef = useRef(false);
   const isPlayingRef = useRef(false);
   const volumeRef = useRef(0.35);
+  const currentSongIndexRef = useRef(
+    SONGS.findIndex((s) => s.id === currentSong?.id) >= 0
+      ? SONGS.findIndex((s) => s.id === currentSong?.id)
+      : 0
+  );
 
   // Synchronize refs
   useEffect(() => {
@@ -39,7 +69,7 @@ export function SoundProvider({ children }) {
         setIsPlaying(true);
         return true;
       })
-      .catch((err) => {
+      .catch(() => {
         // Browser autoplay policy rejected unmuted play without previous gesture
         return false;
       });
@@ -53,6 +83,24 @@ export function SoundProvider({ children }) {
     setIsPlaying(false);
   };
 
+  // Play next random song from array
+  const playRandomSong = () => {
+    const nextIdx = getRandomIndex(currentSongIndexRef.current);
+    currentSongIndexRef.current = nextIdx;
+    const song = SONGS[nextIdx];
+    setCurrentSong(song);
+
+    const audio = audioRef.current;
+    if (audio) {
+      audio.src = song.src;
+      audio.load();
+      if (!isMutedRef.current) {
+        return playAudio();
+      }
+    }
+    return Promise.resolve(false);
+  };
+
   // Initialize Audio & Autoplay
   useEffect(() => {
     // Clear any previous stale muted flags so default is strictly sound ON
@@ -60,8 +108,9 @@ export function SoundProvider({ children }) {
       localStorage.removeItem("thirdeye_sound_enabled");
     } catch {}
 
-    const audio = new Audio(userBackgroundMusic);
-    audio.loop = true;
+    const initialIdx = currentSongIndexRef.current;
+    const audio = new Audio(SONGS[initialIdx].src);
+    audio.loop = false; // When song finishes, randomly picks the next track
     audio.volume = volumeRef.current;
     audio.preload = "auto";
     audioRef.current = audio;
@@ -75,24 +124,26 @@ export function SoundProvider({ children }) {
       isPlayingRef.current = false;
       setIsPlaying(false);
     };
+    const onEnded = () => {
+      // Pick another random song from array when current song completes
+      playRandomSong();
+    };
 
     audio.addEventListener("play", onPlay);
     audio.addEventListener("pause", onPause);
+    audio.addEventListener("ended", onEnded);
 
     // 1. Immediately attempt autoplay with unmuted sound ON
     playAudio().then((succeeded) => {
       if (succeeded) return;
 
       // 2. If browser requires user interaction first, attach capture listeners.
-      // ONLY legitimate user activation gestures: pointerdown, mousedown, touchstart, touchend, click, keydown.
-      // (NEVER scroll or wheel, which browsers reject for media playback)
       const gestureEvents = ["pointerdown", "mousedown", "touchstart", "touchend", "click", "keydown"];
 
       const handleUserGesture = () => {
         if (isMutedRef.current) return;
         playAudio().then((success) => {
           if (success) {
-            // ONLY remove listeners once playback is verified and actively running
             removeGestureListeners();
           }
         });
@@ -115,6 +166,7 @@ export function SoundProvider({ children }) {
       if (audio) {
         audio.removeEventListener("play", onPlay);
         audio.removeEventListener("pause", onPause);
+        audio.removeEventListener("ended", onEnded);
         audio.pause();
       }
       audioRef.current = null;
@@ -127,12 +179,10 @@ export function SoundProvider({ children }) {
     if (!audio) return;
 
     if (!audio.paused && !isMuted) {
-      // Audio is actively playing audible sound -> user explicitly requests mute
       pauseAudio();
       setIsMuted(true);
       isMutedRef.current = true;
     } else {
-      // Audio is paused or muted -> user explicitly requests sound ON
       setIsMuted(false);
       isMutedRef.current = false;
       playAudio();
@@ -154,6 +204,10 @@ export function SoundProvider({ children }) {
         isPlaying: isPlaying && !isMuted,
         isMuted,
         volume,
+        currentSong,
+        songs: SONGS,
+        playRandomSong,
+        nextSong: playRandomSong,
         toggleSound,
         changeVolume,
         playAudio,

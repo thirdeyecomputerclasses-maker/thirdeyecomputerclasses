@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    Contact Page Styles (Executive Cyber Dark & Golden Yellow Theme)
    Third Eye Computer Classes - 100% Fully Responsive
    ========================================================================== */
@@ -80,7 +80,7 @@
   font-weight: 850;
   letter-spacing: 1.2px;
   text-transform: uppercase;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   margin-bottom: 16px;
   box-shadow: 0 0 20px rgba(255, 211, 0, 0.15);
 }
@@ -90,7 +90,7 @@
 }
 
 .contact-page-title {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: clamp(34px, 4.5vw, 54px);
   font-weight: 950;
   line-height: 1.15;
@@ -106,7 +106,7 @@
 }
 
 .contact-page-sub {
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 15.5px;
   line-height: 1.6;
   color: #a1a1aa;
@@ -151,7 +151,7 @@
 }
 
 .form-card-title {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 26px;
   font-weight: 900;
   color: #ffffff;
@@ -185,7 +185,7 @@
 }
 
 .field-label {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 13px;
   font-weight: 850;
   color: #ffffff;
@@ -205,7 +205,7 @@
   border: 1.5px solid rgba(255, 211, 0, 0.24);
   border-radius: 12px;
   font-size: 14.5px;
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-weight: 550;
   color: #ffffff;
   background-color: rgba(18, 14, 9, 0.85);
@@ -253,7 +253,7 @@
   border: none;
   border-radius: 14px;
   padding: 15px 28px;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 15.5px;
   font-weight: 900;
   letter-spacing: 0.4px;
@@ -332,7 +332,7 @@
 }
 
 .success-heading {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 26px;
   font-weight: 950;
   color: #ffffff;
@@ -363,7 +363,7 @@
   border-radius: 9999px;
   font-size: 13.5px;
   font-weight: 850;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   letter-spacing: 0.4px;
   display: inline-flex;
   align-items: center;
@@ -410,7 +410,7 @@
 }
 
 .section-accent-title {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 15px;
   font-weight: 900;
   color: #ffffff;
@@ -478,7 +478,7 @@
 }
 
 .channel-title-text {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 11.5px;
   font-weight: 850;
   color: #ffd300;
@@ -488,7 +488,7 @@
 }
 
 .channel-value-text {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 15px;
   font-weight: 850;
   color: #ffffff;
@@ -588,7 +588,7 @@
 
 .quick-chat-title {
   display: block;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 13.5px;
   font-weight: 900;
   color: #25d366;
@@ -611,7 +611,7 @@
   color: #000000;
   border-radius: 10px;
   padding: 10px 16px;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 13px;
   font-weight: 850;
   text-decoration: none;

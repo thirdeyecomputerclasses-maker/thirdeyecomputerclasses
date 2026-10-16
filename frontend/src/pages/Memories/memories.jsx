@@ -132,7 +132,7 @@ function Memories() {
           </h1>
 
           {/* Subtitle */}
-          <p className="mt-6 text-zinc-900 font-semibold text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed text-center">
+          <p className="mt-6 text-zinc-900 font-normal text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed text-center">
             Reliving the laughter, breakthroughs, campus workshops, and lifelong friendships created at Third Eye Computer Classes.
           </p>
 

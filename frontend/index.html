@@ -22,11 +22,11 @@
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/src/assets/logo.webp" />
 
-    <!-- Google Fonts: Plus Jakarta Sans, Inter & Space Grotesk -->
+    <!-- Google Fonts: Rajdhani & fallbacks -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <!-- Fontshare: Clash Grotesk -->
@@ -34,6 +34,18 @@
       href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@200,300,400,500,600,700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- YouTube Resource Hints for Instant Review Video Playback & Zero Lag -->
+    <link rel="preconnect" href="https://img.youtube.com" crossorigin />
+    <link rel="preconnect" href="https://i.ytimg.com" crossorigin />
+    <link rel="preconnect" href="https://www.youtube-nocookie.com" crossorigin />
+    <link rel="dns-prefetch" href="https://img.youtube.com" />
+    <link rel="dns-prefetch" href="https://www.youtube-nocookie.com" />
+
+    <!-- Preload First Three Student Review Video Thumbnails at Website Startup -->
+    <link rel="preload" as="image" href="https://img.youtube.com/vi/xIr9tSA5vj4/hqdefault.jpg" fetchpriority="high" />
+    <link rel="preload" as="image" href="https://img.youtube.com/vi/MvTcXGfCCls/hqdefault.jpg" fetchpriority="high" />
+    <link rel="preload" as="image" href="https://img.youtube.com/vi/QyM5b3PxyDU/hqdefault.jpg" fetchpriority="high" />
   </head>
   <body class="bg-[#090A0F] text-zinc-100 font-sans antialiased selection:bg-yellow-400 selection:text-black">
     <div id="root"></div>

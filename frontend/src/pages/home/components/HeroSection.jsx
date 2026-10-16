@@ -108,7 +108,7 @@ export default function HeroSection() {
           <div className="absolute inset-0 -inset-x-8 sm:-inset-x-20 -my-10 bg-[#0b0904]/75 rounded-full blur-3xl pointer-events-none -z-10" />
 
           <h1
-            className={`text-3xl sm:text-5xl md:text-6xl lg:text-[64px] xl:text-[70px] font-black text-white tracking-tight leading-[1.1] mb-2 sm:mb-3 drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)] sm:whitespace-nowrap transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] delay-200 ${
+            className={`text-3xl sm:text-5xl md:text-6xl lg:text-[64px] xl:text-[70px] font-bold text-white tracking-tight leading-[1.1] mb-2 sm:mb-3 drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)] sm:whitespace-nowrap transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] delay-200 ${
               isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}
           >
@@ -122,7 +122,7 @@ export default function HeroSection() {
             }`}
           >
             <span
-              className={`inline-block text-3xl sm:text-5xl md:text-6xl lg:text-[64px] xl:text-[70px] font-black tracking-tight sm:whitespace-nowrap bg-gradient-to-r from-[#fff3b0] via-[#f6d96b] to-[#f59e0b] bg-clip-text text-transparent drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] transition-all duration-300 transform ${
+              className={`inline-block text-3xl sm:text-5xl md:text-6xl lg:text-[64px] xl:text-[70px] font-bold tracking-tight sm:whitespace-nowrap bg-gradient-to-r from-[#fff3b0] via-[#f6d96b] to-[#f59e0b] bg-clip-text text-transparent drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] transition-all duration-300 transform ${
                 fadeAnim
                   ? "opacity-100 translate-y-0 scale-100"
                   : "opacity-0 -translate-y-3 scale-95"

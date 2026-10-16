@@ -21,7 +21,7 @@ export default function ThirdEyeBrandTorchSection() {
         </div>
 
         {/* Main Headline */}
-        <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.12] mb-5">
+        <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-[1.12] mb-5">
           Ready to Build What's{" "}
           <span className="bg-gradient-to-r from-[#ffe894] via-[#f6d96b] to-[#f59e0b] bg-clip-text text-transparent">
             Next?

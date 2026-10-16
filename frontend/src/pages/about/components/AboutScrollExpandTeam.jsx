@@ -85,14 +85,14 @@ export default function AboutScrollExpandTeam() {
                 <span className="font-mono uppercase tracking-wider text-[11px]">The Collective</span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-black tracking-tight leading-[1.12] text-white mb-6">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold tracking-tight leading-[1.12] text-white mb-6">
                 The People Who Make <br />
                 <span className="bg-gradient-to-r from-[#ffeab0] via-[#f6d96b] to-[#f59e0b] bg-clip-text text-transparent">
                   Third Eye A Team
                 </span>
               </h2>
 
-              <p className="text-sm sm:text-base md:text-lg text-zinc-300 font-light leading-relaxed mb-6">
+              <p className="text-sm sm:text-base md:text-lg text-zinc-300 font-normal leading-relaxed mb-6">
                 At Third Eye, our strength lies in the people who dream, build, and innovate together. From veteran 3D animators and VFX supervisors to creative designers and relentless coders — every member fuels our mission to redefine IT education. We don't just work; we collaborate, experiment, and evolve as one unstoppable team. Together, we turn ideas into impact and curiosity into creation.
               </p>
 
@@ -125,10 +125,10 @@ export default function AboutScrollExpandTeam() {
                 <Users className="w-3 h-3 text-[#f6d96b]" />
                 <span>The Collective</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-tight mb-2">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-tight mb-2">
                 The People Who Make Third Eye A Team
               </h2>
-              <p className="text-xs text-zinc-400 line-clamp-3 max-w-md mx-auto">
+              <p className="text-xs text-zinc-400 font-normal line-clamp-3 max-w-md mx-auto">
                 At Third Eye, our strength lies in the people who dream, build, and innovate together. Mentors, animators, coders, and designers united.
               </p>
             </motion.div>

@@ -105,7 +105,7 @@ function ClerkLoginGate() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-yellow-400/10 text-yellow-400 border border-yellow-400/20 mb-3">
             <Lock size={12} /> Gate 1 of 2: Identity Verification
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
             Third Eye Admin Portal
           </h1>
           <p className="text-sm text-zinc-400 mt-1 max-w-sm mx-auto">

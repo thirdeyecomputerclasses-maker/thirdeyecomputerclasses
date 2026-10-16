@@ -1,0 +1,259 @@
+/* ==========================================================================
+   React Bits CardSwap Component Styling
+   Adapted for Third Eye Computer Classes - Leadership & Faculty 3D Stacks
+   ========================================================================== */
+
+.card-swap {
+  position: relative;
+  width: 100%;
+  min-height: var(--swap-stage-h);
+  height: 100%;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-swap-sizer {
+  width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+}
+
+.card-swap-sizer > span {
+  display: block;
+  width: 100%;
+  max-width: var(--swap-stage-w);
+  aspect-ratio: var(--swap-ratio);
+}
+
+.card-swap-stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--swap-stage-w);
+  height: var(--swap-stage-h);
+  perspective: 900px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.card-swap-slot {
+  position: absolute;
+  top: var(--swap-oy);
+  left: var(--swap-ox);
+  width: var(--swap-w);
+  height: var(--swap-h);
+  margin: calc(var(--swap-h) / -2) 0 0 calc(var(--swap-w) / -2);
+  border-radius: var(--swap-radius);
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: var(--swap-shadow);
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  cursor: grab;
+  transition: box-shadow 0.25s ease;
+}
+
+.card-swap-slot[data-front] {
+  cursor: grab;
+}
+
+.card-swap-slot:active {
+  cursor: grabbing;
+}
+
+.card-swap:focus-visible .card-swap-slot[data-front] {
+  outline: 2px solid var(--swap-ink);
+  outline-offset: 3px;
+}
+
+.card-swap-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  background: var(--swap-shade);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.card-swap-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: inherit;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--swap-tile);
+  color: var(--swap-ink);
+  border: 1.5px solid rgba(0, 0, 0, 0.45);
+}
+
+.card-swap-card-rim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  box-shadow:
+    inset 0 0 0 1px var(--swap-tile-edge),
+    inset 0 1px 0 var(--swap-tile-highlight);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Third Eye Mentor Stack Card Custom Layout
+   ========================================================================== */
+
+.mentor-stack-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mentor-stack-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #13151f 0%, #0a0b12 100%);
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+/* Image Container */
+.mentor-stack-image-wrap {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  background: #000000;
+  overflow: hidden;
+}
+
+.mentor-stack-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  user-select: none;
+}
+
+.card-swap-slot:hover .mentor-stack-img {
+  transform: scale(1.06);
+}
+
+.mentor-stack-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 45%,
+    rgba(10, 11, 18, 0.85) 85%,
+    #0a0b12 100%
+  );
+  pointer-events: none;
+}
+
+/* Content Bottom Bar */
+.mentor-stack-content {
+  position: relative;
+  z-index: 4;
+  padding: 14px 18px 18px;
+  background: #0a0b12;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-top: 1px solid rgba(255, 211, 0, 0.15);
+}
+
+.mentor-stack-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.mentor-stack-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #ffd300;
+  background: rgba(255, 211, 0, 0.1);
+  border: 1px solid rgba(255, 211, 0, 0.3);
+  padding: 2px 8px;
+  border-radius: 9999px;
+}
+
+.mentor-stack-jump-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #000000;
+  color: #ffd300;
+  border: 1.5px solid #ffd300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+}
+
+.mentor-stack-jump-btn:hover {
+  background: #ffd300;
+  color: #000000;
+  transform: scale(1.15) rotate(45deg);
+  box-shadow: 0 0 14px rgba(255, 211, 0, 0.6);
+}
+
+.mentor-stack-name {
+  margin: 0;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 19px;
+  font-weight: 700; /* Bold for heading */
+  color: #ffffff;
+  line-height: 1.2;
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mentor-stack-role {
+  margin: 0;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 11px;
+  font-weight: 600; /* Semi-bold for sub-heading */
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #ffd300;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+

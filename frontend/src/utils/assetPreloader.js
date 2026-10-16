@@ -25,12 +25,23 @@ import preetiSharma from "../assets/leadership/preeti_sharma.png";
 import eccouncilCodeRed from "../assets/certificates/eccouncil_codered.png";
 import redhatRhcsa from "../assets/certificates/redhat_rhcsa.png";
 import autodeskAutocad from "../assets/certificates/autodesk_autocad.webp";
-import userBackgroundMusic from "../assets/audio/ambient_music_theme.mp3";
+import track1 from "../assets/audio/ambient_music_theme.mp3";
+import track2 from "../assets/audio/ambient_track_2.mp3";
+import track3 from "../assets/audio/ambient_track_3.mp3";
+import track4 from "../assets/audio/ambient_track_4.mp3";
+import { FIRST_THREE_REVIEW_VIDEOS } from "../pages/studentReviews/studentReviewsData";
+
+export const SONGS = [
+  { id: "ambient-1", title: "Ambient Theme 1", src: track1 },
+  { id: "ambient-2", title: "Ambient Theme 2", src: track2 },
+  { id: "ambient-3", title: "Ambient Theme 3", src: track3 },
+  { id: "ambient-4", title: "Ambient Theme 4", src: track4 },
+];
 
 export const CACHE_NAME = "thirdeye-v3-static";
 const CACHE_STORAGE_KEY = "thirdeye_cached_assets_v3";
 
-// List of all critical high-res visual assets and audio to pre-download
+// List of all critical high-res visual assets, audio, and initial student review videos to pre-download
 export const CRITICAL_ASSETS = [
   { id: "logo", src: logo, label: "Brand Vector Core" },
   { id: "classroomSliceLeft", src: classroomSliceLeft, label: "Studio Environment (Left)" },
@@ -52,7 +63,14 @@ export const CRITICAL_ASSETS = [
   { id: "eccouncilCodeRed", src: eccouncilCodeRed, label: "EC-Council Credentials" },
   { id: "redhatRhcsa", src: redhatRhcsa, label: "RedHat Enterprise Cert" },
   { id: "autodeskAutocad", src: autodeskAutocad, label: "Autodesk Design Standard" },
-  { id: "ambientAudio", src: userBackgroundMusic, label: "Background Music Track" },
+  { id: "ambientAudio1", src: track1, label: "Background Music Track 1" },
+  { id: "ambientAudio2", src: track2, label: "Background Music Track 2" },
+  { id: "ambientAudio3", src: track3, label: "Background Music Track 3" },
+  { id: "ambientAudio4", src: track4, label: "Background Music Track 4" },
+  // First three student review videos preloaded at website startup
+  { id: "reviewVideo1", src: FIRST_THREE_REVIEW_VIDEOS[0].thumbnail, label: "Student Video 1 (Shina Mathur)" },
+  { id: "reviewVideo2", src: FIRST_THREE_REVIEW_VIDEOS[1].thumbnail, label: "Student Video 2 (Ilmuddin Behlim)" },
+  { id: "reviewVideo3", src: FIRST_THREE_REVIEW_VIDEOS[2].thumbnail, label: "Student Video 3 (Punya Singh)" },
 ];
 
 /**
@@ -87,6 +105,17 @@ function preloadSingleAsset(src) {
       return;
     }
 
+    let settled = false;
+    const safeResolve = (val) => {
+      if (!settled) {
+        settled = true;
+        resolve(val);
+      }
+    };
+
+    // Safety timeout: Ensure no single external asset can stall the preloader
+    const timer = setTimeout(() => safeResolve(src), 2500);
+
     // 1. Prime CacheStorage for instant offline retrieval on revisits
     if (typeof window !== "undefined" && "caches" in window) {
       caches
@@ -112,9 +141,14 @@ function preloadSingleAsset(src) {
       const audio = new Audio();
       audio.preload = "auto";
       audio.src = src;
-      audio.oncanplaythrough = () => resolve(src);
-      audio.onerror = () => resolve(src);
-      setTimeout(() => resolve(src), 1500); // safety fallback
+      audio.oncanplaythrough = () => {
+        clearTimeout(timer);
+        safeResolve(src);
+      };
+      audio.onerror = () => {
+        clearTimeout(timer);
+        safeResolve(src);
+      };
       return;
     }
 
@@ -125,21 +159,38 @@ function preloadSingleAsset(src) {
     if (img.decode) {
       img
         .decode()
-        .then(() => resolve(src))
+        .then(() => {
+          clearTimeout(timer);
+          safeResolve(src);
+        })
         .catch(() => {
           if (img.complete) {
-            resolve(src);
+            clearTimeout(timer);
+            safeResolve(src);
           } else {
-            img.onload = () => resolve(src);
-            img.onerror = () => resolve(src);
+            img.onload = () => {
+              clearTimeout(timer);
+              safeResolve(src);
+            };
+            img.onerror = () => {
+              clearTimeout(timer);
+              safeResolve(src);
+            };
           }
         });
     } else {
       if (img.complete) {
-        resolve(src);
+        clearTimeout(timer);
+        safeResolve(src);
       } else {
-        img.onload = () => resolve(src);
-        img.onerror = () => resolve(src);
+        img.onload = () => {
+          clearTimeout(timer);
+          safeResolve(src);
+        };
+        img.onerror = () => {
+          clearTimeout(timer);
+          safeResolve(src);
+        };
       }
     }
   });

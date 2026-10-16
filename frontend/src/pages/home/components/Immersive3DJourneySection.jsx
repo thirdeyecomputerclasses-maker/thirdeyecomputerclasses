@@ -102,7 +102,7 @@ export default function Immersive3DJourneySection() {
           </span>
         </div>
 
-        <h2 className="text-2xl sm:text-4xl md:text-6xl font-semibold text-white tracking-tight leading-[1.15]">
+        <h2 className="text-2xl sm:text-4xl md:text-6xl font-bold text-white tracking-tight leading-[1.15]">
           <span className="text-[#f6d96b]">One Journey.</span> Every Skill That Matters.
         </h2>
       </div>
@@ -212,7 +212,7 @@ export default function Immersive3DJourneySection() {
                 </div>
 
                 {/* Section Title */}
-                <h3 className="mt-3 sm:mt-4 font-bold text-xs sm:text-base md:text-xl text-white group-hover:text-[#f6d96b] transition-colors tracking-tight">
+                <h3 className="mt-3 sm:mt-4 font-semibold text-xs sm:text-base md:text-xl text-white group-hover:text-[#f6d96b] transition-colors tracking-tight">
                   {item.title}
                 </h3>
 

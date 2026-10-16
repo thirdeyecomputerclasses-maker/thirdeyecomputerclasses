@@ -9,7 +9,7 @@ function PlaceholderPage({ title, subtitle }) {
       <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-yellow-400/10 text-yellow-400 border border-yellow-400/20 mb-4">
         Third Eye Computer Classes
       </div>
-      <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
+      <h1 className="text-4xl sm:text-5xl font-bold text-white tracking-tight mb-4">
         {title}
       </h1>
       <p className="text-lg text-zinc-400 max-w-2xl mx-auto mb-8">

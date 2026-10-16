@@ -37,10 +37,10 @@ export default function CertificationProcessCTA() {
             <ShieldCheck className="w-3.5 h-3.5 text-[#f6d96b]" />
             <span className="font-mono uppercase tracking-wider text-[11px]">The Credentialing Roadmap</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight mb-3">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-3">
             How You Earn Your <span className="bg-gradient-to-r from-[#ffeab0] via-[#f6d96b] to-[#f59e0b] bg-clip-text text-transparent">Certification</span>
           </h2>
-          <p className="text-sm sm:text-base text-zinc-400">
+          <p className="text-sm sm:text-base text-zinc-400 font-normal">
             A transparent, industry-standard 3-step credentialing process designed to validate real-world technical competency.
           </p>
         </div>
@@ -59,12 +59,12 @@ export default function CertificationProcessCTA() {
                     <div className="w-12 h-12 rounded-2xl bg-[#1b150a] border border-[#f6d96b]/30 flex items-center justify-center text-[#f6d96b]">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <span className="text-3xl font-mono font-black text-zinc-700">
+                    <span className="text-3xl font-mono font-bold text-zinc-700">
                       {st.step}
                     </span>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2">{st.title}</h3>
-                  <p className="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed">
+                  <h3 className="text-lg font-semibold text-white mb-2">{st.title}</h3>
+                  <p className="text-xs sm:text-sm text-zinc-400 font-normal leading-relaxed">
                     {st.desc}
                   </p>
                 </div>
@@ -77,10 +77,10 @@ export default function CertificationProcessCTA() {
         <div className="p-8 sm:p-12 rounded-[30px] bg-gradient-to-b from-[#13100a] to-[#080603] border border-[#f6d96b]/30 shadow-[0_20px_60px_rgba(0,0,0,0.8)] text-center relative overflow-hidden">
           <div className="absolute top-0 left-1/4 right-1/4 h-[2px] bg-gradient-to-r from-transparent via-[#f6d96b] to-transparent" />
 
-          <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight mb-4">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-tight mb-4">
             Ready to Verify or Apply for Your Credential?
           </h3>
-          <p className="text-sm sm:text-base text-zinc-300 font-light max-w-xl mx-auto mb-8">
+          <p className="text-sm sm:text-base text-zinc-300 font-normal max-w-xl mx-auto mb-8">
             Access our student examination portal to request course completion credentials, or instantly verify authenticity for corporate recruiters.
           </p>
 

@@ -1,76 +1,20 @@
-import React, { memo, useState, useCallback } from 'react';
+import React, { memo, useRef, useCallback } from 'react';
 import './Review.css';
 import VideoCarousel from './components/VideoCarousel';
 import ReviewTrail from './components/ReviewTrail';
 import FoldText from './components/FoldText';
 import StrokeText from './components/StrokeText';
-
-const VIDEO_TESTIMONIALS = [
-  {
-    id: 1,
-    videoId: 'xIr9tSA5vj4',
-    title: 'Graphic Design Training & Real-world Placement Review',
-    studentName: 'Shina Mathur',
-    course: 'Graphic Designing'
-  },
-  {
-    id: 2,
-    videoId: 'MvTcXGfCCls',
-    title: 'Web Development & Full Stack Practical Experience',
-    studentName: 'Ilmuddin Behlim',
-    course: 'Web Development'
-  },
-  {
-    id: 3,
-    videoId: 'QyM5b3PxyDU',
-    title: 'React JS Fast-Track Mentorship & Live Project Review',
-    studentName: 'Punya Singh',
-    course: 'React JS Development'
-  },
-  {
-    id: 4,
-    videoId: 'NzywyzmIYAE',
-    title: 'Data Analytics, SQL & Python Online Training Review',
-    studentName: 'Shadab Mohammad',
-    course: 'Data Analytics'
-  },
-  {
-    id: 5,
-    videoId: 'B8qv3oMP0Co',
-    title: 'Digital Marketing Comprehensive Course Feedback',
-    studentName: 'Geet Kashyap',
-    course: 'Digital Marketing'
-  },
-  {
-    id: 6,
-    videoId: 'aiOyEoe6Cz4',
-    title: 'CAD 3D Modeling & Mechanical Design Student Review',
-    studentName: 'Rohit Khandelwal',
-    course: '3D CAD & Modeling'
-  },
-  {
-    id: 7,
-    videoId: '9bVvGjYvyAw',
-    title: 'Animation & VFX Career Transformation Journey',
-    studentName: 'Vikas Meena',
-    course: '2D & 3D Animation'
-  },
-  {
-    id: 8,
-    videoId: 'xWd_207x-Hg',
-    title: 'Campus Culture, Dedicated Faculty & Industry Skills',
-    studentName: 'Anjali Sharma',
-    course: 'Software Engineering'
-  }
-];
+import { VIDEO_TESTIMONIALS } from './studentReviewsData';
 
 function Review() {
-  const [mousePos, setMousePos] = useState({ x: 50, y: 30 });
+  const haloRef = useRef(null);
 
   const handleMouseMove = useCallback((e) => {
+    if (!haloRef.current) return;
     const x = Math.round((e.clientX / window.innerWidth) * 100);
     const y = Math.round((e.clientY / window.innerHeight) * 100);
-    setMousePos({ x, y });
+    haloRef.current.style.left = `${x}%`;
+    haloRef.current.style.top = `${y}%`;
   }, []);
 
   const scrollToVideos = () => {
@@ -82,12 +26,13 @@ function Review() {
     <div className="reviews-page" onMouseMove={handleMouseMove}>
       {/* Dynamic Ambient Background Effects */}
       <div className="reviews-ambient-fx" aria-hidden="true">
-        {/* Interactive Mouse Spotlight Halo */}
+        {/* Interactive Mouse Spotlight Halo (Direct DOM transform without triggering React re-renders) */}
         <div
+          ref={haloRef}
           className="reviews-spotlight-halo"
           style={{
-            left: `${mousePos.x}%`,
-            top: `${mousePos.y}%`
+            left: '50%',
+            top: '30%'
           }}
         />
 

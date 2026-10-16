@@ -1,152 +1,212 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import mentor3 from "../../assets/mentor_3.png";
 import logo from "../../assets/logo.webp";
+import preetiSharmaImg from "../../assets/leadership/preeti_sharma.png";
+import puneetSharmaImg from "../../assets/leadership/puneet_sharma.png";
+import suumitSharmaImg from "../../assets/leadership/suumit_sharma.png";
+import mlChaudharyImg from "../../assets/leadership/ml_chaudhary.png";
+import sheetalSharmaImg from "../../assets/leadership/sheetal_sharma.png";
+import neelamSharmaImg from "../../assets/leadership/neelam_sharma.png";
+import muskanAvesthiImg from "../../assets/leadership/muskan_avesthi.png";
+import khushwangSharmaImg from "../../assets/leadership/khushwang_sharma.png";
+import amitSainiImg from "../../assets/leadership/amit_saini.png";
+import shubhamSainiImg from "../../assets/leadership/shubham_saini.png";
+import tusharPrajapatImg from "../../assets/mentor_1.png";
+import gauravSinghImg from "../../assets/leadership/gaurav_singh.png";
+import rishikaRajImg from "../../assets/mentor_2.png";
+import ishikaJainImg from "../../assets/mentor_4.png";
+import diyaSainiImg from "../../assets/mentor_5.png";
+import sheetanshuSaxenaImg from "../../assets/mentor_3.png";
+import mohitSharmaImg from "../../assets/leadership/mohit_sharma.png";
+import MentorsCarousel from "./components/MentorsCarousel";
+import CardSwap from "./components/CardSwap";
 import "./OurTeam.css";
 
 const mentors = [
   {
+    id: 1,
     name: "Preeti Sharma",
     role: "CHIEF MANAGING DIRECTOR",
-    image: mentor3,
+    category: "DIRECTORATE",
+    image: preetiSharmaImg,
     description:
       "Preeti Sharma, Chief Managing Director of Thirdeye Computer Classes, is a proven professional with over 15 years of experience in Business Development and Key Account Management. She has a demonstrated history of success in the staffing and recruiting industry and is highly skilled in Negotiation, HR Consulting, Customer Relationship Management (CRM), Market Research, and Management.",
   },
   {
+    id: 2,
     name: "Puneet Sharma",
     role: "Managing Director",
-    image: "",
+    category: "DIRECTORATE",
+    image: puneetSharmaImg,
     description:
       "Puneet Sharma, Managing Director of Thirdeye computer classses is a results-oriented professional with over 20 years of experience in managing and direction. Possesses excellent time management skills, top customer-relations abilities and strong communication methods",
   },
   {
+    id: 3,
     name: "Suumit sharrma",
     role: "Chief Operating Officer",
-    image: "",
+    category: "EXECUTIVE LEAD",
+    image: suumitSharmaImg,
     description:
       "Suumit Sharrma is the Chief Operating Officer at Thirdeye Computer Classes, where he oversees daily operations, drives strategic growth initiatives, and ensures the smooth functioning of all departments. With a deep understanding of the education and training industry",
   },
   {
+    id: 4,
     name: "Mr. M.L. Chaudhary",
     role: "Founder & Chief Patron",
-    image: "",
+    category: "FOUNDER",
+    image: mlChaudharyImg,
     description:
       "An enthusiastic person and qualified technical instructor, trained in technical management with incredible contributions to Indian Airforce. An accredited technical safety inspector in technical aviation field, Served with innovative ideas for the continues improvement in technical safety. The recipient of Indian Airforce Commandation was an asset to the service.\n\nHis vision is to develop the computer skills, in each and every youth and enlighten the IT knowledge by inspiring every student through the principle of Swami Vivekananda: “Arise, awake n do not stop until the goal is reached.”",
   },
   {
+    id: 5,
     name: "Sheetal Sharma",
     role: "SALES & B.D. HEAD",
-    image: "",
+    category: "BUSINESS LEAD",
+    image: sheetalSharmaImg,
     description:
       "A seasoned leader with 27 years of experience, Sheetal Sharma spearheads Sales and Business Development at Thirdeye. Formerly the Sales & B.D. Head and Franchise Manager at Samyak, she brings unmatched expertise in business expansion and strategic growth. She is an ICF-accredited Life Coach, a Corporate Soft Skills Trainer, and an award-winning storyteller from Toastmasters International.\n\nCombining her deep industry knowledge with a passion for English literature, Sheetal is dedicated to scaling Thirdeye’s vision to new heights.",
   },
   {
+    id: 6,
     name: "Neelam Sharma",
     role: "RECRUITMENT HEAD",
-    image: "",
+    category: "ADMISSION LEAD",
+    image: neelamSharmaImg,
     description:
       "She is a highly accomplished and dedicated professional serving as the Admission & Counseling Head at Thirdeye Computer Classes. With a strong background in student guidance and enrollment management, Neelam plays a pivotal role in shaping the academic journeys of countless students. Their expertise in career counseling, admissions strategy, and student support has made them invaluable to the institution.\n\nKnown for their commitment to fostering a supportive and growth-oriented environment, Neelam strives to help students make informed decisions and achieve their academic and career aspirations.",
   },
   {
+    id: 7,
     name: "Muskan Avesthi",
     role: "PLACEMENT MANAGER",
-    image: "",
+    category: "CAREER PLACEMENTS",
+    image: muskanAvesthiImg,
     description:
       "Team Member Muskan Avesthi-An enthusiastic soft and communication skills trainer with demonstrated history of providing process training to new hires. With overall 8+ years of Experience in Career counselling and overseas consultant, Known for driving initiatives for business development.",
   },
   {
+    id: 8,
     name: "Kushwang Sharma",
     role: "Social Media Manager",
-    image: "",
+    category: "OPERATIONS",
+    image: khushwangSharmaImg,
     description:
       "Social Media Manager & Operations Head, ThirdEye Computer Classes Khushwang Sharma leads social media and operations at ThirdEye Computer Classes, combining digital marketing expertise with strong organizational skills. His work has enhanced the institute’s brand presence and streamlined daily operations. Under his leadership, social media engagement and student enrollments have seen significant growth through effective, data-driven strategies.",
   },
   {
+    id: 9,
     name: "Amit Saini",
     role: "Senior Digital Marketing Manager",
-    image: "",
+    category: "SENIOR FACULTY",
+    image: amitSainiImg,
     description:
       "Amit Saini is an experienced Digital Marketing Manager and Graphic Design Expert with over 9 years of experience in digital marketing, design, and brand strategy. He is a Senior Digital Marketing Manager and Educator at Thirdeye Computer Classes. He is also the Founder of Digitallitsolutions and has previously taught at Dicazo. Amit has successfully worked with brands like Lapinoz Pizza, GD Goenka, Maharaja Masala, Kids Pride School, Naughty Dogs, and Carz Spa.",
   },
   {
+    id: 10,
     name: "Shubham Saini",
     role: "SR. TRAINING MANAGER",
-    image: "",
+    category: "TRAINING HEAD",
+    image: shubhamSainiImg,
     description:
       "Shubham Saini is an accomplished Senior Manager at Thirdeye Computer Classes, where he brings a wealth of experience in business development, franchise management, and career counseling. With his strong leadership skills and strategic vision, Shubham has played a significant role in expanding the institute’s operations and guiding students toward successful career paths.\n\nAt Thirdeye Computer Classes, Shubham took on the role of Senior Branch Manager, where he successfully lead business development initiatives, expanded franchise operations, and offered career counseling to students. His role involves overseeing the daily operations of the branch, developing new business opportunities, managing franchise partnerships, and ensuring the overall growth and success of the organization.",
   },
   {
+    id: 11,
     name: "Tushar prajapat",
     role: "Senior bRANCH MANAGER",
-    image: "",
+    category: "BRANCH LEAD",
+    image: tusharPrajapatImg,
     description:
       "Digital Marketer | Designer | Freelancer | Video Editor | Career Counsellor With 6 years of experience, Tushar Prajapat combines creativity and strategy to craft impactful digital solutions. At ThirdEye Computer Classes, he drives digital marketing, design, and career counselling initiatives—helping students and brands grow in the digital era.\n\nA versatile professional with expertise in branding, design, content, and freelancing, Tushar’s innovative and result-driven approach inspires learners to upskill and achieve their goals. Philosophy: “Learn. Create. Grow — because your skills define your success.”",
   },
   {
+    id: 12,
     name: "Gaurav Singh Panwar",
     role: "IVR & CRM SUPPORT mANAGER",
-    image: "",
+    category: "STUDENT SUPPORT",
+    image: gauravSinghImg,
     description:
       "With 5+ years of experience in operations, sales, and client advisory, I’ve worked with leading MNCs like Genpact and Concentrix. At Genpact, I managed international projects, and at Concentrix, I served as a Senior Advisor for US/UK processes. Currently, I’m working with Thirdeye – The digital skills powerhouse, focused on driving growth of students.",
   },
   {
+    id: 13,
     name: "Rishika Raj",
     role: "Senior Career Counsellor",
-    image: "",
+    category: "CAREER ADVISOR",
+    image: rishikaRajImg,
     description:
       "Rishika Raj is an B.A. Graduate from Jaipur, With over 3.5 years of experience international clients handeling in Qdegrees, teleperformance and CarDekho. specializing in: Customer Support, Tele Sales, Customer Experience, Feedback Management. She is Dedicated professional and has a enthusiastic personality In Thirdeye she helps & guides students to choose correct pathway to build their career.",
   },
   {
+    id: 14,
     name: "ishika jain",
     role: "Senior Career Counsellor",
-    image: "",
+    category: "CAREER ADVISOR",
+    image: ishikaJainImg,
     description:
       "Ishika Jain holds a BBA, M.Com (HRM), and an MBA, and brings over five years of teaching experience at both domestic and international levels. She is passionate about guiding students through their academic journey with clarity and confidence. Her teaching approach focuses not only on building strong subject knowledge but also on developing the skills and self-assurance students need to succeed in their future careers.",
   },
   {
+    id: 15,
     name: "Diya Saini",
     role: "Senior bRANCH MANAGER",
-    image: "",
+    category: "BRANCH LEAD",
+    image: diyaSainiImg,
     description:
       "With over 4 years of experience in education, I have guided students in English to enhance their communication and academic skills. I also worked as an E-commerce Executive in the Amazon Advertisement Department at Jaipur Global Services, gaining expertise in digital operations. Currently, I serve as a Counsellor at Thirdeye Computer Classes, helping students choose the right career-oriented courses for a successful future.",
   },
   {
+    id: 16,
     name: "Sheetanshu Saxena",
     role: "Digital Marketing Executive",
-    image: "",
+    category: "MARKETING",
+    image: sheetanshuSaxenaImg,
     description:
       "With a passion for creativity and data-driven strategy, Sheetanshu manages the digital presence of Thirdeye Computer Classes. From running impactful ad campaigns to optimizing online visibility, he ensures that Thirdeye stays ahead in the digital space. His innovative approach and keen eye for trends help connect students with the right opportunities and courses.",
   },
   {
+    id: 17,
     name: "Mohit Sharma",
     role: "ADMIN MANAGER",
-    image: "",
+    category: "ANIMATION & VFX",
+    image: mohitSharmaImg,
     description:
       "A creative and passionate Animation & VFX Faculty with expertise in 2D & 3D Animation, Motion Graphics, and Visual Effects. With strong industry knowledge and hands-on software skills, they focus on practical learning and portfolio development. At ThirdEye Computer Classes, they train and mentor students to build successful careers in the animation and media industry.",
   },
   {
+    id: 18,
     name: "Rahul Verma",
     role: "Designing Executive",
+    category: "DESIGN FACULTY",
     image: "",
     description:
       "Rahul is a creative Designing Executive with expertise in graphic design, branding, and visual content creation. With strong knowledge of modern design tools and trends, he develops impactful creatives for digital and print media. At ThirdEye Computer Classes, he contributes by creating engaging designs and supporting the institute’s branding and promotional activities.",
   },
   {
+    id: 19,
     name: "Harshita jain",
     role: "Senior Career Counsellor",
+    category: "TECH COUNSELLOR",
     image: "",
     description:
       "I am a B.Tech graduate in Computer Science & Engineering with a strong foundation in both technology and education. I have experience in web development, software training, and student counseling, which helps me bridge technical knowledge with student needs. Currently, I am working as Branch Manager and Academic Counsellor, where I guide students in choosing the right career path and support their overall learning. I am dedicated to mentoring and helping students build a successful future in the IT field.",
   },
   {
+    id: 20,
     name: "rohit bairwa",
     role: "Senior Career Counsellor",
+    category: "CAREER ADVISOR",
     image: "",
     description:
       "Rohit Bairwa is a dedicated academic counselor who helps students plan their IT careers with clarity and confidence. Known for his detail-oriented approach, Rohit guides learners to align their goals with current industry trends. His personalized support ensures that every student makes informed and confident career decisions.",
   },
   {
+    id: 21,
     name: "Pankaj sharma",
     role: "Senior Career Counsellor",
+    category: "AI & ML MENTOR",
     image: "",
     description:
       "Pankaj holds a BBA from Jai Narain Vyas University and an MCA in AI & ML from Amity University, Noida. He guides students in choosing the right career path with practical, industry-focused advice and personalized support.",
@@ -158,25 +218,6 @@ const numberedMentors = mentors.map((mentor, index) => ({
   ...mentor,
   index: index + 1,
 }));
-
-// Pre-computed flipbook sheets array
-const sheets = (() => {
-  const result = [];
-  result.push({
-    front: { cover: true },
-    back: numberedMentors[0],
-  });
-
-  for (let i = 1; i < numberedMentors.length; i += 2) {
-    result.push({
-      front: numberedMentors[i],
-      back: numberedMentors[i + 1] || null,
-    });
-  }
-  return result;
-})();
-
-const totalSheets = sheets.length;
 
 // Static leadership & faculty stacks
 const foundersList = [
@@ -293,75 +334,6 @@ const learningSteps = [
     ),
   },
 ];
-
-// Memoized Mentor Page Component
-const MentorPage = React.memo(function MentorPage({ mentor }) {
-  if (!mentor) {
-    return (
-      <div className="empty-page">
-        <span>THIRD EYE</span>
-      </div>
-    );
-  }
-
-  return (
-    <div className="mentor-page">
-      <div className="mentor-image">
-        {mentor.image ? (
-          <img src={mentor.image} alt={mentor.name} />
-        ) : (
-          <div className="image-placeholder">
-            <div>MENTOR IMAGE</div>
-            <span>IMAGE PLACEHOLDER</span>
-          </div>
-        )}
-      </div>
-
-      <div className="mentor-details">
-        <div className="mentor-index">
-          {String(mentor.index).padStart(2, "0")}
-        </div>
-
-        <h2>{mentor.name}</h2>
-        <div className="mentor-role">{mentor.role}</div>
-        <div className="yellow-divider" />
-
-        <div className="mentor-description">
-          {mentor.description.split("\n").map((paragraph, index) => (
-            <React.Fragment key={index}>
-              {paragraph}
-              {index !== mentor.description.split("\n").length - 1 && (
-                <>
-                  <br />
-                  <br />
-                </>
-              )}
-            </React.Fragment>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-});
-
-// Memoized Cover Page Component
-const CoverPage = React.memo(function CoverPage() {
-  return (
-    <div className="cover-page">
-      <div className="cover-eyebrow">THIRD EYE COMPUTER CLASSES</div>
-      <h1>
-        MEET OUR
-        <br />
-        <span>MENTORS</span>
-      </h1>
-      <div className="cover-logo">
-        <img src={logo} alt="Third Eye Computer Classes" />
-      </div>
-      <div className="cover-divider" />
-      <p>Learn from experience. Grow with guidance.</p>
-    </div>
-  );
-});
 
 // ─── OPTIMIZED HERO TYPEWRITER (ISOLATES FREQUENT STATE UPDATES) ───
 const RotatingTypewriter = React.memo(function RotatingTypewriter() {
@@ -672,66 +644,12 @@ function LiquidChromeBlob() {
 }
 
 export default function OurTeam() {
-  const [flippedCount, setFlippedCount] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const touchStartX = useRef(null);
+  const carouselRef = useRef(null);
 
-  useEffect(() => {
-    const resize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    resize();
-    window.addEventListener("resize", resize, { passive: true });
-    return () => window.removeEventListener("resize", resize);
-  }, []);
-
-  const nextPage = useCallback(() => {
-    if (isAnimating || flippedCount >= totalSheets) return;
-    setIsAnimating(true);
-    setFlippedCount((current) => current + 1);
-    setTimeout(() => setIsAnimating(false), 850);
-  }, [isAnimating, flippedCount]);
-
-  const previousPage = useCallback(() => {
-    if (isAnimating || flippedCount <= 0) return;
-    setIsAnimating(true);
-    setFlippedCount((current) => current - 1);
-    setTimeout(() => setIsAnimating(false), 850);
-  }, [isAnimating, flippedCount]);
-
-  useEffect(() => {
-    const keyboardNavigation = (event) => {
-      if (event.key === "ArrowRight") nextPage();
-      if (event.key === "ArrowLeft") previousPage();
-    };
-    window.addEventListener("keydown", keyboardNavigation);
-    return () => window.removeEventListener("keydown", keyboardNavigation);
-  }, [nextPage, previousPage]);
-
-  const handleTouchStart = useCallback((event) => {
-    touchStartX.current = event.touches[0].clientX;
-  }, []);
-
-  const handleTouchEnd = useCallback(
-    (event) => {
-      if (touchStartX.current === null) return;
-      const endX = event.changedTouches[0].clientX;
-      const distance = touchStartX.current - endX;
-
-      if (Math.abs(distance) > 50) {
-        if (distance > 0) nextPage();
-        else previousPage();
-      }
-      touchStartX.current = null;
-    },
-    [nextPage, previousPage]
-  );
-
-  const scrollToBook = useCallback(() => {
-    const el = document.getElementById("mentors-book-section");
+  const scrollToCarousel = useCallback(() => {
+    const el = document.getElementById("mentors-carousel-section");
     if (el) {
-      const yOffset = -90;
+      const yOffset = -70;
       const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({ top: y, behavior: "smooth" });
     }
@@ -739,17 +657,10 @@ export default function OurTeam() {
 
   const jumpToMentor = useCallback(
     (i) => {
-      let target = 0;
-      if (i === 0) {
-        target = 1;
-      } else {
-        const s = Math.ceil(i / 2);
-        target = i % 2 !== 0 ? s : s + 1;
-      }
-      setFlippedCount(target);
-      scrollToBook();
+      scrollToCarousel();
+      carouselRef.current?.goTo(i);
     },
-    [scrollToBook]
+    [scrollToCarousel]
   );
 
   return (
@@ -770,14 +681,14 @@ export default function OurTeam() {
               <button
                 type="button"
                 className="hero-btn hero-btn-primary"
-                onClick={scrollToBook}
+                onClick={scrollToCarousel}
               >
                 Let's Go!
               </button>
               <button
                 type="button"
                 className="hero-btn hero-btn-secondary"
-                onClick={scrollToBook}
+                onClick={scrollToCarousel}
               >
                 Skip Tour
               </button>
@@ -814,13 +725,16 @@ export default function OurTeam() {
         </div>
       </section>
 
-      {/* ─── 2. FLIP BOOK SECTION (ENLARGED OUR TEAM TEXT) ─── */}
+      {/* ─── 2. MENTORS & FACULTY CAROUSEL (REACT BITS 3D CAROUSEL) ─── */}
       <section
-        id="mentors-book-section"
-        className={`team-section ${isMobile ? "mobile-book" : ""}`}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
+        id="mentors-carousel-section"
+        className="team-section"
       >
+        <span
+          id="mentors-book-section"
+          aria-hidden="true"
+          style={{ position: "absolute", top: "-50px" }}
+        />
         <div className="heading-area">
           <div className="eyebrow">OUR TEAM</div>
           <h2>Meet the people behind the learning journey.</h2>
@@ -830,99 +744,12 @@ export default function OurTeam() {
           </p>
         </div>
 
-        <div className="book-wrapper">
-          <div className="book-shadow" />
-
-          <div className="book">
-            <div className="spine-shadow" />
-
-            {!isMobile && (
-              <div className="base-page left-page">
-                {flippedCount > 0 ? (
-                  sheets[Math.min(flippedCount - 1, sheets.length - 1)].back && (
-                    <MentorPage
-                      mentor={
-                        sheets[Math.min(flippedCount - 1, sheets.length - 1)].back
-                      }
-                    />
-                  )
-                ) : (
-                  <div className="empty-page">
-                    <span>THIRD EYE</span>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {!isMobile && (
-              <div className="base-page right-page">
-                {flippedCount < sheets.length &&
-                  !sheets[flippedCount].front.cover && (
-                    <MentorPage mentor={sheets[flippedCount].front} />
-                  )}
-              </div>
-            )}
-
-            {sheets.map((sheet, index) => {
-              const flipped = index < flippedCount;
-
-              return (
-                <div
-                  key={index}
-                  className={`sheet ${flipped ? "flipped" : ""}`}
-                  style={{
-                    zIndex: flipped ? index + 1 : sheets.length - index + 20,
-                  }}
-                  onClick={() => {
-                    if (isAnimating) return;
-                    if (flipped) previousPage();
-                    else nextPage();
-                  }}
-                >
-                  <div className="sheet-face front-face">
-                    {sheet.front.cover ? (
-                      <CoverPage />
-                    ) : (
-                      <MentorPage mentor={sheet.front} />
-                    )}
-                    <div className="page-corner" />
-                  </div>
-
-                  <div className="sheet-face back-face">
-                    {sheet.back && <MentorPage mentor={sheet.back} />}
-                    <div className="page-corner" />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="book-controls">
-          <button
-            type="button"
-            disabled={flippedCount === 0 || isAnimating}
-            onClick={previousPage}
-          >
-            <span>←</span>
-            PREVIOUS
-          </button>
-
-          <div className="page-counter">
-            <strong>{Math.min(flippedCount + 1, totalSheets)}</strong>
-            <span>/</span>
-            <span>{totalSheets}</span>
-          </div>
-
-          <button
-            type="button"
-            disabled={flippedCount >= totalSheets || isAnimating}
-            onClick={nextPage}
-          >
-            NEXT
-            <span>→</span>
-          </button>
-        </div>
+        <MentorsCarousel
+          ref={carouselRef}
+          items={numberedMentors}
+          effect="scale"
+          loop={true}
+        />
       </section>
 
       {/* ─── 3. THREE 3D REVOLVING STACKS ─── */}
@@ -938,50 +765,20 @@ export default function OurTeam() {
               <span className="stack-num">01</span>
               <h3>The Founders</h3>
             </div>
-            <div className="gallery">
-              <div className="slider">
-                <div className="wrapper">
-                  {foundersList.map((mentor, index) => (
-                    <div
-                      key={index}
-                      className="slide"
-                      style={{ animationDelay: `${index * 2}s` }}
-                      onClick={() => jumpToMentor(mentor.originalIndex)}
-                      title={`Click to read about ${mentor.name}`}
-                    >
-                      <div className="card">
-                        <b></b>
-                        <div className="card-top-image">
-                          <img
-                            src={mentor.image || logo}
-                            alt={mentor.name}
-                          />
-                        </div>
-                        <div className="content">
-                          <p className="title">
-                            {mentor.name}
-                            <br />
-                            <span>{mentor.role}</span>
-                          </p>
-                          <ul className="sci">
-                            <li>
-                              <a
-                                href="#flipbook"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  jumpToMentor(mentor.originalIndex);
-                                }}
-                              >
-                                <span>↗</span>
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <div className="card-swap-stage-wrapper">
+              <CardSwap
+                items={foundersList}
+                onSelectMentor={jumpToMentor}
+                delay={3800}
+                width={270}
+                height={350}
+                cardDistance={24}
+                verticalDistance={25}
+                depth={50}
+                skewAmount={2.5}
+                visibleCards={4}
+                pauseOnHover={true}
+              />
             </div>
           </div>
 
@@ -991,50 +788,20 @@ export default function OurTeam() {
               <span className="stack-num">02</span>
               <h3>The Department Ones</h3>
             </div>
-            <div className="gallery">
-              <div className="slider">
-                <div className="wrapper">
-                  {departmentList.map((mentor, index) => (
-                    <div
-                      key={index}
-                      className="slide"
-                      style={{ animationDelay: `${index * 2}s` }}
-                      onClick={() => jumpToMentor(mentor.originalIndex)}
-                      title={`Click to read about ${mentor.name}`}
-                    >
-                      <div className="card">
-                        <b></b>
-                        <div className="card-top-image">
-                          <img
-                            src={mentor.image || logo}
-                            alt={mentor.name}
-                          />
-                        </div>
-                        <div className="content">
-                          <p className="title">
-                            {mentor.name}
-                            <br />
-                            <span>{mentor.role}</span>
-                          </p>
-                          <ul className="sci">
-                            <li>
-                              <a
-                                href="#flipbook"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  jumpToMentor(mentor.originalIndex);
-                                }}
-                              >
-                                <span>↗</span>
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <div className="card-swap-stage-wrapper">
+              <CardSwap
+                items={departmentList}
+                onSelectMentor={jumpToMentor}
+                delay={4300}
+                width={270}
+                height={350}
+                cardDistance={24}
+                verticalDistance={25}
+                depth={50}
+                skewAmount={2.5}
+                visibleCards={4}
+                pauseOnHover={true}
+              />
             </div>
           </div>
 
@@ -1044,50 +811,20 @@ export default function OurTeam() {
               <span className="stack-num">03</span>
               <h3>The Faculties</h3>
             </div>
-            <div className="gallery">
-              <div className="slider">
-                <div className="wrapper">
-                  {facultiesList.map((mentor, index) => (
-                    <div
-                      key={index}
-                      className="slide"
-                      style={{ animationDelay: `${index * 2}s` }}
-                      onClick={() => jumpToMentor(mentor.originalIndex)}
-                      title={`Click to read about ${mentor.name}`}
-                    >
-                      <div className="card">
-                        <b></b>
-                        <div className="card-top-image">
-                          <img
-                            src={mentor.image || logo}
-                            alt={mentor.name}
-                          />
-                        </div>
-                        <div className="content">
-                          <p className="title">
-                            {mentor.name}
-                            <br />
-                            <span>{mentor.role}</span>
-                          </p>
-                          <ul className="sci">
-                            <li>
-                              <a
-                                href="#flipbook"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  jumpToMentor(mentor.originalIndex);
-                                }}
-                              >
-                                <span>↗</span>
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <div className="card-swap-stage-wrapper">
+              <CardSwap
+                items={facultiesList}
+                onSelectMentor={jumpToMentor}
+                delay={4800}
+                width={270}
+                height={350}
+                cardDistance={24}
+                verticalDistance={25}
+                depth={50}
+                skewAmount={2.5}
+                visibleCards={4}
+                pauseOnHover={true}
+              />
             </div>
           </div>
         </div>
@@ -1152,7 +889,7 @@ export default function OurTeam() {
             </div>
 
             <div className="nothin-column nothin-col-right">
-              <div className="nothin-jump-action" onClick={scrollToBook}>
+              <div className="nothin-jump-action" onClick={scrollToCarousel}>
                 <span className="nothin-circle-arrow">↗</span>
                 <span className="nothin-action-text">EXPLORE THE ROSTER</span>
               </div>

@@ -1,16 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-clash: "Clash Grotesk", sans-serif;
-  --font-mono: "Space Grotesk", monospace;
+  --font-sans: "Rajdhani", sans-serif;
+  --font-rajdhani: "Rajdhani", sans-serif;
+  --font-clash: "Rajdhani", sans-serif;
+  --font-display: "Rajdhani", sans-serif;
+  --font-heading: "Rajdhani", sans-serif;
+  --font-body: "Rajdhani", sans-serif;
 }
 
-body, button, input, select, textarea {
-  font-family: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+:root {
+  --font-sans: "Rajdhani", sans-serif;
+  --font-rajdhani: "Rajdhani", sans-serif;
+  --font-clash: "Rajdhani", sans-serif;
+  font-family: "Rajdhani", sans-serif;
+}
+
+*, *::before, *::after {
+  font-family: "Rajdhani", sans-serif;
+}
+
+html, body, #root, button, input, select, textarea {
+  font-family: "Rajdhani", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+/* Headings: Bold (weight 700) */
+h1, h2,
+.h1, .h2,
+[role="heading"][aria-level="1"],
+[role="heading"][aria-level="2"] {
+  font-family: "Rajdhani", sans-serif !important;
+  font-weight: 700 !important;
+}
+
+/* Sub Headings: SemiBold (weight 600) */
+h3, h4, h5, h6,
+.h3, .h4, .h5, .h6,
+[role="heading"][aria-level="3"],
+[role="heading"][aria-level="4"],
+[role="heading"][aria-level="5"],
+[role="heading"][aria-level="6"] {
+  font-family: "Rajdhani", sans-serif !important;
+  font-weight: 600 !important;
+}
+
+/* Descriptions & Body Text: Normal (weight 400) */
+p,
+.description,
+[class*="description"],
+[class*="-desc"],
+[class*="desc-"],
+.body-text,
+.paragraph {
+  font-family: "Rajdhani", sans-serif !important;
+  font-weight: 400 !important;
+}
+
+/* Allow bold or semibold emphasis inside descriptions */
+p strong, p b, .description strong, .description b,
+[class*="description"] strong, [class*="description"] b {
+  font-weight: 700 !important;
 }
 
 /* Custom scrollbar matching dark/yellow brand */

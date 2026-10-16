@@ -44,10 +44,10 @@ export default function AboutCorePillars() {
             <span className="font-mono uppercase tracking-wider text-[11px]">The Philosophy</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">
             Crafted for <span className="bg-gradient-to-r from-[#ffeab0] via-[#f6d96b] to-[#f59e0b] bg-clip-text text-transparent">Excellence</span>
           </h2>
-          <p className="text-zinc-400 text-sm sm:text-base leading-relaxed">
+          <p className="text-zinc-400 text-sm sm:text-base leading-relaxed font-normal">
             Three core principles that have anchored Third Eye Computer Classes as Jaipur's premier creative technology academy for over 18 years.
           </p>
         </div>
@@ -71,7 +71,7 @@ export default function AboutCorePillars() {
                     <span className="text-xs font-mono font-bold tracking-widest text-[#f6d96b] uppercase px-3 py-1 rounded-full bg-[#1b150a] border border-[#f6d96b]/20">
                       {pillar.tag}
                     </span>
-                    <span className="text-3xl font-mono font-black text-zinc-700 group-hover:text-[#f6d96b]/40 transition-colors">
+                    <span className="text-3xl font-mono font-bold text-zinc-700 group-hover:text-[#f6d96b]/40 transition-colors">
                       {pillar.num}
                     </span>
                   </div>
@@ -80,11 +80,11 @@ export default function AboutCorePillars() {
                     <Icon className="w-6 h-6 stroke-[2]" />
                   </div>
 
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#f6d96b] transition-colors">
+                  <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-[#f6d96b] transition-colors">
                     {pillar.title}
                   </h3>
 
-                  <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed mb-6 font-light">
+                  <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed mb-6 font-normal">
                     {pillar.desc}
                   </p>
                 </div>

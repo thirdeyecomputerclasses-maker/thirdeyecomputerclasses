@@ -39,7 +39,7 @@ export default function CertificationHero({ onScrollToGrid }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.14] max-w-4xl mb-5"
+          className="text-3xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-[1.14] max-w-4xl mb-5"
         >
           Authorized Certifications That{" "}
           <span className="block sm:inline bg-gradient-to-r from-[#ffeab0] via-[#f6d96b] to-[#f59e0b] bg-clip-text text-transparent">
@@ -52,7 +52,7 @@ export default function CertificationHero({ onScrollToGrid }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="text-base sm:text-lg text-zinc-300 font-light leading-relaxed max-w-2xl mx-auto mb-9"
+          className="text-base sm:text-lg text-zinc-300 font-normal leading-relaxed max-w-2xl mx-auto mb-9"
         >
           Third Eye holds authorized testing, training, and credentialing access from global technology leaders. Every certificate is globally authenticated, ISO accredited, and employer-verified.
         </motion.p>

@@ -194,7 +194,7 @@ function StudioCard({ card, index, scrollYProgress }) {
 
             <div className="flex flex-col gap-1 my-auto py-2">
               <span
-                className={`font-clash text-[clamp(36px,4.5vw,66px)] font-black leading-none tracking-tight ${
+                className={`text-[clamp(36px,4.5vw,66px)] font-bold leading-none tracking-tight ${
                   index === 0 ? "text-black" : "text-white"
                 }`}
               >

@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    Job Detail Page Styles
    ========================================================================== */
 .job-detail-page {
@@ -63,7 +63,7 @@
   color: #ffd300;
   padding: 8px 18px;
   border-radius: 999px;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 13.5px;
   font-weight: 750;
   text-decoration: none;
@@ -136,7 +136,7 @@
   border: 1px solid rgba(255, 211, 0, 0.35);
   padding: 5px 14px;
   border-radius: 999px;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.5px;
@@ -166,7 +166,7 @@
 .job-type-pill {
   background: #ffd300;
   color: #000000;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 11.5px;
   font-weight: 900;
   padding: 4px 14px;
@@ -177,7 +177,7 @@
 
 .job-details-eyebrow {
   display: block;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 12px;
   font-weight: 850;
   letter-spacing: 2px;
@@ -187,7 +187,7 @@
 }
 
 .job-detail-main-title {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: clamp(28px, 4.2vw, 46px);
   font-weight: 950;
   color: #ffffff;
@@ -200,7 +200,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 16px;
   font-weight: 800;
   color: #ffd300;
@@ -275,7 +275,7 @@
 }
 
 .spec-val {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 15px;
   font-weight: 800;
   color: #ffffff;
@@ -314,7 +314,7 @@
 }
 
 .info-block-heading {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 20px;
   font-weight: 900;
   color: #ffd300;
@@ -384,7 +384,7 @@
 }
 
 .pledge-content h3 {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 17px;
   font-weight: 850;
   color: #ffffff;
@@ -418,7 +418,7 @@
 }
 
 .apply-title-text {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 26px;
   font-weight: 900;
   color: #ffffff;
@@ -445,7 +445,7 @@
 }
 
 .field-label-text {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 13.5px;
   font-weight: 750;
   color: #e4e4e7;
@@ -462,7 +462,7 @@
   border: 1.5px solid rgba(255, 211, 0, 0.25);
   border-radius: 10px;
   padding: 12px 14px;
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 14px;
   color: #ffffff;
   outline: none;
@@ -571,7 +571,7 @@
   border: none;
   border-radius: 8px;
   padding: 12px 28px;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 15px;
   font-weight: 850;
   cursor: pointer;
@@ -603,7 +603,7 @@
 }
 
 .application-success-box h3 {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 22px;
   font-weight: 900;
   color: #ffffff;
@@ -628,7 +628,7 @@
   color: #ffd300;
   border-radius: 999px;
   padding: 8px 22px;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 13px;
   font-weight: 800;
   cursor: pointer;
@@ -660,7 +660,7 @@
 }
 
 .other-openings-title {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 24px;
   font-weight: 900;
   color: #ffffff;
@@ -672,7 +672,7 @@
   align-items: center;
   gap: 6px;
   color: #ffd300;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 14px;
   font-weight: 800;
   text-decoration: none;
@@ -714,7 +714,7 @@
 }
 
 .other-job-card-title {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 17px;
   font-weight: 900;
   color: #090a0f;
@@ -724,7 +724,7 @@
 .other-job-type-pill {
   background: #090a0f;
   color: #ffd300;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 10px;
   font-weight: 900;
   padding: 2px 8px;
@@ -741,7 +741,7 @@
 }
 
 .other-job-salary {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 13.5px;
   font-weight: 850;
   color: #090a0f;
@@ -764,7 +764,7 @@
   align-items: center;
   gap: 4px;
   color: #090a0f;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 13px;
   font-weight: 850;
 }
