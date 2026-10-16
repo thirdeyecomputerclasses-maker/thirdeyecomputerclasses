@@ -214,7 +214,7 @@ export default function Footer() {
           {/* ============================================================ */}
           <div className="lg:col-span-3 space-y-4">
             <div>
-              <h3 className="text-xs sm:text-sm font-black uppercase tracking-[0.2em] text-[#f6d96b]">
+              <h3 className="text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-[#f6d96b]">
                 USEFUL LINKS
               </h3>
               <div className="w-8 h-0.5 bg-gradient-to-r from-[#f6d96b] to-transparent mt-1.5" />
@@ -238,7 +238,7 @@ export default function Footer() {
           {/* ============================================================ */}
           <div className="lg:col-span-4 space-y-4 font-sans">
             <div>
-              <h3 className="text-xs sm:text-sm font-black uppercase tracking-[0.2em] text-[#f6d96b]">
+              <h3 className="text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-[#f6d96b]">
                 CONTACT
               </h3>
               <div className="w-8 h-0.5 bg-gradient-to-r from-[#f6d96b] to-transparent mt-1.5" />

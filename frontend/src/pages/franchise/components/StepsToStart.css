@@ -1,4 +1,4 @@
-/* ─── Steps To Start — 6-Step Launch Roadmap (Vibrant Yellow Console System) ─── */
+﻿/* ─── Steps To Start — 6-Step Launch Roadmap (Vibrant Yellow Console System) ─── */
 
 .steps-franchise-section {
   width: 100%;
@@ -7,7 +7,7 @@
   padding: 95px 24px 105px;
   position: relative;
   box-sizing: border-box;
-  font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Rajdhani", sans-serif;
   border-top: 1px solid rgba(255, 211, 0, 0.16);
   overflow: hidden;
 }
@@ -63,7 +63,7 @@
   font-weight: 850;
   letter-spacing: 0.8px;
   margin-bottom: 20px;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   box-shadow: 0 0 20px rgba(255, 211, 0, 0.12);
 }
 
@@ -79,7 +79,7 @@
   color: #ffffff;
   margin: 0 0 26px 0;
   text-transform: uppercase;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
 }
 
 .steps-title-gold {
@@ -124,7 +124,7 @@
 }
 
 .velocity-num {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 17px;
   font-weight: 900;
   color: #ffd300;
@@ -272,7 +272,7 @@
   padding: 4px 12px;
   border-radius: 9999px;
   letter-spacing: 0.6px;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
@@ -284,7 +284,7 @@
   border: 1px solid rgba(0, 0, 0, 0.22);
   padding: 4px 10px;
   border-radius: 9999px;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   letter-spacing: 0.4px;
   text-transform: uppercase;
 }
@@ -310,7 +310,7 @@
 
 /* ── Step Typography ── */
 .step-title {
-  font-family: "Space Grotesk", "Clash Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 19.5px;
   font-weight: 950;
   color: #000000;
@@ -320,7 +320,7 @@
 }
 
 .step-desc {
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 14.5px;
   font-weight: 600;
   line-height: 1.6;
@@ -372,7 +372,7 @@
   border-radius: 9999px;
   font-size: 12px;
   font-weight: 850;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   letter-spacing: 0.8px;
   text-transform: uppercase;
   margin-bottom: 14px;
@@ -380,7 +380,7 @@
 }
 
 .cta-heading {
-  font-family: "Space Grotesk", "Clash Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: clamp(23px, 2.7vw, 32px);
   font-weight: 950;
   color: #000000;
@@ -390,7 +390,7 @@
 }
 
 .cta-sub {
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 15px;
   font-weight: 600;
   line-height: 1.6;
@@ -413,7 +413,7 @@
   border: 2px solid #000000;
   padding: 16px 32px;
   border-radius: 9999px;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 15.5px;
   font-weight: 900;
   letter-spacing: 0.4px;
@@ -442,7 +442,7 @@
 }
 
 .cta-helpline-note {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 13px;
   font-weight: 850;
   color: #000000;

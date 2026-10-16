@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    Jobs & Placements Page Styles (Third Eye Computer Classes Jaipur)
    100% Fully Responsive Cyber Dark & Golden Yellow Luxury Theme
    ========================================================================== */
@@ -81,7 +81,7 @@
   font-weight: 850;
   letter-spacing: 1.2px;
   text-transform: uppercase;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   margin-bottom: 18px;
   box-shadow: 0 0 20px rgba(255, 211, 0, 0.15);
 }
@@ -91,7 +91,7 @@
 }
 
 .jobs-hero-title {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: clamp(36px, 5vw, 60px);
   font-weight: 950;
   line-height: 1.15;
@@ -107,7 +107,7 @@
 }
 
 .jobs-hero-sub {
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 16px;
   line-height: 1.6;
   color: #a1a1aa;
@@ -137,7 +137,7 @@
 }
 
 .metric-number {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 17px;
   font-weight: 900;
   color: #ffd300;
@@ -175,7 +175,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 12px;
   font-weight: 850;
   color: #ffd300;
@@ -185,7 +185,7 @@
 }
 
 .section-main-heading {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: clamp(26px, 3.2vw, 36px);
   font-weight: 950;
   color: #ffffff;
@@ -242,7 +242,7 @@
   outline: none;
   color: #ffffff;
   font-size: 14px;
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   width: 100%;
 }
 
@@ -275,7 +275,7 @@
   border: 1.5px solid rgba(255, 211, 0, 0.28);
   border-radius: 12px;
   padding: 10px 34px 10px 14px;
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 13.5px;
   font-weight: 600;
   cursor: pointer;
@@ -354,7 +354,7 @@
 }
 
 .job-card-title {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 21px;
   font-weight: 900;
   color: #090a0f;
@@ -363,7 +363,7 @@
 }
 
 .job-card-company {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 13px;
   font-weight: 850;
   color: #18181b;
@@ -375,7 +375,7 @@
   background: #090a0f;
   color: #ffd300;
   border: 1px solid rgba(0, 0, 0, 0.9);
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 11px;
   font-weight: 900;
   padding: 4px 12px;
@@ -417,7 +417,7 @@
 .highlight-salary {
   color: #090a0f;
   font-weight: 900;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
 }
 
 .job-card-footer {
@@ -432,7 +432,7 @@
   background: transparent;
   border: none;
   color: #090a0f;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 14px;
   font-weight: 900;
   cursor: pointer;
@@ -482,7 +482,7 @@
 }
 
 .jobs-empty-notice h3 {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 22px;
   font-weight: 900;
   color: #ffffff;
@@ -501,7 +501,7 @@
   border: none;
   padding: 10px 24px;
   border-radius: 999px;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-weight: 850;
   font-size: 13.5px;
   cursor: pointer;
@@ -533,12 +533,12 @@
   font-weight: 850;
   letter-spacing: 1.2px;
   text-transform: uppercase;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   margin-bottom: 14px;
 }
 
 .placements-title-hero {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: clamp(34px, 4.5vw, 54px);
   font-weight: 950;
   color: #ffffff;
@@ -599,7 +599,7 @@
   color: #e4e4e7;
   padding: 8px 18px;
   border-radius: 999px;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 13px;
   font-weight: 700;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
@@ -653,7 +653,7 @@
 /* Cyber Tech Corner Brackets */
 .cool-tech-bracket {
   position: absolute;
-  font-family: "Space Grotesk", monospace;
+  font-family: "Rajdhani", monospace;
   font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 2px;
@@ -702,7 +702,7 @@
   font-weight: 850;
   letter-spacing: 1.2px;
   text-transform: uppercase;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   margin-bottom: 20px;
   box-shadow: 0 0 25px rgba(255, 211, 0, 0.18);
 }
@@ -723,7 +723,7 @@
 
 /* High-Impact Heading */
 .join-thirdeye-heading {
-  font-family: "Clash Grotesk", "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: clamp(38px, 6.2vw, 84px);
   font-weight: 900;
   line-height: 1.04;
@@ -775,7 +775,7 @@
   padding: 16px 36px;
   background: linear-gradient(135deg, #fff099 0%, #ffd300 50%, #f59e0b 100%);
   color: #050505;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 15px;
   font-weight: 900;
   letter-spacing: 0.3px;
@@ -807,7 +807,7 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1.5px solid rgba(255, 211, 0, 0.35);
   color: #ffffff;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 15px;
   font-weight: 750;
   border-radius: 999px;
@@ -968,7 +968,7 @@
 
 /* Modal Overview (Screenshot 3) */
 .modal-section-tag {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 11px;
   font-weight: 900;
   color: #ffd300;
@@ -979,7 +979,7 @@
 }
 
 .modal-job-title {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 28px;
   font-weight: 950;
   color: #ffffff;
@@ -1019,7 +1019,7 @@
 
 .gold-salary {
   color: #ffd300;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-weight: 850;
 }
 
@@ -1033,7 +1033,7 @@
 }
 
 .callout-lead-text {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 15px;
   font-weight: 800;
   color: #ffffff;
@@ -1062,7 +1062,7 @@
   gap: 8px;
   padding: 9px 18px;
   border-radius: 10px;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 13px;
   font-weight: 850;
   text-decoration: none;
@@ -1113,7 +1113,7 @@
 }
 
 .meta-chip-content {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 13.5px;
   font-weight: 850;
   color: #ffffff;
@@ -1128,7 +1128,7 @@
 }
 
 .list-title {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 14px;
   font-weight: 900;
   color: #ffd300;
@@ -1161,7 +1161,7 @@
 }
 
 .apply-heading-title {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 26px;
   font-weight: 950;
   color: #ffffff;
@@ -1182,7 +1182,7 @@
 }
 
 .input-label {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 13px;
   font-weight: 850;
   color: #ffffff;
@@ -1202,7 +1202,7 @@
   border: 1.5px solid rgba(255, 211, 0, 0.25);
   border-radius: 10px;
   font-size: 14px;
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-weight: 550;
   color: #ffffff;
   background-color: rgba(18, 14, 9, 0.85);
@@ -1244,7 +1244,7 @@
   color: #ffd300;
   padding: 7px 14px;
   border-radius: 8px;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 12.5px;
   font-weight: 850;
   cursor: pointer;
@@ -1305,7 +1305,7 @@
   border: none;
   padding: 12px 32px;
   border-radius: 8px;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 15px;
   font-weight: 850;
   cursor: pointer;
@@ -1345,7 +1345,7 @@
 }
 
 .apply-success-box h4 {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 24px;
   font-weight: 950;
   color: #ffffff;
@@ -1371,7 +1371,7 @@
   border: none;
   padding: 11px 26px;
   border-radius: 999px;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 13.5px;
   font-weight: 900;
   cursor: pointer;

@@ -27,7 +27,7 @@ body,
   align-items: center;
   padding: 150px 8% 100px;
   border: none;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+  font-family: "Rajdhani", sans-serif;
 }
 
 .hero-inner {
@@ -142,409 +142,55 @@ body,
   display: block;
 }
 
-/* ─── 2. Flip Book Section (Enlarged OUR TEAM Text) ─── */
+/* ─── 2. Mentors & Faculty Carousel Section ─── */
 .team-section {
+  position: relative;
   width: 100%;
-  min-height: 100vh;
   margin-top: 0;
-  padding: 80px 25px 120px;
+  padding: 48px 20px 60px;
   overflow: hidden;
   background-color: #ffd300;
   color: #000000;
   border: none;
-  font-family: Inter, Arial, sans-serif;
+  font-family: "Rajdhani", sans-serif;
 }
 
 .heading-area {
   max-width: 850px;
-  margin: 0 auto 50px;
+  margin: 0 auto 32px;
   text-align: center;
 }
 
-/* ENLARGED OUR TEAM TEXT */
 .eyebrow {
   color: #000000;
-  font-size: clamp(14px, 1.4vw, 20px);
-  font-weight: 950;
-  letter-spacing: 6px;
+  font-size: clamp(13px, 1.2vw, 17px);
+  font-weight: 900;
+  letter-spacing: 5px;
   text-transform: uppercase;
   background: rgba(0, 0, 0, 0.08);
   border: 2px solid rgba(0, 0, 0, 0.25);
   display: inline-block;
-  padding: 8px 24px;
+  padding: 6px 20px;
   border-radius: 9999px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .heading-area h2 {
-  margin: 16px 0 0;
+  margin: 12px 0 0;
   color: #000000;
-  font-size: clamp(30px, 3.6vw, 50px);
+  font-size: clamp(28px, 3.2vw, 44px);
   line-height: 1.15;
   font-weight: 900;
-  letter-spacing: -1.5px;
+  letter-spacing: -1.2px;
 }
 
 .heading-area p {
   max-width: 620px;
-  margin: 14px auto 0;
-  color: #333333;
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-.book-wrapper {
-  width: min(1500px, 96vw);
-  height: min(700px, 54vw);
-  min-height: 620px;
-  margin: auto;
-  position: relative;
-}
-
-.book-shadow {
-  position: absolute;
-  left: 5%;
-  bottom: -45px;
-  width: 90%;
-  height: 80px;
-  background: #000;
-  opacity: 0.22;
-  filter: blur(30px);
-  border-radius: 50%;
-}
-
-.book {
-  position: absolute;
-  inset: 0;
-  background: #050505;
-  border: 1px solid #171717;
-  box-shadow: 0 24px 55px rgba(0, 0, 0, 0.28);
-}
-
-.base-page {
-  position: absolute;
-  top: 0;
-  width: 50%;
-  height: 100%;
-  overflow: hidden;
-  background: #050505;
-  border: 1px solid #1d1d1d;
-}
-
-.left-page {
-  left: 0;
-  border-radius: 13px 0 0 13px;
-  box-shadow:
-    inset -20px 0 45px rgba(0, 0, 0, 0.4),
-    -8px 10px 30px rgba(0, 0, 0, 0.12);
-}
-
-.right-page {
-  right: 0;
-  border-radius: 0 13px 13px 0;
-  box-shadow:
-    inset 20px 0 45px rgba(0, 0, 0, 0.4),
-    8px 10px 30px rgba(0, 0, 0, 0.12);
-}
-
-.sheet {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 50%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transform-origin: left center;
-  cursor: pointer;
-  transition: transform 760ms cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-
-.sheet.flipped {
-  transform: rotateY(-180deg);
-}
-
-.sheet-face {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: #050505;
-  border: 1px solid #1d1d1d;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-.front-face {
-  transform: rotateY(0deg);
-  border-radius: 0;
-  box-shadow: inset 10px 0 22px rgba(0, 0, 0, 0.22);
-}
-
-.back-face {
-  transform: rotateY(180deg);
-  border-radius: 0;
-  box-shadow: inset -10px 0 22px rgba(0, 0, 0, 0.22);
-}
-
-.spine-shadow {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  transform: translateX(-50%);
-  z-index: 200;
-  pointer-events: none;
-  background: #252525;
-}
-
-.page-corner {
-  display: none;
-}
-
-.cover-page {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 50px;
-  background:
-    radial-gradient(
-      circle at 50% 42%,
-      rgba(255, 211, 0, 0.14),
-      transparent 35%
-    ),
-    #050505;
-}
-
-.cover-eyebrow {
-  margin-bottom: 30px;
-  color: #ffd300;
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: 4px;
-}
-
-.cover-page h1 {
-  margin: 0;
-  color: #fff;
-  font-size: clamp(45px, 5.5vw, 82px);
-  line-height: 0.9;
-  font-weight: 950;
-  letter-spacing: -5px;
-}
-
-.cover-page h1 span {
-  color: #ffd300;
-}
-
-.cover-logo {
-  width: 200px;
-  height: 95px;
-  margin-top: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.cover-logo img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-.cover-divider {
-  width: 70px;
-  height: 3px;
-  margin-top: 35px;
-  background: #ffd300;
-}
-
-.cover-page p {
-  margin-top: 17px;
-  color: #777;
-  font-size: 11px;
-}
-
-.mentor-page {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 48px 38px 28px;
-  background: #050505;
-  color: #fff;
-  text-align: center;
-}
-
-.mentor-image {
-  width: min(205px, 40%);
-  aspect-ratio: 1;
-  flex: 0 0 auto;
-  overflow: hidden;
-  background: #090909;
-  border: 2px solid #ffd300;
-  border-radius: 50%;
-}
-
-.mentor-image img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.image-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: #090909;
-  color: #ffd300;
-  border-radius: 50%;
-}
-
-.image-placeholder div {
-  font-size: 13px;
-  font-weight: 900;
-  letter-spacing: 2px;
-}
-
-.image-placeholder span {
-  margin-top: 7px;
-  color: #555;
-  font-size: 8px;
-  letter-spacing: 2px;
-}
-
-.mentor-details {
-  width: 100%;
-  flex: 1;
-  min-height: 0;
-  padding-top: 24px;
-  overflow: visible;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.mentor-index {
-  margin-bottom: 7px;
-  color: #ffd300;
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 3px;
-}
-
-.mentor-details h2 {
-  margin: 0;
-  color: #fff;
-  font-size: clamp(22px, 2.3vw, 34px);
-  line-height: 1;
-  font-weight: 900;
-  letter-spacing: -1px;
-}
-
-.mentor-role {
-  margin-top: 10px;
-  color: #ffd300;
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
-
-.yellow-divider {
-  width: 48px;
-  height: 2px;
-  margin: 15px 0;
-  background: #ffd300;
-}
-
-.mentor-description {
-  width: 100%;
-  color: #b8b8b8;
-  font-size: clamp(9px, 0.72vw, 11px);
-  line-height: 1.42;
-  text-align: left;
-  overflow: visible;
-  word-break: normal;
-  overflow-wrap: anywhere;
-}
-
-.empty-page {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #050505;
-}
-
-.empty-page span {
-  color: rgba(255, 211, 0, 0.08);
-  font-size: 60px;
-  font-weight: 950;
-  letter-spacing: -4px;
-}
-
-.book-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 35px;
-  margin-top: 50px;
-}
-
-.book-controls button {
-  min-width: 140px;
-  padding: 14px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  border: 2px solid #000000;
-  background: transparent;
-  color: #000000;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 1.5px;
-  cursor: pointer;
-  transition: 0.25s ease;
-  border-radius: 4px;
-}
-
-.book-controls button:hover:not(:disabled) {
-  border-color: #000000;
-  background: #000000;
-  color: #ffd300;
-}
-
-.book-controls button:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
-.page-counter {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  margin: 10px auto 0;
   color: #222222;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.page-counter strong {
-  color: #000000;
-  font-size: 20px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
 }
 
 /* ─── 3. Three 3D Revolving Stacks ─── */
@@ -552,9 +198,10 @@ body,
   width: 100%;
   background-color: #ffd300;
   color: #000000;
-  padding: 110px 6% 110px;
+  padding: 110px 6% 180px;
   border: none;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Rajdhani", sans-serif;
+  position: relative;
 }
 
 .stacks-section-header {
@@ -602,10 +249,11 @@ body,
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(0, 0, 0, 0.03);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 20px;
-  padding: 30px 16px 24px;
+  background: rgba(0, 0, 0, 0.035);
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  border-radius: 24px;
+  padding: 32px 18px 40px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.04);
 }
 
 .stack-title-box {
@@ -633,232 +281,30 @@ body,
   letter-spacing: -0.5px;
 }
 
-.gallery {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.slider {
-  width: 100%;
-  height: 33em;
+.card-swap-stage-wrapper {
   position: relative;
-  perspective: 1200px;
+  width: 100%;
+  min-height: 480px;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 16px 0 24px;
+  overflow: visible;
 }
 
-.wrapper {
-  transform-style: preserve-3d;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  width: 260px;
-  height: 350px;
-}
-
-.slide {
-  position: absolute;
-  width: 240px;
-  height: 330px;
-  transform-origin: bottom;
-  animation: cardCycle 12s infinite;
-  cursor: pointer;
-}
-
-@keyframes cardCycle {
-  0% {
-    transform: translateZ(0) rotateX(0);
-    z-index: 2;
-  }
-  13.88% {
-    transform: translateZ(550px) rotateX(90deg);
-    z-index: 3;
-  }
-  16.66% {
-    transform: translateZ(0px) rotateX(90deg);
-    z-index: 1;
-  }
-  83.33% {
-    transform: translateZ(0px) rotateX(0);
-    z-index: 1;
-  }
-  97.22% {
-    transform: translateZ(0) rotateX(0);
-    z-index: 2;
-  }
-  100% {
-    transform: translateZ(0) rotateX(0);
-    z-index: 2;
-  }
-}
-
-.card {
-  position: relative;
-  width: 240px;
-  height: 330px;
-  background: #f00;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  border-radius: 16px;
-  overflow: hidden;
-  padding: 24px 16px 20px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
-}
-
-.card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(315deg, #03a9f4, #ff0058);
-}
-
-.card::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(315deg, #03a9f4, #ff0058);
-  filter: blur(30px);
-}
-
-.card b {
-  position: absolute;
-  inset: 6px;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 2;
-  border-radius: 12px;
-}
-
-.card-top-image {
-  position: relative;
-  z-index: 3;
-  width: 140px;
-  height: 140px;
-  margin-top: 8px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid #ffd300;
-  background: #111;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.5s ease, opacity 0.5s ease;
-}
-
-.card-top-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  scale: 0.95;
-  opacity: 0.85;
-  transition: 0.5s;
-}
-
-.card:hover .card-top-image {
-  transform: translateY(-8px) scale(1.04);
-}
-
-.card:hover .card-top-image img {
-  scale: 1;
-  opacity: 1;
-}
-
-.card .content {
-  position: relative;
-  z-index: 3;
-  margin-top: 18px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-  transition: 0.5s;
-}
-
-.content .title {
-  position: relative;
-  color: #fff;
-  font-weight: 850;
-  line-height: 1.25em;
-  font-size: 1.05em;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  text-align: center;
-  margin: 0;
-}
-
-.content .title span {
-  font-weight: 500;
-  font-size: 0.72em;
-  color: #ffd300;
-  letter-spacing: 0.05em;
-  display: block;
-  margin-top: 6px;
-  line-height: 1.35;
-}
-
-.content .sci {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  margin-top: 14px;
-  padding: 0;
-}
-
-.sci li {
-  list-style: none;
-}
-
-.sci li a {
-  position: relative;
-  text-decoration: none;
-  color: #000;
-  background: #ffd300;
-  fill: currentColor;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  transition: 0.4s ease;
-  font-weight: 900;
-  font-size: 15px;
-}
-
-.sci li a:hover {
-  background: #fff;
-  color: #000;
-  transform: scale(1.1);
-}
-
-/* ─── 4. Scramble Text Headline (Spaced Out) ─── */
+/* ─── 4. Scramble Text Headline (Spaced Out & Moved Downwards) ─── */
 .gsap-scramble-hero {
   width: 100%;
   background-color: #ffd300;
   color: #000000;
-  padding: 120px 8% 120px;
+  margin-top: 60px;
+  padding: 140px 8% 130px;
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: "Rajdhani", sans-serif;
+  position: relative;
 }
 
 .gsap-scramble-inner {
@@ -910,9 +356,10 @@ body,
   width: 100%;
   background-color: #ffd300;
   color: #000000;
+  margin-top: 40px;
   padding: 90px 6% 130px;
   border: none;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Rajdhani", sans-serif;
 }
 
 .workflow-inner {
@@ -1040,7 +487,7 @@ body,
   color: #000000;
   padding: 70px 8% 140px;
   border: none;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: "Rajdhani", sans-serif;
   position: relative;
   overflow: hidden;
 }
@@ -1227,55 +674,18 @@ body,
     letter-spacing: -1.2px;
   }
 
-  .book-wrapper {
-    width: min(500px, 94vw);
-    height: 620px;
-    min-height: 0;
-  }
-
-  .base-page {
-    display: none;
-  }
-
-  .sheet {
-    left: 0;
-    width: 100%;
-    transform-origin: center center;
-  }
-
-  .front-face,
-  .back-face {
-    border-radius: 0;
-  }
-
-  .spine-shadow {
-    display: none;
-  }
-
-  .mentor-page {
-    padding: 38px 24px 24px;
-  }
-
-  .mentor-image {
-    width: 190px;
-  }
-
-  .mentor-description {
-    font-size: 10px;
-    line-height: 1.45;
-  }
-
-  .book-controls {
-    margin-top: 45px;
-    gap: 15px;
-  }
-
   .three-stacks-section {
-    padding: 60px 5% 50px;
+    padding: 70px 5% 120px;
+  }
+
+  .card-swap-stage-wrapper {
+    min-height: 460px;
+    padding: 16px 0;
   }
 
   .gsap-scramble-hero {
-    padding: 80px 5% 60px;
+    margin-top: 40px;
+    padding: 90px 5% 70px;
   }
 
   .gsap-headline {
@@ -1326,79 +736,18 @@ body,
     padding: 5px 14px;
   }
 
-  .book-wrapper {
-    height: 580px;
-  }
-
-  .mentor-page {
-    padding: 32px 22px 22px;
-  }
-
-  .mentor-image {
-    width: 165px;
-  }
-
-  .mentor-details {
-    padding-top: 18px;
-  }
-
-  .mentor-details h2 {
-    font-size: 22px;
-  }
-
-  .mentor-description {
-    font-size: 9.5px;
-  }
-
-  .cover-page {
-    padding: 30px;
-  }
-
-  .cover-page h1 {
-    font-size: 48px;
-  }
-
-  .book-controls {
-    gap: 10px;
-    margin-top: 35px;
-  }
-
-  .book-controls button {
-    min-width: 105px;
-    padding: 12px 13px;
-    font-size: 8px;
-  }
-
-  .slider {
-    height: 28em;
-  }
-
-  .wrapper {
-    width: 220px;
-    height: 310px;
-  }
-
-  .slide,
-  .card {
-    width: 210px;
-    height: 300px;
-  }
-
-  .card-top-image {
-    width: 120px;
-    height: 120px;
-  }
-
-  .content .title {
-    font-size: 0.9em;
+  .card-swap-stage-wrapper {
+    min-height: 440px;
+    padding: 14px 0;
   }
 
   .three-stacks-section {
-    padding: 40px 15px 40px;
+    padding: 50px 15px 100px;
   }
 
   .gsap-scramble-hero {
-    padding: 50px 20px 50px;
+    margin-top: 30px;
+    padding: 70px 20px 60px;
   }
 
   .gsap-headline {

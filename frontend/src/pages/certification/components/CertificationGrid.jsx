@@ -32,7 +32,7 @@ export default function CertificationGrid({ onZoom }) {
               <Sparkles className="w-3.5 h-3.5 text-[#f6d96b]" />
               <span className="font-mono uppercase tracking-wider text-[11px]">3D Interactive Credential Vault</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
               Authorized Certificates &{" "}
               <span className="bg-gradient-to-r from-[#ffeab0] via-[#f6d96b] to-[#f59e0b] bg-clip-text text-transparent">
                 Accreditations

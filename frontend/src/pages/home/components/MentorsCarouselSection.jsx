@@ -41,7 +41,7 @@ export default function MentorsCarouselSection() {
           </span>
         </div>
 
-        <h2 className="text-2xl sm:text-4xl md:text-5xl font-semibold text-white mx-auto leading-tight tracking-tight">
+        <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white mx-auto leading-tight tracking-tight">
           Learn From People Who&apos;ve{" "}
           <span className="text-[#f6d96b]">Actually Done the Work</span>
         </h2>

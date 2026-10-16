@@ -41,6 +41,10 @@
   overflow: hidden;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   transform-style: preserve-3d;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+  contain: layout paint;
 }
 
 .video-carousel-card:hover {
@@ -60,7 +64,34 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+}
+
+.video-thumbnail-img.loading {
+  opacity: 0;
+}
+
+.video-thumbnail-img.loaded {
+  opacity: 1;
+}
+
+/* Skeleton shimmer placeholder for deferred video thumbnails */
+.video-skeleton-placeholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #11131a 0%, #1c1f2b 50%, #11131a 100%);
+  background-size: 200% 100%;
+  animation: videoSkeletonShimmer 1.8s infinite ease-in-out;
+  z-index: 1;
+}
+
+@keyframes videoSkeletonShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 .video-carousel-card:hover .video-thumbnail-img {
@@ -75,6 +106,7 @@
   justify-content: center;
   background: rgba(0, 0, 0, 0.35);
   transition: background 0.3s ease;
+  z-index: 2;
 }
 
 .video-carousel-card:hover .video-play-overlay {

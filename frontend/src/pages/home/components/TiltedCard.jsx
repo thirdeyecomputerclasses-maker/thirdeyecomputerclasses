@@ -152,10 +152,10 @@ export default function TiltedCard({
             overlayContent
           ) : (
             <div className="flex flex-col space-y-1">
-              <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight leading-tight">
+              <h3 className="text-xl sm:text-2xl font-semibold text-white tracking-tight leading-tight">
                 {name}
               </h3>
-              <p className="text-xs sm:text-sm font-semibold text-[#f6d96b] tracking-wider uppercase font-mono">
+              <p className="text-xs sm:text-sm font-normal text-[#f6d96b] tracking-wider uppercase font-mono">
                 {designation}
               </p>
             </div>

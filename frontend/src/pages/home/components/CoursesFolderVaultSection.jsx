@@ -255,7 +255,7 @@ export default function CoursesFolderVaultSection() {
               Jaipur&apos;s Largest Creative &amp; Tech Academy
             </span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-tight">
             300+ Digital Courses.{" "}
             <span className="text-[#f6d96b]">One Unstoppable Career.</span>
           </h2>
@@ -330,7 +330,7 @@ export default function CoursesFolderVaultSection() {
                 </span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-semibold text-white tracking-tight leading-[1.16]">
+              <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-white tracking-tight leading-[1.16]">
                 300+ Digital Courses.
                 <br />
                 <span className="text-[#f6d96b]">One Unstoppable Career.</span>

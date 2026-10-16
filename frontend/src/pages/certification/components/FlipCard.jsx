@@ -75,10 +75,10 @@ export default function FlipCard({ cert, onZoom }) {
               <div className="text-[11px] font-mono text-[#f6d96b] font-semibold uppercase tracking-wider mb-1">
                 {cert.category}
               </div>
-              <h3 className="text-base sm:text-lg font-bold text-white line-clamp-1 group-hover:text-[#f6d96b] transition-colors">
+              <h3 className="text-base sm:text-lg font-semibold text-white line-clamp-1 group-hover:text-[#f6d96b] transition-colors">
                 {cert.title}
               </h3>
-              <p className="text-xs text-zinc-400 line-clamp-2 mt-1 font-light leading-relaxed">
+              <p className="text-xs text-zinc-400 line-clamp-2 mt-1 font-normal leading-relaxed">
                 {cert.description}
               </p>
             </div>
@@ -133,7 +133,7 @@ export default function FlipCard({ cert, onZoom }) {
             </div>
 
             {/* Title & Authority */}
-            <h4 className="text-sm font-bold text-[#f6d96b] mb-1">
+            <h4 className="text-sm font-semibold text-[#f6d96b] mb-1">
               {cert.title}
             </h4>
             <div className="text-[11px] text-zinc-300 mb-3 flex items-center gap-1.5">

@@ -26,7 +26,7 @@ export default function CertificateLightbox({ cert, onClose }) {
                 <ShieldCheck className="w-3.5 h-3.5 text-[#f6d96b]" />
                 {cert.partner}
               </span>
-              <h3 className="text-sm sm:text-base font-bold text-white truncate max-w-md">
+              <h3 className="text-sm sm:text-base font-semibold text-white truncate max-w-md">
                 {cert.title}
               </h3>
             </div>
