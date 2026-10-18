@@ -39,6 +39,7 @@ import BlogsPage from "../pages/blogs/BlogsPage";
 import BlogDetailPage from "../pages/blogs/BlogDetailPage";
 import AssessmentsHub from "../pages/assessments/AssessmentsHub";
 import AssessmentTestPage from "../pages/assessments/AssessmentTestPage";
+import NearestBranchFinder from "../pages/branchFinder/NearestBranchFinder";
 
 export default function AppRoutes() {
   return (
@@ -159,6 +160,11 @@ export default function AppRoutes() {
         <Route path="skill-tests" element={<AssessmentsHub />} />
         <Route path="assessment/:slug" element={<AssessmentTestPage />} />
         <Route path="skill-assessment/:slug" element={<AssessmentTestPage />} />
+
+        {/* Nearest Branch Finder Routes */}
+        <Route path="nearest-branch" element={<NearestBranchFinder />} />
+        <Route path="branch-finder" element={<NearestBranchFinder />} />
+        <Route path="branches" element={<NearestBranchFinder />} />
 
         {/* Fallback 404 */}
         <Route

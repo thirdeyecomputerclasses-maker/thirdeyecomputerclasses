@@ -18,6 +18,7 @@ import {
   Building,
   ArrowUpRight,
   Code2,
+  Compass,
 } from "lucide-react";
 import logo from "../assets/logo.webp";
 import SoundToggle from "../components/SoundToggle";
@@ -536,6 +537,29 @@ export default function Navbar() {
                             </p>
                           </div>
                         </Link>
+
+                        <Link
+                          to="/nearest-branch"
+                          role="menuitem"
+                          className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#f6d96b]/10 group transition-all mt-1"
+                        >
+                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5">
+                            <Compass className="w-4 h-4" />
+                          </div>
+                          <div className="flex-1">
+                            <div className="flex items-center justify-between">
+                              <span className="text-sm font-semibold text-zinc-100 group-hover:text-[#f6d96b] transition-colors">
+                                Nearest Branch
+                              </span>
+                              <span className="text-[9px] font-mono font-bold bg-[#f6d96b] text-black px-1.5 py-0.5 rounded">
+                                MAPS
+                              </span>
+                            </div>
+                            <p className="text-xs text-zinc-400 line-clamp-1">
+                              Locate 10+ Jaipur campuses with live routes
+                            </p>
+                          </div>
+                        </Link>
                       </div>
                     </div>
                   )}
@@ -878,6 +902,16 @@ export default function Navbar() {
                   >
                     <span>Contact Us</span>
                     <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500" />
+                  </Link>
+                  <Link
+                    to="/nearest-branch"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-between p-2 rounded-lg text-xs text-[#f6d96b] font-semibold hover:bg-[#f6d96b]/10 transition-colors"
+                  >
+                    <span>Nearest Branch Finder</span>
+                    <span className="text-[9px] font-mono bg-[#f6d96b] text-black px-1.5 py-0.2 rounded font-bold">
+                      MAPS
+                    </span>
                   </Link>
                 </div>
               )}
