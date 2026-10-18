@@ -20,11 +20,13 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { getAssessment, submitAssessment } from "../../services/assessmentApi";
+import { useEnquiry } from "../../context/EnquiryContext";
 import "./AssessmentTestPage.css";
 
 const OPTION_LETTERS = ["A", "B", "C", "D", "E"];
 
 export default function AssessmentTestPage() {
+  const { openEnquiry } = useEnquiry();
   const { slug } = useParams();
   const navigate = useNavigate();
 
@@ -333,12 +335,19 @@ export default function AssessmentTestPage() {
                         <span>View Syllabus</span>
                         <ArrowRight size={13} />
                       </Link>
-                      <Link
-                        to="/contact-us"
-                        className="ml-auto text-xs font-semibold px-3 py-1 rounded-full bg-white/10 hover:bg-white/15 text-zinc-200"
+                      <button
+                        type="button"
+                        onClick={() =>
+                          openEnquiry({
+                            course: c.title,
+                            sourcePage: `Skill Test Result: ${assessment.title} (Score: ${result.score}/10)`,
+                            initialNote: `Scored ${result.score}/10 (${result.percentage}%) on ${assessment.title} assessment. Looking for recommended course syllabus and batch timings.`,
+                          })
+                        }
+                        className="ml-auto text-xs font-semibold px-3 py-1 rounded-full bg-yellow-400 text-black hover:bg-yellow-300 transition-colors cursor-pointer"
                       >
                         Book Free Demo
-                      </Link>
+                      </button>
                     </div>
                   </div>
                 ))}

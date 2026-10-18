@@ -75,6 +75,31 @@ const SubmissionSchema = new mongoose.Schema(
       trim: true,
       default: "",
     },
+    course: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+    preferredBranch: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+    learningMode: {
+      type: String,
+      enum: ["classroom", "online", "hybrid", "any"],
+      default: "classroom",
+    },
+    sourcePage: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+    sourceUrl: {
+      type: String,
+      trim: true,
+      default: "",
+    },
     status: {
       type: String,
       enum: ["new", "in_review", "contacted", "resolved", "archived"],

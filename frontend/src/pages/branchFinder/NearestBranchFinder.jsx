@@ -33,6 +33,7 @@ import {
   getGoogleMapsDirectionsUrl,
   getGoogleMapsEmbedUrl,
 } from "../../data/branchesData";
+import { useEnquiry } from "../../context/EnquiryContext";
 import "./NearestBranchFinder.css";
 
 const POPULAR_LOCALITY_CHIPS = [
@@ -49,6 +50,7 @@ const POPULAR_LOCALITY_CHIPS = [
 ];
 
 export default function NearestBranchFinder() {
+  const { openEnquiry } = useEnquiry();
   const [searchInput, setSearchInput] = useState("");
   const [userCoords, setUserCoords] = useState(null);
   const [isLocating, setIsLocating] = useState(false);
@@ -439,6 +441,23 @@ export default function NearestBranchFinder() {
                       <ExternalLink size={12} />
                     </a>
 
+                    <button
+                      type="button"
+                      className="btn-enquire-branch"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openEnquiry({
+                          preferredBranch: branch.shortName || branch.name,
+                          learningMode: "classroom",
+                          sourcePage: `Nearest Branch Finder - ${branch.shortName}`,
+                        });
+                      }}
+                      title="Direct admission enquiry for this campus"
+                    >
+                      <GraduationCap size={14} />
+                      <span>Enquire</span>
+                    </button>
+
                     <a
                       href={`tel:${branch.phone.replace(/[^0-9+]/g, "")}`}
                       className="btn-call-desk"
@@ -567,16 +586,33 @@ export default function NearestBranchFinder() {
                 </div>
 
                 {/* Big Google Maps CTA */}
-                <a
-                  href={googleMapsDirectionsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="map-start-nav-btn"
-                >
-                  <Navigation size={18} />
-                  <span>Start Turn-by-Turn Navigation</span>
-                  <ExternalLink size={16} />
-                </a>
+                <div className="map-action-buttons-group">
+                  <a
+                    href={googleMapsDirectionsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="map-start-nav-btn"
+                  >
+                    <Navigation size={17} />
+                    <span>Start Navigation</span>
+                    <ExternalLink size={15} />
+                  </a>
+
+                  <button
+                    type="button"
+                    className="map-enquire-btn"
+                    onClick={() =>
+                      openEnquiry({
+                        preferredBranch: activeBranch.shortName || activeBranch.name,
+                        learningMode: "classroom",
+                        sourcePage: `Nearest Branch Finder - ${activeBranch.shortName}`,
+                      })
+                    }
+                  >
+                    <GraduationCap size={17} />
+                    <span>Enquire for Admission</span>
+                  </button>
+                </div>
 
                 {/* Metro & Transit Info */}
                 <div className="map-transit-hint">

@@ -1,0 +1,273 @@
+/* Floating Branch Finder Widget Styles */
+.floating-branch-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px 10px 12px;
+  background: rgba(14, 11, 7, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(246, 217, 107, 0.4);
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 
+    0 12px 35px rgba(0, 0, 0, 0.8),
+    0 0 25px rgba(246, 217, 107, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: floatingSlideIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  user-select: none;
+}
+
+@keyframes floatingSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.floating-branch-widget:hover {
+  transform: translateY(-3px) scale(1.02);
+  border-color: #f6d96b;
+  background: rgba(22, 17, 10, 0.96);
+  box-shadow: 
+    0 16px 45px rgba(0, 0, 0, 0.9),
+    0 0 35px rgba(246, 217, 107, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.floating-branch-widget:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+/* Outer Ambient Glow Pulse */
+.floating-glow-pulse {
+  position: absolute;
+  inset: -2px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(246, 217, 107, 0.4) 0%, transparent 70%);
+  filter: blur(8px);
+  opacity: 0.6;
+  z-index: -1;
+  animation: glowBreathe 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes glowBreathe {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.04);
+  }
+}
+
+/* Icon Wrap with radar beacon */
+.floating-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffd35a 0%, #f6d96b 100%);
+  color: #0d0a06;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  box-shadow: 0 4px 14px rgba(246, 217, 107, 0.35);
+}
+
+.floating-compass-icon {
+  animation: radarSpin 5s ease-in-out infinite;
+}
+
+@keyframes radarSpin {
+  0% { transform: rotate(0deg); }
+  35% { transform: rotate(25deg); }
+  70% { transform: rotate(-20deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.floating-beacon-dot {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 9px;
+  height: 9px;
+  background: #22c55e;
+  border: 1.5px solid #0d0a06;
+  border-radius: 50%;
+  animation: beaconPulse 1.8s infinite;
+}
+
+@keyframes beaconPulse {
+  0% {
+    transform: scale(0.9);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  70% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+  }
+  100% {
+    transform: scale(0.9);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+/* Text Block */
+.floating-text-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.floating-top-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.floating-label {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.floating-badge {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #0d0a06;
+  background: #f6d96b;
+  padding: 1px 6px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+.floating-sub {
+  font-size: 11px;
+  color: #a89f8f;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* Arrow Group (>>) */
+.floating-arrow-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(246, 217, 107, 0.12);
+  border: 1px solid rgba(246, 217, 107, 0.25);
+  margin-left: 2px;
+  transition: all 0.25s ease;
+}
+
+.floating-arrow-double {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 14px;
+  font-weight: 900;
+  color: #f6d96b;
+  letter-spacing: -1px;
+  transition: transform 0.25s ease;
+}
+
+.floating-branch-widget:hover .floating-arrow-group {
+  background: #f6d96b;
+  border-color: #f6d96b;
+}
+
+.floating-branch-widget:hover .floating-arrow-double {
+  color: #0d0a06;
+  transform: translateX(2px);
+}
+
+/* Dismiss Close Button */
+.floating-dismiss-btn {
+  background: transparent;
+  border: none;
+  color: #787062;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -2px;
+  transition: all 0.2s ease;
+}
+
+.floating-dismiss-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .floating-branch-widget {
+    bottom: 20px;
+    right: 16px;
+    padding: 8px 14px 8px 10px;
+    gap: 10px;
+  }
+
+  .floating-icon-wrap {
+    width: 36px;
+    height: 36px;
+  }
+
+  .floating-label {
+    font-size: 13.5px;
+  }
+
+  .floating-badge {
+    font-size: 8.5px;
+    padding: 1px 5px;
+  }
+
+  .floating-sub {
+    font-size: 10px;
+  }
+
+  .floating-arrow-group {
+    width: 24px;
+    height: 24px;
+  }
+
+  .floating-arrow-double {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .floating-branch-widget {
+    bottom: 16px;
+    right: 12px;
+    padding: 7px 12px 7px 8px;
+    gap: 8px;
+  }
+
+  .floating-sub {
+    display: none; /* Keep it ultra-clean and compact on tiny phones */
+  }
+
+  .floating-label {
+    font-size: 13px;
+  }
+}

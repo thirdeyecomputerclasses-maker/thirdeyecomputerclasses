@@ -768,6 +768,28 @@
   border-color: rgba(74, 222, 128, 0.3);
 }
 
+.btn-enquire-branch {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(246, 217, 107, 0.15);
+  border: 1px solid rgba(246, 217, 107, 0.35);
+  color: #f6d96b;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.55rem 0.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-enquire-branch:hover {
+  background: #f6d96b;
+  color: #0b0904;
+  box-shadow: 0 0 14px rgba(246, 217, 107, 0.35);
+}
+
 /* RIGHT: INTERACTIVE MAP & ROUTE CONSOLE */
 .finder-map-pane {
   position: relative;
@@ -973,13 +995,20 @@
   line-height: 1.4;
 }
 
+.map-action-buttons-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+}
+
 .map-start-nav-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   width: 100%;
-  padding: 0.85rem 1rem;
+  padding: 0.82rem 1rem;
   background: linear-gradient(135deg, #ffd35a 0%, #f6d96b 100%);
   color: #0d0a06;
   border: none;
@@ -997,6 +1026,31 @@
   background: #fde487;
   transform: translateY(-1px);
   box-shadow: 0 6px 24px rgba(246, 217, 107, 0.45);
+}
+
+.map-enquire-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.78rem 1rem;
+  background: rgba(246, 217, 107, 0.12);
+  border: 1px solid rgba(246, 217, 107, 0.35);
+  color: #f6d96b;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.map-enquire-btn:hover {
+  background: rgba(246, 217, 107, 0.22);
+  border-color: #f6d96b;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(246, 217, 107, 0.25);
 }
 
 .map-transit-hint {

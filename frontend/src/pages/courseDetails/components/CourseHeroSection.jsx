@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import logo from "../../../assets/logo.webp";
 import classroomPanoramic from "../../../assets/classroom_panoramic.png";
+import { useEnquiry } from "../../../context/EnquiryContext";
 import "./CourseHeroSection.css";
 
 // Known course slug to human-readable title mapping
@@ -83,6 +84,7 @@ function formatSlugToTitle(slug) {
 }
 
 export default function CourseHeroSection({ customImage, customTitle }) {
+  const { openEnquiry } = useEnquiry();
   const { courseSlug } = useParams();
   const [searchParams] = useSearchParams();
 
@@ -218,10 +220,21 @@ export default function CourseHeroSection({ customImage, customTitle }) {
 
               {/* Call-to-Action Button */}
               <div className="course-hero-cta-wrap">
-                <Link to="/contact-us" className="course-hero-cta-btn">
-                  <span>Enroll In {courseName} Now</span>
+                <button
+                  type="button"
+                  onClick={() =>
+                    openEnquiry({
+                      course: courseName,
+                      sourcePage: `${courseName} Course Page`,
+                      learningMode: "classroom",
+                    })
+                  }
+                  className="course-hero-cta-btn"
+                  id="course-hero-enquire-btn"
+                >
+                  <span>Enquire / Enroll In {courseName}</span>
                   <ArrowRight size={17} />
-                </Link>
+                </button>
               </div>
 
             </div>

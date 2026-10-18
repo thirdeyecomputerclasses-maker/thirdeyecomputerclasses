@@ -1103,6 +1103,13 @@
   border: 1px solid rgba(52, 211, 153, 0.3);
 }
 
+.submission-type-tag.type-course {
+  background: rgba(246, 217, 107, 0.16);
+  color: #ffd868;
+  border: 1px solid rgba(246, 217, 107, 0.4);
+  box-shadow: 0 0 10px rgba(246, 217, 107, 0.15);
+}
+
 .submission-time-badge {
   display: inline-flex;
   align-items: center;

@@ -123,6 +123,7 @@ export default function AdminPage() {
     contact: 0,
     franchise: 0,
     job_application: 0,
+    course_inquiry: 0,
     newSubmissions: 0,
   });
   const [isLoadingSubmissions, setIsLoadingSubmissions] = useState(true);
@@ -565,6 +566,9 @@ export default function AdminPage() {
         s.city?.toLowerCase().includes(q) ||
         s.jobTitle?.toLowerCase().includes(q) ||
         s.company?.toLowerCase().includes(q) ||
+        s.course?.toLowerCase().includes(q) ||
+        s.preferredBranch?.toLowerCase().includes(q) ||
+        s.sourcePage?.toLowerCase().includes(q) ||
         s.message?.toLowerCase().includes(q) ||
         s.coverLetter?.toLowerCase().includes(q);
 
@@ -1591,6 +1595,19 @@ export default function AdminPage() {
               </div>
 
               <div className="admin-metric-card">
+                <div className="metric-icon-wrap yellow" style={{ background: "rgba(246, 217, 107, 0.15)", color: "#f6d96b" }}>
+                  <GraduationCap size={20} />
+                </div>
+                <div className="metric-info">
+                  <span className="metric-val">
+                    {submissionStats.course_inquiry ||
+                      submissions.filter((s) => s.formType === "course_inquiry").length}
+                  </span>
+                  <span className="metric-label">Course Enquiries</span>
+                </div>
+              </div>
+
+              <div className="admin-metric-card">
                 <div className="metric-icon-wrap blue">
                   <Building size={20} />
                 </div>
@@ -1652,6 +1669,13 @@ export default function AdminPage() {
                 </button>
                 <button
                   type="button"
+                  className={`admin-filter-pill ${selectedFormType === "course_inquiry" ? "active" : ""}`}
+                  onClick={() => setSelectedFormType("course_inquiry")}
+                >
+                  Course Inquiries ({submissions.filter((s) => s.formType === "course_inquiry").length})
+                </button>
+                <button
+                  type="button"
                   className={`admin-filter-pill ${selectedFormType === "contact" ? "active" : ""}`}
                   onClick={() => setSelectedFormType("contact")}
                 >
@@ -1699,14 +1723,18 @@ export default function AdminPage() {
               <div className="admin-submissions-grid">
                 {filteredSubmissions.map((sub) => {
                   const typeLabel =
-                    sub.formType === "franchise"
+                    sub.formType === "course_inquiry"
+                      ? "Course Inquiry"
+                      : sub.formType === "franchise"
                       ? "Franchise Application"
                       : sub.formType === "job_application"
                       ? "Job Application"
                       : "Contact Inquiry";
 
                   const typeColorClass =
-                    sub.formType === "franchise"
+                    sub.formType === "course_inquiry"
+                      ? "type-course"
+                      : sub.formType === "franchise"
                       ? "type-franchise"
                       : sub.formType === "job_application"
                       ? "type-job"
@@ -1718,6 +1746,7 @@ export default function AdminPage() {
                       <div className="submission-card-top-bar">
                         <div className="submission-badge-group">
                           <span className={`submission-type-tag ${typeColorClass}`}>
+                            {sub.formType === "course_inquiry" && <GraduationCap size={12} />}
                             {sub.formType === "franchise" && <Building size={12} />}
                             {sub.formType === "job_application" && <Briefcase size={12} />}
                             {sub.formType === "contact" && <Mail size={12} />}
@@ -1762,6 +1791,19 @@ export default function AdminPage() {
                               <PhoneCall size={13} />
                               <span>{sub.phone}</span>
                             </a>
+                            <a
+                              href={`https://wa.me/91${sub.phone.replace(/[^0-9]/g, "")}?text=Hello%20${encodeURIComponent(
+                                sub.name
+                              )},%20thank%20you%20for%20your%20admission%20enquiry%20at%20Third%20Eye%20Computer%20Classes.`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="sub-contact-link"
+                              style={{ color: "#4ade80", borderColor: "rgba(74,222,128,0.25)" }}
+                              title="Chat with applicant on WhatsApp"
+                            >
+                              <MessageSquare size={13} />
+                              <span>WhatsApp</span>
+                            </a>
                             {sub.email && (
                               <a
                                 href={`mailto:${sub.email}`}
@@ -1783,6 +1825,33 @@ export default function AdminPage() {
                       </div>
 
                       {/* Custom Form Attributes */}
+                      {sub.formType === "course_inquiry" && (
+                        <div className="submission-meta-strip">
+                          <div className="sub-meta-cell">
+                            <span className="meta-cell-title">Target Course</span>
+                            <span className="meta-cell-val highlight">{sub.course || "General Course Inquiry"}</span>
+                          </div>
+                          <div className="sub-meta-cell">
+                            <span className="meta-cell-title">Preferred Center</span>
+                            <span className="meta-cell-val">{sub.preferredBranch || "Any Jaipur Campus"}</span>
+                          </div>
+                          <div className="sub-meta-cell">
+                            <span className="meta-cell-title">Learning Mode</span>
+                            <span className="meta-cell-val" style={{ textTransform: "capitalize", color: "#f6d96b" }}>
+                              {sub.learningMode === "online" ? "🌐 Live Online" : "🏛️ Classroom Offline"}
+                            </span>
+                          </div>
+                          {sub.sourcePage && (
+                            <div className="sub-meta-cell">
+                              <span className="meta-cell-title">Source Context</span>
+                              <span className="meta-cell-val text-xs text-zinc-400 truncate" title={sub.sourcePage}>
+                                {sub.sourcePage}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      )}
+
                       {sub.formType === "franchise" && (
                         <div className="submission-meta-strip">
                           <div className="sub-meta-cell">
