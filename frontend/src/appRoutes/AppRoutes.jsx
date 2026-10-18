@@ -35,6 +35,8 @@ import JobsAndPlacement from "../pages/placements/JobsAndPlacement";
 import JobDetailPage from "../pages/placements/JobDetailPage";
 import Memories from "../pages/Memories/memories";
 import Review from "../pages/studentReviews/Review";
+import BlogsPage from "../pages/blogs/BlogsPage";
+import BlogDetailPage from "../pages/blogs/BlogDetailPage";
 
 export default function AppRoutes() {
   return (
@@ -142,6 +144,12 @@ export default function AppRoutes() {
           path="pay-now"
           element={<PlaceholderPage title="Pay Now" subtitle="Secure fee payment portal for course tuition, registration, and examination fees." />}
         />
+
+        {/* Blogs CMS Routes */}
+        <Route path="blogs" element={<BlogsPage />} />
+        <Route path="blog" element={<BlogsPage />} />
+        <Route path="blogs/:slug" element={<BlogDetailPage />} />
+        <Route path="blog/:slug" element={<BlogDetailPage />} />
 
         {/* Fallback 404 */}
         <Route

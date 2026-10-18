@@ -530,6 +530,20 @@ export default function Navbar() {
                     Franchise
                   </Link>
                 </li>
+
+                {/* 7. BLOGS */}
+                <li>
+                  <Link
+                    to="/blogs"
+                    className={`px-3.5 py-1.5 rounded-full text-[13px] xl:text-[14px] font-medium tracking-wide transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] ${
+                      isActive("/blogs") || location.pathname.startsWith("/blogs/") || location.pathname.startsWith("/blog/")
+                        ? "text-[#f3cf65] bg-[#f3cf65]/15 font-semibold"
+                        : "text-zinc-300 hover:text-white hover:bg-white/[0.05]"
+                    }`}
+                  >
+                    Blogs
+                  </Link>
+                </li>
               </ul>
             </nav>
 
@@ -836,6 +850,27 @@ export default function Navbar() {
               </span>
               <span className="text-[10px] font-mono font-bold bg-[#18130d] border border-[#2c2318] text-[#f6d96b] px-2 py-0.5 rounded-full">
                 PARTNER
+              </span>
+            </Link>
+
+            {/* 7. Blogs */}
+            <Link
+              to="/blogs"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`flex items-center justify-between p-3 rounded-xl text-sm font-medium transition-all ${
+                isActive("/blogs") || location.pathname.startsWith("/blogs/") || location.pathname.startsWith("/blog/")
+                  ? "bg-[#f6d96b]/15 text-[#f6d96b] font-semibold border border-[#f6d96b]/30"
+                  : "text-zinc-200 hover:bg-[#18130d]"
+              }`}
+            >
+              <span className="flex items-center gap-3">
+                <div className="w-7 h-7 rounded-lg bg-[#18130d] border border-[#2c2318] flex items-center justify-center text-[#f6d96b]">
+                  <BookOpen className="w-4 h-4" />
+                </div>
+                <span>Blogs</span>
+              </span>
+              <span className="text-[10px] font-mono font-bold bg-[#18130d] border border-[#2c2318] text-[#f6d96b] px-2 py-0.5 rounded-full">
+                INSIGHTS
               </span>
             </Link>
           </nav>

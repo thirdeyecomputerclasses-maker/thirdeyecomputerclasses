@@ -7,6 +7,7 @@ const courseRoutes = require("./routes/courseRoutes");
 const jobRoutes = require("./routes/jobRoutes");
 const submissionRoutes = require("./routes/submissionRoutes");
 const authRoutes = require("./routes/authRoutes");
+const blogRoutes = require("./routes/blogRoutes");
 
 dotenv.config();
 
@@ -46,6 +47,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRoutes);
 app.use("/api", courseRoutes);
 app.use("/api", jobRoutes);
+app.use("/api", blogRoutes);
 app.use("/api/submissions", submissionRoutes);
 
 app.get("/api/health", (req, res) => {
