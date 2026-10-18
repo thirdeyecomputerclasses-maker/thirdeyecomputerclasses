@@ -40,6 +40,7 @@ export default function Footer() {
     { label: "Home", to: "/" },
     { label: "About Us", to: "/about-us" },
     { label: "Courses", to: "/courses" },
+    { label: "Free Skill Tests", to: "/assessments" },
     { label: "Tech Blogs & Guides", to: "/blogs" },
     { label: "Our Faculty & Team", to: "/our-team" },
     { label: "Contact Us", to: "/contact-us" },

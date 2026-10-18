@@ -306,6 +306,30 @@ export default function Navbar() {
                             </p>
                           </div>
                         </Link>
+
+                        {/* 4. Free Skill Assessments */}
+                        <Link
+                          to="/assessments"
+                          role="menuitem"
+                          className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#f6d96b]/10 group transition-all mt-1"
+                        >
+                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5">
+                            <Sparkles className="w-4 h-4" />
+                          </div>
+                          <div className="flex-1">
+                            <div className="flex items-center justify-between">
+                              <span className="text-sm font-semibold text-zinc-100 group-hover:text-[#f3cf65] transition-colors">
+                                Free Skill Tests
+                              </span>
+                              <span className="text-[9px] font-mono font-bold bg-[#f3cf65] text-black px-1.5 py-0.5 rounded">
+                                FREE
+                              </span>
+                            </div>
+                            <p className="text-xs text-zinc-400 line-clamp-1">
+                              10-question evaluation & score report
+                            </p>
+                          </div>
+                        </Link>
                       </div>
                     </div>
                   )}
@@ -544,6 +568,23 @@ export default function Navbar() {
                     Blogs
                   </Link>
                 </li>
+
+                {/* 8. SKILL TESTS */}
+                <li>
+                  <Link
+                    to="/assessments"
+                    className={`px-3.5 py-1.5 rounded-full text-[13px] xl:text-[14px] font-medium tracking-wide transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] flex items-center gap-1.5 ${
+                      isActive("/assessments") || location.pathname.startsWith("/assessment/") || location.pathname.startsWith("/skill-assessment")
+                        ? "text-[#f3cf65] bg-[#f3cf65]/15 font-semibold"
+                        : "text-zinc-300 hover:text-white hover:bg-white/[0.05]"
+                    }`}
+                  >
+                    <span>Skill Tests</span>
+                    <span className="text-[9px] font-bold bg-[#f6d96b]/20 text-[#f6d96b] border border-[#f6d96b]/40 px-1.5 py-0.5 rounded-full">
+                      FREE
+                    </span>
+                  </Link>
+                </li>
               </ul>
             </nav>
 
@@ -716,6 +757,16 @@ export default function Navbar() {
                       FAST
                     </span>
                   </Link>
+                  <Link
+                    to="/assessments"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-between p-2 rounded-lg text-xs text-[#f6d96b] font-semibold hover:bg-[#f6d96b]/10 transition-colors"
+                  >
+                    <span>Free Skill Tests</span>
+                    <span className="text-[9px] font-mono bg-[#f6d96b] text-black px-1.5 py-0.2 rounded font-bold">
+                      FREE
+                    </span>
+                  </Link>
                 </div>
               )}
             </div>
@@ -871,6 +922,27 @@ export default function Navbar() {
               </span>
               <span className="text-[10px] font-mono font-bold bg-[#18130d] border border-[#2c2318] text-[#f6d96b] px-2 py-0.5 rounded-full">
                 INSIGHTS
+              </span>
+            </Link>
+
+            {/* 8. Skill Tests */}
+            <Link
+              to="/assessments"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`flex items-center justify-between p-3 rounded-xl text-sm font-medium transition-all ${
+                isActive("/assessments") || location.pathname.startsWith("/assessment/") || location.pathname.startsWith("/skill-assessment")
+                  ? "bg-[#f6d96b]/15 text-[#f6d96b] font-semibold border border-[#f6d96b]/30"
+                  : "text-zinc-200 hover:bg-[#18130d]"
+              }`}
+            >
+              <span className="flex items-center gap-3">
+                <div className="w-7 h-7 rounded-lg bg-[#18130d] border border-[#2c2318] flex items-center justify-center text-[#f6d96b]">
+                  <Sparkles className="w-4 h-4" />
+                </div>
+                <span>Free Skill Tests</span>
+              </span>
+              <span className="text-[10px] font-mono font-bold bg-[#18130d] border border-[#2c2318] text-[#f6d96b] px-2 py-0.5 rounded-full">
+                FREE
               </span>
             </Link>
           </nav>

@@ -37,6 +37,8 @@ import Memories from "../pages/Memories/memories";
 import Review from "../pages/studentReviews/Review";
 import BlogsPage from "../pages/blogs/BlogsPage";
 import BlogDetailPage from "../pages/blogs/BlogDetailPage";
+import AssessmentsHub from "../pages/assessments/AssessmentsHub";
+import AssessmentTestPage from "../pages/assessments/AssessmentTestPage";
 
 export default function AppRoutes() {
   return (
@@ -150,6 +152,13 @@ export default function AppRoutes() {
         <Route path="blog" element={<BlogsPage />} />
         <Route path="blogs/:slug" element={<BlogDetailPage />} />
         <Route path="blog/:slug" element={<BlogDetailPage />} />
+
+        {/* Free Skill Assessment Test Routes */}
+        <Route path="assessments" element={<AssessmentsHub />} />
+        <Route path="skill-assessment" element={<AssessmentsHub />} />
+        <Route path="skill-tests" element={<AssessmentsHub />} />
+        <Route path="assessment/:slug" element={<AssessmentTestPage />} />
+        <Route path="skill-assessment/:slug" element={<AssessmentTestPage />} />
 
         {/* Fallback 404 */}
         <Route
