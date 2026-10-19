@@ -1,0 +1,23 @@
+/* Pay Now Page & Section Styling */
+.pay-now-page {
+  position: relative;
+}
+
+.pay-now-section-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Subtle glow animations */
+@keyframes goldPulse {
+  0%, 100% {
+    box-shadow: 0 0 25px rgba(246, 217, 107, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 45px rgba(246, 217, 107, 0.3);
+  }
+}
+
+.pay-now-card-glow {
+  animation: goldPulse 4s ease-in-out infinite;
+}

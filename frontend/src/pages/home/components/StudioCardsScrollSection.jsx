@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-import classroomSliceLeft from "../../../assets/classroom_slice_left.webp";
-import classroomSliceCenter from "../../../assets/classroom_slice_center.webp";
-import classroomSliceRight from "../../../assets/classroom_slice_right.webp";
+import awardSuumitSharma from "../../../assets/award_suumit_sharma.webp";
+import awardPreetiSharma from "../../../assets/award_preeti_sharma.webp";
+import awardCeremonyGroup from "../../../assets/award_ceremony_group.webp";
 
 // Minimalist 3D Isometric Cube Vector Icon (100% transparent, perfectly visible on all card themes)
 function IsometricCubeIcon({ className = "w-[26px] h-[26px]", isDark = false }) {
@@ -65,7 +65,8 @@ const cardsData = [
     unit: "Courses",
     heading: "Complete Digital Coaching",
     desc: "Master Programming, Web Development, Digital Marketing, Video Editing, Graphic Design, and 3D Animation with job-oriented practical courses.",
-    img: classroomSliceLeft,
+    img: awardSuumitSharma,
+    objectPosition: "50% 20%",
   },
   {
     id: "center",
@@ -73,7 +74,8 @@ const cardsData = [
     unit: "Practical Labs",
     heading: "1 Student = 1 PC Training",
     desc: "Dedicated computer system for every student, daily hands-on lab coaching, flexible morning & evening batch timings, and personal 1-on-1 teacher guidance.",
-    img: classroomSliceCenter,
+    img: awardPreetiSharma,
+    objectPosition: "50% 20%",
   },
   {
     id: "right",
@@ -81,7 +83,8 @@ const cardsData = [
     unit: "Job Assistance",
     heading: "Certified & Placement Support",
     desc: "ISO recognized certifications, real-world project portfolios, interview coaching, and active placement tie-ups with 300+ hiring companies across India.",
-    img: classroomSliceRight,
+    img: awardCeremonyGroup,
+    objectPosition: "48% 20%",
   },
 ];
 
@@ -163,9 +166,10 @@ function StudioCard({ card, index, scrollYProgress }) {
         >
           <img
             src={card.img}
-            alt={`slice-${card.id}`}
+            alt={card.heading || `slice-${card.id}`}
             className="w-full h-full object-cover block select-none pointer-events-none"
             style={{
+              objectPosition: card.objectPosition || "center",
               transformOrigin: isLeft
                 ? "left center"
                 : isRight

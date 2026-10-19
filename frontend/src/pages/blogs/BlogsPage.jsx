@@ -310,7 +310,7 @@ export default function BlogsPage() {
             Explore our government-recognized, ISO 9001 certified diploma programs with 100% placement assistance and live studio labs.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <Link to="/courses" className="blogs-cta-btn">
+            <Link to="/our-courses" className="blogs-cta-btn">
               <span>Explore Certified Courses</span>
               <ArrowUpRight size={16} />
             </Link>

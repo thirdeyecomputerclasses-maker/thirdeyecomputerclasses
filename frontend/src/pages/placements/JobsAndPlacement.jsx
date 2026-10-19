@@ -9,13 +9,16 @@ import {
   CheckCircle2,
   Building,
   Award,
-  PhoneCall
+  PhoneCall,
+  PartyPopper,
+  Trophy
 } from "lucide-react";
 
 import { useNavigate } from "react-router-dom";
 import DriftWall from "../../components/DriftWall";
 import { JOB_OPENINGS } from "./jobsData";
 import { getJobs } from "../../services/jobApi";
+import { fetchMedia } from "../../services/mediaApi";
 
 // Real Student Placement Photos
 import student1 from "../../assets/students/student_1.jpg";
@@ -30,6 +33,11 @@ import student9 from "../../assets/students/student_9.jpg";
 import student10 from "../../assets/students/student_10.jpg";
 import student11 from "../../assets/students/student_11.jpg";
 import student12 from "../../assets/students/student_12.jpg";
+
+// Placement Celebration Photos
+import awardCeremonyGroup from "../../assets/award_ceremony_group.webp";
+import awardSuumitSharma from "../../assets/award_suumit_sharma.webp";
+import awardPreetiSharma from "../../assets/award_preeti_sharma.webp";
 
 // DriftWall Placements Showcase Items
 const DRIFT_ITEMS = [
@@ -115,10 +123,112 @@ const DRIFT_ITEMS = [
   }
 ];
 
+// Placement Celebration Showcase Items
+const DEFAULT_CELEBRATIONS = [
+  {
+    key: "placement_celebration_1",
+    image: awardCeremonyGroup,
+    tag: "Award Ceremony",
+    title: "Annual Placement & Excellence Award Ceremony",
+    desc: "Grand felicitation ceremony of placed students receiving corporate selection mementos and offer letters."
+  },
+  {
+    key: "placement_celebration_2",
+    image: awardSuumitSharma,
+    tag: "Founder Felicitation",
+    title: "Founder Felicitation & Outstanding Achiever Honour",
+    desc: "Founder honouring top placed candidates with mementos and recognition certificates."
+  },
+  {
+    key: "placement_celebration_3",
+    image: awardPreetiSharma,
+    tag: "Academic Excellence",
+    title: "Corporate Selection & Academic Excellence Award",
+    desc: "Felicitation of meritorious students for stellar corporate interview selections."
+  },
+  {
+    key: "placement_celebration_4",
+    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=900&q=80&auto=format&fit=crop",
+    tag: "Convocation Day",
+    title: "Placement Day Cap & Certificate Celebration",
+    desc: "Celebratory convocation and batch milestone victory toss by selected candidates."
+  },
+  {
+    key: "placement_celebration_5",
+    image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=900&q=80&auto=format&fit=crop",
+    tag: "Gala Night",
+    title: "Annual Placement Gala & Recruiter Connect",
+    desc: "Corporate recruiters, mentors, and selected students gathering at the annual dinner gala."
+  },
+  {
+    key: "placement_celebration_6",
+    image: "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=900&q=80&auto=format&fit=crop",
+    tag: "Success Bash",
+    title: "Batch Success Bash & Career Kickoff Party",
+    desc: "Festive celebration marking the beginning of students' professional journey."
+  }
+];
+
 export default function JobsAndPlacement() {
+  const [driftItems, setDriftItems] = useState(DRIFT_ITEMS);
+  const [celebrationItems, setCelebrationItems] = useState(DEFAULT_CELEBRATIONS);
+
   // DriftWall Responsive Configuration
   const [driftColumns, setDriftColumns] = useState(5);
   const [driftDimensions, setDriftDimensions] = useState({ width: 200, height: 260 });
+
+  // Load dynamic student placement & celebration photos if customized in ImageKit
+  useEffect(() => {
+    fetchMedia({ page: "placements", type: "image" })
+      .then((data) => {
+        if (!data || data.length === 0) return;
+        const studentMap = {};
+        const celebrationMap = {};
+
+        data.forEach((slot) => {
+          if (slot.slotKey?.startsWith("placement_student_")) {
+            const num = parseInt(slot.slotKey.replace("placement_student_", ""), 10);
+            if (num >= 1 && num <= 12 && slot.url) {
+              studentMap[num] = slot.url;
+            }
+          } else if (slot.slotKey?.startsWith("placement_celebration_")) {
+            if (slot.url) {
+              celebrationMap[slot.slotKey] = slot.url;
+            }
+          }
+        });
+
+        if (Object.keys(studentMap).length > 0) {
+          setDriftItems((prev) =>
+            prev.map((item, idx) => {
+              const studentNum = (idx % 12) + 1;
+              if (studentMap[studentNum]) {
+                return {
+                  ...item,
+                  image: studentMap[studentNum],
+                };
+              }
+              return item;
+            })
+          );
+        }
+
+        if (Object.keys(celebrationMap).length > 0) {
+          setCelebrationItems((prev) =>
+            prev.map((item) => {
+              if (celebrationMap[item.key]) {
+                return {
+                  ...item,
+                  image: celebrationMap[item.key],
+                };
+              }
+              return item;
+            })
+          );
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -451,7 +561,7 @@ export default function JobsAndPlacement() {
           {/* DriftWall Placements Interactive 3D Showcase */}
           <div className="driftwall-showcase-container">
             <DriftWall
-              items={DRIFT_ITEMS}
+              items={driftItems}
               columns={driftColumns}
               tileWidth={driftDimensions.width}
               tileHeight={driftDimensions.height}
@@ -488,7 +598,49 @@ export default function JobsAndPlacement() {
         </section>
 
         {/* ============================================================ */}
-        {/* 3. COOL FINALE HERO: "JOIN THIRDEYE TODAY"                   */}
+        {/* 3. PLACEMENT CELEBRATIONS SECTION                             */}
+        {/* ============================================================ */}
+        <section className="placement-celebrations-section" id="placement-celebrations">
+          <div className="celebrations-header-block">
+            <div className="celebrations-badge-top">
+              <PartyPopper size={16} />
+              <span>MOMENTS OF TRIUMPH & PRIDE</span>
+            </div>
+            <h2 className="celebrations-title-hero">
+              PLACEMENT <span className="title-gold-spark">CELEBRATIONS</span>
+            </h2>
+            <p className="celebrations-subtitle">
+              Cherishing the milestone celebrations as our placed students receive corporate offer letters,
+              felicitation trophies, and embark on their high-growth tech career journeys.
+            </p>
+          </div>
+
+          <div className="celebrations-cards-grid">
+            {celebrationItems.map((item, idx) => (
+              <div key={item.key || idx} className="celebration-photo-card">
+                <div className="celebration-card-image-box">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="celebration-img"
+                    loading="lazy"
+                  />
+                  <div className="celebration-card-glass-tag">
+                    <Sparkles size={13} className="text-yellow-400" />
+                    <span>{item.tag || `Celebration #${idx + 1}`}</span>
+                  </div>
+                </div>
+                <div className="celebration-card-caption">
+                  <h3 className="celebration-caption-title">{item.title}</h3>
+                  <p className="celebration-caption-desc">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ============================================================ */}
+        {/* 4. COOL FINALE HERO: "JOIN THIRDEYE TODAY"                   */}
         {/* ============================================================ */}
         <section className="join-thirdeye-cool-section">
           {/* Ambient Lighting & Hologram Orb */}
@@ -515,7 +667,7 @@ export default function JobsAndPlacement() {
 
             <div className="join-cool-actions">
               <a
-                href="/courses"
+                href="/our-courses"
                 className="join-primary-glow-btn"
               >
                 <span>Explore Courses & Batches</span>

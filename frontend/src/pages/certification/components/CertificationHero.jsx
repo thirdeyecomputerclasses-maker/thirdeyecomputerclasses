@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ShieldCheck, Award, ArrowDown, ExternalLink, CheckCircle2 } from "lucide-react";
 
@@ -7,7 +6,7 @@ const trustMetrics = [
   { value: "100%", label: "Authorized Access", sub: "Official Examination Center" },
   { value: "7+", label: "Global Alliances", sub: "Microsoft, Adobe, Google, Autodesk" },
   { value: "ISO 9001", label: "Quality Certified", sub: "International Benchmark Standard" },
-  { value: "Instant QR", label: "Online Verification", sub: "24/7 Digital Credential Check" },
+  { value: "100% Valid", label: "Industry Recognized", sub: "Accepted by Top Studios & IT Firms" },
 ];
 
 export default function CertificationHero({ onScrollToGrid }) {
@@ -73,13 +72,16 @@ export default function CertificationHero({ onScrollToGrid }) {
             <ArrowDown className="w-4 h-4 transition-transform group-hover:translate-y-0.5" />
           </button>
 
-          <Link
-            to="/certificate-verification"
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSdDtLEpiKX4qeeR8YN2-HJ1jy9O7YvjaJh6HaalI7XTPyZ6aA/viewform"
+            target="_blank"
+            rel="noopener noreferrer"
             className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm sm:text-base text-zinc-200 bg-[#120e08]/90 border border-[#f6d96b]/30 hover:border-[#f6d96b]/60 hover:text-white hover:bg-[#1c160d] backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5"
           >
-            <ShieldCheck className="w-4 h-4 text-[#f6d96b]" />
-            <span>Verify Existing Certificate</span>
-          </Link>
+            <Award className="w-4 h-4 text-[#f6d96b]" />
+            <span>Apply for Certificate</span>
+            <ExternalLink className="w-4 h-4 text-zinc-400 group-hover:text-white transition-colors" />
+          </a>
         </motion.div>
 
         {/* 4 Trust Metrics Bar */}

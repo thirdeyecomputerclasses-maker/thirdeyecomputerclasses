@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { ShieldCheck, FileCheck, Award, ArrowUpRight, CheckCircle2, PhoneCall, QrCode } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -85,21 +84,15 @@ export default function CertificationProcessCTA() {
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
-            <Link
-              to="/apply-certificate"
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSdDtLEpiKX4qeeR8YN2-HJ1jy9O7YvjaJh6HaalI7XTPyZ6aA/viewform"
+              target="_blank"
+              rel="noopener noreferrer"
               className="group inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-bold text-sm sm:text-base text-zinc-950 bg-gradient-to-r from-[#ffe894] via-[#f6d96b] to-[#f59e0b] hover:from-[#fff0ad] hover:via-[#fedf7c] hover:to-[#f59e0b] shadow-[0_0_25px_rgba(246,217,107,0.35)] hover:shadow-[0_0_35px_rgba(246,217,107,0.55)] transition-all duration-200 hover:-translate-y-0.5"
             >
               <span>Apply for Certificate</span>
               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </Link>
-
-            <Link
-              to="/certificate-verification"
-              className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm sm:text-base text-zinc-200 bg-[#120e08]/90 border border-[#f6d96b]/30 hover:border-[#f6d96b]/60 hover:text-white hover:bg-[#1c160d] backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5"
-            >
-              <ShieldCheck className="w-4 h-4 text-[#f6d96b]" />
-              <span>Certificate Verification Portal</span>
-            </Link>
+            </a>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 pt-5 border-t border-white/[0.08] text-xs font-mono text-zinc-400">

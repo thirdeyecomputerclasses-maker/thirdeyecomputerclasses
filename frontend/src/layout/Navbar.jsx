@@ -194,9 +194,12 @@ export default function Navbar() {
                 {/* 2. COURSES (Direct Link - NO Dropdown per User Request) */}
                 <li>
                   <Link
-                    to="/courses"
+                    to="/our-courses"
                     className={`px-3.5 py-1.5 rounded-full text-[13px] xl:text-[14px] font-medium tracking-wide transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] ${
-                      isActive("/courses") || isActive("/courses/2d-3d-animation")
+                      isActive("/our-courses") ||
+                      isActive("/courses") ||
+                      isActive("/courses/2d-3d-animation") ||
+                      isActive("/our-courses/2d-3d-animation")
                         ? "text-[#f3cf65] bg-[#f3cf65]/15 font-semibold shadow-[0_0_12px_rgba(243,207,101,0.15)]"
                         : "text-zinc-300 hover:text-white hover:bg-white/[0.05]"
                     }`}
@@ -221,9 +224,9 @@ export default function Navbar() {
                       )
                     }
                     className={`flex items-center gap-1 px-3.5 py-1.5 rounded-full text-[13px] xl:text-[14px] font-medium tracking-wide transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] ${
+                      isActive("/certifications") ||
                       isActive("/our-certification") ||
                       isActive("/apply-certificate") ||
-                      isActive("/certificate-verification") ||
                       activeDropdown === "certification"
                         ? "text-[#f3cf65] bg-[#f3cf65]/15 font-semibold"
                         : "text-zinc-300 hover:text-white hover:bg-white/[0.05]"
@@ -248,7 +251,7 @@ export default function Navbar() {
                       <div className="bg-[#0e0c08]/98 border border-[#2a2217] rounded-2xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.92),0_0_30px_rgba(246,217,107,0.08)] backdrop-blur-2xl">
                         {/* 1. Our Certification */}
                         <Link
-                          to="/our-certification"
+                          to="/certifications"
                           role="menuitem"
                           className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#f6d96b]/10 group transition-all"
                         >
@@ -266,8 +269,10 @@ export default function Navbar() {
                         </Link>
 
                         {/* 2. Apply for Certificate */}
-                        <Link
-                          to="/apply-certificate"
+                        <a
+                          href="https://docs.google.com/forms/d/e/1FAIpQLSdDtLEpiKX4qeeR8YN2-HJ1jy9O7YvjaJh6HaalI7XTPyZ6aA/viewform"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           role="menuitem"
                           className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#f6d96b]/10 group transition-all mt-1"
                         >
@@ -275,40 +280,17 @@ export default function Navbar() {
                             <FileCheck className="w-4 h-4" />
                           </div>
                           <div>
-                            <div className="text-sm font-semibold text-zinc-100 group-hover:text-[#f6d96b] transition-colors">
-                              Apply for Certificate
+                            <div className="text-sm font-semibold text-zinc-100 group-hover:text-[#f6d96b] transition-colors flex items-center gap-1.5">
+                              <span>Apply for Certificate</span>
+                              <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-[#f6d96b]" />
                             </div>
                             <p className="text-xs text-zinc-400 line-clamp-1">
                               Submit your final exam & roll details
                             </p>
                           </div>
-                        </Link>
+                        </a>
 
-                        {/* 3. Certificate Verification */}
-                        <Link
-                          to="/certificate-verification"
-                          role="menuitem"
-                          className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#f6d96b]/10 group transition-all mt-1"
-                        >
-                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5">
-                            <CheckCircle2 className="w-4 h-4" />
-                          </div>
-                          <div className="flex-1">
-                            <div className="flex items-center justify-between">
-                              <span className="text-sm font-semibold text-zinc-100 group-hover:text-[#f3cf65] transition-colors">
-                                Certificate Verification
-                              </span>
-                              <span className="text-[9px] font-mono font-bold bg-[#f3cf65] text-black px-1.5 py-0.5 rounded">
-                                INSTANT
-                              </span>
-                            </div>
-                            <p className="text-xs text-zinc-400 line-clamp-1">
-                              Instant employer validation via Roll Number
-                            </p>
-                          </div>
-                        </Link>
-
-                        {/* 4. Free Skill Assessments */}
+                        {/* 3. Free Skill Assessments */}
                         <Link
                           to="/assessments"
                           role="menuitem"
@@ -352,8 +334,11 @@ export default function Navbar() {
                       )
                     }
                     className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[13px] xl:text-[14px] font-medium tracking-wide transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] ${
+                      isActive("/students-review-2") ||
                       isActive("/student-reviews") ||
+                      isActive("/jobs-placement") ||
                       isActive("/jobs-and-placement") ||
+                      isActive("/our-team-new") ||
                       isActive("/our-team") ||
                       isActive("/sweet-memories") ||
                       activeDropdown === "riseAndShine"
@@ -381,7 +366,7 @@ export default function Navbar() {
                       <div className="bg-[#0e0c08]/98 border border-[#2a2217] rounded-2xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.92),0_0_30px_rgba(246,217,107,0.08)] backdrop-blur-2xl">
                         {/* Student Reviews */}
                         <Link
-                          to="/student-reviews"
+                          to="/students-review-2"
                           role="menuitem"
                           className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#f6d96b]/10 group transition-all"
                         >
@@ -403,7 +388,7 @@ export default function Navbar() {
 
                         {/* Jobs & Placement */}
                         <Link
-                          to="/jobs-and-placement"
+                          to="/jobs-placement"
                           role="menuitem"
                           className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#f6d96b]/10 group transition-all mt-1"
                         >
@@ -422,7 +407,7 @@ export default function Navbar() {
 
                         {/* Our Team */}
                         <Link
-                          to="/our-team"
+                          to="/our-team-new"
                           role="menuitem"
                           className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#f6d96b]/10 group transition-all mt-1"
                         >
@@ -478,6 +463,7 @@ export default function Navbar() {
                       )
                     }
                     className={`flex items-center gap-1 px-3.5 py-1.5 rounded-full text-[13px] xl:text-[14px] font-medium tracking-wide transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] ${
+                      isActive("/trusted-computer-classes-in-jaipur") ||
                       isActive("/about-us") ||
                       isActive("/contact-us") ||
                       activeDropdown === "company"
@@ -503,7 +489,7 @@ export default function Navbar() {
                     >
                       <div className="bg-[#0e0c08]/98 border border-[#2a2217] rounded-2xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.92),0_0_30px_rgba(246,217,107,0.08)] backdrop-blur-2xl">
                         <Link
-                          to="/about-us"
+                          to="/trusted-computer-classes-in-jaipur"
                           role="menuitem"
                           className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#f6d96b]/10 group transition-all"
                         >
@@ -715,10 +701,13 @@ export default function Navbar() {
 
             {/* 2. Courses (Direct Link - NO Accordion/Dropdown) */}
             <Link
-              to="/courses"
+              to="/our-courses"
               onClick={() => setMobileMenuOpen(false)}
               className={`flex items-center justify-between p-3 rounded-xl text-sm font-medium transition-all ${
-                isActive("/courses") || isActive("/courses/2d-3d-animation")
+                isActive("/our-courses") ||
+                isActive("/courses") ||
+                isActive("/courses/2d-3d-animation") ||
+                isActive("/our-courses/2d-3d-animation")
                   ? "bg-[#f6d96b]/15 text-[#f6d96b] font-semibold border border-[#f6d96b]/30"
                   : "text-zinc-200 hover:bg-[#18130d]"
               }`}
@@ -756,31 +745,23 @@ export default function Navbar() {
               {mobileExpanded.certification && (
                 <div className="px-3 pb-3 pt-1 space-y-1 border-t border-[#241d14]">
                   <Link
-                    to="/our-certification"
+                    to="/certifications"
                     onClick={() => setMobileMenuOpen(false)}
                     className="flex items-center justify-between p-2 rounded-lg text-xs text-zinc-300 hover:text-[#f6d96b] hover:bg-[#f6d96b]/10 transition-colors"
                   >
                     <span>Our Certification</span>
                     <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500" />
                   </Link>
-                  <Link
-                    to="/apply-certificate"
+                  <a
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSdDtLEpiKX4qeeR8YN2-HJ1jy9O7YvjaJh6HaalI7XTPyZ6aA/viewform"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     onClick={() => setMobileMenuOpen(false)}
                     className="flex items-center justify-between p-2 rounded-lg text-xs text-zinc-300 hover:text-[#f6d96b] hover:bg-[#f6d96b]/10 transition-colors"
                   >
                     <span>Apply for Certificate</span>
                     <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500" />
-                  </Link>
-                  <Link
-                    to="/certificate-verification"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center justify-between p-2 rounded-lg text-xs text-[#f6d96b] font-semibold hover:bg-[#f6d96b]/10 transition-colors"
-                  >
-                    <span>Instant Verification</span>
-                    <span className="text-[9px] font-mono bg-[#f6d96b] text-black px-1.5 py-0.2 rounded font-bold">
-                      FAST
-                    </span>
-                  </Link>
+                  </a>
                   <Link
                     to="/assessments"
                     onClick={() => setMobileMenuOpen(false)}
@@ -819,7 +800,7 @@ export default function Navbar() {
               {mobileExpanded.riseAndShine && (
                 <div className="px-3 pb-3 pt-1 space-y-1 border-t border-[#241d14]">
                   <Link
-                    to="/student-reviews"
+                    to="/students-review-2"
                     onClick={() => setMobileMenuOpen(false)}
                     className="flex items-center justify-between p-2 rounded-lg text-xs text-zinc-300 hover:text-[#f6d96b] hover:bg-[#f6d96b]/10 transition-colors"
                   >
@@ -830,7 +811,7 @@ export default function Navbar() {
                     <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500" />
                   </Link>
                   <Link
-                    to="/jobs-and-placement"
+                    to="/jobs-placement"
                     onClick={() => setMobileMenuOpen(false)}
                     className="flex items-center justify-between p-2 rounded-lg text-xs text-zinc-300 hover:text-[#f6d96b] hover:bg-[#f6d96b]/10 transition-colors"
                   >
@@ -841,7 +822,7 @@ export default function Navbar() {
                     <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500" />
                   </Link>
                   <Link
-                    to="/our-team"
+                    to="/our-team-new"
                     onClick={() => setMobileMenuOpen(false)}
                     className="flex items-center justify-between p-2 rounded-lg text-xs text-zinc-300 hover:text-[#f6d96b] hover:bg-[#f6d96b]/10 transition-colors"
                   >
@@ -888,7 +869,7 @@ export default function Navbar() {
               {mobileExpanded.company && (
                 <div className="px-3 pb-3 pt-1 space-y-1 border-t border-[#241d14]">
                   <Link
-                    to="/about-us"
+                    to="/trusted-computer-classes-in-jaipur"
                     onClick={() => setMobileMenuOpen(false)}
                     className="flex items-center justify-between p-2 rounded-lg text-xs text-zinc-300 hover:text-[#f6d96b] hover:bg-[#f6d96b]/10 transition-colors"
                   >
@@ -1008,10 +989,10 @@ export default function Navbar() {
             ],
             "url": [
               "/",
-              "/courses",
-              "/our-certification",
-              "/student-reviews",
-              "/about-us",
+              "/our-courses",
+              "/certifications",
+              "/students-review-2",
+              "/trusted-computer-classes-in-jaipur",
               "/franchise",
               "/pay-now"
             ]

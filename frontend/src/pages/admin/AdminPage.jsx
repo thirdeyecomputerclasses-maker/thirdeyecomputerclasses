@@ -37,6 +37,7 @@ import {
   Award,
   GraduationCap,
   CheckSquare,
+  UploadCloud,
 } from "lucide-react";
 import { useClerk } from "@clerk/react";
 import {
@@ -78,6 +79,7 @@ import AssessmentFormModal from "./components/AssessmentFormModal";
 import DeleteConfirmModal from "./components/DeleteConfirmModal";
 import AdminGateScreen from "./AdminGateScreen";
 import SecurityManagerTab from "./components/SecurityManagerTab";
+import UploadMediaPage from "../uploadMedia/UploadMediaPage";
 import "./AdminPage.css";
 
 export default function AdminPage() {
@@ -874,6 +876,7 @@ export default function AdminPage() {
   const canAccessAssessments = role === "global_admin" || role === "course_admin";
   const canAccessForms = role === "global_admin" || role === "submissions_admin";
   const canAccessSecurity = role === "global_admin";
+  const canAccessMedia = role === "global_admin";
 
   return (
     <div className="admin-page">
@@ -975,6 +978,7 @@ export default function AdminPage() {
               {activeSection === "assessments" && "Skill Assessments & Quizzes"}
               {activeSection === "forms" && "Website Form Submissions"}
               {activeSection === "security" && "Security Clearance & Access Keys"}
+              {activeSection === "media" && "Add Photos/Videos Management"}
             </h1>
             <p className="admin-subtitle">
               {activeSection === "courses" &&
@@ -989,34 +993,38 @@ export default function AdminPage() {
                 "Live applicant messages and leads uploaded to MongoDB from Contact Us, Franchise Inquiries, and Job Applications."}
               {activeSection === "security" &&
                 "Configure passwords for each of the 4 admin levels and inspect recent login audit events."}
+              {activeSection === "media" &&
+                "Replace existing section photos and videos across supported pages with instant ImageKit CDN synchronization."}
             </p>
           </div>
 
           <div className="admin-header-actions">
-            <button
-              className="admin-refresh-btn"
-              onClick={() => {
-                if (activeSection === "courses") loadCourses();
-                else if (activeSection === "jobs") loadJobs();
-                else if (activeSection === "blogs") loadBlogs();
-                else if (activeSection === "assessments") loadAssessments();
-                else if (activeSection === "forms") loadSubmissions();
-              }}
-              title="Refresh data"
-            >
-              <RefreshCw
-                size={17}
-                className={
-                  (activeSection === "courses" && isLoadingCourses) ||
-                  (activeSection === "jobs" && isLoadingJobs) ||
-                  (activeSection === "blogs" && isLoadingBlogs) ||
-                  (activeSection === "assessments" && isLoadingAssessments) ||
-                  (activeSection === "forms" && isLoadingSubmissions)
-                    ? "spin"
-                    : ""
-                }
-              />
-            </button>
+            {activeSection !== "security" && activeSection !== "media" && (
+              <button
+                className="admin-refresh-btn"
+                onClick={() => {
+                  if (activeSection === "courses") loadCourses();
+                  else if (activeSection === "jobs") loadJobs();
+                  else if (activeSection === "blogs") loadBlogs();
+                  else if (activeSection === "assessments") loadAssessments();
+                  else if (activeSection === "forms") loadSubmissions();
+                }}
+                title="Refresh data"
+              >
+                <RefreshCw
+                  size={17}
+                  className={
+                    (activeSection === "courses" && isLoadingCourses) ||
+                    (activeSection === "jobs" && isLoadingJobs) ||
+                    (activeSection === "blogs" && isLoadingBlogs) ||
+                    (activeSection === "assessments" && isLoadingAssessments) ||
+                    (activeSection === "forms" && isLoadingSubmissions)
+                      ? "spin"
+                      : ""
+                  }
+                />
+              </button>
+            )}
             {activeSection === "courses" && canAccessCourses && (
               <button className="admin-add-btn" onClick={handleOpenCreateCourse}>
                 <Plus size={18} />
@@ -1141,6 +1149,20 @@ export default function AdminPage() {
             >
               <KeyRound size={18} />
               <span>Security & Passwords</span>
+            </button>
+          )}
+
+          {canAccessMedia && (
+            <button
+              type="button"
+              className={`admin-section-tab-btn ${
+                activeSection === "media" ? "active" : ""
+              }`}
+              onClick={() => setActiveSection("media")}
+            >
+              <UploadCloud size={18} />
+              <span>Add Photos/Videos</span>
+              <span className="section-count-badge" style={{ background: "rgba(245, 158, 11, 0.2)", color: "#fbbf24" }}>Global</span>
             </button>
           )}
         </div>
@@ -1268,7 +1290,7 @@ export default function AdminPage() {
                     <div className="admin-card-body">
                       <h3 className="admin-card-title">{course.title}</h3>
                       <div className="admin-card-slug">
-                        /courses/{course.slug}
+                        /our-courses/{course.slug}
                       </div>
                       <p className="admin-card-desc">
                         {course.description ||
@@ -1291,7 +1313,7 @@ export default function AdminPage() {
                     {/* Actions */}
                     <div className="admin-card-actions">
                       <Link
-                        to={`/courses/${course.slug}`}
+                        to={`/our-courses/${course.slug}`}
                         className="admin-action-btn view"
                         title="View live course page"
                       >
@@ -2518,6 +2540,15 @@ export default function AdminPage() {
         {/* ========================================================= */}
         {activeSection === "security" && role === "global_admin" && (
           <SecurityManagerTab showToast={showToast} />
+        )}
+
+        {/* ========================================================= */}
+        {/* TAB 6: PHOTOS & VIDEOS (GLOBAL ADMIN ONLY)                */}
+        {/* ========================================================= */}
+        {activeSection === "media" && role === "global_admin" && (
+          <div className="admin-media-tab-wrapper">
+            <UploadMediaPage embedded={true} />
+          </div>
         )}
       </div>
 

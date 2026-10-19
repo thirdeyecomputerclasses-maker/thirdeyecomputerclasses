@@ -347,7 +347,7 @@ export default function BlogDetailPage() {
                 Master practical engineering in live studio labs at Third Eye.
               </p>
               <Link
-                to="/courses"
+                to="/our-courses"
                 className="inline-flex items-center gap-1.5 text-xs font-bold text-yellow-400 hover:text-yellow-300"
               >
                 <span>Browse All Courses</span>
