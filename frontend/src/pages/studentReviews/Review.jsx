@@ -1,13 +1,39 @@
-import React, { memo, useRef, useCallback } from 'react';
+import React, { memo, useRef, useCallback, useState, useEffect } from 'react';
 import './Review.css';
 import VideoCarousel from './components/VideoCarousel';
 import ReviewTrail from './components/ReviewTrail';
 import FoldText from './components/FoldText';
 import StrokeText from './components/StrokeText';
 import { VIDEO_TESTIMONIALS } from './studentReviewsData';
+import { fetchMedia } from '../../services/mediaApi';
 
 function Review() {
   const haloRef = useRef(null);
+  const [videoTestimonials, setVideoTestimonials] = useState(VIDEO_TESTIMONIALS);
+
+  useEffect(() => {
+    fetchMedia({ page: "reviews", type: "video" })
+      .then((data) => {
+        if (!data || data.length === 0) return;
+        setVideoTestimonials((prev) =>
+          prev.map((item, idx) => {
+            const slotKey = `reviews_video_${idx + 1}`;
+            const foundSlot = data.find((s) => s.slotKey === slotKey);
+            if (foundSlot?.url) {
+              return {
+                ...item,
+                videoId: foundSlot.url.includes("v=")
+                  ? foundSlot.url.split("v=")[1]?.split("&")[0]
+                  : item.videoId,
+                customUrl: foundSlot.url,
+              };
+            }
+            return item;
+          })
+        );
+      })
+      .catch(() => {});
+  }, []);
 
   const handleMouseMove = useCallback((e) => {
     if (!haloRef.current) return;
@@ -97,7 +123,7 @@ function Review() {
       <section className="reviews-section">
         {/* React Bits 3D Video Carousel */}
         <VideoCarousel
-          items={VIDEO_TESTIMONIALS}
+          items={videoTestimonials}
           baseWidth={380}
           autoplay={false}
           loop={true}

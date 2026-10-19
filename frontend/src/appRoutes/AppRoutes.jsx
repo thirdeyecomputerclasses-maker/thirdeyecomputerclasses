@@ -24,6 +24,7 @@ function PlaceholderPage({ title, subtitle }) {
 
 import HomePage from "../pages/home/HomePage";
 import Courses from "../pages/course/Courses";
+import CompareCourses from "../pages/course/CompareCourses";
 import CourseDetails from "../pages/courseDetails/CourseDetails";
 import AdminPage from "../pages/admin/AdminPage";
 import OurTeam from "../pages/team/OurTeam";
@@ -40,6 +41,34 @@ import BlogDetailPage from "../pages/blogs/BlogDetailPage";
 import AssessmentsHub from "../pages/assessments/AssessmentsHub";
 import AssessmentTestPage from "../pages/assessments/AssessmentTestPage";
 import NearestBranchFinder from "../pages/branchFinder/NearestBranchFinder";
+import PayNowPage from "../pages/payNow/PayNowPage";
+import UploadMediaPage from "../pages/uploadMedia/UploadMediaPage";
+
+function ApplyCertificateRedirect() {
+  React.useEffect(() => {
+    window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSdDtLEpiKX4qeeR8YN2-HJ1jy9O7YvjaJh6HaalI7XTPyZ6aA/viewform";
+  }, []);
+
+  return (
+    <div className="max-w-md mx-auto px-4 pt-36 pb-24 text-center">
+      <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-yellow-400/10 text-yellow-400 border border-yellow-400/20 mb-4">
+        Redirecting
+      </div>
+      <h1 className="text-2xl font-bold text-white mb-3">Apply for Certificate</h1>
+      <p className="text-zinc-400 text-sm mb-6">
+        Opening official Certificate Application Form...
+      </p>
+      <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLSdDtLEpiKX4qeeR8YN2-HJ1jy9O7YvjaJh6HaalI7XTPyZ6aA/viewform"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-bold text-black bg-[#f6d96b] hover:bg-[#ffe07a] transition-all"
+      >
+        Click here if not redirected automatically
+      </a>
+    </div>
+  );
+}
 
 export default function AppRoutes() {
   return (
@@ -47,13 +76,36 @@ export default function AppRoutes() {
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
         <Route path="admin" element={<AdminPage />} />
+
+        {/* Courses Routes */}
+        <Route path="our-courses" element={<Courses />} />
         <Route path="courses" element={<Courses />} />
+        <Route
+          path="our-courses/compare-courses"
+          element={<CompareCourses />}
+        />
+        <Route
+          path="courses/compare-courses"
+          element={<CompareCourses />}
+        />
+        <Route
+          path="our-courses/2d-3d-animation"
+          element={<CourseDetails />}
+        />
         <Route
           path="courses/2d-3d-animation"
           element={<CourseDetails />}
         />
         <Route
+          path="our-courses/3d-cad-matrix"
+          element={<CourseDetails />}
+        />
+        <Route
           path="courses/3d-cad-matrix"
+          element={<CourseDetails />}
+        />
+        <Route
+          path="our-courses/:courseSlug"
           element={<CourseDetails />}
         />
         <Route
@@ -64,9 +116,18 @@ export default function AppRoutes() {
           path="course-details"
           element={<CourseDetails />}
         />
+
         {/* Company Dropdown Routes */}
         <Route
+          path="trusted-computer-classes-in-jaipur"
+          element={<AboutPage />}
+        />
+        <Route
           path="about-us"
+          element={<AboutPage />}
+        />
+        <Route
+          path="about"
           element={<AboutPage />}
         />
         <Route
@@ -80,19 +141,31 @@ export default function AppRoutes() {
 
         {/* Certification Dropdown Routes */}
         <Route
+          path="certifications"
+          element={<OurCertificationPage />}
+        />
+        <Route
           path="our-certification"
           element={<OurCertificationPage />}
         />
         <Route
-          path="apply-certificate"
-          element={<PlaceholderPage title="Apply for Certificate" subtitle="Submit your student details and examination roll number to request your certificate." />}
+          path="certification"
+          element={<OurCertificationPage />}
         />
         <Route
-          path="certificate-verification"
-          element={<PlaceholderPage title="Certificate Verification" subtitle="Instant online verification system for student credentials and authenticity." />}
+          path="apply-certificate"
+          element={<ApplyCertificateRedirect />}
+        />
+        <Route
+          path="apply-for-certificate"
+          element={<ApplyCertificateRedirect />}
         />
 
         {/* Rise and Shine Dropdown Routes */}
+        <Route
+          path="students-review-2"
+          element={<Review />}
+        />
         <Route
           path="student-reviews"
           element={<Review />}
@@ -104,6 +177,14 @@ export default function AppRoutes() {
         <Route
           path="review"
           element={<Review />}
+        />
+        <Route
+          path="jobs-placement"
+          element={<JobsAndPlacement />}
+        />
+        <Route
+          path="jobs-placement/:jobSlug"
+          element={<JobDetailPage />}
         />
         <Route
           path="jobs-and-placement"
@@ -126,6 +207,10 @@ export default function AppRoutes() {
           element={<JobDetailPage />}
         />
         <Route
+          path="our-team-new"
+          element={<OurTeam />} 
+        />
+        <Route
           path="our-team"
           element={<OurTeam />} 
         />
@@ -145,7 +230,15 @@ export default function AppRoutes() {
         />
         <Route
           path="pay-now"
-          element={<PlaceholderPage title="Pay Now" subtitle="Secure fee payment portal for course tuition, registration, and examination fees." />}
+          element={<PayNowPage />}
+        />
+        <Route
+          path="pay-online"
+          element={<PayNowPage />}
+        />
+        <Route
+          path="payment"
+          element={<PayNowPage />}
         />
 
         {/* Blogs CMS Routes */}
@@ -165,6 +258,10 @@ export default function AppRoutes() {
         <Route path="nearest-branch" element={<NearestBranchFinder />} />
         <Route path="branch-finder" element={<NearestBranchFinder />} />
         <Route path="branches" element={<NearestBranchFinder />} />
+
+        {/* Public Media & ImageKit Upload Routes */}
+        <Route path="upload-images" element={<UploadMediaPage />} />
+        <Route path="upload-media" element={<UploadMediaPage />} />
 
         {/* Fallback 404 */}
         <Route

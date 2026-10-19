@@ -2,11 +2,24 @@ import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Users, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import teamPhotoLocal from "../../../assets/team_photo.webp";
+import aboutTeamPhoto from "../../../assets/about_team_photo.webp";
+import { fetchMedia } from "../../../services/mediaApi";
 
 export default function AboutScrollExpandTeam() {
   const containerRef = useRef(null);
+  const [teamImage, setTeamImage] = useState(aboutTeamPhoto);
   const [isDesktop, setIsDesktop] = useState(true);
+
+  useEffect(() => {
+    fetchMedia({ page: "about", type: "image" })
+      .then((data) => {
+        const slot = data?.find((s) => s.slotKey === "about_team_photo");
+        if (slot?.url) {
+          setTeamImage(slot.url);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const checkWidth = () => {
@@ -98,7 +111,7 @@ export default function AboutScrollExpandTeam() {
 
               <div className="flex items-center gap-4">
                 <Link
-                  to="/our-team"
+                  to="/our-team-new"
                   className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-white/[0.06] hover:bg-[#f6d96b]/15 text-zinc-200 hover:text-white border border-white/10 hover:border-[#f6d96b]/35 transition-all duration-200"
                 >
                   <span>Meet All Faculty & Mentors</span>
@@ -146,13 +159,9 @@ export default function AboutScrollExpandTeam() {
             className="relative z-20 overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.9)] border border-[#f6d96b]/30 bg-[#0a0805] shrink-0"
           >
             <img
-              src={teamPhotoLocal}
-              onError={(e) => {
-                // Fallback to CDN if local fails for any reason
-                e.currentTarget.src = "https://px.pixxo.io/sheryians/about-us/d7b0b773a6fe6afc9f71ba24.webp";
-              }}
-              alt="Third Eye Team"
-              className="w-full h-full object-cover object-center"
+              src={teamImage}
+              alt="Third Eye Core Mentors & Team"
+              className="w-full h-full object-cover object-[center_28%]"
             />
 
             {/* Gradient shadow edges */}
@@ -173,7 +182,7 @@ export default function AboutScrollExpandTeam() {
               </div>
 
               <Link
-                to="/our-team"
+                to="/our-team-new"
                 className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-black bg-[#f6d96b] hover:bg-[#ffe07a] transition-colors"
               >
                 <span>Full Team Profile</span>

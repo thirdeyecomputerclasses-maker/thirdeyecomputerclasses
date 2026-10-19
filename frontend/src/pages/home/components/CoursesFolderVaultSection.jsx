@@ -22,7 +22,7 @@ const vaultCourseItems = [
     accentColor: "#10b981",
     image:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=200&auto=format&fit=crop&q=80",
-    link: "/courses",
+    link: "/our-courses",
   },
   {
     value: "uiux",
@@ -31,7 +31,7 @@ const vaultCourseItems = [
     accentColor: "#a855f7",
     image:
       "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=200&auto=format&fit=crop&q=80",
-    link: "/courses",
+    link: "/our-courses",
   },
   {
     value: "software",
@@ -40,7 +40,7 @@ const vaultCourseItems = [
     accentColor: "#38bdf8",
     image:
       "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=200&auto=format&fit=crop&q=80",
-    link: "/courses",
+    link: "/our-courses",
   },
   {
     value: "video",
@@ -49,7 +49,7 @@ const vaultCourseItems = [
     accentColor: "#f6d96b",
     image:
       "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=200&auto=format&fit=crop&q=80",
-    link: "/courses",
+    link: "/our-courses",
   },
 ];
 
@@ -65,7 +65,7 @@ const disciplineCards = [
     tools: ["Meta Ads", "Google GA4", "Growth SEO", "Funnels"],
     icon: TrendingUp,
     color: "#10b981", // Emerald Green
-    link: "/courses",
+    link: "/our-courses",
   },
   {
     id: "uiux",
@@ -77,7 +77,7 @@ const disciplineCards = [
     tools: ["Figma Systems", "Prototyping", "Design Tokens", "Wireframing"],
     icon: Palette,
     color: "#c084fc", // Electric Violet
-    link: "/courses",
+    link: "/our-courses",
   },
   {
     id: "software",
@@ -89,7 +89,7 @@ const disciplineCards = [
     tools: ["React 19", "Python AI", "Node.js", "Docker"],
     icon: Code2,
     color: "#38bdf8", // Cyber Blue
-    link: "/courses",
+    link: "/our-courses",
   },
   {
     id: "video",
@@ -101,7 +101,7 @@ const disciplineCards = [
     tools: ["Premiere Pro", "DaVinci Color", "After Effects", "Sound FX"],
     icon: Film,
     color: "#f6d96b", // Cinematic Gold
-    link: "/courses",
+    link: "/our-courses",
   },
 ];
 
@@ -351,20 +351,28 @@ export default function CoursesFolderVaultSection() {
             {/* Action Row */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
               <Link
-                to="/courses"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-semibold text-xs sm:text-sm text-zinc-950 bg-[#f6d96b] hover:bg-[#fae183] transition-all duration-200 shadow-[0_4px_16px_rgba(246,217,107,0.22)] group cursor-pointer"
+                to="/our-courses?finder=true"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-semibold text-xs sm:text-sm text-[#000000] bg-[#f6d96b] hover:bg-[#fae183] transition-all duration-200 shadow-[0_4px_16px_rgba(246,217,107,0.25)] group cursor-pointer"
               >
-                <BookOpen className="w-4 h-4 text-zinc-950" />
-                <span>Explore All 300+ Courses</span>
+                <Sparkles className="w-4 h-4 text-black animate-pulse" />
+                <span>Smart Course Finder</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
 
               <Link
-                to="/contact"
+                to="/our-courses"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-medium text-xs sm:text-sm text-zinc-300 hover:text-white bg-[#14120e] hover:bg-[#1c1913] border border-white/[0.1] transition-all duration-200 cursor-pointer"
               >
+                <BookOpen className="w-4 h-4 text-[#f6d96b]" />
+                <span>Browse All Courses</span>
+              </Link>
+
+              <Link
+                to="/contact"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full font-medium text-xs sm:text-sm text-zinc-400 hover:text-zinc-200 bg-transparent hover:bg-white/[0.04] border border-white/[0.08] transition-all duration-200 cursor-pointer"
+              >
                 <CheckCircle2 className="w-4 h-4 text-[#f6d96b]" />
-                <span>Book Free 2-Day Trial</span>
+                <span>Free Trial</span>
               </Link>
             </div>
 

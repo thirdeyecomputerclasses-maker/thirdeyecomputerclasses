@@ -156,6 +156,12 @@ export default function SmartEnquiryModal({ isOpen, onClose, contextData }) {
         },
       });
 
+      if (typeof sessionStorage !== "undefined") {
+        try {
+          sessionStorage.setItem("smart_enquiry_submitted", "true");
+        } catch {}
+      }
+
       setIsSubmitting(false);
       setSubmittedSuccess(true);
     } catch (err) {

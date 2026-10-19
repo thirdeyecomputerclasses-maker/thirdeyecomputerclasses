@@ -363,6 +363,136 @@
   background: #f9dc77;
 }
 
+/* Compare Courses Banner */
+.compare-courses-banner {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  padding: 22px 28px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(23, 27, 41, 0.95), rgba(14, 17, 26, 0.98));
+  border: 1px solid rgba(246, 217, 107, 0.25);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.compare-courses-banner::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #f6d96b;
+}
+
+.compare-banner-left {
+  flex: 1;
+  min-width: 280px;
+}
+
+.compare-banner-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #f6d96b;
+  background: rgba(246, 217, 107, 0.1);
+  padding: 3px 9px;
+  border-radius: 6px;
+  border: 1px solid rgba(246, 217, 107, 0.25);
+  margin-bottom: 8px;
+}
+
+.compare-banner-title {
+  margin: 0 0 6px;
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+}
+
+.compare-banner-desc {
+  margin: 0;
+  font-size: 13.5px;
+  color: #94a3b8;
+  line-height: 1.5;
+  max-width: 680px;
+}
+
+.compare-banner-right {
+  display: flex;
+  align-items: center;
+}
+
+.btn-compare-courses-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f6d96b, #e0be43);
+  border: 1px solid #ffe885;
+  color: #000000;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(246, 217, 107, 0.35);
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.btn-compare-courses-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(246, 217, 107, 0.5);
+  background: linear-gradient(135deg, #ffe07a, #e8c64d);
+}
+
+/* Course Card Action Buttons */
+.course-card-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.course-card-actions-row .course-card-demo-btn {
+  margin-top: 0;
+  flex: 1;
+}
+
+.course-card-compare-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  font-size: 12.5px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.course-card-compare-btn:hover {
+  background: rgba(246, 217, 107, 0.15);
+  border-color: rgba(246, 217, 107, 0.4);
+  color: #f6d96b;
+}
+
 /* Responsive */
 @media (max-width: 900px) {
   .course-page {

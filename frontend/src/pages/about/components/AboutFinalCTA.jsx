@@ -33,7 +33,7 @@ export default function AboutFinalCTA() {
 
           <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
             <Link
-              to="/courses"
+              to="/our-courses"
               className="group inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold text-sm sm:text-base text-zinc-950 bg-gradient-to-r from-[#ffe894] via-[#f6d96b] to-[#f59e0b] hover:from-[#fff0ad] hover:via-[#fedf7c] hover:to-[#f59e0b] shadow-[0_0_25px_rgba(246,217,107,0.35)] hover:shadow-[0_0_35px_rgba(246,217,107,0.55)] transition-all duration-200 hover:-translate-y-0.5"
             >
               <span>Explore 300+ Courses</span>

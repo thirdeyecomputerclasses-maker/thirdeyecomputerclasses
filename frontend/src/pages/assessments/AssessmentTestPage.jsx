@@ -329,7 +329,7 @@ export default function AssessmentTestPage() {
                     </p>
                     <div className="flex items-center gap-2 pt-2 border-t border-white/10">
                       <Link
-                        to={`/courses/${c.slug || ""}`}
+                        to={`/our-courses/${c.slug || ""}`}
                         className="text-xs font-bold text-yellow-400 hover:text-yellow-300 inline-flex items-center gap-1"
                       >
                         <span>View Syllabus</span>

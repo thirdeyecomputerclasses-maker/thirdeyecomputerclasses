@@ -25,6 +25,10 @@ import preetiSharma from "../assets/leadership/preeti_sharma.png";
 import eccouncilCodeRed from "../assets/certificates/eccouncil_codered.png";
 import redhatRhcsa from "../assets/certificates/redhat_rhcsa.png";
 import autodeskAutocad from "../assets/certificates/autodesk_autocad.webp";
+import awardSuumitSharma from "../assets/award_suumit_sharma.webp";
+import awardPreetiSharma from "../assets/award_preeti_sharma.webp";
+import awardCeremonyGroup from "../assets/award_ceremony_group.webp";
+import aboutTeamPhoto from "../assets/about_team_photo.webp";
 import track1 from "../assets/audio/ambient_music_theme.mp3";
 import track2 from "../assets/audio/ambient_track_2.mp3";
 import track3 from "../assets/audio/ambient_track_3.mp3";
@@ -63,6 +67,10 @@ export const CRITICAL_ASSETS = [
   { id: "eccouncilCodeRed", src: eccouncilCodeRed, label: "EC-Council Credentials" },
   { id: "redhatRhcsa", src: redhatRhcsa, label: "RedHat Enterprise Cert" },
   { id: "autodeskAutocad", src: autodeskAutocad, label: "Autodesk Design Standard" },
+  { id: "awardSuumitSharma", src: awardSuumitSharma, label: "Poornima Award Suumit Sharma" },
+  { id: "awardPreetiSharma", src: awardPreetiSharma, label: "Poornima Award Preeti Sharma" },
+  { id: "awardCeremonyGroup", src: awardCeremonyGroup, label: "Poornima Award Ceremony Group" },
+  { id: "aboutTeamPhoto", src: aboutTeamPhoto, label: "About Us Team Collective" },
   { id: "ambientAudio1", src: track1, label: "Background Music Track 1" },
   { id: "ambientAudio2", src: track2, label: "Background Music Track 2" },
   { id: "ambientAudio3", src: track3, label: "Background Music Track 3" },

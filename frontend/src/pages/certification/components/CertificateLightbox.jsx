@@ -1,7 +1,6 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ShieldCheck, Download, ExternalLink } from "lucide-react";
-import { Link } from "react-router-dom";
+import { X, ShieldCheck, Download, ExternalLink, FileCheck } from "lucide-react";
 
 export default function CertificateLightbox({ cert, onClose }) {
   if (!cert) return null;
@@ -62,14 +61,16 @@ export default function CertificateLightbox({ cert, onClose }) {
             </div>
 
             <div className="flex items-center gap-3 w-full sm:w-auto">
-              <Link
-                to="/certificate-verification"
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSdDtLEpiKX4qeeR8YN2-HJ1jy9O7YvjaJh6HaalI7XTPyZ6aA/viewform"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={onClose}
                 className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-black bg-[#f6d96b] hover:bg-[#ffe07a] transition-colors"
               >
-                <ShieldCheck className="w-3.5 h-3.5" />
-                <span>Verify Credential</span>
-              </Link>
+                <FileCheck className="w-3.5 h-3.5" />
+                <span>Apply for Certificate</span>
+              </a>
 
               <button
                 type="button"

@@ -121,14 +121,14 @@ export default function JobDetailPage() {
       <div className="job-detail-container">
         {/* Top Breadcrumb Navigation */}
         <div className="job-detail-top-nav">
-          <Link to="/jobs-and-placement" className="back-to-jobs-btn">
+          <Link to="/jobs-placement" className="back-to-jobs-btn">
             <ArrowLeft size={16} />
             <span>Back to All Openings</span>
           </Link>
           <div className="job-breadcrumbs">
             <Link to="/">Home</Link>
             <span className="crumb-sep">/</span>
-            <Link to="/jobs-and-placement">Jobs & Placements</Link>
+            <Link to="/jobs-placement">Jobs & Placements</Link>
             <span className="crumb-sep">/</span>
             <span className="crumb-current">{job.title}</span>
           </div>
@@ -421,7 +421,7 @@ export default function JobDetailPage() {
           <div className="other-openings-section">
             <div className="other-openings-header">
               <h3 className="other-openings-title">Explore Other Job Openings</h3>
-              <Link to="/jobs-and-placement" className="view-all-jobs-link">
+              <Link to="/jobs-placement" className="view-all-jobs-link">
                 <span>View All Openings</span>
                 <ArrowRight size={16} />
               </Link>

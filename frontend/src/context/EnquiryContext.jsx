@@ -45,6 +45,42 @@ function formatCourseFromSlug(slug) {
     .join(" ");
 }
 
+const MAX_AUTO_POPUPS_PER_SESSION = 2;
+const STORAGE_KEY_AUTO_COUNT = "smart_enquiry_auto_count";
+const STORAGE_KEY_SUBMITTED = "smart_enquiry_submitted";
+
+function getAutoPopupCount() {
+  if (typeof sessionStorage === "undefined") return 0;
+  try {
+    const val = sessionStorage.getItem(STORAGE_KEY_AUTO_COUNT);
+    const parsed = parseInt(val, 10);
+    return isNaN(parsed) ? 0 : parsed;
+  } catch {
+    return 0;
+  }
+}
+
+function incrementAutoPopupCount() {
+  if (typeof sessionStorage === "undefined") return 1;
+  try {
+    const current = getAutoPopupCount();
+    const updated = current + 1;
+    sessionStorage.setItem(STORAGE_KEY_AUTO_COUNT, updated.toString());
+    return updated;
+  } catch {
+    return 1;
+  }
+}
+
+function hasSubmittedInSession() {
+  if (typeof sessionStorage === "undefined") return false;
+  try {
+    return sessionStorage.getItem(STORAGE_KEY_SUBMITTED) === "true";
+  } catch {
+    return false;
+  }
+}
+
 const EnquiryContext = createContext(null);
 
 export function EnquiryProvider({ children }) {
@@ -60,6 +96,11 @@ export function EnquiryProvider({ children }) {
   const location = useLocation();
   const autoTimerRef = useRef(null);
   const lastAutoPoppedPath = useRef("");
+  const isOpenRef = useRef(false);
+
+  useEffect(() => {
+    isOpenRef.current = isOpen;
+  }, [isOpen]);
 
   // Explicit trigger by user clicking an "Enquire / Demo" button
   const openEnquiry = useCallback((initialData = {}) => {
@@ -87,16 +128,10 @@ export function EnquiryProvider({ children }) {
 
   const closeEnquiry = useCallback(() => {
     setIsOpen(false);
-    // Remember dismissal for this route during this session to respect user space
-    if (typeof sessionStorage !== "undefined" && location?.pathname) {
-      try {
-        sessionStorage.setItem("smart_enquiry_dismissed_" + location.pathname, Date.now().toString());
-      } catch {}
-    }
-  }, [location?.pathname]);
+  }, []);
 
   // =========================================================================
-  // AUTOMATIC POPUP ON RELOAD OR PAGE CHANGE
+  // AUTOMATIC POPUP ON RELOAD OR PAGE CHANGE (MAX 2 PER SESSION)
   // =========================================================================
   useEffect(() => {
     // Clear any previous timer on navigation
@@ -112,18 +147,8 @@ export function EnquiryProvider({ children }) {
       return;
     }
 
-    // Check if dismissed on this specific page recently (within last 4 minutes)
-    let wasRecentlyDismissed = false;
-    if (typeof sessionStorage !== "undefined") {
-      try {
-        const lastDismiss = sessionStorage.getItem("smart_enquiry_dismissed_" + path);
-        if (lastDismiss && Date.now() - parseInt(lastDismiss, 10) < 4 * 60 * 1000) {
-          wasRecentlyDismissed = true;
-        }
-      } catch {}
-    }
-
-    if (wasRecentlyDismissed) {
+    // Stop if user has already submitted or if max session limit (2 times) reached
+    if (hasSubmittedInSession() || getAutoPopupCount() >= MAX_AUTO_POPUPS_PER_SESSION) {
       return;
     }
 
@@ -134,7 +159,7 @@ export function EnquiryProvider({ children }) {
     let autoMode = "classroom";
     let delayMs = 3200; // 3.2 seconds gentle reading delay
 
-    if (path.startsWith("/courses/") || path.startsWith("/course/")) {
+    if (path.startsWith("/our-courses/") || path.startsWith("/courses/") || path.startsWith("/course/")) {
       const parts = path.split("/").filter(Boolean);
       const slug = parts[1] || "";
       autoCourse = formatCourseFromSlug(slug);
@@ -148,27 +173,32 @@ export function EnquiryProvider({ children }) {
       return;
     } else {
       // General landing pages (e.g. Home, Courses catalog, Contact)
-      autoSourcePage = document.title || "Third Eye Website";
+      autoSourcePage = (typeof document !== "undefined" && document.title) ? document.title : "Third Eye Website";
       delayMs = 4500;
     }
 
     // Launch gentle auto-popup timer
     autoTimerRef.current = setTimeout(() => {
-      // Only pop up if modal isn't already open and path hasn't changed
-      setIsOpen((alreadyOpen) => {
-        if (!alreadyOpen) {
-          lastAutoPoppedPath.current = path;
-          setEnquiryContextData({
-            course: autoCourse,
-            sourcePage: autoSourcePage,
-            preferredBranch: autoBranch,
-            learningMode: autoMode,
-            initialNote: "",
-          });
-          return true;
-        }
-        return alreadyOpen;
+      // Guard against opening if already open, already submitted, or reached 2 per session
+      if (isOpenRef.current) {
+        return;
+      }
+      if (hasSubmittedInSession() || getAutoPopupCount() >= MAX_AUTO_POPUPS_PER_SESSION) {
+        return;
+      }
+
+      // Record this popup in sessionStorage so it only shows 2 times per session even across page reloads
+      incrementAutoPopupCount();
+
+      lastAutoPoppedPath.current = path;
+      setEnquiryContextData({
+        course: autoCourse,
+        sourcePage: autoSourcePage,
+        preferredBranch: autoBranch,
+        learningMode: autoMode,
+        initialNote: "",
       });
+      setIsOpen(true);
     }, delayMs);
 
     return () => {

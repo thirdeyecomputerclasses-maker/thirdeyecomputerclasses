@@ -9,6 +9,7 @@ const submissionRoutes = require("./routes/submissionRoutes");
 const authRoutes = require("./routes/authRoutes");
 const blogRoutes = require("./routes/blogRoutes");
 const assessmentRoutes = require("./routes/assessmentRoutes");
+const mediaRoutes = require("./routes/mediaRoutes");
 
 dotenv.config();
 
@@ -51,6 +52,7 @@ app.use("/api", jobRoutes);
 app.use("/api", blogRoutes);
 app.use("/api", assessmentRoutes);
 app.use("/api/submissions", submissionRoutes);
+app.use("/api", mediaRoutes);
 
 app.get("/api/health", (req, res) => {
   res.json({
