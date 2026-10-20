@@ -45,14 +45,35 @@ function formatCourseFromSlug(slug) {
     .join(" ");
 }
 
-const MAX_AUTO_POPUPS_PER_SESSION = 2;
-const STORAGE_KEY_AUTO_COUNT = "smart_enquiry_auto_count";
+const STORAGE_KEY_AUTO_SHOWN = "smart_enquiry_auto_shown";
 const STORAGE_KEY_SUBMITTED = "smart_enquiry_submitted";
+const STORAGE_KEY_ACTIVE_SECONDS = "smart_enquiry_active_seconds";
+// Target engagement time: 3.5 minutes (210 seconds) of user activity
+const REQUIRED_ACTIVE_SECONDS = 210;
 
-function getAutoPopupCount() {
+function isAutoEnquiryAlreadyHandled() {
+  if (typeof sessionStorage === "undefined") return false;
+  try {
+    return (
+      sessionStorage.getItem(STORAGE_KEY_AUTO_SHOWN) === "true" ||
+      sessionStorage.getItem(STORAGE_KEY_SUBMITTED) === "true"
+    );
+  } catch {
+    return false;
+  }
+}
+
+function markAutoEnquiryHandled() {
+  if (typeof sessionStorage === "undefined") return;
+  try {
+    sessionStorage.setItem(STORAGE_KEY_AUTO_SHOWN, "true");
+  } catch {}
+}
+
+function getStoredActiveSeconds() {
   if (typeof sessionStorage === "undefined") return 0;
   try {
-    const val = sessionStorage.getItem(STORAGE_KEY_AUTO_COUNT);
+    const val = sessionStorage.getItem(STORAGE_KEY_ACTIVE_SECONDS);
     const parsed = parseInt(val, 10);
     return isNaN(parsed) ? 0 : parsed;
   } catch {
@@ -60,25 +81,37 @@ function getAutoPopupCount() {
   }
 }
 
-function incrementAutoPopupCount() {
-  if (typeof sessionStorage === "undefined") return 1;
+function saveActiveSeconds(seconds) {
+  if (typeof sessionStorage === "undefined") return;
   try {
-    const current = getAutoPopupCount();
-    const updated = current + 1;
-    sessionStorage.setItem(STORAGE_KEY_AUTO_COUNT, updated.toString());
-    return updated;
-  } catch {
-    return 1;
-  }
+    sessionStorage.setItem(STORAGE_KEY_ACTIVE_SECONDS, String(seconds));
+  } catch {}
 }
 
-function hasSubmittedInSession() {
-  if (typeof sessionStorage === "undefined") return false;
-  try {
-    return sessionStorage.getItem(STORAGE_KEY_SUBMITTED) === "true";
-  } catch {
-    return false;
+function getContextForPath(path) {
+  let autoCourse = "";
+  let autoSourcePage = "";
+  let autoBranch = "";
+  let autoMode = "classroom";
+
+  if (path.startsWith("/our-courses/") || path.startsWith("/courses/") || path.startsWith("/course/")) {
+    const parts = path.split("/").filter(Boolean);
+    const slug = parts[1] || "";
+    autoCourse = formatCourseFromSlug(slug);
+    autoSourcePage = autoCourse ? `${autoCourse} Course Page` : "Course Details";
+  } else if (path === "/nearest-branch" || path === "/branch-finder") {
+    autoSourcePage = "Nearest Branch Finder";
+  } else {
+    autoSourcePage = (typeof document !== "undefined" && document.title) ? document.title : "Third Eye Website";
   }
+
+  return {
+    course: autoCourse,
+    sourcePage: autoSourcePage,
+    preferredBranch: autoBranch,
+    learningMode: autoMode,
+    initialNote: "",
+  };
 }
 
 const EnquiryContext = createContext(null);
@@ -94,20 +127,21 @@ export function EnquiryProvider({ children }) {
   });
 
   const location = useLocation();
-  const autoTimerRef = useRef(null);
-  const lastAutoPoppedPath = useRef("");
   const isOpenRef = useRef(false);
+  const pathnameRef = useRef(location.pathname);
 
   useEffect(() => {
     isOpenRef.current = isOpen;
   }, [isOpen]);
 
+  useEffect(() => {
+    pathnameRef.current = location.pathname;
+  }, [location.pathname]);
+
   // Explicit trigger by user clicking an "Enquire / Demo" button
   const openEnquiry = useCallback((initialData = {}) => {
-    if (autoTimerRef.current) {
-      clearTimeout(autoTimerRef.current);
-      autoTimerRef.current = null;
-    }
+    // User interacted manually, mark as handled so we never auto-pop later
+    markAutoEnquiryHandled();
 
     let source = initialData.sourcePage;
     if (!source && typeof document !== "undefined") {
@@ -127,87 +161,86 @@ export function EnquiryProvider({ children }) {
   }, []);
 
   const closeEnquiry = useCallback(() => {
+    // When closed, ensure it stays handled for this session ("come just once")
+    markAutoEnquiryHandled();
     setIsOpen(false);
   }, []);
 
   // =========================================================================
-  // AUTOMATIC POPUP ON RELOAD OR PAGE CHANGE (MAX 2 PER SESSION)
+  // SMART DELAYED AUTO-POPUP:
+  // - NEVER triggers on startup or page load.
+  // - Triggers strictly once per session after 3-4 minutes (210s) of user activity.
+  // - Never interrupts /admin, /assessment, or users who already enquired/dismissed.
   // =========================================================================
   useEffect(() => {
-    // Clear any previous timer on navigation
-    if (autoTimerRef.current) {
-      clearTimeout(autoTimerRef.current);
-      autoTimerRef.current = null;
-    }
-
-    const path = location.pathname || "/";
-
-    // Never auto-popup inside Admin Console or Gate Screen
-    if (path.startsWith("/admin")) {
+    // If already shown once or submitted in this session, don't run any tracking
+    if (isAutoEnquiryAlreadyHandled()) {
       return;
     }
 
-    // Stop if user has already submitted or if max session limit (2 times) reached
-    if (hasSubmittedInSession() || getAutoPopupCount() >= MAX_AUTO_POPUPS_PER_SESSION) {
-      return;
-    }
+    let activeSeconds = getStoredActiveSeconds();
+    let lastActivityTimestamp = Date.now();
+    let isTrackingDone = false;
 
-    // Determine smart pre-filled context based on target URL
-    let autoCourse = "";
-    let autoSourcePage = "";
-    let autoBranch = "";
-    let autoMode = "classroom";
-    let delayMs = 3200; // 3.2 seconds gentle reading delay
+    // Track user engagement interactions
+    const handleUserInteraction = () => {
+      lastActivityTimestamp = Date.now();
+    };
 
-    if (path.startsWith("/our-courses/") || path.startsWith("/courses/") || path.startsWith("/course/")) {
-      const parts = path.split("/").filter(Boolean);
-      const slug = parts[1] || "";
-      autoCourse = formatCourseFromSlug(slug);
-      autoSourcePage = autoCourse ? `${autoCourse} Course Page` : "Course Details";
-      delayMs = 2800; // Course viewers get prompt attention
-    } else if (path === "/nearest-branch") {
-      autoSourcePage = "Nearest Branch Finder";
-      delayMs = 4000;
-    } else if (path.startsWith("/assessment/") || path.startsWith("/skill-assessment")) {
-      // Don't interrupt while student is in the middle of taking a timed test
-      return;
-    } else {
-      // General landing pages (e.g. Home, Courses catalog, Contact)
-      autoSourcePage = (typeof document !== "undefined" && document.title) ? document.title : "Third Eye Website";
-      delayMs = 4500;
-    }
+    const interactionEvents = ["mousemove", "keydown", "scroll", "touchstart", "click"];
+    interactionEvents.forEach((evt) => {
+      window.addEventListener(evt, handleUserInteraction, { passive: true });
+    });
 
-    // Launch gentle auto-popup timer
-    autoTimerRef.current = setTimeout(() => {
-      // Guard against opening if already open, already submitted, or reached 2 per session
-      if (isOpenRef.current) {
-        return;
-      }
-      if (hasSubmittedInSession() || getAutoPopupCount() >= MAX_AUTO_POPUPS_PER_SESSION) {
+    const intervalId = setInterval(() => {
+      if (isTrackingDone || isAutoEnquiryAlreadyHandled()) {
+        clearInterval(intervalId);
         return;
       }
 
-      // Record this popup in sessionStorage so it only shows 2 times per session even across page reloads
-      incrementAutoPopupCount();
+      // Check if tab is currently visible
+      const isVisible = typeof document !== "undefined" && !document.hidden;
+      // User must have interacted within the last 40 seconds to count as active engagement
+      const isActivelyEngaged = Date.now() - lastActivityTimestamp < 40000;
 
-      lastAutoPoppedPath.current = path;
-      setEnquiryContextData({
-        course: autoCourse,
-        sourcePage: autoSourcePage,
-        preferredBranch: autoBranch,
-        learningMode: autoMode,
-        initialNote: "",
-      });
-      setIsOpen(true);
-    }, delayMs);
+      if (isVisible && isActivelyEngaged) {
+        activeSeconds += 1;
+        saveActiveSeconds(activeSeconds);
+
+        if (activeSeconds >= REQUIRED_ACTIVE_SECONDS) {
+          const currentPath = pathnameRef.current || "/";
+
+          // Do not pop up inside admin portal or during a timed student assessment
+          if (currentPath.startsWith("/admin") || currentPath.startsWith("/assessment") || currentPath.startsWith("/skill-assessment")) {
+            return;
+          }
+
+          // Guard against multiple calls or already open modal
+          if (isOpenRef.current || isAutoEnquiryAlreadyHandled()) {
+            isTrackingDone = true;
+            clearInterval(intervalId);
+            return;
+          }
+
+          // Mark handled so it only ever opens once
+          markAutoEnquiryHandled();
+          isTrackingDone = true;
+          clearInterval(intervalId);
+
+          const context = getContextForPath(currentPath);
+          setEnquiryContextData(context);
+          setIsOpen(true);
+        }
+      }
+    }, 1000);
 
     return () => {
-      if (autoTimerRef.current) {
-        clearTimeout(autoTimerRef.current);
-        autoTimerRef.current = null;
-      }
+      clearInterval(intervalId);
+      interactionEvents.forEach((evt) => {
+        window.removeEventListener(evt, handleUserInteraction);
+      });
     };
-  }, [location.pathname]);
+  }, []);
 
   return (
     <EnquiryContext.Provider value={{ isOpen, enquiryContextData, openEnquiry, closeEnquiry }}>

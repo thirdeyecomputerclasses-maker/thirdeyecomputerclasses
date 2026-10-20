@@ -86,6 +86,14 @@
     0 0 0 1px rgba(255, 211, 0, 0.2);
 }
 
+.mentor-carousel-card:hover {
+  border-color: #ffd300;
+  box-shadow:
+    0 26px 58px -10px rgba(0, 0, 0, 0.85),
+    0 0 35px rgba(255, 211, 0, 0.45),
+    inset 0 0 20px rgba(255, 211, 0, 0.1);
+}
+
 .mentor-card-rim {
   position: absolute;
   inset: 0;

@@ -645,6 +645,15 @@ function LiquidChromeBlob() {
 
 export default function OurTeam() {
   const carouselRef = useRef(null);
+  const haloRef = useRef(null);
+
+  const handleMouseMove = useCallback((e) => {
+    if (!haloRef.current) return;
+    const x = Math.round((e.clientX / window.innerWidth) * 100);
+    const y = Math.round((e.clientY / window.innerHeight) * 100);
+    haloRef.current.style.left = `${x}%`;
+    haloRef.current.style.top = `${y}%`;
+  }, []);
 
   const scrollToCarousel = useCallback(() => {
     const el = document.getElementById("mentors-carousel-section");
@@ -664,7 +673,25 @@ export default function OurTeam() {
   );
 
   return (
-    <div className="team-page-wrapper">
+    <div className="team-page-wrapper" onMouseMove={handleMouseMove}>
+      {/* Dynamic Ambient Background Effects from Student Feedback */}
+      <div className="team-ambient-fx" aria-hidden="true">
+        {/* Interactive Mouse Spotlight Halo */}
+        <div
+          ref={haloRef}
+          className="team-spotlight-halo"
+          style={{
+            left: "50%",
+            top: "30%",
+          }}
+        />
+
+        {/* Floating Ambient Glowing Light Blobs */}
+        <div className="team-glow-blob team-glow-blob-1" />
+        <div className="team-glow-blob team-glow-blob-2" />
+        <div className="team-glow-blob team-glow-blob-3" />
+      </div>
+
       {/* ─── 1. HERO SECTION ─── */}
       <section className="team-hero-section">
         <div className="hero-inner">

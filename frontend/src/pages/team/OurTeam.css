@@ -10,19 +10,119 @@ body,
   padding: 0;
 }
 
+/* Our Team Page - Yellow Gradient with Student Feedback Ambient Texture & Spotlight */
 .team-page-wrapper {
   width: 100%;
-  background: #ffd300;
+  background-color: #ffd300;
+  position: relative;
+  min-height: 100vh;
+  color: #000000;
   overflow-x: hidden;
+  font-family: "Rajdhani", sans-serif;
+}
+
+/* Ambient Yellow Grid & Architectural Blueprint Dot Matrix Effect (From Student Feedback) */
+.team-page-wrapper::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.5) 0%, transparent 60%),
+    radial-gradient(circle at 100% 50%, rgba(255, 255, 255, 0.3) 0%, transparent 45%),
+    radial-gradient(rgba(0, 0, 0, 0.09) 1.5px, transparent 1.5px),
+    linear-gradient(rgba(0, 0, 0, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.025) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 28px 28px, 84px 84px, 84px 84px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Dynamic Ambient FX Layer */
+.team-ambient-fx {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Interactive Cursor Spotlight Glow on Mouse Move */
+.team-spotlight-halo {
+  position: absolute;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.45) 0%, rgba(255, 245, 140, 0.22) 35%, transparent 70%);
+  transform: translate(-50%, -50%);
+  transition: left 0.16s ease-out, top 0.16s ease-out;
+  filter: blur(45px);
+  will-change: left, top;
+}
+
+/* Floating Ambient Golden Light Blobs */
+.team-glow-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.6;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.team-glow-blob-1 {
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, #ffffff 0%, rgba(255, 220, 0, 0.65) 50%, transparent 70%);
+  top: -100px;
+  left: -80px;
+  animation: floatOrbTeam1 18s ease-in-out infinite alternate;
+}
+
+.team-glow-blob-2 {
+  width: 620px;
+  height: 620px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.85) 0%, rgba(255, 195, 0, 0.55) 60%, transparent 75%);
+  bottom: 8%;
+  right: -120px;
+  animation: floatOrbTeam2 22s ease-in-out infinite alternate;
+}
+
+.team-glow-blob-3 {
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.7) 0%, rgba(255, 235, 120, 0.45) 50%, transparent 70%);
+  top: 45%;
+  left: 20%;
+  animation: floatOrbTeam3 20s ease-in-out infinite alternate;
+}
+
+@keyframes floatOrbTeam1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(80px, 120px) scale(1.15); }
+  100% { transform: translate(-40px, 60px) scale(0.95); }
+}
+
+@keyframes floatOrbTeam2 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-100px, -90px) scale(1.1); }
+  100% { transform: translate(50px, -40px) scale(0.9); }
+}
+
+@keyframes floatOrbTeam3 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-70px, 90px) scale(1.1); }
+  100% { transform: translate(60px, -50px) scale(0.95); }
 }
 
 /* ─── 1. Hero Section ─── */
 .team-hero-section {
   width: 100%;
   min-height: 85vh;
-  background-color: #ffd300;
+  background-color: transparent;
   color: #000000;
   position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   padding: 150px 8% 100px;
@@ -145,11 +245,12 @@ body,
 /* ─── 2. Mentors & Faculty Carousel Section ─── */
 .team-section {
   position: relative;
+  z-index: 1;
   width: 100%;
   margin-top: 0;
   padding: 48px 20px 60px;
   overflow: hidden;
-  background-color: #ffd300;
+  background-color: transparent;
   color: #000000;
   border: none;
   font-family: "Rajdhani", sans-serif;
@@ -196,12 +297,13 @@ body,
 /* ─── 3. Three 3D Revolving Stacks ─── */
 .three-stacks-section {
   width: 100%;
-  background-color: #ffd300;
+  background-color: transparent;
   color: #000000;
   padding: 110px 6% 180px;
   border: none;
   font-family: "Rajdhani", sans-serif;
   position: relative;
+  z-index: 1;
 }
 
 .stacks-section-header {
@@ -295,7 +397,7 @@ body,
 /* ─── 4. Scramble Text Headline (Spaced Out & Moved Downwards) ─── */
 .gsap-scramble-hero {
   width: 100%;
-  background-color: #ffd300;
+  background-color: transparent;
   color: #000000;
   margin-top: 60px;
   padding: 140px 8% 130px;
@@ -305,6 +407,7 @@ body,
   justify-content: center;
   font-family: "Rajdhani", sans-serif;
   position: relative;
+  z-index: 1;
 }
 
 .gsap-scramble-inner {

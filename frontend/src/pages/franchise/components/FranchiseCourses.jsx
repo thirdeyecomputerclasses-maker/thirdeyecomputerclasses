@@ -103,6 +103,14 @@ export default function FranchiseCourses() {
     }
   ];
 
+  const handleCardMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = Math.round(((e.clientX - rect.left) / rect.width) * 100);
+    const y = Math.round(((e.clientY - rect.top) / rect.height) * 100);
+    e.currentTarget.style.setProperty("--card-mx", `${x}%`);
+    e.currentTarget.style.setProperty("--card-my", `${y}%`);
+  };
+
   return (
     <section className="courses-franchise-section" id="courses">
       <div className="courses-franchise-container">
@@ -128,6 +136,7 @@ export default function FranchiseCourses() {
                 key={cat.id} 
                 className={`flip-card-wrapper ${isFlipped ? "is-flipped" : ""}`}
                 onClick={() => toggleFlip(cat.id)}
+                onMouseMove={handleCardMouseMove}
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => {
