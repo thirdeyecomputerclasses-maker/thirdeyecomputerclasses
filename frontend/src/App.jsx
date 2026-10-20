@@ -5,6 +5,8 @@ import Preloader from "./components/Preloader";
 import { SoundProvider } from "./context/SoundContext";
 import ClerkSafeProvider from "./context/ClerkSafeProvider";
 
+import { EnquiryProvider } from "./context/EnquiryContext";
+
 function App() {
   const [isPreloading, setIsPreloading] = useState(true);
 
@@ -25,7 +27,9 @@ function App() {
       <SoundProvider>
         {isPreloading && <Preloader onComplete={() => setIsPreloading(false)} />}
         <BrowserRouter>
-          <AppRoutes />
+          <EnquiryProvider>
+            <AppRoutes />
+          </EnquiryProvider>
         </BrowserRouter>
       </SoundProvider>
     </ClerkSafeProvider>

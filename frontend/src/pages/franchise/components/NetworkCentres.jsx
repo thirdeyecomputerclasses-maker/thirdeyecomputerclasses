@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./NetworkCentres.css";
 import CircularCarousel from "../../../components/CircularCarousel";
 import "../../../components/CircularCarousel.css";
@@ -6,6 +6,7 @@ import {
   Navigation,
   ArrowUpRight
 } from "lucide-react";
+import { fetchMedia } from "../../../services/mediaApi";
 
 // Authentic Third Eye Lab & Campus Visuals
 import classroomPanoramic from "../../../assets/classroom_panoramic.png";
@@ -13,16 +14,13 @@ import classroomSliceLeft from "../../../assets/classroom_slice_left.webp";
 import classroomSliceCenter from "../../../assets/classroom_slice_center.webp";
 import classroomSliceRight from "../../../assets/classroom_slice_right.webp";
 
-export default function NetworkCentres() {
-  const [activeIdx, setActiveIdx] = useState(0);
-
-  const centres = [
-    {
-      id: "mansarovar",
-      num: "01",
-      name: "Mansarovar",
-      address: "Madhyam Marg, Mansarovar, Jaipur",
-      mapUrl: "https://www.google.com/maps/search/?api=1&query=Third+Eye+Computer+Classes+Mansarovar+Jaipur",
+const DEFAULT_CENTRES = [
+  {
+    id: "mansarovar",
+    num: "01",
+    name: "Mansarovar",
+    address: "Madhyam Marg, Mansarovar, Jaipur",
+    mapUrl: "https://www.google.com/maps/search/?api=1&query=Third+Eye+Computer+Classes+Mansarovar+Jaipur",
       image: classroomPanoramic
     },
     {
@@ -98,6 +96,41 @@ export default function NetworkCentres() {
       image: classroomSliceLeft
     }
   ];
+
+export default function NetworkCentres() {
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [centres, setCentres] = useState(DEFAULT_CENTRES);
+
+  // Dynamically load updated branch photos from ImageKit
+  useEffect(() => {
+    fetchMedia({ page: "franchise", type: "image" })
+      .then((data) => {
+        if (!data || data.length === 0) return;
+        const branchMap = {};
+        data.forEach((slot) => {
+          if (slot.slotKey?.startsWith("franchise_branch_")) {
+            const num = parseInt(slot.slotKey.replace("franchise_branch_", ""), 10);
+            if (num >= 1 && num <= 10 && slot.url) {
+              branchMap[num] = slot.url;
+            }
+          }
+        });
+
+        setCentres((prev) =>
+          prev.map((c, idx) => {
+            const branchNum = idx + 1;
+            if (branchMap[branchNum]) {
+              return {
+                ...c,
+                image: branchMap[branchNum],
+              };
+            }
+            return c;
+          })
+        );
+      })
+      .catch(() => {});
+  }, []);
 
   const carouselItems = centres.map((centre) => ({
     src: centre.image,

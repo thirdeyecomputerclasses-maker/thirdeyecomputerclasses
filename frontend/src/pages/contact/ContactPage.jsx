@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./ContactPage.css";
 import {
   Mail,
@@ -9,7 +10,8 @@ import {
   Lock,
   Sparkles,
   ArrowRight,
-  MessageCircle
+  MessageCircle,
+  Compass,
 } from "lucide-react";
 import { createSubmission } from "../../services/submissionApi";
 
@@ -346,6 +348,23 @@ export default function ContactPage() {
                   </svg>
                 </a>
               </div>
+            </div>
+
+            {/* Direct Nearest Branch Finder Callout */}
+            <div className="contact-quick-chat-box branch-finder-callout">
+              <div className="quick-chat-info">
+                <div className="quick-chat-icon-wrap branch-finder-icon">
+                  <Compass size={22} />
+                </div>
+                <div>
+                  <span className="quick-chat-title branch-finder-title">Find Nearest Third Eye Branch</span>
+                  <p className="quick-chat-desc">Enter your area PIN code or locality to discover our 10+ Jaipur campuses with live driving distance & map routes</p>
+                </div>
+              </div>
+              <Link to="/nearest-branch" className="quick-chat-btn branch-finder-btn">
+                <span>Launch Branch Finder</span>
+                <ArrowRight size={15} />
+              </Link>
             </div>
 
             {/* Direct Instant Chat Callout */}

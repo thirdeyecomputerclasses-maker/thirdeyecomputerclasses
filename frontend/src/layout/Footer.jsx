@@ -38,9 +38,14 @@ export default function Footer() {
 
   const usefulLinks = [
     { label: "Home", to: "/" },
-    { label: "About Us", to: "/about-us" },
-    { label: "Courses", to: "/courses" },
-    { label: "Our Faculty & Team", to: "/our-team" },
+    { label: "About Us", to: "/trusted-computer-classes-in-jaipur" },
+    { label: "Courses", to: "/our-courses" },
+    { label: "Pay Fees Online", to: "/pay-now" },
+    { label: "Nearest Branch Finder", to: "/nearest-branch" },
+    { label: "Free Skill Tests", to: "/assessments" },
+    { label: "Tech Blogs & Guides", to: "/blogs" },
+    { label: "Our Faculty & Team", to: "/our-team-new" },
+    { label: "Upload & Media Hub", to: "/upload-images" },
     { label: "Contact Us", to: "/contact-us" },
   ];
 

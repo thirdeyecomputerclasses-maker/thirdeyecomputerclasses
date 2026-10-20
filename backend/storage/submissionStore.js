@@ -32,6 +32,9 @@ const submissionStore = {
         { message: regex },
         { jobTitle: regex },
         { company: regex },
+        { course: regex },
+        { preferredBranch: regex },
+        { sourcePage: regex },
       ];
     }
 
@@ -61,6 +64,11 @@ const submissionStore = {
       resumeFileName: data.resumeFileName || data.fileName || "",
       resumeUrl: data.resumeUrl || "",
       coverLetter: data.coverLetter || "",
+      course: data.course || "",
+      preferredBranch: data.preferredBranch || "",
+      learningMode: data.learningMode || "classroom",
+      sourcePage: data.sourcePage || "",
+      sourceUrl: data.sourceUrl || "",
       metadata: data.metadata || {},
       status: "new",
     });
@@ -89,11 +97,12 @@ const submissionStore = {
   async getStats() {
     this.checkDB();
 
-    const [total, contact, franchise, jobApps, newSubmissions] = await Promise.all([
+    const [total, contact, franchise, jobApps, courseInquiries, newSubmissions] = await Promise.all([
       Submission.countDocuments(),
       Submission.countDocuments({ formType: "contact" }),
       Submission.countDocuments({ formType: "franchise" }),
       Submission.countDocuments({ formType: "job_application" }),
+      Submission.countDocuments({ formType: "course_inquiry" }),
       Submission.countDocuments({ status: "new" }),
     ]);
 
@@ -102,6 +111,7 @@ const submissionStore = {
       contact,
       franchise,
       job_application: jobApps,
+      course_inquiry: courseInquiries,
       newSubmissions,
     };
   },

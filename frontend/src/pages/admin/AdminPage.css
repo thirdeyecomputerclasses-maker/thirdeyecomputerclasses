@@ -1103,6 +1103,13 @@
   border: 1px solid rgba(52, 211, 153, 0.3);
 }
 
+.submission-type-tag.type-course {
+  background: rgba(246, 217, 107, 0.16);
+  color: #ffd868;
+  border: 1px solid rgba(246, 217, 107, 0.4);
+  box-shadow: 0 0 10px rgba(246, 217, 107, 0.15);
+}
+
 .submission-time-badge {
   display: inline-flex;
   align-items: center;
@@ -1408,3 +1415,12 @@
   color: #0b0d13;
   box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
 }
+
+/* ==========================================================================
+   Admin Media Manager Tab Wrapper
+   ========================================================================== */
+.admin-media-tab-wrapper {
+  margin-top: 1rem;
+  animation: adminFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+

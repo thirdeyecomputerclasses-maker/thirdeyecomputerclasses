@@ -1,8 +1,9 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useState, useEffect } from 'react';
 import './Memories.css';
 import FlexCarousel from './components/FlexCarousel';
 import InfiniteSpiral from './components/InfiniteSpiral';
 import StrokeText from './components/StrokeText';
+import { fetchMedia } from '../../services/mediaApi';
 
 // Local assets for mask & campus memories
 import classroomPanoramic from '../../assets/classroom_panoramic.png';
@@ -106,6 +107,42 @@ const CELEBRATION_IMAGES = [
 ];
 
 function Memories() {
+  const [eventImages, setEventImages] = useState(EVENT_IMAGES);
+  const [panoramicBg, setPanoramicBg] = useState(classroomPanoramic);
+
+  useEffect(() => {
+    fetchMedia({ page: "memories", type: "image" })
+      .then((data) => {
+        if (!data || data.length === 0) return;
+        const panoSlot = data.find((s) => s.slotKey === "memories_panoramic");
+        if (panoSlot?.url) setPanoramicBg(panoSlot.url);
+
+        const slotMap = {
+          memories_hackathon: 0,
+          memories_conclave: 1,
+          memories_cultural: 2,
+          memories_expo: 3,
+          memories_robotics: 4,
+          memories_career: 5,
+          memories_demoday: 6,
+        };
+
+        setEventImages((prev) =>
+          prev.map((item, idx) => {
+            const foundSlot = data.find((s) => slotMap[s.slotKey] === idx);
+            if (foundSlot?.url) {
+              return {
+                ...item,
+                src: foundSlot.url,
+              };
+            }
+            return item;
+          })
+        );
+      })
+      .catch(() => {});
+  }, []);
+
   const scrollToEvents = useCallback(() => {
     const el = document.getElementById('events-section');
     if (el) {
@@ -125,7 +162,7 @@ function Memories() {
           <h1
             className="sweet-memories-masked-text text-5xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tight"
             style={{
-              backgroundImage: `url(${classroomPanoramic}), linear-gradient(135deg, #111111 0%, #333333 100%)`
+              backgroundImage: `url(${panoramicBg}), linear-gradient(135deg, #111111 0%, #333333 100%)`
             }}
           >
             SWEET MEMORIES
@@ -172,7 +209,7 @@ function Memories() {
         {/* Flex Carousel Container */}
         <div className="flex-carousel-wrapper">
           <FlexCarousel
-            items={EVENT_IMAGES}
+            items={eventImages}
             preset="liquid"
             intro="rise"
             squeeze={0.2}

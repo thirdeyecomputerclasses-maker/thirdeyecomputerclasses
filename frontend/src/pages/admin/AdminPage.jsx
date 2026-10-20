@@ -34,6 +34,10 @@ import {
   ShieldCheck,
   Lock,
   UserCheck,
+  Award,
+  GraduationCap,
+  CheckSquare,
+  UploadCloud,
 } from "lucide-react";
 import { useClerk } from "@clerk/react";
 import {
@@ -55,12 +59,27 @@ import {
   updateSubmissionStatus,
   deleteSubmission,
 } from "../../services/submissionApi";
+import {
+  getBlogs,
+  createBlog,
+  updateBlog,
+  deleteBlog,
+} from "../../services/blogApi";
+import {
+  getAdminAssessments,
+  createAssessment,
+  updateAssessment,
+  deleteAssessment,
+} from "../../services/assessmentApi";
 import { getStoredSession, clearAdminSession } from "../../services/authApi";
 import CourseFormModal from "./components/CourseFormModal";
 import JobFormModal from "./components/JobFormModal";
+import BlogFormModal from "./components/BlogFormModal";
+import AssessmentFormModal from "./components/AssessmentFormModal";
 import DeleteConfirmModal from "./components/DeleteConfirmModal";
 import AdminGateScreen from "./AdminGateScreen";
 import SecurityManagerTab from "./components/SecurityManagerTab";
+import UploadMediaPage from "../uploadMedia/UploadMediaPage";
 import "./AdminPage.css";
 
 export default function AdminPage() {
@@ -106,6 +125,7 @@ export default function AdminPage() {
     contact: 0,
     franchise: 0,
     job_application: 0,
+    course_inquiry: 0,
     newSubmissions: 0,
   });
   const [isLoadingSubmissions, setIsLoadingSubmissions] = useState(true);
@@ -115,6 +135,31 @@ export default function AdminPage() {
   const [isSubmissionDeleteOpen, setIsSubmissionDeleteOpen] = useState(false);
   const [deletingSubmission, setDeletingSubmission] = useState(null);
   const [isSubmissionDeleting, setIsSubmissionDeleting] = useState(false);
+
+  // Blogs CMS state (MongoDB)
+  const [blogs, setBlogs] = useState([]);
+  const [isLoadingBlogs, setIsLoadingBlogs] = useState(true);
+  const [blogSearchQuery, setBlogSearchQuery] = useState("");
+  const [selectedBlogCategory, setSelectedBlogCategory] = useState("all");
+  const [selectedBlogStatus, setSelectedBlogStatus] = useState("all");
+  const [isBlogFormOpen, setIsBlogFormOpen] = useState(false);
+  const [editingBlog, setEditingBlog] = useState(null);
+  const [isBlogDeleteOpen, setIsBlogDeleteOpen] = useState(false);
+  const [deletingBlog, setDeletingBlog] = useState(null);
+  const [isBlogSaving, setIsBlogSaving] = useState(false);
+  const [isBlogDeleting, setIsBlogDeleting] = useState(false);
+
+  // Skill Assessments state (MongoDB)
+  const [assessments, setAssessments] = useState([]);
+  const [isLoadingAssessments, setIsLoadingAssessments] = useState(true);
+  const [assessmentSearchQuery, setAssessmentSearchQuery] = useState("");
+  const [selectedAssessmentCategory, setSelectedAssessmentCategory] = useState("all");
+  const [isAssessmentFormOpen, setIsAssessmentFormOpen] = useState(false);
+  const [editingAssessment, setEditingAssessment] = useState(null);
+  const [isAssessmentDeleteOpen, setIsAssessmentDeleteOpen] = useState(false);
+  const [deletingAssessment, setDeletingAssessment] = useState(null);
+  const [isAssessmentSaving, setIsAssessmentSaving] = useState(false);
+  const [isAssessmentDeleting, setIsAssessmentDeleting] = useState(false);
 
   // Shared state
   const [toastMessage, setToastMessage] = useState("");
@@ -176,6 +221,36 @@ export default function AdminPage() {
       .catch(() => {});
   };
 
+  // Fetch blogs from MongoDB
+  const loadBlogs = () => {
+    setIsLoadingBlogs(true);
+    getBlogs({ status: "all" })
+      .then((data) => {
+        setBlogs(Array.isArray(data) ? data : []);
+      })
+      .catch((err) => {
+        console.error("Failed to load blogs from MongoDB:", err);
+      })
+      .finally(() => {
+        setIsLoadingBlogs(false);
+      });
+  };
+
+  // Fetch skill assessments from MongoDB
+  const loadAssessments = () => {
+    setIsLoadingAssessments(true);
+    getAdminAssessments()
+      .then((data) => {
+        setAssessments(Array.isArray(data) ? data : []);
+      })
+      .catch((err) => {
+        console.error("Failed to load assessments from MongoDB:", err);
+      })
+      .finally(() => {
+        setIsLoadingAssessments(false);
+      });
+  };
+
   // Health check
   const checkHealth = () => {
     getHealthStatus()
@@ -186,12 +261,14 @@ export default function AdminPage() {
   };
 
   useEffect(() => {
-    document.title = "Admin Console | Third Eye Courses, Jobs & Form Inquiries";
+    document.title = "Admin Console | Third Eye Courses, Jobs, Blogs & Skill Tests";
     window.scrollTo(0, 0);
 
     loadCourses();
     loadJobs();
     loadSubmissions();
+    loadBlogs();
+    loadAssessments();
     checkHealth();
   }, []);
 
@@ -491,6 +568,9 @@ export default function AdminPage() {
         s.city?.toLowerCase().includes(q) ||
         s.jobTitle?.toLowerCase().includes(q) ||
         s.company?.toLowerCase().includes(q) ||
+        s.course?.toLowerCase().includes(q) ||
+        s.preferredBranch?.toLowerCase().includes(q) ||
+        s.sourcePage?.toLowerCase().includes(q) ||
         s.message?.toLowerCase().includes(q) ||
         s.coverLetter?.toLowerCase().includes(q);
 
@@ -532,6 +612,211 @@ export default function AdminPage() {
       alert(`Failed to delete submission: ${err.message}`);
     } finally {
       setIsSubmissionDeleting(false);
+    }
+  };
+
+  // -------------------------------------------------------------
+  // BLOGS HANDLERS & COMPUTED (MONGODB CMS)
+  // -------------------------------------------------------------
+  const filteredBlogs = useMemo(() => {
+    return blogs.filter((b) => {
+      const matchesCategory =
+        selectedBlogCategory === "all" ||
+        (b.category &&
+          b.category.toLowerCase() === selectedBlogCategory.toLowerCase());
+
+      const matchesStatus =
+        selectedBlogStatus === "all" || b.status === selectedBlogStatus;
+
+      const q = blogSearchQuery.toLowerCase();
+      const matchesSearch =
+        !q ||
+        b.title?.toLowerCase().includes(q) ||
+        b.slug?.toLowerCase().includes(q) ||
+        b.seoExcerpt?.toLowerCase().includes(q) ||
+        b.author?.toLowerCase().includes(q) ||
+        (Array.isArray(b.keywords) &&
+          b.keywords.some((k) => k.toLowerCase().includes(q)));
+
+      return matchesCategory && matchesStatus && matchesSearch;
+    });
+  }, [blogs, blogSearchQuery, selectedBlogCategory, selectedBlogStatus]);
+
+  const blogCategoriesList = useMemo(() => {
+    const set = new Set();
+    blogs.forEach((b) => {
+      if (b.category) set.add(b.category);
+    });
+    return ["all", ...Array.from(set)];
+  }, [blogs]);
+
+  const totalPublishedBlogsCount = useMemo(() => {
+    return blogs.filter((b) => b.status === "published").length;
+  }, [blogs]);
+
+  const totalDraftBlogsCount = useMemo(() => {
+    return blogs.filter((b) => b.status === "draft").length;
+  }, [blogs]);
+
+  const totalBlogViewsCount = useMemo(() => {
+    return blogs.reduce((sum, b) => sum + (b.views || 0), 0);
+  }, [blogs]);
+
+  const handleOpenCreateBlog = () => {
+    setEditingBlog(null);
+    setIsBlogFormOpen(true);
+  };
+
+  const handleOpenEditBlog = (blog) => {
+    setEditingBlog(blog);
+    setIsBlogFormOpen(true);
+  };
+
+  const handleOpenDeleteBlog = (blog) => {
+    setDeletingBlog(blog);
+    setIsBlogDeleteOpen(true);
+  };
+
+  const handleSaveBlog = async (blogPayload) => {
+    setIsBlogSaving(true);
+    try {
+      if (editingBlog) {
+        const id = editingBlog._id || editingBlog.id;
+        const updated = await updateBlog(id, blogPayload);
+        setBlogs((prev) =>
+          prev.map((b) =>
+            (b._id && b._id === id) || (b.id && b.id === id) ? updated : b
+          )
+        );
+        showToast(`Blog post "${updated.title}" updated successfully!`);
+      } else {
+        const created = await createBlog(blogPayload);
+        setBlogs((prev) => [created, ...prev]);
+        showToast(`New blog post "${created.title}" published!`);
+      }
+      setIsBlogFormOpen(false);
+      setEditingBlog(null);
+    } catch (err) {
+      alert("Failed to save blog post: " + err.message);
+    } finally {
+      setIsBlogSaving(false);
+    }
+  };
+
+  const handleConfirmDeleteBlog = async (id) => {
+    setIsBlogDeleting(true);
+    try {
+      await deleteBlog(id);
+      setBlogs((prev) =>
+        prev.filter((b) => b._id !== id && b.id !== id)
+      );
+      showToast("Blog post deleted from CMS.");
+      setIsBlogDeleteOpen(false);
+      setDeletingBlog(null);
+    } catch (err) {
+      alert("Failed to delete blog: " + err.message);
+    } finally {
+      setIsBlogDeleting(false);
+    }
+  };
+
+  // -------------------------------------------------------------
+  // SKILL ASSESSMENTS HANDLERS & COMPUTED (MONGODB)
+  // -------------------------------------------------------------
+  const filteredAssessments = useMemo(() => {
+    return assessments.filter((a) => {
+      const matchesCategory =
+        selectedAssessmentCategory === "all" ||
+        (a.category &&
+          a.category.toLowerCase() === selectedAssessmentCategory.toLowerCase());
+
+      const q = assessmentSearchQuery.toLowerCase();
+      const matchesSearch =
+        !q ||
+        a.title?.toLowerCase().includes(q) ||
+        a.slug?.toLowerCase().includes(q) ||
+        a.targetAudience?.toLowerCase().includes(q) ||
+        a.category?.toLowerCase().includes(q) ||
+        a.description?.toLowerCase().includes(q);
+
+      return matchesCategory && matchesSearch;
+    });
+  }, [assessments, assessmentSearchQuery, selectedAssessmentCategory]);
+
+  const assessmentCategoriesList = useMemo(() => {
+    const set = new Set();
+    assessments.forEach((a) => {
+      if (a.category) set.add(a.category);
+    });
+    return ["all", ...Array.from(set)];
+  }, [assessments]);
+
+  const totalAssessmentQuestionsCount = useMemo(() => {
+    return assessments.reduce(
+      (sum, a) => sum + (Array.isArray(a.questions) ? a.questions.length : 0),
+      0
+    );
+  }, [assessments]);
+
+  const totalAssessmentAttemptsCount = useMemo(() => {
+    return assessments.reduce((sum, a) => sum + (a.totalAttempts || 0), 0);
+  }, [assessments]);
+
+  const handleOpenCreateAssessment = () => {
+    setEditingAssessment(null);
+    setIsAssessmentFormOpen(true);
+  };
+
+  const handleOpenEditAssessment = (item) => {
+    setEditingAssessment(item);
+    setIsAssessmentFormOpen(true);
+  };
+
+  const handleOpenDeleteAssessment = (item) => {
+    setDeletingAssessment(item);
+    setIsAssessmentDeleteOpen(true);
+  };
+
+  const handleSaveAssessment = async (payload) => {
+    setIsAssessmentSaving(true);
+    try {
+      if (editingAssessment) {
+        const id = editingAssessment._id || editingAssessment.id;
+        const updated = await updateAssessment(id, payload);
+        setAssessments((prev) =>
+          prev.map((a) =>
+            (a._id && a._id === id) || (a.id && a.id === id) ? updated : a
+          )
+        );
+        showToast(`Assessment "${updated.title}" updated successfully!`);
+      } else {
+        const created = await createAssessment(payload);
+        setAssessments((prev) => [created, ...prev]);
+        showToast(`Assessment "${created.title}" created successfully!`);
+      }
+      setIsAssessmentFormOpen(false);
+      setEditingAssessment(null);
+    } catch (err) {
+      alert("Failed to save assessment: " + err.message);
+    } finally {
+      setIsAssessmentSaving(false);
+    }
+  };
+
+  const handleConfirmDeleteAssessment = async (id) => {
+    setIsAssessmentDeleting(true);
+    try {
+      await deleteAssessment(id);
+      setAssessments((prev) =>
+        prev.filter((a) => a._id !== id && a.id !== id)
+      );
+      showToast("Skill Assessment deleted successfully!");
+      setIsAssessmentDeleteOpen(false);
+      setDeletingAssessment(null);
+    } catch (err) {
+      alert("Failed to delete assessment: " + err.message);
+    } finally {
+      setIsAssessmentDeleting(false);
     }
   };
 
@@ -587,8 +872,11 @@ export default function AdminPage() {
   const role = adminSession?.role;
   const canAccessCourses = role === "global_admin" || role === "course_admin";
   const canAccessJobs = role === "global_admin" || role === "jobs_admin";
+  const canAccessBlogs = role === "global_admin" || role === "course_admin";
+  const canAccessAssessments = role === "global_admin" || role === "course_admin";
   const canAccessForms = role === "global_admin" || role === "submissions_admin";
   const canAccessSecurity = role === "global_admin";
+  const canAccessMedia = role === "global_admin";
 
   return (
     <div className="admin-page">
@@ -620,7 +908,7 @@ export default function AdminPage() {
                 )}
                 {role === "course_admin" && (
                   <span className="role-pill-badge course">
-                    <BookOpen size={12} /> Courses Sub-Admin
+                    <BookOpen size={12} /> Courses & Blogs Sub-Admin
                   </span>
                 )}
                 {role === "jobs_admin" && (
@@ -686,42 +974,57 @@ export default function AdminPage() {
             <h1 className="admin-title">
               {activeSection === "courses" && "Course Management"}
               {activeSection === "jobs" && "Jobs & Placements Management"}
+              {activeSection === "blogs" && "Blogs & Content Management System"}
+              {activeSection === "assessments" && "Skill Assessments & Quizzes"}
               {activeSection === "forms" && "Website Form Submissions"}
               {activeSection === "security" && "Security Clearance & Access Keys"}
+              {activeSection === "media" && "Add Photos/Videos Management"}
             </h1>
             <p className="admin-subtitle">
               {activeSection === "courses" &&
                 "Add, edit, and manage all live courses dynamically with ImageKit CDN uploads."}
               {activeSection === "jobs" &&
                 "Add, edit, remove, and manage real-time job openings stored in MongoDB Atlas."}
+              {activeSection === "blogs" &&
+                "Publish and optimize SEO blog posts with automatic Google Docs identification and ImageKit CDN."}
+              {activeSection === "assessments" &&
+                "Create and configure 10-question standardized diagnostic skill tests across broad technical and creative domains."}
               {activeSection === "forms" &&
                 "Live applicant messages and leads uploaded to MongoDB from Contact Us, Franchise Inquiries, and Job Applications."}
               {activeSection === "security" &&
                 "Configure passwords for each of the 4 admin levels and inspect recent login audit events."}
+              {activeSection === "media" &&
+                "Replace existing section photos and videos across supported pages with instant ImageKit CDN synchronization."}
             </p>
           </div>
 
           <div className="admin-header-actions">
-            <button
-              className="admin-refresh-btn"
-              onClick={() => {
-                if (activeSection === "courses") loadCourses();
-                else if (activeSection === "jobs") loadJobs();
-                else if (activeSection === "forms") loadSubmissions();
-              }}
-              title="Refresh data"
-            >
-              <RefreshCw
-                size={17}
-                className={
-                  (activeSection === "courses" && isLoadingCourses) ||
-                  (activeSection === "jobs" && isLoadingJobs) ||
-                  (activeSection === "forms" && isLoadingSubmissions)
-                    ? "spin"
-                    : ""
-                }
-              />
-            </button>
+            {activeSection !== "security" && activeSection !== "media" && (
+              <button
+                className="admin-refresh-btn"
+                onClick={() => {
+                  if (activeSection === "courses") loadCourses();
+                  else if (activeSection === "jobs") loadJobs();
+                  else if (activeSection === "blogs") loadBlogs();
+                  else if (activeSection === "assessments") loadAssessments();
+                  else if (activeSection === "forms") loadSubmissions();
+                }}
+                title="Refresh data"
+              >
+                <RefreshCw
+                  size={17}
+                  className={
+                    (activeSection === "courses" && isLoadingCourses) ||
+                    (activeSection === "jobs" && isLoadingJobs) ||
+                    (activeSection === "blogs" && isLoadingBlogs) ||
+                    (activeSection === "assessments" && isLoadingAssessments) ||
+                    (activeSection === "forms" && isLoadingSubmissions)
+                      ? "spin"
+                      : ""
+                  }
+                />
+              </button>
+            )}
             {activeSection === "courses" && canAccessCourses && (
               <button className="admin-add-btn" onClick={handleOpenCreateCourse}>
                 <Plus size={18} />
@@ -732,6 +1035,18 @@ export default function AdminPage() {
               <button className="admin-add-btn" onClick={handleOpenCreateJob}>
                 <Plus size={18} />
                 <span>Add New Job Opening</span>
+              </button>
+            )}
+            {activeSection === "blogs" && canAccessBlogs && (
+              <button className="admin-add-btn" onClick={handleOpenCreateBlog}>
+                <Plus size={18} />
+                <span>Write New Blog Post</span>
+              </button>
+            )}
+            {activeSection === "assessments" && canAccessAssessments && (
+              <button className="admin-add-btn" onClick={handleOpenCreateAssessment}>
+                <Plus size={18} />
+                <span>Create Assessment Test</span>
               </button>
             )}
             {activeSection === "forms" && canAccessForms && (
@@ -777,6 +1092,34 @@ export default function AdminPage() {
             </button>
           )}
 
+          {canAccessBlogs && (
+            <button
+              type="button"
+              className={`admin-section-tab-btn ${
+                activeSection === "blogs" ? "active" : ""
+              }`}
+              onClick={() => setActiveSection("blogs")}
+            >
+              <FileText size={18} />
+              <span>Blogs CMS</span>
+              <span className="section-count-badge">{blogs.length}</span>
+            </button>
+          )}
+
+          {canAccessAssessments && (
+            <button
+              type="button"
+              className={`admin-section-tab-btn ${
+                activeSection === "assessments" ? "active" : ""
+              }`}
+              onClick={() => setActiveSection("assessments")}
+            >
+              <Award size={18} />
+              <span>Skill Tests</span>
+              <span className="section-count-badge">{assessments.length}</span>
+            </button>
+          )}
+
           {canAccessForms && (
             <button
               type="button"
@@ -806,6 +1149,20 @@ export default function AdminPage() {
             >
               <KeyRound size={18} />
               <span>Security & Passwords</span>
+            </button>
+          )}
+
+          {canAccessMedia && (
+            <button
+              type="button"
+              className={`admin-section-tab-btn ${
+                activeSection === "media" ? "active" : ""
+              }`}
+              onClick={() => setActiveSection("media")}
+            >
+              <UploadCloud size={18} />
+              <span>Add Photos/Videos</span>
+              <span className="section-count-badge" style={{ background: "rgba(245, 158, 11, 0.2)", color: "#fbbf24" }}>Global</span>
             </button>
           )}
         </div>
@@ -933,7 +1290,7 @@ export default function AdminPage() {
                     <div className="admin-card-body">
                       <h3 className="admin-card-title">{course.title}</h3>
                       <div className="admin-card-slug">
-                        /courses/{course.slug}
+                        /our-courses/{course.slug}
                       </div>
                       <p className="admin-card-desc">
                         {course.description ||
@@ -956,7 +1313,7 @@ export default function AdminPage() {
                     {/* Actions */}
                     <div className="admin-card-actions">
                       <Link
-                        to={`/courses/${course.slug}`}
+                        to={`/our-courses/${course.slug}`}
                         className="admin-action-btn view"
                         title="View live course page"
                       >
@@ -1260,6 +1617,19 @@ export default function AdminPage() {
               </div>
 
               <div className="admin-metric-card">
+                <div className="metric-icon-wrap yellow" style={{ background: "rgba(246, 217, 107, 0.15)", color: "#f6d96b" }}>
+                  <GraduationCap size={20} />
+                </div>
+                <div className="metric-info">
+                  <span className="metric-val">
+                    {submissionStats.course_inquiry ||
+                      submissions.filter((s) => s.formType === "course_inquiry").length}
+                  </span>
+                  <span className="metric-label">Course Enquiries</span>
+                </div>
+              </div>
+
+              <div className="admin-metric-card">
                 <div className="metric-icon-wrap blue">
                   <Building size={20} />
                 </div>
@@ -1321,6 +1691,13 @@ export default function AdminPage() {
                 </button>
                 <button
                   type="button"
+                  className={`admin-filter-pill ${selectedFormType === "course_inquiry" ? "active" : ""}`}
+                  onClick={() => setSelectedFormType("course_inquiry")}
+                >
+                  Course Inquiries ({submissions.filter((s) => s.formType === "course_inquiry").length})
+                </button>
+                <button
+                  type="button"
                   className={`admin-filter-pill ${selectedFormType === "contact" ? "active" : ""}`}
                   onClick={() => setSelectedFormType("contact")}
                 >
@@ -1368,14 +1745,18 @@ export default function AdminPage() {
               <div className="admin-submissions-grid">
                 {filteredSubmissions.map((sub) => {
                   const typeLabel =
-                    sub.formType === "franchise"
+                    sub.formType === "course_inquiry"
+                      ? "Course Inquiry"
+                      : sub.formType === "franchise"
                       ? "Franchise Application"
                       : sub.formType === "job_application"
                       ? "Job Application"
                       : "Contact Inquiry";
 
                   const typeColorClass =
-                    sub.formType === "franchise"
+                    sub.formType === "course_inquiry"
+                      ? "type-course"
+                      : sub.formType === "franchise"
                       ? "type-franchise"
                       : sub.formType === "job_application"
                       ? "type-job"
@@ -1387,6 +1768,7 @@ export default function AdminPage() {
                       <div className="submission-card-top-bar">
                         <div className="submission-badge-group">
                           <span className={`submission-type-tag ${typeColorClass}`}>
+                            {sub.formType === "course_inquiry" && <GraduationCap size={12} />}
                             {sub.formType === "franchise" && <Building size={12} />}
                             {sub.formType === "job_application" && <Briefcase size={12} />}
                             {sub.formType === "contact" && <Mail size={12} />}
@@ -1431,6 +1813,19 @@ export default function AdminPage() {
                               <PhoneCall size={13} />
                               <span>{sub.phone}</span>
                             </a>
+                            <a
+                              href={`https://wa.me/91${sub.phone.replace(/[^0-9]/g, "")}?text=Hello%20${encodeURIComponent(
+                                sub.name
+                              )},%20thank%20you%20for%20your%20admission%20enquiry%20at%20Third%20Eye%20Computer%20Classes.`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="sub-contact-link"
+                              style={{ color: "#4ade80", borderColor: "rgba(74,222,128,0.25)" }}
+                              title="Chat with applicant on WhatsApp"
+                            >
+                              <MessageSquare size={13} />
+                              <span>WhatsApp</span>
+                            </a>
                             {sub.email && (
                               <a
                                 href={`mailto:${sub.email}`}
@@ -1452,6 +1847,33 @@ export default function AdminPage() {
                       </div>
 
                       {/* Custom Form Attributes */}
+                      {sub.formType === "course_inquiry" && (
+                        <div className="submission-meta-strip">
+                          <div className="sub-meta-cell">
+                            <span className="meta-cell-title">Target Course</span>
+                            <span className="meta-cell-val highlight">{sub.course || "General Course Inquiry"}</span>
+                          </div>
+                          <div className="sub-meta-cell">
+                            <span className="meta-cell-title">Preferred Center</span>
+                            <span className="meta-cell-val">{sub.preferredBranch || "Any Jaipur Campus"}</span>
+                          </div>
+                          <div className="sub-meta-cell">
+                            <span className="meta-cell-title">Learning Mode</span>
+                            <span className="meta-cell-val" style={{ textTransform: "capitalize", color: "#f6d96b" }}>
+                              {sub.learningMode === "online" ? "🌐 Live Online" : "🏛️ Classroom Offline"}
+                            </span>
+                          </div>
+                          {sub.sourcePage && (
+                            <div className="sub-meta-cell">
+                              <span className="meta-cell-title">Source Context</span>
+                              <span className="meta-cell-val text-xs text-zinc-400 truncate" title={sub.sourcePage}>
+                                {sub.sourcePage}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      )}
+
                       {sub.formType === "franchise" && (
                         <div className="submission-meta-strip">
                           <div className="sub-meta-cell">
@@ -1593,10 +2015,540 @@ export default function AdminPage() {
         )}
 
         {/* ========================================================= */}
-        {/* TAB 4: SECURITY & PASSWORDS (GLOBAL ADMIN ONLY)           */}
+        {/* TAB 4: BLOGS CMS MANAGEMENT (MONGODB)                     */}
+        {/* ========================================================= */}
+        {activeSection === "blogs" && (
+          <>
+            {/* Metrics Row */}
+            <div className="admin-metrics-grid">
+              <div className="admin-metric-card">
+                <div className="metric-header">
+                  <span className="metric-label">Published Articles</span>
+                  <div className="metric-icon-wrap global">
+                    <FileText size={16} />
+                  </div>
+                </div>
+                <div className="metric-value">{totalPublishedBlogsCount}</div>
+                <div className="metric-subtext">Live on /blogs knowledge hub</div>
+              </div>
+
+              <div className="admin-metric-card">
+                <div className="metric-header">
+                  <span className="metric-label">Draft / Unlisted</span>
+                  <div className="metric-icon-wrap yellow">
+                    <Edit2 size={16} />
+                  </div>
+                </div>
+                <div className="metric-value">{totalDraftBlogsCount}</div>
+                <div className="metric-subtext">Saved in CMS, ready for review</div>
+              </div>
+
+              <div className="admin-metric-card">
+                <div className="metric-header">
+                  <span className="metric-label">Total Article Reads</span>
+                  <div className="metric-icon-wrap blue">
+                    <Eye size={16} />
+                  </div>
+                </div>
+                <div className="metric-value">{totalBlogViewsCount.toLocaleString()}</div>
+                <div className="metric-subtext">Organic reader engagement</div>
+              </div>
+
+              <div className="admin-metric-card">
+                <div className="metric-header">
+                  <span className="metric-label">Google Docs Sync</span>
+                  <div className="metric-icon-wrap emerald">
+                    <Sparkles size={16} />
+                  </div>
+                </div>
+                <div className="metric-value">Active</div>
+                <div className="metric-subtext">Auto-detects H1/H2/H3 & lists</div>
+              </div>
+            </div>
+
+            {/* Filter and Search Bar */}
+            <div className="admin-filters-bar">
+              <div className="admin-search-box">
+                <Search size={18} />
+                <input
+                  type="text"
+                  placeholder="Search articles by title, keywords, excerpt..."
+                  value={blogSearchQuery}
+                  onChange={(e) => setBlogSearchQuery(e.target.value)}
+                />
+              </div>
+
+              <div className="admin-category-filter">
+                <select
+                  value={selectedBlogCategory}
+                  onChange={(e) => setSelectedBlogCategory(e.target.value)}
+                  className="admin-select"
+                >
+                  {blogCategoriesList.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat === "all" ? "All Categories" : cat}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="admin-status-filters flex items-center gap-1.5 bg-[#140f09] p-1 rounded-xl border border-yellow-400/20">
+                <button
+                  type="button"
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                    selectedBlogStatus === "all"
+                      ? "bg-yellow-400 text-black shadow-sm"
+                      : "text-zinc-400 hover:text-white"
+                  }`}
+                  onClick={() => setSelectedBlogStatus("all")}
+                >
+                  All ({blogs.length})
+                </button>
+                <button
+                  type="button"
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                    selectedBlogStatus === "published"
+                      ? "bg-emerald-500 text-black shadow-sm"
+                      : "text-zinc-400 hover:text-white"
+                  }`}
+                  onClick={() => setSelectedBlogStatus("published")}
+                >
+                  Published ({totalPublishedBlogsCount})
+                </button>
+                <button
+                  type="button"
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                    selectedBlogStatus === "draft"
+                      ? "bg-amber-500 text-black shadow-sm"
+                      : "text-zinc-400 hover:text-white"
+                  }`}
+                  onClick={() => setSelectedBlogStatus("draft")}
+                >
+                  Drafts ({totalDraftBlogsCount})
+                </button>
+              </div>
+
+              {canAccessBlogs && (
+                <button
+                  className="admin-add-btn ml-auto"
+                  onClick={handleOpenCreateBlog}
+                >
+                  <Plus size={18} />
+                  <span>New Post</span>
+                </button>
+              )}
+            </div>
+
+            {/* Blogs List */}
+            {isLoadingBlogs ? (
+              <div className="admin-loading-state">
+                <div className="spinner" />
+                <p>Loading blogs from CMS...</p>
+              </div>
+            ) : filteredBlogs.length > 0 ? (
+              <div className="admin-grid">
+                {filteredBlogs.map((b) => {
+                  const hasFullSEO = Boolean(b.metaTitle && b.seoExcerpt && Array.isArray(b.keywords) && b.keywords.length > 0);
+                  return (
+                    <div key={b._id || b.id || b.slug} className="admin-card blog-item-card">
+                      <div className="admin-card-header">
+                        <div className="admin-card-img-wrap">
+                          {b.featuredImage ? (
+                            <img src={b.featuredImage} alt={b.title} />
+                          ) : (
+                            <div className="admin-card-img-placeholder">
+                              <FileText size={24} />
+                            </div>
+                          )}
+                          <span
+                            className={`status-pill ${
+                              b.status === "published" ? "status-open" : "status-closed"
+                            }`}
+                          >
+                            {b.status === "published" ? "● Published" : "○ Draft"}
+                          </span>
+                        </div>
+                        <div className="admin-card-title-wrap">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="admin-category-pill">
+                              {b.category || "General"}
+                            </span>
+                            <span className="text-[11px] text-zinc-500 flex items-center gap-1">
+                              <Clock size={11} />
+                              {b.readTime || "4 min read"}
+                            </span>
+                          </div>
+                          <h3 className="admin-card-title">{b.title}</h3>
+                          <div className="text-xs text-zinc-400 font-mono mt-0.5 truncate">
+                            /blogs/{b.slug}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="admin-card-body">
+                        <p className="admin-card-desc">
+                          {b.seoExcerpt || b.metaDescription || "No excerpt added yet."}
+                        </p>
+
+                        <div className="admin-details-grid">
+                          <div className="admin-detail-item">
+                            <User size={13} />
+                            <span>{b.author || "Third Eye Team"}</span>
+                          </div>
+                          <div className="admin-detail-item">
+                            <Eye size={13} />
+                            <span>{(b.views || 0).toLocaleString()} views</span>
+                          </div>
+                        </div>
+
+                        {/* SEO Health Badge */}
+                        <div className="mt-3 pt-2.5 border-t border-white/[0.06] flex items-center justify-between text-xs">
+                          <span className="text-zinc-500">SEO Health:</span>
+                          {hasFullSEO ? (
+                            <span className="inline-flex items-center gap-1 text-emerald-400 font-medium bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                              <CheckCircle2 size={12} />
+                              <span>Full SEO Configured</span>
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 text-amber-400 font-medium bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
+                              <AlertCircle size={12} />
+                              <span>Needs Meta / Keywords</span>
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="admin-card-actions">
+                        <Link
+                          to={`/blogs/${b.slug}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="admin-action-btn view"
+                          title="View live article"
+                        >
+                          <ExternalLink size={16} />
+                          <span>View Live</span>
+                        </Link>
+                        {canAccessBlogs && (
+                          <>
+                            <button
+                              type="button"
+                              className="admin-action-btn edit"
+                              onClick={() => handleOpenEditBlog(b)}
+                              title="Edit post in CMS"
+                            >
+                              <Edit2 size={16} />
+                              <span>Edit</span>
+                            </button>
+                            <button
+                              type="button"
+                              className="admin-action-btn delete"
+                              onClick={() => handleOpenDeleteBlog(b)}
+                              title="Delete post"
+                            >
+                              <Trash2 size={16} />
+                              <span>Delete</span>
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="admin-empty-state">
+                <div className="empty-icon-wrap">
+                  <FileText size={36} />
+                </div>
+                <h3>No articles found</h3>
+                <p>
+                  {blogSearchQuery
+                    ? `No blog posts matching "${blogSearchQuery}".`
+                    : "Create your first blog post using Google Docs copy-paste or write directly in the rich editor."}
+                </p>
+                {canAccessBlogs && (
+                  <div className="empty-actions">
+                    <button
+                      className="empty-btn-primary"
+                      onClick={handleOpenCreateBlog}
+                    >
+                      <Plus size={16} />
+                      <span>Write First Blog Post</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+          </>
+        )}
+
+        {/* ========================================================= */}
+        {/* TAB 4.5: SKILL ASSESSMENTS MANAGEMENT (MONGODB)           */}
+        {/* ========================================================= */}
+        {activeSection === "assessments" && (
+          <>
+            {/* Metrics Row */}
+            <div className="admin-metrics-grid">
+              <div className="admin-metric-card">
+                <div className="metric-header">
+                  <span className="metric-label">Total Skill Tests</span>
+                  <div className="metric-icon-wrap global">
+                    <Award size={16} />
+                  </div>
+                </div>
+                <div className="metric-value">{assessments.length}</div>
+                <div className="metric-subtext">Generalized subject evaluations</div>
+              </div>
+
+              <div className="admin-metric-card">
+                <div className="metric-header">
+                  <span className="metric-label">Questions Pool</span>
+                  <div className="metric-icon-wrap yellow">
+                    <CheckSquare size={16} />
+                  </div>
+                </div>
+                <div className="metric-value">{totalAssessmentQuestionsCount}</div>
+                <div className="metric-subtext">Configured with 4 options & keys</div>
+              </div>
+
+              <div className="admin-metric-card">
+                <div className="metric-header">
+                  <span className="metric-label">Learner Test Attempts</span>
+                  <div className="metric-icon-wrap blue">
+                    <Users size={16} />
+                  </div>
+                </div>
+                <div className="metric-value">{totalAssessmentAttemptsCount.toLocaleString()}</div>
+                <div className="metric-subtext">Completed by prospective students</div>
+              </div>
+
+              <div className="admin-metric-card">
+                <div className="metric-header">
+                  <span className="metric-label">Diagnostic System</span>
+                  <div className="metric-icon-wrap emerald">
+                    <Sparkles size={16} />
+                  </div>
+                </div>
+                <div className="metric-value">Active</div>
+                <div className="metric-subtext">Topic-wise score & course suggestions</div>
+              </div>
+            </div>
+
+            {/* Filter and Search Bar */}
+            <div className="admin-filters-bar">
+              <div className="admin-search-box">
+                <Search size={18} />
+                <input
+                  type="text"
+                  placeholder="Search assessment by subject, audience, category..."
+                  value={assessmentSearchQuery}
+                  onChange={(e) => setAssessmentSearchQuery(e.target.value)}
+                />
+              </div>
+
+              <div className="admin-category-filter">
+                <select
+                  value={selectedAssessmentCategory}
+                  onChange={(e) => setSelectedAssessmentCategory(e.target.value)}
+                  className="admin-select"
+                >
+                  {assessmentCategoriesList.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat === "all" ? "All Subject Domains" : cat}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {canAccessAssessments && (
+                <button
+                  className="admin-add-btn ml-auto"
+                  onClick={handleOpenCreateAssessment}
+                >
+                  <Plus size={18} />
+                  <span>New Skill Test</span>
+                </button>
+              )}
+            </div>
+
+            {/* Assessments List */}
+            {isLoadingAssessments ? (
+              <div className="admin-loading-state">
+                <div className="spinner" />
+                <p>Loading assessment tests from database...</p>
+              </div>
+            ) : filteredAssessments.length > 0 ? (
+              <div className="admin-grid">
+                {filteredAssessments.map((item) => {
+                  const qCount = Array.isArray(item.questions) ? item.questions.length : 0;
+                  const topics = Array.from(
+                    new Set(
+                      (item.questions || [])
+                        .map((q) => q.topic)
+                        .filter(Boolean)
+                    )
+                  );
+                  return (
+                    <div key={item._id || item.id || item.slug} className="admin-card assessment-item-card">
+                      <div className="admin-card-header">
+                        <div
+                          className="admin-card-img-wrap"
+                          style={{
+                            height: "120px",
+                            background: "linear-gradient(135deg, #18120a 0%, #22180a 100%)",
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            position: "relative",
+                          }}
+                        >
+                          <Award size={36} className="text-[#f6d96b] opacity-80 mb-2" />
+                          <span className="text-xs font-bold text-zinc-300">
+                            {qCount} Standardized Questions
+                          </span>
+                          <span
+                            className={`status-pill ${
+                              item.isActive !== false ? "status-open" : "status-closed"
+                            }`}
+                          >
+                            {item.isActive !== false ? "● Active" : "○ Draft"}
+                          </span>
+                        </div>
+                        <div className="admin-card-title-wrap">
+                          <div className="flex items-center gap-2 mb-1 flex-wrap">
+                            <span className="admin-category-pill">
+                              {item.category || "General"}
+                            </span>
+                            <span className="text-[11px] text-zinc-500 flex items-center gap-1">
+                              <Clock size={11} />
+                              {item.durationMinutes || 10} Mins
+                            </span>
+                            <span className="text-[11px] text-[#f6d96b] font-semibold">
+                              Pass: {item.passingPercentage || 60}%
+                            </span>
+                          </div>
+                          <h3 className="admin-card-title">{item.title}</h3>
+                          <div className="text-xs text-zinc-400 font-mono mt-0.5 truncate">
+                            /assessment/{item.slug}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="admin-card-body">
+                        <div className="text-xs font-semibold text-zinc-400 mb-1.5 flex items-center gap-1.5">
+                          <Users size={12} className="text-[#f6d96b]" />
+                          <span>Audience: {item.targetAudience || "Learners"}</span>
+                        </div>
+                        <p className="admin-card-desc">
+                          {item.description || "No description provided."}
+                        </p>
+
+                        {topics.length > 0 && (
+                          <div className="mt-2.5 flex flex-wrap gap-1">
+                            {topics.slice(0, 4).map((t, i) => (
+                              <span
+                                key={i}
+                                className="text-[10px] bg-zinc-900 border border-zinc-700/50 text-zinc-300 px-1.5 py-0.5 rounded"
+                              >
+                                {t}
+                              </span>
+                            ))}
+                            {topics.length > 4 && (
+                              <span className="text-[10px] text-zinc-500 py-0.5">
+                                +{topics.length - 4} more
+                              </span>
+                            )}
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="admin-card-footer">
+                        <div className="text-xs text-zinc-400">
+                          Attempts: <strong className="text-white">{item.totalAttempts || 0}</strong>
+                        </div>
+
+                        <div className="admin-card-actions ml-auto">
+                          <Link
+                            to={`/assessment/${item.slug}`}
+                            target="_blank"
+                            className="admin-action-btn view"
+                            title="Take test in new tab"
+                          >
+                            <ExternalLink size={16} />
+                            <span>Preview</span>
+                          </Link>
+
+                          {canAccessAssessments && (
+                            <>
+                              <button
+                                type="button"
+                                className="admin-action-btn edit"
+                                onClick={() => handleOpenEditAssessment(item)}
+                                title="Edit test and questions"
+                              >
+                                <Edit2 size={16} />
+                                <span>Edit</span>
+                              </button>
+                              <button
+                                type="button"
+                                className="admin-action-btn delete"
+                                onClick={() => handleOpenDeleteAssessment(item)}
+                                title="Delete test"
+                              >
+                                <Trash2 size={16} />
+                                <span>Delete</span>
+                              </button>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="admin-empty-state">
+                <div className="empty-icon-wrap">
+                  <Award size={36} />
+                </div>
+                <h3>No skill assessments found</h3>
+                <p>
+                  {assessmentSearchQuery
+                    ? `No skill assessments matching "${assessmentSearchQuery}".`
+                    : "Create standardized 10-question tests with automated topic diagnostics and course suggestions."}
+                </p>
+                {canAccessAssessments && (
+                  <div className="empty-actions">
+                    <button
+                      className="empty-btn-primary"
+                      onClick={handleOpenCreateAssessment}
+                    >
+                      <Plus size={16} />
+                      <span>Create First Skill Test</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+          </>
+        )}
+
+        {/* ========================================================= */}
+        {/* TAB 5: SECURITY & PASSWORDS (GLOBAL ADMIN ONLY)           */}
         {/* ========================================================= */}
         {activeSection === "security" && role === "global_admin" && (
           <SecurityManagerTab showToast={showToast} />
+        )}
+
+        {/* ========================================================= */}
+        {/* TAB 6: PHOTOS & VIDEOS (GLOBAL ADMIN ONLY)                */}
+        {/* ========================================================= */}
+        {activeSection === "media" && role === "global_admin" && (
+          <div className="admin-media-tab-wrapper">
+            <UploadMediaPage embedded={true} />
+          </div>
         )}
       </div>
 
@@ -1660,6 +2612,54 @@ export default function AdminPage() {
         onClose={() => setIsSubmissionDeleteOpen(false)}
         onConfirm={handleConfirmDeleteSubmission}
         isDeleting={isSubmissionDeleting}
+      />
+
+      {/* Blog Form Modal (MongoDB CMS) */}
+      <BlogFormModal
+        key={
+          editingBlog?._id ||
+          editingBlog?.id ||
+          (isBlogFormOpen ? "blog-open" : "blog-closed")
+        }
+        isOpen={isBlogFormOpen}
+        blog={editingBlog}
+        onClose={() => setIsBlogFormOpen(false)}
+        onSave={handleSaveBlog}
+        isSaving={isBlogSaving}
+      />
+
+      {/* Delete Confirmation Modal for Blog */}
+      <DeleteConfirmModal
+        isOpen={isBlogDeleteOpen}
+        item={deletingBlog}
+        itemType="Blog Post"
+        onClose={() => setIsBlogDeleteOpen(false)}
+        onConfirm={handleConfirmDeleteBlog}
+        isDeleting={isBlogDeleting}
+      />
+
+      {/* Assessment Form Modal (MongoDB) */}
+      <AssessmentFormModal
+        key={
+          editingAssessment?._id ||
+          editingAssessment?.id ||
+          (isAssessmentFormOpen ? "assessment-open" : "assessment-closed")
+        }
+        isOpen={isAssessmentFormOpen}
+        assessment={editingAssessment}
+        onClose={() => setIsAssessmentFormOpen(false)}
+        onSave={handleSaveAssessment}
+        isSaving={isAssessmentSaving}
+      />
+
+      {/* Delete Confirmation Modal for Assessment */}
+      <DeleteConfirmModal
+        isOpen={isAssessmentDeleteOpen}
+        item={deletingAssessment}
+        itemType="Skill Assessment Test"
+        onClose={() => setIsAssessmentDeleteOpen(false)}
+        onConfirm={handleConfirmDeleteAssessment}
+        isDeleting={isAssessmentDeleting}
       />
     </div>
   );

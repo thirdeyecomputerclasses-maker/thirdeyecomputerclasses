@@ -1,13 +1,26 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Play, Pause, Volume2, VolumeX, Maximize2, Sparkles } from "lucide-react";
+import { fetchMedia } from "../../../services/mediaApi";
 
 export default function AboutVideoShowcase() {
   const videoRef = useRef(null);
   const containerRef = useRef(null);
+  const [videoSrc, setVideoSrc] = useState("/assets/webreel.mp4");
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    fetchMedia({ page: "about", type: "video" })
+      .then((data) => {
+        const slot = data?.find((s) => s.slotKey === "about_showcase_reel");
+        if (slot?.url) {
+          setVideoSrc(slot.url);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -79,6 +92,7 @@ export default function AboutVideoShowcase() {
           >
             <video
               ref={videoRef}
+              key={videoSrc}
               autoPlay
               loop
               muted={isMuted}
@@ -86,8 +100,7 @@ export default function AboutVideoShowcase() {
               preload="metadata"
               className="w-full h-full object-cover"
             >
-              <source src="/assets/webreel.mp4" type="video/mp4" />
-              <source src="https://px.pixxo.io/sheryians/About%20Us/Webreel1_1_Y25mvxPxf.mp4" type="video/mp4" />
+              <source src={videoSrc} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
 
