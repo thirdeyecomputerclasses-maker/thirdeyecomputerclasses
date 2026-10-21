@@ -1,4 +1,4 @@
-﻿/* ─── Steps To Start — 6-Step Launch Roadmap (Vibrant Yellow Console System) ─── */
+/* ─── Steps To Start — 6-Step Launch Roadmap (Vibrant Yellow Console System) ─── */
 
 .steps-franchise-section {
   width: 100%;
@@ -213,9 +213,16 @@
   }
 }
 
-/* ── Vibrant Filled Yellow Step Card ── */
+/* ── Vibrant Filled Yellow Step Card with Student Feedback Texture & Hover Light ── */
 .step-card {
-  background: #ffd300;
+  background-color: #ffd300;
+  background-image: 
+    radial-gradient(circle at var(--step-mx, 50%) var(--step-my, 30%), rgba(255, 255, 255, 0.5) 0%, rgba(255, 245, 140, 0.22) 35%, transparent 70%),
+    radial-gradient(rgba(0, 0, 0, 0.08) 1.5px, transparent 1.5px),
+    linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(145deg, #fff275 0%, #ffd300 50%, #f0be00 100%);
+  background-size: 100% 100%, 20px 20px, 60px 60px, 60px 60px, 100% 100%;
   color: #000000;
   border: 2.5px solid #000000;
   border-radius: 24px;
@@ -224,15 +231,41 @@
   display: flex;
   flex-direction: column;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.35s ease;
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.3s ease;
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
 }
 
+/* Dynamic Interactive Spotlight Light on Mouse Hover */
+.step-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--step-mx, 50%) var(--step-my, 40%), rgba(255, 255, 255, 0.55) 0%, rgba(255, 245, 140, 0.28) 32%, transparent 68%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
 .step-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 26px 54px -12px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 211, 0, 0.5);
+  box-shadow: 
+    0 28px 58px -12px rgba(0, 0, 0, 0.9), 
+    0 0 42px rgba(255, 211, 0, 0.65),
+    inset 0 0 32px rgba(255, 255, 255, 0.38);
+}
+
+.step-card:hover::after {
+  opacity: 1;
+}
+
+.step-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* Top Laser Rim inside card */
@@ -329,9 +362,16 @@
   flex-grow: 1;
 }
 
-/* ── Bottom CTA Box (Vibrant Yellow Console) ── */
+/* ── Bottom CTA Box (Yellow Gradient Console with Hover Light) ── */
 .steps-bottom-cta {
-  background: #ffd300;
+  background-color: #ffd300;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.5) 0%, transparent 60%),
+    radial-gradient(rgba(0, 0, 0, 0.08) 1.5px, transparent 1.5px),
+    linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(145deg, #fff275 0%, #ffd300 50%, #f0be00 100%);
+  background-size: 100% 100%, 20px 20px, 60px 60px, 60px 60px, 100% 100%;
   color: #000000;
   border: 2.5px solid #000000;
   border-radius: 26px;
@@ -344,6 +384,14 @@
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.steps-bottom-cta:hover {
+  box-shadow: 
+    0 28px 65px -10px rgba(0, 0, 0, 0.9), 
+    0 0 48px rgba(255, 211, 0, 0.65), 
+    inset 0 0 35px rgba(255, 255, 255, 0.35);
 }
 
 .steps-bottom-cta::before {

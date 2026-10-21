@@ -1,14 +1,12 @@
 import React, { createContext, useContext, useState, useEffect, useRef } from "react";
-import track1 from "../assets/audio/ambient_music_theme.mp3";
 import track2 from "../assets/audio/ambient_track_2.mp3";
 import track3 from "../assets/audio/ambient_track_3.mp3";
 import track4 from "../assets/audio/ambient_track_4.mp3";
 
 export const SONGS = [
-  { id: "ambient-1", title: "Ambient Theme 1", src: track1 },
-  { id: "ambient-2", title: "Ambient Theme 2", src: track2 },
-  { id: "ambient-3", title: "Ambient Theme 3", src: track3 },
-  { id: "ambient-4", title: "Ambient Theme 4", src: track4 },
+  { id: "ambient-1", title: "Ambient Theme 1", src: track2 },
+  { id: "ambient-2", title: "Ambient Theme 2", src: track3 },
+  { id: "ambient-3", title: "Ambient Theme 3", src: track4 },
 ];
 
 const SoundContext = createContext();
@@ -25,17 +23,17 @@ const getRandomIndex = (excludeIndex = -1) => {
 };
 
 export function SoundProvider({ children }) {
-  // Sound is ALWAYS strictly ON by default
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.35); // Pleasant ambient volume
+  const [showExperienceModal, setShowExperienceModal] = useState(true);
   const [currentSong, setCurrentSong] = useState(() => {
     const idx = getRandomIndex();
     return SONGS[idx];
   });
 
   const audioRef = useRef(null);
-  const isMutedRef = useRef(false);
+  const isMutedRef = useRef(true);
   const isPlayingRef = useRef(false);
   const volumeRef = useRef(0.35);
   const currentSongIndexRef = useRef(
@@ -133,35 +131,7 @@ export function SoundProvider({ children }) {
     audio.addEventListener("pause", onPause);
     audio.addEventListener("ended", onEnded);
 
-    // 1. Immediately attempt autoplay with unmuted sound ON
-    playAudio().then((succeeded) => {
-      if (succeeded) return;
-
-      // 2. If browser requires user interaction first, attach capture listeners.
-      const gestureEvents = ["pointerdown", "mousedown", "touchstart", "touchend", "click", "keydown"];
-
-      const handleUserGesture = () => {
-        if (isMutedRef.current) return;
-        playAudio().then((success) => {
-          if (success) {
-            removeGestureListeners();
-          }
-        });
-      };
-
-      const removeGestureListeners = () => {
-        gestureEvents.forEach((evt) => {
-          window.removeEventListener(evt, handleUserGesture, true);
-          document.removeEventListener(evt, handleUserGesture, true);
-        });
-      };
-
-      gestureEvents.forEach((evt) => {
-        window.addEventListener(evt, handleUserGesture, { capture: true, passive: true });
-        document.addEventListener(evt, handleUserGesture, { capture: true, passive: true });
-      });
-    });
-
+    // Do not force autoplay without user choice; ExperienceModal or Navbar will trigger playback
     return () => {
       if (audio) {
         audio.removeEventListener("play", onPlay);
@@ -173,7 +143,26 @@ export function SoundProvider({ children }) {
     };
   }, []);
 
-  // Toggle sound On / Off
+  // Modal actions
+  const startExperienceWithSound = () => {
+    setIsMuted(false);
+    isMutedRef.current = false;
+    setShowExperienceModal(false);
+    playAudio();
+  };
+
+  const continueExperienceWithoutSound = () => {
+    setIsMuted(true);
+    isMutedRef.current = true;
+    setShowExperienceModal(false);
+    pauseAudio();
+  };
+
+  const dismissExperienceModal = () => {
+    setShowExperienceModal(false);
+  };
+
+  // Toggle sound On / Off (Navbar small icon)
   const toggleSound = () => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -206,12 +195,18 @@ export function SoundProvider({ children }) {
         volume,
         currentSong,
         songs: SONGS,
+        showExperienceModal,
+        setShowExperienceModal,
+        startExperienceWithSound,
+        continueExperienceWithoutSound,
+        dismissExperienceModal,
         playRandomSong,
         nextSong: playRandomSong,
         toggleSound,
         changeVolume,
         playAudio,
-        startAudioWithFade: playAudio, // Compatibility alias
+        pauseAudio,
+        startAudioWithFade: playAudio,
       }}
     >
       {children}

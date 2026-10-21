@@ -300,7 +300,7 @@ export default function LiveAdmissionTicker() {
         <div className="ticker-content-wrap milestone-layout">
           <div className="ticker-visual-col">
             <div className="milestone-flame-orb">
-              <Flame size={20} className="flame-icon" />
+              <Flame size={16} className="flame-icon" />
               <span className="pulse-ring" />
             </div>
           </div>

@@ -280,7 +280,7 @@ export default function ContactPage() {
               <div className="contact-social-row">
                 {/* Instagram */}
                 <a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/thirdeyecomputerclasses?vrfl=MTdieW1qYTdycHFxcw=="
                   target="_blank"
                   rel="noopener noreferrer"
                   className="social-brand-btn ig-btn"
@@ -308,7 +308,7 @@ export default function ContactPage() {
 
                 {/* YouTube */}
                 <a
-                  href="https://youtube.com"
+                  href="https://youtube.com/@thirdeyecomputerclasses2?si=sL3zh84NatPzHKmp"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="social-brand-btn yt-btn"
@@ -322,7 +322,7 @@ export default function ContactPage() {
 
                 {/* LinkedIn */}
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/company/thirdeye-computer-classes/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="social-brand-btn in-btn"

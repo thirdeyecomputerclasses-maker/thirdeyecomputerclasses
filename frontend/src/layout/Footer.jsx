@@ -103,7 +103,7 @@ export default function Footer() {
               <div className="flex flex-wrap items-center gap-3.5 sm:gap-4">
                 {/* YouTube */}
                 <a
-                  href="https://youtube.com"
+                  href="https://youtube.com/@thirdeyecomputerclasses2?si=sL3zh84NatPzHKmp"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="YouTube"
@@ -120,7 +120,7 @@ export default function Footer() {
 
                 {/* Instagram */}
                 <a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/thirdeyecomputerclasses?vrfl=MTdieW1qYTdycHFxcw=="
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram"
@@ -162,7 +162,7 @@ export default function Footer() {
 
                 {/* LinkedIn */}
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/company/thirdeye-computer-classes/"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"

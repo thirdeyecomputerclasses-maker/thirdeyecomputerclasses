@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./appRoutes/AppRoutes";
 import Preloader from "./components/Preloader";
+import ExperienceModal from "./components/ExperienceModal";
 import { SoundProvider } from "./context/SoundContext";
 import ClerkSafeProvider from "./context/ClerkSafeProvider";
 
@@ -26,6 +27,7 @@ function App() {
     <ClerkSafeProvider>
       <SoundProvider>
         {isPreloading && <Preloader onComplete={() => setIsPreloading(false)} />}
+        {!isPreloading && <ExperienceModal />}
         <BrowserRouter>
           <EnquiryProvider>
             <AppRoutes />

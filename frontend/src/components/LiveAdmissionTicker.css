@@ -5,21 +5,21 @@
 
 .live-admission-ticker {
   position: fixed;
-  bottom: 84px; /* Floating directly above the Nearest Branch widget */
-  right: 24px;
+  bottom: 78px; /* Clean 14px air gap above the Nearest Branch widget (bottom: 20px) */
+  right: 20px;
   left: auto;
   z-index: 998;
-  max-width: 390px;
+  max-width: 330px;
   width: calc(100vw - 32px);
   background: rgba(14, 11, 7, 0.94);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border: 1px solid rgba(246, 217, 107, 0.35);
-  border-radius: 18px;
-  padding: 12px 14px 12px 13px;
+  border-radius: 16px;
+  padding: 8px 12px 8px 10px;
   box-shadow:
-    0 14px 40px rgba(0, 0, 0, 0.8),
-    0 0 26px rgba(246, 217, 107, 0.16),
+    0 10px 30px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(246, 217, 107, 0.14),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   cursor: pointer;
   user-select: none;
@@ -72,11 +72,11 @@
 /* Close / Dismiss Button */
 .ticker-close-btn {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 6px;
+  right: 6px;
   z-index: 3;
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   border: none;
   background: rgba(255, 255, 255, 0.06);
@@ -101,7 +101,7 @@
   z-index: 1;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 /* Left Visual Column */
@@ -112,35 +112,35 @@
 /* Student Avatar Frame */
 .student-avatar-frame {
   position: relative;
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  padding: 2px;
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+  padding: 1.5px;
   background: linear-gradient(135deg, #f6d96b, #b38612);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
 }
 
 .student-avatar-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 9px;
   display: block;
 }
 
 .student-verified-dot {
   position: absolute;
-  bottom: -3px;
-  right: -3px;
-  width: 17px;
-  height: 17px;
+  bottom: -2px;
+  right: -2px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: #10b981;
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 8px rgba(16, 185, 129, 0.7), 0 0 0 2px #0e0b07;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.7), 0 0 0 1.5px #0e0b07;
 }
 
 .verified-check {
@@ -150,16 +150,16 @@
 /* Milestone Flame Orb */
 .milestone-flame-orb {
   position: relative;
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
   background: linear-gradient(135deg, rgba(239, 68, 68, 0.25), rgba(245, 158, 11, 0.25));
   border: 1px solid rgba(245, 158, 11, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #ffaa1c;
-  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.25);
+  box-shadow: 0 3px 12px rgba(245, 158, 11, 0.25);
 }
 
 .flame-icon {
@@ -202,8 +202,8 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  padding-right: 14px;
+  gap: 2px;
+  padding-right: 12px;
 }
 
 /* Header Meta Row */
@@ -211,16 +211,16 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 6px;
 }
 
 .ticker-live-beacon {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  font-size: 10px;
+  gap: 4px;
+  font-size: 9px;
   font-weight: 700;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
   color: #f6d96b;
 }
@@ -342,7 +342,7 @@
 
 /* Milestone Specific Content */
 .milestone-headline {
-  font-size: 13.5px;
+  font-size: 12px;
   font-weight: 700;
   color: #ffffff;
   line-height: 1.25;
@@ -354,9 +354,9 @@
 }
 
 .milestone-subtext {
-  font-size: 11.5px;
+  font-size: 10.5px;
   color: #c9bfaf;
-  line-height: 1.35;
+  line-height: 1.3;
   margin: 0;
 }
 
@@ -447,13 +447,13 @@
 /* Mobile Responsiveness */
 @media (max-width: 640px) {
   .live-admission-ticker {
-    bottom: 84px; /* Placed above bottom branch widget / mobile controls */
-    left: 14px;
-    right: 14px;
+    bottom: 66px; /* Placed cleanly above bottom branch widget */
+    left: 12px;
+    right: 12px;
     width: auto;
     max-width: none;
-    padding: 10px 12px;
-    border-radius: 16px;
+    padding: 7px 10px;
+    border-radius: 14px;
   }
 
   .student-avatar-frame,

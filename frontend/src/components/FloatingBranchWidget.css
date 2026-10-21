@@ -1,13 +1,13 @@
 /* Floating Branch Finder Widget Styles */
 .floating-branch-widget {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
+  bottom: 20px;
+  right: 20px;
   z-index: 999;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 16px 10px 12px;
+  gap: 9px;
+  padding: 6px 13px 6px 9px;
   background: rgba(14, 11, 7, 0.94);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -15,8 +15,8 @@
   border-radius: 999px;
   cursor: pointer;
   box-shadow: 
-    0 12px 35px rgba(0, 0, 0, 0.8),
-    0 0 25px rgba(246, 217, 107, 0.2),
+    0 10px 30px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(246, 217, 107, 0.18),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   animation: floatingSlideIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -74,8 +74,8 @@
 
 /* Icon Wrap with radar beacon */
 .floating-icon-wrap {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background: linear-gradient(135deg, #ffd35a 0%, #f6d96b 100%);
   color: #0d0a06;
@@ -84,7 +84,7 @@
   justify-content: center;
   flex-shrink: 0;
   position: relative;
-  box-shadow: 0 4px 14px rgba(246, 217, 107, 0.35);
+  box-shadow: 0 3px 10px rgba(246, 217, 107, 0.3);
 }
 
 .floating-compass-icon {
@@ -100,10 +100,10 @@
 
 .floating-beacon-dot {
   position: absolute;
-  top: 1px;
-  right: 1px;
-  width: 9px;
-  height: 9px;
+  top: 0px;
+  right: 0px;
+  width: 7px;
+  height: 7px;
   background: #22c55e;
   border: 1.5px solid #0d0a06;
   border-radius: 50%;
@@ -129,37 +129,37 @@
 .floating-text-block {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
 }
 
 .floating-top-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .floating-label {
   font-family: "Rajdhani", sans-serif;
-  font-size: 15px;
-  font-weight: 800;
+  font-size: 13.5px;
+  font-weight: 700;
   color: #ffffff;
   letter-spacing: 0.02em;
   line-height: 1.2;
 }
 
 .floating-badge {
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 800;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   color: #0d0a06;
   background: #f6d96b;
-  padding: 1px 6px;
+  padding: 1px 5px;
   border-radius: 999px;
   text-transform: uppercase;
 }
 
 .floating-sub {
-  font-size: 11px;
+  font-size: 9.5px;
   color: #a89f8f;
   font-weight: 500;
   letter-spacing: 0.01em;
@@ -170,8 +170,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background: rgba(246, 217, 107, 0.12);
   border: 1px solid rgba(246, 217, 107, 0.25);
@@ -181,7 +181,7 @@
 
 .floating-arrow-double {
   font-family: "Rajdhani", sans-serif;
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 900;
   color: #f6d96b;
   letter-spacing: -1px;

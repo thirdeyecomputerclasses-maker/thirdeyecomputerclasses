@@ -84,7 +84,6 @@ export default function Preloader({ onComplete }) {
           // Hold 100% briefly (120ms for warm cache, 300ms for cold)
           setTimeout(() => {
             setIsDone(true);
-            if (playAudio) playAudio();
             setTimeout(() => {
               if (onComplete) onComplete();
             }, isWarm ? 350 : 550);

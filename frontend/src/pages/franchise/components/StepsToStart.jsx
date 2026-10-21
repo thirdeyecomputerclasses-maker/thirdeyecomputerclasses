@@ -73,6 +73,14 @@ export default function StepsToStart({ onOpenInquiry }) {
     }
   ];
 
+  const handleStepMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = Math.round(((e.clientX - rect.left) / rect.width) * 100);
+    const y = Math.round(((e.clientY - rect.top) / rect.height) * 100);
+    e.currentTarget.style.setProperty("--step-mx", `${x}%`);
+    e.currentTarget.style.setProperty("--step-my", `${y}%`);
+  };
+
   return (
     <section className="steps-franchise-section" id="how-to-start">
       {/* Ambient background glows */}
@@ -122,7 +130,7 @@ export default function StepsToStart({ onOpenInquiry }) {
         {/* 6-Step Roadmap Grid — Vibrant Filled Yellow Cards */}
         <div className="steps-grid">
           {steps.map((step, idx) => (
-            <div key={idx} className="step-card">
+            <div key={idx} className="step-card" onMouseMove={handleStepMouseMove}>
               {/* Step Top Bar */}
               <div className="step-card-header">
                 <div className="step-badge-cluster">

@@ -29,17 +29,15 @@ import awardSuumitSharma from "../assets/award_suumit_sharma.webp";
 import awardPreetiSharma from "../assets/award_preeti_sharma.webp";
 import awardCeremonyGroup from "../assets/award_ceremony_group.webp";
 import aboutTeamPhoto from "../assets/about_team_photo.webp";
-import track1 from "../assets/audio/ambient_music_theme.mp3";
 import track2 from "../assets/audio/ambient_track_2.mp3";
 import track3 from "../assets/audio/ambient_track_3.mp3";
 import track4 from "../assets/audio/ambient_track_4.mp3";
 import { FIRST_THREE_REVIEW_VIDEOS } from "../pages/studentReviews/studentReviewsData";
 
 export const SONGS = [
-  { id: "ambient-1", title: "Ambient Theme 1", src: track1 },
-  { id: "ambient-2", title: "Ambient Theme 2", src: track2 },
-  { id: "ambient-3", title: "Ambient Theme 3", src: track3 },
-  { id: "ambient-4", title: "Ambient Theme 4", src: track4 },
+  { id: "ambient-1", title: "Ambient Theme 1", src: track2 },
+  { id: "ambient-2", title: "Ambient Theme 2", src: track3 },
+  { id: "ambient-3", title: "Ambient Theme 3", src: track4 },
 ];
 
 export const CACHE_NAME = "thirdeye-v3-static";
@@ -71,10 +69,9 @@ export const CRITICAL_ASSETS = [
   { id: "awardPreetiSharma", src: awardPreetiSharma, label: "Poornima Award Preeti Sharma" },
   { id: "awardCeremonyGroup", src: awardCeremonyGroup, label: "Poornima Award Ceremony Group" },
   { id: "aboutTeamPhoto", src: aboutTeamPhoto, label: "About Us Team Collective" },
-  { id: "ambientAudio1", src: track1, label: "Background Music Track 1" },
-  { id: "ambientAudio2", src: track2, label: "Background Music Track 2" },
-  { id: "ambientAudio3", src: track3, label: "Background Music Track 3" },
-  { id: "ambientAudio4", src: track4, label: "Background Music Track 4" },
+  { id: "ambientAudio1", src: track2, label: "Background Music Track 1" },
+  { id: "ambientAudio2", src: track3, label: "Background Music Track 2" },
+  { id: "ambientAudio3", src: track4, label: "Background Music Track 3" },
   // First three student review videos preloaded at website startup
   { id: "reviewVideo1", src: FIRST_THREE_REVIEW_VIDEOS[0].thumbnail, label: "Student Video 1 (Shina Mathur)" },
   { id: "reviewVideo2", src: FIRST_THREE_REVIEW_VIDEOS[1].thumbnail, label: "Student Video 2 (Ilmuddin Behlim)" },

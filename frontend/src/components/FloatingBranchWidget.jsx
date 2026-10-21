@@ -65,7 +65,7 @@ export default function FloatingBranchWidget() {
 
       {/* Radar beacon icon */}
       <div className="floating-icon-wrap">
-        <Compass size={19} className="floating-compass-icon" />
+        <Compass size={16} className="floating-compass-icon" />
         <span className="floating-beacon-dot" />
       </div>
 

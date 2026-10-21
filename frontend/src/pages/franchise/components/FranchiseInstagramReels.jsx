@@ -165,7 +165,7 @@ export default function FranchiseInstagramReels() {
 
           <div className="reels-header-right">
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/thirdeyecomputerclasses?vrfl=MTdieW1qYTdycHFxcw=="
               target="_blank"
               rel="noopener noreferrer"
               className="reels-follow-btn"
