@@ -117,6 +117,8 @@ export default function Immersive3DJourneySection() {
           <img
             src={humanHandImg}
             alt="Human Hand"
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-contain filter drop-shadow-[0_10px_35px_rgba(0,0,0,0.85)] select-none"
             draggable={false}
           />
@@ -130,6 +132,8 @@ export default function Immersive3DJourneySection() {
           <img
             src={robotHandImg}
             alt="Robot Hand"
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-contain filter drop-shadow-[0_10px_35px_rgba(246,217,107,0.2)] select-none"
             draggable={false}
           />

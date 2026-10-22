@@ -59,6 +59,9 @@ export function SoundProvider({ children }) {
     const audio = audioRef.current;
     if (!audio || isMutedRef.current) return Promise.resolve(false);
 
+    if (!audio.src) {
+      audio.src = currentSong?.src || SONGS[0].src;
+    }
     audio.volume = volumeRef.current;
     return audio
       .play()
@@ -101,16 +104,10 @@ export function SoundProvider({ children }) {
 
   // Initialize Audio & Autoplay
   useEffect(() => {
-    // Clear any previous stale muted flags so default is strictly sound ON
-    try {
-      localStorage.removeItem("thirdeye_sound_enabled");
-    } catch {}
-
-    const initialIdx = currentSongIndexRef.current;
-    const audio = new Audio(SONGS[initialIdx].src);
-    audio.loop = false; // When song finishes, randomly picks the next track
+    const audio = new Audio();
+    audio.loop = false;
     audio.volume = volumeRef.current;
-    audio.preload = "auto";
+    audio.preload = "none"; // CRITICAL: Zero network audio download until user plays
     audioRef.current = audio;
 
     // Track audio state via native events

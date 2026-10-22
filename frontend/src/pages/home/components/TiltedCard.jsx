@@ -136,6 +136,8 @@ export default function TiltedCard({
         <motion.img
           src={imageSrc}
           alt={altText}
+          loading="lazy"
+          decoding="async"
           className={`w-full h-full object-cover object-top will-change-transform pointer-events-none transition-all duration-500 ease-out ${
             isHovered
               ? "grayscale-0 contrast-100 brightness-100 scale-[1.02]"

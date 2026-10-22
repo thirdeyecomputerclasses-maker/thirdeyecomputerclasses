@@ -1,12 +1,12 @@
 /**
- * Third Eye Service Worker - Ultra-Fast Asset Caching Engine
- * Caches high-res visual assets, 3D images, audio, and web fonts
- * to provide near-instant page loads for returning visitors.
+ * Third Eye Service Worker - Bandwidth-Optimized Static Cache Engine
+ * - Serves immutable hashed assets instantly from cache with 0 background fetches.
+ * - Caches audio on first play so subsequent plays consume 0 network bandwidth.
+ * - Bypasses backend API endpoints completely.
  */
 
-const CACHE_NAME = 'thirdeye-v3-static';
+const CACHE_NAME = 'thirdeye-v4-static';
 
-// Static file extensions to aggressively cache locally
 const CACHEABLE_EXTENSIONS = [
   '.webp',
   '.png',
@@ -17,7 +17,9 @@ const CACHEABLE_EXTENSIONS = [
   '.wav',
   '.woff',
   '.woff2',
-  '.ttf'
+  '.ttf',
+  '.js',
+  '.css'
 ];
 
 self.addEventListener('install', (event) => {
@@ -40,28 +42,23 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   const { request } = event;
+  if (request.method !== 'GET') return;
+
   const url = new URL(request.url);
 
-  // 1. Never cache dynamic backend API requests
+  // 1. Never intercept backend API calls or uploads
   if (url.pathname.startsWith('/api') || url.pathname.startsWith('/uploads')) {
     return;
   }
 
-  // 2. Audio Network-First Strategy (ensures fresh sound updates immediately)
-  const isAudio =
-    url.pathname.endsWith('.mp3') ||
-    url.pathname.endsWith('.wav') ||
-    url.pathname.includes('/audio/');
-
-  if (isAudio && request.method === 'GET') {
+  // 2. HTML navigation requests: Network-first to always detect fresh deployments
+  if (request.mode === 'navigate' || url.pathname === '/' || url.pathname.endsWith('.html')) {
     event.respondWith(
       fetch(request)
         .then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
-            const responseClone = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(request, responseClone);
-            });
+            const clone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
           }
           return networkResponse;
         })
@@ -70,8 +67,8 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 3. Cache-First Strategy for Images, Fonts, and Static Chunks
-  const isCacheableAsset =
+  // 3. Static assets, hashed chunks, fonts, and audio: Pure Cache-First (NO background re-fetch!)
+  const isCacheable =
     CACHEABLE_EXTENSIONS.some((ext) => url.pathname.endsWith(ext)) ||
     url.hostname.includes('fonts.googleapis.com') ||
     url.hostname.includes('fonts.gstatic.com') ||
@@ -79,35 +76,20 @@ self.addEventListener('fetch', (event) => {
     url.pathname.includes('/assets/') ||
     url.pathname.includes('/audio/');
 
-  if (isCacheableAsset && request.method === 'GET') {
+  if (isCacheable) {
     event.respondWith(
       caches.match(request).then((cachedResponse) => {
         if (cachedResponse) {
-          // Serve immediately from local device cache
-          // Optionally revalidate in background
-          fetch(request)
-            .then((networkResponse) => {
-              if (networkResponse && networkResponse.status === 200) {
-                caches.open(CACHE_NAME).then((cache) => {
-                  cache.put(request, networkResponse);
-                });
-              }
-            })
-            .catch(() => {});
+          // Zero network request if already cached!
           return cachedResponse;
         }
 
-        // Not in cache: fetch from network and store for next time
+        // Fetch once, store permanently in cache
         return fetch(request).then((networkResponse) => {
-          if (!networkResponse || networkResponse.status !== 200) {
-            return networkResponse;
+          if (networkResponse && networkResponse.status === 200) {
+            const clone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
           }
-
-          const responseClone = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(request, responseClone);
-          });
-
           return networkResponse;
         });
       })

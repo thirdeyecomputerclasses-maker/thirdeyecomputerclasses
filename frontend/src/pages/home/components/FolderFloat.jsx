@@ -869,7 +869,8 @@ export default function FolderFloat({
                     src={item.image}
                     alt={item.label}
                     className="folder-float__thumb"
-                    loading="eager"
+                    loading="lazy"
+                    decoding="async"
                   />
                 )}
                 <div className="folder-float__item-text">

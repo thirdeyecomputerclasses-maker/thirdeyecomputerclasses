@@ -6,76 +6,13 @@
  */
 
 import logo from "../assets/logo.webp";
-import classroomSliceLeft from "../assets/classroom_slice_left.webp";
-import classroomSliceCenter from "../assets/classroom_slice_center.webp";
-import classroomSliceRight from "../assets/classroom_slice_right.webp";
-import teamPhoto from "../assets/team_photo.webp";
-import classroomPanoramic from "../assets/classroom_panoramic.png";
-import humanHand from "../assets/human_hand.png";
-import robotHand from "../assets/robot_hand.png";
-import cube3d from "../assets/cube_3d.png";
-import mentor1 from "../assets/mentor_1.png";
-import mentor2 from "../assets/mentor_2.png";
-import mentor3 from "../assets/mentor_3.png";
-import mentor4 from "../assets/mentor_4.png";
-import mentor5 from "../assets/mentor_5.png";
-import mlChaudhary from "../assets/leadership/ml_chaudhary.png";
-import suumitSharma from "../assets/leadership/suumit_sharma.png";
-import preetiSharma from "../assets/leadership/preeti_sharma.png";
-import eccouncilCodeRed from "../assets/certificates/eccouncil_codered.png";
-import redhatRhcsa from "../assets/certificates/redhat_rhcsa.png";
-import autodeskAutocad from "../assets/certificates/autodesk_autocad.webp";
-import awardSuumitSharma from "../assets/award_suumit_sharma.webp";
-import awardPreetiSharma from "../assets/award_preeti_sharma.webp";
-import awardCeremonyGroup from "../assets/award_ceremony_group.webp";
-import aboutTeamPhoto from "../assets/about_team_photo.webp";
-import track2 from "../assets/audio/ambient_track_2.mp3";
-import track3 from "../assets/audio/ambient_track_3.mp3";
-import track4 from "../assets/audio/ambient_track_4.mp3";
-import { FIRST_THREE_REVIEW_VIDEOS } from "../pages/studentReviews/studentReviewsData";
-
-export const SONGS = [
-  { id: "ambient-1", title: "Ambient Theme 1", src: track2 },
-  { id: "ambient-2", title: "Ambient Theme 2", src: track3 },
-  { id: "ambient-3", title: "Ambient Theme 3", src: track4 },
-];
 
 export const CACHE_NAME = "thirdeye-v3-static";
 const CACHE_STORAGE_KEY = "thirdeye_cached_assets_v3";
 
-// List of all critical high-res visual assets, audio, and initial student review videos to pre-download
+// Only lightweight critical assets for instant smooth entry (Heavy images & audio load on-demand)
 export const CRITICAL_ASSETS = [
   { id: "logo", src: logo, label: "Brand Vector Core" },
-  { id: "classroomSliceLeft", src: classroomSliceLeft, label: "Studio Environment (Left)" },
-  { id: "classroomSliceCenter", src: classroomSliceCenter, label: "Studio Environment (Center)" },
-  { id: "classroomSliceRight", src: classroomSliceRight, label: "Studio Environment (Right)" },
-  { id: "teamPhoto", src: teamPhoto, label: "Studio Team Panoramic" },
-  { id: "classroomPanoramic", src: classroomPanoramic, label: "Classroom Panoramic Texture" },
-  { id: "humanHand", src: humanHand, label: "Spatial Human Interface" },
-  { id: "robotHand", src: robotHand, label: "Spatial AI Robotics" },
-  { id: "cube3d", src: cube3d, label: "Isometric 3D Anchor" },
-  { id: "mentor1", src: mentor1, label: "Faculty Mentorship Module 1" },
-  { id: "mentor2", src: mentor2, label: "Faculty Mentorship Module 2" },
-  { id: "mentor3", src: mentor3, label: "Faculty Mentorship Module 3" },
-  { id: "mentor4", src: mentor4, label: "Faculty Mentorship Module 4" },
-  { id: "mentor5", src: mentor5, label: "Faculty Mentorship Module 5" },
-  { id: "mlChaudhary", src: mlChaudhary, label: "Leadership Directorate" },
-  { id: "suumitSharma", src: suumitSharma, label: "Leadership Technology" },
-  { id: "preetiSharma", src: preetiSharma, label: "Leadership Academy" },
-  { id: "eccouncilCodeRed", src: eccouncilCodeRed, label: "EC-Council Credentials" },
-  { id: "redhatRhcsa", src: redhatRhcsa, label: "RedHat Enterprise Cert" },
-  { id: "autodeskAutocad", src: autodeskAutocad, label: "Autodesk Design Standard" },
-  { id: "awardSuumitSharma", src: awardSuumitSharma, label: "Poornima Award Suumit Sharma" },
-  { id: "awardPreetiSharma", src: awardPreetiSharma, label: "Poornima Award Preeti Sharma" },
-  { id: "awardCeremonyGroup", src: awardCeremonyGroup, label: "Poornima Award Ceremony Group" },
-  { id: "aboutTeamPhoto", src: aboutTeamPhoto, label: "About Us Team Collective" },
-  { id: "ambientAudio1", src: track2, label: "Background Music Track 1" },
-  { id: "ambientAudio2", src: track3, label: "Background Music Track 2" },
-  { id: "ambientAudio3", src: track4, label: "Background Music Track 3" },
-  // First three student review videos preloaded at website startup
-  { id: "reviewVideo1", src: FIRST_THREE_REVIEW_VIDEOS[0].thumbnail, label: "Student Video 1 (Shina Mathur)" },
-  { id: "reviewVideo2", src: FIRST_THREE_REVIEW_VIDEOS[1].thumbnail, label: "Student Video 2 (Ilmuddin Behlim)" },
-  { id: "reviewVideo3", src: FIRST_THREE_REVIEW_VIDEOS[2].thumbnail, label: "Student Video 3 (Punya Singh)" },
 ];
 
 /**

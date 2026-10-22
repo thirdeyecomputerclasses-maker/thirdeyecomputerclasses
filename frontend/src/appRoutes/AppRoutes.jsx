@@ -23,26 +23,27 @@ function PlaceholderPage({ title, subtitle }) {
 }
 
 import HomePage from "../pages/home/HomePage";
-import Courses from "../pages/course/Courses";
-import CompareCourses from "../pages/course/CompareCourses";
-import CourseDetails from "../pages/courseDetails/CourseDetails";
-import AdminPage from "../pages/admin/AdminPage";
-import OurTeam from "../pages/team/OurTeam";
-import AboutPage from "../pages/about/AboutPage";
-import OurCertificationPage from "../pages/certification/OurCertificationPage";
-import Franchise from "../pages/franchise/Franchise";
-import ContactPage from "../pages/contact/ContactPage";
-import JobsAndPlacement from "../pages/placements/JobsAndPlacement";
-import JobDetailPage from "../pages/placements/JobDetailPage";
-import Memories from "../pages/Memories/memories";
-import Review from "../pages/studentReviews/Review";
-import BlogsPage from "../pages/blogs/BlogsPage";
-import BlogDetailPage from "../pages/blogs/BlogDetailPage";
-import AssessmentsHub from "../pages/assessments/AssessmentsHub";
-import AssessmentTestPage from "../pages/assessments/AssessmentTestPage";
-import NearestBranchFinder from "../pages/branchFinder/NearestBranchFinder";
-import PayNowPage from "../pages/payNow/PayNowPage";
-import UploadMediaPage from "../pages/uploadMedia/UploadMediaPage";
+
+const Courses = React.lazy(() => import("../pages/course/Courses"));
+const CompareCourses = React.lazy(() => import("../pages/course/CompareCourses"));
+const CourseDetails = React.lazy(() => import("../pages/courseDetails/CourseDetails"));
+const AdminPage = React.lazy(() => import("../pages/admin/AdminPage"));
+const OurTeam = React.lazy(() => import("../pages/team/OurTeam"));
+const AboutPage = React.lazy(() => import("../pages/about/AboutPage"));
+const OurCertificationPage = React.lazy(() => import("../pages/certification/OurCertificationPage"));
+const Franchise = React.lazy(() => import("../pages/franchise/Franchise"));
+const ContactPage = React.lazy(() => import("../pages/contact/ContactPage"));
+const JobsAndPlacement = React.lazy(() => import("../pages/placements/JobsAndPlacement"));
+const JobDetailPage = React.lazy(() => import("../pages/placements/JobDetailPage"));
+const Memories = React.lazy(() => import("../pages/Memories/memories"));
+const Review = React.lazy(() => import("../pages/studentReviews/Review"));
+const BlogsPage = React.lazy(() => import("../pages/blogs/BlogsPage"));
+const BlogDetailPage = React.lazy(() => import("../pages/blogs/BlogDetailPage"));
+const AssessmentsHub = React.lazy(() => import("../pages/assessments/AssessmentsHub"));
+const AssessmentTestPage = React.lazy(() => import("../pages/assessments/AssessmentTestPage"));
+const NearestBranchFinder = React.lazy(() => import("../pages/branchFinder/NearestBranchFinder"));
+const PayNowPage = React.lazy(() => import("../pages/payNow/PayNowPage"));
+const UploadMediaPage = React.lazy(() => import("../pages/uploadMedia/UploadMediaPage"));
 
 function ApplyCertificateRedirect() {
   React.useEffect(() => {

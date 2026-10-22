@@ -167,6 +167,8 @@ function StudioCard({ card, index, scrollYProgress }) {
           <img
             src={card.img}
             alt={card.heading || `slice-${card.id}`}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover block select-none pointer-events-none"
             style={{
               objectPosition: card.objectPosition || "center",
