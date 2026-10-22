@@ -179,7 +179,7 @@ export default function Footer() {
 
                 {/* WhatsApp */}
                 <a
-                  href="https://wa.me/919876543210"
+                  href="https://wa.me/918058061222"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="WhatsApp"
@@ -256,10 +256,10 @@ export default function Footer() {
                   Online: 11am - 8pm
                 </span>
                 <a
-                  href="tel:+919876543210"
+                  href="tel:+918058061222"
                   className="text-[#f6d96b] hover:text-[#ffe07a] transition-colors font-mono tracking-tight block text-sm sm:text-base font-bold mt-0.5"
                 >
-                  +91 9876543210
+                  +91 8058061222
                 </a>
               </div>
 
@@ -269,10 +269,10 @@ export default function Footer() {
                   Offline: 8am - 8pm
                 </span>
                 <a
-                  href="tel:+919876543211"
+                  href="tel:+918058061222"
                   className="text-[#f6d96b] hover:text-[#ffe07a] transition-colors font-mono tracking-tight block text-sm sm:text-base font-bold mt-0.5"
                 >
-                  +91 9876543211
+                  +91 8058061222
                 </a>
               </div>
 

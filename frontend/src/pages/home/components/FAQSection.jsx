@@ -281,7 +281,7 @@ export default function FAQSection() {
             Still have questions? We&apos;re happy to help.
           </p>
           <a
-            href="tel:+919876543210"
+            href="tel:+918058061222"
             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold transition-all duration-200 hover:scale-105 active:scale-95"
             style={{
               background: "linear-gradient(135deg, #f6d96b, #c9a200)",
