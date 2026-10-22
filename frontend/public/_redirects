@@ -1,5 +1,5 @@
 # Optional Netlify API Proxy (uncomment and replace with your Render URL if you prefer proxying instead of direct CORS):
-# /api/*  https://your-backend-app.onrender.com/api/:splat  200!
+# /api/*  https://thirdeyecomputerclasses.onrender.com/api/:splat  200!
 
 # SPA Fallback for React Router
 /*    /index.html   200
