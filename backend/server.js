@@ -20,7 +20,7 @@ connectDB();
 
 const allowedOrigins = process.env.FRONTEND_URL
   ? process.env.FRONTEND_URL.split(",").map((url) => url.trim().replace(/\/$/, ""))
-  : ["http://localhost:5173", "http://localhost:3000"];
+  : ["http://localhost:5173", "http://localhost:3000", "https://thirdeyeclasses.com", "https://www.thirdeyeclasses.com"];
 
 app.use(
   cors({
@@ -28,10 +28,15 @@ app.use(
       if (!origin) return callback(null, true);
       const normalizedOrigin = origin.replace(/\/$/, "");
       const isNetlify = normalizedOrigin.endsWith(".netlify.app");
+      const isTrustedDomain =
+        normalizedOrigin.endsWith("thirdeyeclasses.com") ||
+        normalizedOrigin.endsWith("thirdeyecomputerclasses.com") ||
+        normalizedOrigin.endsWith("onrender.com");
       if (
         allowedOrigins.includes("*") ||
         allowedOrigins.includes(normalizedOrigin) ||
         isNetlify ||
+        isTrustedDomain ||
         process.env.NODE_ENV !== "production"
       ) {
         return callback(null, true);
