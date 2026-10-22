@@ -65,16 +65,51 @@ export const MODE_OPTIONS = [
   { id: "hybrid", label: "Flexible / Hybrid", icon: Layers, hint: "Mix of offline labs & remote lectures" },
 ];
 
+function matchKeyword(text, keyword) {
+  if (!text || !keyword) return false;
+  const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const regex = new RegExp(`(^|[^a-zA-Z0-9])${escaped}([^a-zA-Z0-9]|$)`, "i");
+  return regex.test(text);
+}
+
 const INTEREST_KEYWORDS = {
-  "web-dev": ["web", "mern", "frontend", "backend", "full stack", "react", "node", "express", "mongo", "javascript", "js", "html", "css", "software", "developer", "development", "coding", "next"],
-  "ui-ux": ["ui", "ux", "figma", "wireframe", "prototype", "user interface", "user experience", "design system", "product design", "adobe xd"],
-  "graphic-design": ["graphic", "photoshop", "illustrator", "coreldraw", "corel", "branding", "logo", "print", "banner", "indesign", "vector", "design"],
-  "animation-vfx": ["animat", "vfx", "maya", "blender", "after effects", "premiere", "video", "editing", "3d", "2d", "render", "cinematic", "modeling", "compositing"],
-  "marketing": ["market", "digital", "seo", "ads", "social media", "meta", "google ads", "growth", "campaign", "analytics", "content marketing"],
-  "data-ai": ["data", "ai", "python", "machine learning", "analytics", "deep learning", "artificial intelligence", "sql", "excel", "data science"],
-  "cad-drafting": ["cad", "autocad", "matrix", "rhino", "jewelry", "drafting", "revit", "architecture", "civil", "interior", "mechanical"],
-  "basic-accounting": ["tally", "excel", "gst", "accounting", "adcs", "office", "computer basic", "rscit", "mis", "accounts", "e-way"],
-  "cyber-cloud": ["security", "cyber", "ethical hack", "aws", "cloud", "devops", "linux", "network", "kali", "penetration"],
+  "web-dev": [
+    "web development", "web developer", "full stack", "mern", "frontend", "backend",
+    "react", "node", "express", "mongodb", "javascript", "html", "css", "c programming", "c++",
+    "coding", "software", "next.js"
+  ],
+  "ui-ux": [
+    "ui/ux", "ui-ux", "ui ux", "figma", "wireframe", "wireframing", "prototype", "prototyping",
+    "user interface", "user experience", "design system", "design systems", "framer", "adobe xd"
+  ],
+  "graphic-design": [
+    "graphic design", "graphics", "photoshop", "illustrator", "coreldraw", "corel",
+    "branding", "logo design", "vector", "print media", "canva"
+  ],
+  "animation-vfx": [
+    "animation", "vfx", "maya", "blender", "after effects", "premiere pro",
+    "video editing", "3d animation", "2d animation", "cinematic", "compositing"
+  ],
+  "marketing": [
+    "digital marketing", "seo", "e-commerce", "marketplace", "social media",
+    "meta ads", "google ads", "growth marketing", "amazon fba", "affiliate", "ppc"
+  ],
+  "data-ai": [
+    "data analytics", "data science", "business intelligence", "power bi",
+    "tableau", "sql", "python", "machine learning", "deep learning", "pandas", "excel analytics"
+  ],
+  "cad-drafting": [
+    "autocad", "cad", "drafting", "3d modeling", "revit", "bim", "civil drafting",
+    "mechanical drafting", "architectural", "solid modeling"
+  ],
+  "basic-accounting": [
+    "tally", "tally prime", "accounting", "gst", "tds", "income tax", "balance sheet",
+    "bookkeeping", "excel", "payroll", "industrial accountant"
+  ],
+  "cyber-cloud": [
+    "cyber security", "ethical hacking", "hacking", "penetration testing", "pentesting",
+    "kali linux", "network security", "information security", "wireshark", "cloud computing", "aws cloud", "devops"
+  ],
 };
 
 function getCourseSearchableText(course) {
@@ -138,17 +173,26 @@ export default function SmartCourseFinder({
       const reasons = [];
       const courseText = getCourseSearchableText(course);
 
-      // 1. Interest Matching (Weight: 50 points)
+      // 1. Precise Interest Matching (Word-Boundary & Tiered Importance)
       let interestMatched = false;
       if (interest !== "all") {
         const keywords = INTEREST_KEYWORDS[interest] || [];
-        const matchesKeyword = keywords.some((kw) => courseText.includes(kw));
 
-        if (matchesKeyword) {
-          score += 50;
+        const titleMatch = keywords.some((kw) => matchKeyword(course.title, kw));
+        const categoryMatch = keywords.some((kw) => matchKeyword(course.category, kw));
+        const toolMatch = Array.isArray(course.tools) && course.tools.some((t) => keywords.some((kw) => matchKeyword(t?.name, kw)));
+        const descMatch = keywords.some((kw) => matchKeyword(course.description, kw));
+
+        if (titleMatch || categoryMatch || toolMatch || descMatch) {
           interestMatched = true;
+          let interestScore = 40;
+          if (titleMatch) interestScore += 20;
+          if (toolMatch) interestScore += 10;
+          if (categoryMatch) interestScore += 5;
+
+          score += interestScore;
           const opt = INTEREST_OPTIONS.find((o) => o.id === interest);
-          reasons.push(`Matches ${opt?.label || "your interest"}`);
+          reasons.push(`Direct match for ${opt?.label || "your interest"}`);
         } else {
           score += 0;
         }
