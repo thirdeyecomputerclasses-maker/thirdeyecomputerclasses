@@ -54,7 +54,7 @@ export default function PayNowPage() {
           </h1>
 
           <p className="text-sm sm:text-base md:text-lg text-zinc-300 font-normal leading-relaxed">
-            Scan our authorized institutional QR code to pay via any UPI application, or make a direct NEFT / IMPS transfer to our HDFC Bank corporate account.
+            Pay securely online via our verified <strong className="text-[#f6d96b]">Razorpay Payment Gateway</strong> with auto-applied scholarship discounts, scan the institutional UPI QR code, or initiate a direct NEFT / IMPS bank transfer.
           </p>
         </div>
 

@@ -606,14 +606,19 @@ export default function Navbar() {
               <SoundToggle />
 
               {/* Visible on both Mobile & Desktop Header */}
-              <Link
-                to="/pay-now"
-                className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2 sm:py-2.5 rounded-full text-sm sm:text-base font-semibold tracking-normal text-zinc-950 bg-gradient-to-r from-[#ffd35a] via-[#f3cf65] to-[#fed156] shadow-[0_4px_20px_rgba(243,207,101,0.35)] hover:shadow-[0_6px_30px_rgba(243,207,101,0.55)] hover:brightness-105 active:scale-95 transition-all duration-200 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-                aria-label="Apply or Pay Fees Now"
-              >
-                <span>Pay Now</span>
-                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 stroke-[2]" />
-              </Link>
+              <div className="relative inline-flex items-center">
+                <Link
+                  to="/pay-now"
+                  className="relative inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2 sm:py-2.5 rounded-full text-sm sm:text-base font-semibold tracking-normal text-zinc-950 bg-gradient-to-r from-[#ffd35a] via-[#f3cf65] to-[#fed156] shadow-[0_4px_20px_rgba(243,207,101,0.35)] hover:shadow-[0_6px_30px_rgba(243,207,101,0.55)] hover:brightness-105 active:scale-95 transition-all duration-200 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                  aria-label="Apply or Pay Fees Now"
+                >
+                  <span className="absolute -top-2.5 -right-1 px-1.5 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-emerald-400 text-black shadow-md border border-emerald-300 pointer-events-none animate-pulse">
+                    Offer Active
+                  </span>
+                  <span>Pay Now</span>
+                  <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 stroke-[2]" />
+                </Link>
+              </div>
 
               {/* Mobile Hamburger Toggle Button */}
               <button
