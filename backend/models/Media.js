@@ -16,6 +16,7 @@ const MediaSchema = new mongoose.Schema(
       type: String,
       default: "",
       index: true,
+      unique: true,
     },
     defaultUrl: {
       type: String,

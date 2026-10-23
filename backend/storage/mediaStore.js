@@ -664,15 +664,25 @@ class MediaStore {
         });
 
         for (const slot of INITIAL_SECTION_SLOTS) {
-          const existing = await Media.findOne({ slotKey: slot.slotKey });
-          if (!existing) {
-            await Media.create(slot);
-          } else if (existing.section !== slot.section || existing.title !== slot.title) {
-            existing.section = slot.section;
-            existing.title = slot.title;
-            existing.description = slot.description;
-            await existing.save();
-          }
+          await Media.updateOne(
+            { slotKey: slot.slotKey },
+            {
+              $setOnInsert: {
+                ...slot,
+                isDefault: true,
+                createdAt: new Date(),
+              },
+              $set: {
+                page: slot.page,
+                section: slot.section,
+                type: slot.type,
+                title: slot.title,
+                description: slot.description,
+                defaultUrl: slot.defaultUrl,
+              },
+            },
+            { upsert: true }
+          );
         }
       } catch (err) {
         console.warn("MongoDB sync slots warning:", err.message);
@@ -694,7 +704,14 @@ class MediaStore {
 
         const results = await Media.find(filter).sort({ createdAt: 1 });
         if (results && results.length > 0) {
-          return results;
+          const map = new Map();
+          results.forEach((item) => {
+            const existing = map.get(item.slotKey);
+            if (!existing || (!item.isDefault && existing.isDefault)) {
+              map.set(item.slotKey, item);
+            }
+          });
+          return Array.from(map.values());
         }
       } catch (err) {
         console.warn("MongoDB media fetch failed, falling back to memory:", err.message);
@@ -735,25 +752,30 @@ class MediaStore {
   static async updateSlot(slotKey, updateData) {
     if (getDBStatus()) {
       try {
-        let media = await Media.findOne({ slotKey });
-        if (media) {
-          media.url = updateData.url || media.url;
-          media.thumbnailUrl = updateData.thumbnailUrl || media.url;
-          media.fileId = updateData.fileId || media.fileId;
-          media.isDefault = false;
-          media.updatedAt = new Date();
-          return await media.save();
-        } else {
-          // Find template
-          const template = INITIAL_SECTION_SLOTS.find((s) => s.slotKey === slotKey);
-          if (template) {
-            return await Media.create({
-              ...template,
-              ...updateData,
+        const template = INITIAL_SECTION_SLOTS.find((s) => s.slotKey === slotKey) || {};
+        const updated = await Media.findOneAndUpdate(
+          { slotKey },
+          {
+            $set: {
+              url: updateData.url,
+              thumbnailUrl: updateData.thumbnailUrl || updateData.url,
+              fileId: updateData.fileId || "",
               isDefault: false,
-            });
-          }
-        }
+              updatedAt: new Date(),
+            },
+            $setOnInsert: {
+              page: template.page || "franchise",
+              section: template.section || "general",
+              type: template.type || "image",
+              title: template.title || slotKey,
+              description: template.description || "",
+              defaultUrl: template.defaultUrl || updateData.url,
+              createdAt: new Date(),
+            },
+          },
+          { new: true, upsert: true }
+        );
+        if (updated) return updated;
       } catch (err) {
         console.warn("MongoDB update slot failed, falling back to memory:", err.message);
       }
@@ -782,15 +804,20 @@ class MediaStore {
 
     if (getDBStatus()) {
       try {
-        const media = await Media.findOne({ slotKey });
-        if (media) {
-          media.url = template.defaultUrl;
-          media.thumbnailUrl = template.defaultUrl;
-          media.fileId = "";
-          media.isDefault = true;
-          media.updatedAt = new Date();
-          return await media.save();
-        }
+        const updated = await Media.findOneAndUpdate(
+          { slotKey },
+          {
+            $set: {
+              url: template.defaultUrl,
+              thumbnailUrl: template.defaultUrl,
+              fileId: "",
+              isDefault: true,
+              updatedAt: new Date(),
+            },
+          },
+          { new: true }
+        );
+        if (updated) return updated;
       } catch (err) {
         console.warn("MongoDB reset slot failed, falling back to memory:", err.message);
       }

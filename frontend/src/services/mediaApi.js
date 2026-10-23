@@ -25,6 +25,17 @@ const getCleanBaseUrl = () => {
 const BASE_URL = getCleanBaseUrl();
 const MEDIA_API = `${BASE_URL}/api/media`;
 
+export const resolveMediaUrl = (url) => {
+  if (!url) return "";
+  if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("data:")) {
+    return url;
+  }
+  if (url.startsWith("/uploads/")) {
+    return `${BASE_URL}${url}`;
+  }
+  return url;
+};
+
 export async function fetchMedia({ page = "all", type = "all" } = {}) {
   const queryParams = new URLSearchParams();
   if (page && page !== "all") queryParams.append("page", page);
@@ -38,7 +49,22 @@ export async function fetchMedia({ page = "all", type = "all" } = {}) {
     throw new Error(`Failed to load media (HTTP ${res.status})`);
   }
   const result = await res.json();
-  return result.data || [];
+  const rawList = result.data || [];
+
+  // Deduplicate by slotKey and prioritize custom uploads (isDefault === false)
+  const slotMap = new Map();
+  rawList.forEach((item) => {
+    const existing = slotMap.get(item.slotKey);
+    if (!existing || (!item.isDefault && existing.isDefault)) {
+      slotMap.set(item.slotKey, item);
+    }
+  });
+
+  return Array.from(slotMap.values()).map((item) => ({
+    ...item,
+    url: resolveMediaUrl(item.url),
+    thumbnailUrl: resolveMediaUrl(item.thumbnailUrl || item.url),
+  }));
 }
 
 /**
@@ -64,7 +90,12 @@ export async function replaceSlotFile({ slotKey, file, onProgress }) {
         if (xhr.status >= 200 && xhr.status < 300) {
           try {
             const data = JSON.parse(xhr.responseText);
-            resolve(data.data);
+            const slot = data.data;
+            if (slot) {
+              slot.url = resolveMediaUrl(slot.url);
+              slot.thumbnailUrl = resolveMediaUrl(slot.thumbnailUrl || slot.url);
+            }
+            resolve(slot);
           } catch {
             resolve(null);
           }
@@ -98,7 +129,12 @@ export async function replaceSlotFile({ slotKey, file, onProgress }) {
   }
 
   const data = await res.json();
-  return data.data;
+  const slot = data.data;
+  if (slot) {
+    slot.url = resolveMediaUrl(slot.url);
+    slot.thumbnailUrl = resolveMediaUrl(slot.thumbnailUrl || slot.url);
+  }
+  return slot;
 }
 
 /**

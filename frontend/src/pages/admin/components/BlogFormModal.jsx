@@ -276,10 +276,55 @@ export default function BlogFormModal({
     }
   };
 
+  // Helper to compress oversized banner photos client-side to crisp, web-optimized files
+  const compressImageFile = (file, maxWidth = 1600, quality = 0.85) => {
+    return new Promise((resolve) => {
+      if (!file || !file.type.startsWith("image/")) {
+        return resolve(file);
+      }
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          let { width, height } = img;
+          if (width <= maxWidth && file.size < 1.5 * 1024 * 1024) {
+            return resolve(file);
+          }
+          if (width > maxWidth) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          }
+          const canvas = document.createElement("canvas");
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+          canvas.toBlob(
+            (blob) => {
+              if (!blob) return resolve(file);
+              const compressed = new File([blob], file.name.replace(/\.[^.]+$/, ".webp"), {
+                type: "image/webp",
+                lastModified: Date.now(),
+              });
+              resolve(compressed);
+            },
+            "image/webp",
+            quality
+          );
+        };
+        img.onerror = () => resolve(file);
+        img.src = event.target.result;
+      };
+      reader.onerror = () => resolve(file);
+      reader.readAsDataURL(file);
+    });
+  };
+
   // Featured Image File Selection
-  const handleFeaturedImageChange = (e) => {
-    const file = e.target.files && e.target.files[0];
-    if (file) {
+  const handleFeaturedImageChange = async (e) => {
+    const rawFile = e.target.files && e.target.files[0];
+    if (rawFile) {
+      const file = await compressImageFile(rawFile);
       setFeaturedImageFile(file);
       setFeaturedImageUrl("");
       const reader = new FileReader();

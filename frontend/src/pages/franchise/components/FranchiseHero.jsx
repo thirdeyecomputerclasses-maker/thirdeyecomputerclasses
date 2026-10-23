@@ -68,7 +68,9 @@ export default function FranchiseHero({ onOpenInquiry }) {
   useEffect(() => {
     fetchMedia({ page: "franchise", type: "image" })
       .then((data) => {
-        const slot = data?.find((s) => s.slotKey === "franchise_founder");
+        const slot =
+          data?.find((s) => s.slotKey === "franchise_founder" && !s.isDefault) ||
+          data?.find((s) => s.slotKey === "franchise_founder");
         if (slot?.url) {
           setFounderImage(slot.url);
         }

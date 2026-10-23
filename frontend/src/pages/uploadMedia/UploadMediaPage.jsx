@@ -110,7 +110,14 @@ export default function UploadMediaPage({ embedded = false }) {
     setError(null);
     try {
       const data = await fetchMedia({ page: "all", type: "all" });
-      setSlots(data);
+      const slotMap = new Map();
+      (data || []).forEach((item) => {
+        const existing = slotMap.get(item.slotKey);
+        if (!existing || (!item.isDefault && existing.isDefault)) {
+          slotMap.set(item.slotKey, item);
+        }
+      });
+      setSlots(Array.from(slotMap.values()));
     } catch (err) {
       console.error("Error loading section slots:", err);
       setError(err.message || "Failed to load section slots from server.");
@@ -229,12 +236,16 @@ export default function UploadMediaPage({ embedded = false }) {
       }
 
       // Update state locally & refresh
-      setSlots((prev) =>
-        prev.map((s) => (s.slotKey === activeSlot.slotKey ? updatedSlot : s))
-      );
+      if (updatedSlot) {
+        setSlots((prev) => {
+          const map = new Map(prev.map((s) => [s.slotKey, s]));
+          map.set(activeSlot.slotKey, updatedSlot);
+          return Array.from(map.values());
+        });
+      }
       setActionMessage({
         type: "success",
-        text: `Successfully replaced photo for "${activeSlot.title}" via ImageKit!`,
+        text: `Successfully replaced photo for "${activeSlot.title}"!`,
       });
       setTimeout(() => setActionMessage(null), 4000);
       handleCloseReplace();

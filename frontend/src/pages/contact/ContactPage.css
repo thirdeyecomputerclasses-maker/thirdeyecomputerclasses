@@ -551,6 +551,16 @@
   background-color: #25d366;
 }
 
+.x-btn {
+  background-color: #000000;
+  border: 1px solid #27272a;
+}
+
+.threads-btn {
+  background-color: #000000;
+  border: 1px solid #27272a;
+}
+
 .social-brand-btn:hover {
   transform: translateY(-3px) scale(1.08);
   box-shadow: 0 8px 20px rgba(255, 211, 0, 0.3);

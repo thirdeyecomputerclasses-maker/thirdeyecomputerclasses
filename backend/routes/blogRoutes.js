@@ -19,7 +19,8 @@ const router = express.Router();
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: {
-    fileSize: 12 * 1024 * 1024, // 12MB
+    fileSize: 25 * 1024 * 1024, // 25MB
+    fieldSize: 25 * 1024 * 1024, // 25MB (allows rich articles and inline graphics)
   },
   fileFilter: (req, file, cb) => {
     if (file.mimetype.startsWith("image/")) {

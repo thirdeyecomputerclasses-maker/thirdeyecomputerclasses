@@ -9,6 +9,7 @@ const submissionRoutes = require("./routes/submissionRoutes");
 const authRoutes = require("./routes/authRoutes");
 const blogRoutes = require("./routes/blogRoutes");
 const assessmentRoutes = require("./routes/assessmentRoutes");
+const path = require("path");
 const mediaRoutes = require("./routes/mediaRoutes");
 
 dotenv.config();
@@ -48,9 +49,10 @@ app.use(
   })
 );
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/auth", authRoutes);
 app.use("/api", courseRoutes);
 app.use("/api", jobRoutes);
@@ -65,6 +67,25 @@ app.get("/api/health", (req, res) => {
     database: getDBStatus() ? "connected" : "disconnected",
     imagekit: isImageKitConfigured() ? "connected" : "not_configured",
     timestamp: new Date().toISOString(),
+  });
+});
+
+// Global error handling middleware (handles 413 PayloadTooLarge, Multer errors, etc.)
+app.use((err, req, res, next) => {
+  if (
+    err.type === "entity.too.large" ||
+    err.status === 413 ||
+    err.code === "LIMIT_FILE_SIZE" ||
+    err.code === "LIMIT_FIELD_VALUE"
+  ) {
+    return res.status(413).json({
+      error: "Payload too large. Please reduce the size of embedded images or article content.",
+      message: err.message,
+    });
+  }
+  console.error("Unhandled server error:", err);
+  res.status(err.status || 500).json({
+    error: err.message || "Internal server error",
   });
 });
 

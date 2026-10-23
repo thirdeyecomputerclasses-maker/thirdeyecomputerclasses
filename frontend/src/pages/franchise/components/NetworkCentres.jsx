@@ -111,7 +111,9 @@ export default function NetworkCentres() {
           if (slot.slotKey?.startsWith("franchise_branch_")) {
             const num = parseInt(slot.slotKey.replace("franchise_branch_", ""), 10);
             if (num >= 1 && num <= 10 && slot.url) {
-              branchMap[num] = slot.url;
+              if (!branchMap[num] || !slot.isDefault) {
+                branchMap[num] = slot.url;
+              }
             }
           }
         });

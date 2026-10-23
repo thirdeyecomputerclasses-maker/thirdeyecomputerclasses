@@ -82,9 +82,16 @@ const createBlog = async (req, res) => {
         const uploadedUrl = await uploadBlogFeaturedImage(req.file);
         if (uploadedUrl) {
           data.featuredImage = uploadedUrl;
+        } else if (req.file.buffer) {
+          const base64 = req.file.buffer.toString("base64");
+          data.featuredImage = `data:${req.file.mimetype};base64,${base64}`;
         }
       } catch (uploadErr) {
         console.error("Image upload failed:", uploadErr.message);
+        if (req.file.buffer) {
+          const base64 = req.file.buffer.toString("base64");
+          data.featuredImage = `data:${req.file.mimetype};base64,${base64}`;
+        }
       }
     }
 
@@ -121,9 +128,16 @@ const updateBlog = async (req, res) => {
         const uploadedUrl = await uploadBlogFeaturedImage(req.file);
         if (uploadedUrl) {
           data.featuredImage = uploadedUrl;
+        } else if (req.file.buffer) {
+          const base64 = req.file.buffer.toString("base64");
+          data.featuredImage = `data:${req.file.mimetype};base64,${base64}`;
         }
       } catch (uploadErr) {
         console.error("Image upload failed:", uploadErr.message);
+        if (req.file.buffer) {
+          const base64 = req.file.buffer.toString("base64");
+          data.featuredImage = `data:${req.file.mimetype};base64,${base64}`;
+        }
       }
     }
 
@@ -174,7 +188,9 @@ const uploadInlineImage = async (req, res) => {
 
     const url = await uploadBlogFeaturedImage(req.file);
     if (!url) {
-      return res.status(500).json({ error: "ImageKit upload failed. Check credentials." });
+      const base64 = req.file.buffer.toString("base64");
+      const fallbackUrl = `data:${req.file.mimetype};base64,${base64}`;
+      return res.json({ success: true, url: fallbackUrl });
     }
 
     res.json({ success: true, url });

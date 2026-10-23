@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const MediaStore = require("../storage/mediaStore");
 const { isImageKitConfigured, uploadFileToImageKit, deleteFromImageKit } = require("../config/imagekit");
 
@@ -33,13 +35,23 @@ const updateSlotFile = async (req, res) => {
     if (isImageKitConfigured()) {
       uploadResult = await uploadFileToImageKit(file.buffer, file.originalname, folder);
     } else {
-      const base64Data = `data:${file.mimetype};base64,${file.buffer.toString("base64")}`;
+      const mediaDir = path.join(__dirname, "../uploads/media");
+      if (!fs.existsSync(mediaDir)) {
+        fs.mkdirSync(mediaDir, { recursive: true });
+      }
+
+      const ext = path.extname(file.originalname) || (isVideo ? ".mp4" : ".jpg");
+      const safeName = `${slotKey}_${Date.now()}${ext}`;
+      const filePath = path.join(mediaDir, safeName);
+      fs.writeFileSync(filePath, file.buffer);
+
+      const fileUrl = `/uploads/media/${safeName}`;
       uploadResult = {
-        url: base64Data,
+        url: fileUrl,
         fileId: `local-${Date.now()}`,
         name: file.originalname,
         fileType: isVideo ? "video" : "image",
-        thumbnailUrl: isVideo ? "" : base64Data,
+        thumbnailUrl: isVideo ? "" : fileUrl,
       };
     }
 
