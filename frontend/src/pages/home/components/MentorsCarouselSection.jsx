@@ -4,9 +4,11 @@ import TiltedCard from "./TiltedCard";
 
 import mlChaudharyImg from "../../../assets/leadership/ml_chaudhary.png";
 import preetiSharmaImg from "../../../assets/leadership/preeti_sharma.png";
+import puneetSharmaImg from "../../../assets/leadership/puneet_sharma.png";
 import suumitSharmaImg from "../../../assets/leadership/suumit_sharma.png";
+import neelamSharmaImg from "../../../assets/leadership/neelam_sharma.png";
 
-// 3 Executive Leadership Profiles
+// 5 Executive Leadership Profiles
 const LEADERSHIP = [
   {
     id: 1,
@@ -17,14 +19,26 @@ const LEADERSHIP = [
   {
     id: 2,
     name: "Preeti Sharma",
-    designation: "CHIEF MANAGING DIRECTOR",
+    designation: "Chief Managing Director",
     image: preetiSharmaImg,
   },
   {
     id: 3,
+    name: "Puneet Sharma",
+    designation: "Managing Director",
+    image: puneetSharmaImg,
+  },
+  {
+    id: 4,
     name: "Suumit sharrma",
     designation: "Chief Operating Officer",
     image: suumitSharmaImg,
+  },
+  {
+    id: 5,
+    name: "Neelam Sharma",
+    designation: "Recruitment Head",
+    image: neelamSharmaImg,
   },
 ];
 
@@ -51,11 +65,14 @@ export default function MentorsCarouselSection() {
         </p>
       </div>
 
-      {/* ── 3 Leadership Tilted Cards Grid ── */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-7 lg:gap-8 justify-items-center">
+      {/* ── 5 Leadership Tilted Cards ── */}
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="flex flex-wrap justify-center gap-6 sm:gap-7 lg:gap-8">
           {LEADERSHIP.map((leader) => (
-            <div key={leader.id} className="w-full max-w-[340px]">
+            <div
+              key={leader.id}
+              className="w-full sm:w-[calc(50%-14px)] lg:w-[calc(33.333%-22px)] max-w-[340px] flex justify-center"
+            >
               <TiltedCard
                 imageSrc={leader.image}
                 altText={leader.name}
