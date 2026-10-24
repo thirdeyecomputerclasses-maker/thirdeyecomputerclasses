@@ -430,7 +430,7 @@ const CircularCarousel = ({
       const rawFit = Math.min(1, width / spanX, height / spanY);
       // On mobile viewports, don't shrink the entire 1200px cylinder into the narrow phone screen.
       // Instead, size the carousel so the front active card is prominently visible and immersive (~78% screen width).
-      const isMobile = rect.width < 768;
+      const isMobile = rect.width <= 820;
       const mobileTargetFit = isMobile ? Math.min(1, (rect.width * 0.78) / s.cardW, height / (s.cardH * 1.25)) : 0;
       const fit = isMobile ? Math.max(rawFit, mobileTargetFit) : rawFit;
       state.fit = fit;

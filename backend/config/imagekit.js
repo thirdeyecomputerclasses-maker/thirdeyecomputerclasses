@@ -1,3 +1,8 @@
+const cleanUrlEndpoint = (url) => {
+  if (!url) return "";
+  const match = url.match(/https?:\/\/[^\s)\]]+/);
+  return match ? match[0] : url.trim();
+};
 const ImageKit = require("imagekit");
 const dotenv = require("dotenv");
 
@@ -18,7 +23,7 @@ const getImageKit = () => {
     imageKitInstance = new ImageKit({
       publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
       privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
-      urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
+      urlEndpoint: cleanUrlEndpoint(process.env.IMAGEKIT_URL_ENDPOINT),
     });
   }
   return imageKitInstance;

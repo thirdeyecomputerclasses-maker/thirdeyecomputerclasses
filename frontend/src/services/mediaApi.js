@@ -6,10 +6,14 @@
  * 3. Jobs and Placement (placements)
  * 4. Campus Memories (memories)
  * 5. Student Reviews (reviews)
+ * 6. Our Team (team)
  */
 
 const getCleanBaseUrl = () => {
-  const envUrl = (import.meta.env.VITE_API_URL || "").trim().replace(/\/+$/, "");
+  let envUrl = (import.meta.env.VITE_API_URL || "").trim().replace(/\/+$/, "");
+  if (envUrl.includes("localhost") && envUrl.startsWith("https://")) {
+    envUrl = envUrl.replace("https://", "http://");
+  }
   if (envUrl) {
     return envUrl.endsWith("/api") ? envUrl.slice(0, -4) : envUrl;
   }
@@ -34,6 +38,58 @@ export const resolveMediaUrl = (url) => {
     return `${BASE_URL}${url}`;
   }
   return url;
+};
+
+export const getInstagramReelId = (url) => {
+  if (!url || typeof url !== "string") return null;
+  const match = url.match(/(?:instagram\.com\/(?:reel|reels|p|tv)\/([a-zA-Z0-9_-]+))/i);
+  return match ? match[1] : null;
+};
+
+export const getInstagramEmbedUrl = (url) => {
+  const id = getInstagramReelId(url);
+  if (!id) return null;
+  return `https://www.instagram.com/reel/${id}/embed/`;
+};
+
+export const getYouTubeVideoId = (url) => {
+  if (!url || typeof url !== "string") return null;
+  const match = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/i);
+  return match ? match[1] : null;
+};
+
+export const getYouTubeEmbedUrl = (url) => {
+  const id = getYouTubeVideoId(url);
+  if (!id) return null;
+  return `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+};
+
+export const getVideoInfo = (url) => {
+  if (!url) return { type: "none" };
+  const igId = getInstagramReelId(url);
+  if (igId) {
+    return {
+      type: "instagram",
+      id: igId,
+      embedUrl: `https://www.instagram.com/reel/${igId}/embed/`,
+      directUrl: `https://www.instagram.com/reel/${igId}/`,
+      thumbnailUrl: `https://www.instagram.com/p/${igId}/media/?size=l`,
+    };
+  }
+  const ytId = getYouTubeVideoId(url);
+  if (ytId) {
+    return {
+      type: "youtube",
+      id: ytId,
+      embedUrl: `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&rel=0`,
+      thumbnailUrl: `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`,
+      directUrl: `https://www.youtube.com/watch?v=${ytId}`,
+    };
+  }
+  return {
+    type: "direct",
+    url: resolveMediaUrl(url),
+  };
 };
 
 export async function fetchMedia({ page = "all", type = "all" } = {}) {
@@ -184,4 +240,75 @@ export async function resetSlotToDefault(slotKey) {
 
   const data = await res.json();
   return data.data;
+}
+
+
+/**
+ * Bulk upload multiple photo files for a set of section slots
+ */
+export async function batchUploadSlots({ files, slotKeys, onProgress }) {
+  const formData = new FormData();
+  files.forEach((file) => formData.append("files", file));
+  formData.append("slotKeys", JSON.stringify(slotKeys));
+
+  if (onProgress) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", `${MEDIA_API}/batch-upload`);
+
+      xhr.upload.onprogress = (event) => {
+        if (event.lengthComputable) {
+          const percent = Math.round((event.loaded / event.total) * 100);
+          onProgress(percent);
+        }
+      };
+
+      xhr.onload = () => {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try {
+            const data = JSON.parse(xhr.responseText);
+            const slots = (data.data || []).map((slot) => ({
+              ...slot,
+              url: resolveMediaUrl(slot.url),
+              thumbnailUrl: resolveMediaUrl(slot.thumbnailUrl || slot.url),
+            }));
+            resolve(slots);
+          } catch {
+            resolve([]);
+          }
+        } else {
+          try {
+            const errData = JSON.parse(xhr.responseText);
+            reject(new Error(errData.error || errData.message || `Batch upload failed (HTTP ${xhr.status})`));
+          } catch {
+            reject(new Error(`Batch upload failed (HTTP ${xhr.status})`));
+          }
+        }
+      };
+
+      xhr.onerror = () => reject(new Error("Network error during batch upload"));
+      xhr.send(formData);
+    });
+  }
+
+  const res = await fetch(`${MEDIA_API}/batch-upload`, {
+    method: "POST",
+    body: formData,
+  });
+
+  if (!res.ok) {
+    let errMsg = `Batch upload failed (HTTP ${res.status})`;
+    try {
+      const data = await res.json();
+      if (data.error) errMsg = data.error;
+    } catch {}
+    throw new Error(errMsg);
+  }
+
+  const data = await res.json();
+  return (data.data || []).map((slot) => ({
+    ...slot,
+    url: resolveMediaUrl(slot.url),
+    thumbnailUrl: resolveMediaUrl(slot.thumbnailUrl || slot.url),
+  }));
 }

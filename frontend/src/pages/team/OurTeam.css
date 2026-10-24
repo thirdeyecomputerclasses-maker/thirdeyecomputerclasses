@@ -386,7 +386,7 @@ body,
 .card-swap-stage-wrapper {
   position: relative;
   width: 100%;
-  min-height: 480px;
+  min-height: 540px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -782,7 +782,7 @@ body,
   }
 
   .card-swap-stage-wrapper {
-    min-height: 460px;
+    min-height: 520px;
     padding: 16px 0;
   }
 
@@ -840,7 +840,7 @@ body,
   }
 
   .card-swap-stage-wrapper {
-    min-height: 440px;
+    min-height: 500px;
     padding: 14px 0;
   }
 

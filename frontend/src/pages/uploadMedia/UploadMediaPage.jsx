@@ -9,6 +9,8 @@ import {
   Copy,
   Check,
   AlertCircle,
+  FolderUp,
+  Layers,
   Sparkles,
   RefreshCw,
   Eye,
@@ -24,6 +26,9 @@ import {
   replaceSlotFile,
   replaceSlotUrl,
   resetSlotToDefault,
+  batchUploadSlots,
+  getVideoInfo,
+  resolveMediaUrl,
 } from "../../services/mediaApi";
 import { getStoredSession } from "../../services/authApi";
 import "./UploadMediaPage.css";
@@ -61,7 +66,7 @@ const SUPPORTED_PAGES = [
     label: "Campus Memories",
     path: "/sweet-memories",
     icon: "📸",
-    desc: "Hero Backdrop & 7 Event Moments (8 photos) — Photos only",
+    desc: "Hero Backdrop, 7 Event Moments & 28 Celebration Spiral Photos (36 photos) — Photos only",
   },
   {
     id: "reviews",
@@ -69,6 +74,13 @@ const SUPPORTED_PAGES = [
     path: "/reviews",
     icon: "⭐",
     desc: "6 Video Testimonials (Video-only Section)",
+  },
+  {
+    id: "team",
+    label: "Our Team",
+    path: "/our-team-new",
+    icon: "👥",
+    desc: "The Founders (4), Department Heads (4) & Faculty Mentors (13) — 21 Photos",
   },
 ];
 
@@ -93,6 +105,24 @@ export default function UploadMediaPage({ embedded = false }) {
 
   // Active slot being replaced in modal
   const [activeSlot, setActiveSlot] = useState(null);
+  // Sub-section filter
+  const [sectionFilter, setSectionFilter] = useState("all");
+
+  // Bulk celebration upload modal
+  const [bulkModalOpen, setBulkModalOpen] = useState(false);
+  const [bulkFiles, setBulkFiles] = useState([]);
+  const [bulkUploading, setBulkUploading] = useState(false);
+  const [bulkProgress, setBulkProgress] = useState(0);
+  const [bulkError, setBulkError] = useState(null);
+  const [bulkStatusText, setBulkStatusText] = useState("");
+  const [bulkDragOver, setBulkDragOver] = useState(false);
+  const bulkFileInputRef = useRef(null);
+
+  // Reset section filter on page or type switch
+  useEffect(() => {
+    setSectionFilter("all");
+  }, [selectedPage, mediaType]);
+
   const [replaceMode, setReplaceMode] = useState("file"); // 'file' or 'url'
   const [replacementFile, setReplacementFile] = useState(null);
   const [filePreview, setFilePreview] = useState(null);
@@ -286,17 +316,199 @@ export default function UploadMediaPage({ embedded = false }) {
     setTimeout(() => setCopiedKey(null), 2000);
   };
 
-  // Filter slots for active page and type
-  const activeSlots = slots.filter((item) => {
-    const matchesPage = item.page === selectedPage;
-    const matchesType = item.type === mediaType;
-    const matchesSearch =
-      !searchQuery ||
-      item.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.section?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.description?.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesPage && matchesType && matchesSearch;
-  });
+  // Page slots and unique section groupings
+  const pageSlots = React.useMemo(() => {
+    return slots.filter((item) => item.page === selectedPage && item.type === mediaType);
+  }, [slots, selectedPage, mediaType]);
+
+  const uniqueSections = React.useMemo(() => {
+    const list = [];
+    pageSlots.forEach((s) => {
+      if (s.section && !list.includes(s.section)) {
+        list.push(s.section);
+      }
+    });
+    return list;
+  }, [pageSlots]);
+
+  // Filter slots for active page, type, section, and search query
+  const activeSlots = React.useMemo(() => {
+    return pageSlots.filter((item) => {
+      const matchesSection = sectionFilter === "all" || item.section === sectionFilter;
+      const matchesSearch =
+        !searchQuery ||
+        item.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.section?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.slotKey?.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchesSection && matchesSearch;
+    });
+  }, [pageSlots, sectionFilter, searchQuery]);
+
+  const getSectionDisplayName = (sec) => {
+    switch (sec) {
+      case "celebration":
+        return "Celebration Spiral (28)";
+      case "events":
+        return "Campus Events Carousel (7)";
+      case "hero":
+        return "Hero Panoramic (1)";
+      case "branches":
+        return "10 Running Centers";
+      case "founder":
+        return "Founder Portrait";
+      case "driftwall":
+        return "Wall of Fame (12)";
+      case "team":
+        return "Team Showcase";
+      case "showcase":
+        return "Brand Reel";
+      case "instagram_reels":
+        return "Instagram Reels (6)";
+      case "testimonials":
+        return "Video Reviews (6)";
+      case "founders":
+        return "The Founders (4)";
+      case "departments":
+        return "The Department Heads (4)";
+      case "faculties":
+        return "Faculties & Mentors (13)";
+      default:
+        return sec.charAt(0).toUpperCase() + sec.slice(1);
+    }
+  };
+
+  const isValidImageFile = (f) => {
+    if (!f) return false;
+    const isImageMime = f.type && f.type.startsWith("image/");
+    const isImageExt = /\.(jpe?g|png|webp|avif|gif|bmp|svg)$/i.test(f.name || "");
+    return Boolean(isImageMime || isImageExt);
+  };
+
+  const handleOpenBulkModal = () => {
+    setBulkFiles([]);
+    setBulkError(null);
+    setBulkProgress(0);
+    setBulkStatusText("");
+    setBulkModalOpen(true);
+  };
+
+  const handleCloseBulkModal = () => {
+    if (bulkUploading) return;
+    setBulkModalOpen(false);
+    setBulkFiles([]);
+    setBulkError(null);
+    setBulkStatusText("");
+  };
+
+  const handleBulkFilesChange = (e) => {
+    const rawFiles = Array.from(e.target.files || []);
+    const valid = rawFiles.filter(isValidImageFile);
+
+    if (rawFiles.length > 0 && valid.length === 0) {
+      setBulkError("Selected files are not recognized image formats (.jpg, .png, .webp).");
+      return;
+    }
+
+    if (valid.length > 28) {
+      setBulkFiles(valid.slice(0, 28));
+      setBulkError("Maximum 28 celebration photos allowed (first 28 were selected).");
+    } else {
+      setBulkFiles(valid);
+      setBulkError(null);
+    }
+  };
+
+  const handleRemoveBulkFile = (indexToRemove) => {
+    if (bulkUploading) return;
+    setBulkFiles((prev) => prev.filter((_, idx) => idx !== indexToRemove));
+  };
+
+  const handleClearAllBulkFiles = () => {
+    if (bulkUploading) return;
+    setBulkFiles([]);
+    setBulkError(null);
+  };
+
+  // Robust, fault-tolerant photo batch uploader:
+  // Uploads photo by photo directly to ImageKit with live per-photo progress
+  const handleExecuteBulkUpload = async (e) => {
+    e.preventDefault();
+    if (bulkFiles.length === 0) {
+      setBulkError("Please select at least 1 celebration photo to upload.");
+      return;
+    }
+
+    setBulkUploading(true);
+    setBulkProgress(0);
+    setBulkError(null);
+    setBulkStatusText("Starting upload...");
+
+    try {
+      const total = bulkFiles.length;
+      const uploadedResults = [];
+      const failedList = [];
+
+      for (let i = 0; i < total; i++) {
+        const file = bulkFiles[i];
+        const slotKey = `memories_celebration_${i + 1}`;
+        setBulkStatusText(`Uploading photo ${i + 1} of ${total}: ${file.name}...`);
+
+        try {
+          const updated = await replaceSlotFile({
+            slotKey,
+            file,
+            onProgress: (percent) => {
+              const fileWeight = 100 / total;
+              const overall = Math.round(i * fileWeight + (percent * fileWeight) / 100);
+              setBulkProgress(Math.min(overall, 99));
+            },
+          });
+
+          if (updated) {
+            uploadedResults.push(updated);
+            // Live update the slots in state so the admin dashboard reflects changes immediately!
+            setSlots((prev) => {
+              const map = new Map(prev.map((s) => [s.slotKey, s]));
+              map.set(slotKey, updated);
+              return Array.from(map.values());
+            });
+          }
+        } catch (fileErr) {
+          console.error(`Failed to upload ${file.name}:`, fileErr);
+          failedList.push({ name: file.name, error: fileErr.message });
+        }
+      }
+
+      setBulkProgress(100);
+
+      if (uploadedResults.length > 0) {
+        if (failedList.length === 0) {
+          setActionMessage({
+            type: "success",
+            text: `Successfully uploaded and replaced all ${uploadedResults.length} celebration photos on ImageKit CDN!`,
+          });
+        } else {
+          setActionMessage({
+            type: "warning",
+            text: `Uploaded ${uploadedResults.length} photos (${failedList.length} failed). Check celebration cards.`,
+          });
+        }
+        setTimeout(() => setActionMessage(null), 5000);
+        handleCloseBulkModal();
+      } else {
+        throw new Error(
+          failedList[0]?.error || "Upload failed. Please check your internet connection and try again."
+        );
+      }
+    } catch (err) {
+      console.error("Bulk upload error:", err);
+      setBulkError(err.message || "Bulk upload failed. Please try again.");
+    } finally {
+      setBulkUploading(false);
+      setBulkStatusText("");
+    }
+  };
 
   const getPageSlotCount = (pageId, type) => {
     return slots.filter((s) => s.page === pageId && s.type === type).length;
@@ -588,6 +800,60 @@ export default function UploadMediaPage({ embedded = false }) {
             </div>
           </div>
 
+          {/* Section Sub-Filter Tabs */}
+          {uniqueSections.length > 1 && (
+            <div className="section-filter-tabs">
+              <button
+                type="button"
+                className={`section-tab-pill ${sectionFilter === "all" ? "is-active" : ""}`}
+                onClick={() => setSectionFilter("all")}
+              >
+                <Layers size={13} />
+                <span>All Sections ({pageSlots.length})</span>
+              </button>
+              {uniqueSections.map((sec) => {
+                const count = pageSlots.filter((s) => s.section === sec).length;
+                const isActive = sectionFilter === sec;
+                const isCelebration = sec === "celebration";
+                return (
+                  <button
+                    key={sec}
+                    type="button"
+                    className={`section-tab-pill ${isActive ? "is-active" : ""} ${isCelebration ? "celebration-highlight" : ""}`}
+                    onClick={() => setSectionFilter(sec)}
+                  >
+                    {isCelebration && <Sparkles size={13} className="text-yellow-400" />}
+                    <span>{getSectionDisplayName(sec)}</span>
+                    <span className="section-tab-count">{count}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Special Celebration Banner & Bulk Upload Button for Campus Memories */}
+          {selectedPage === "memories" && mediaType === "image" && (
+            <div className="celebration-bulk-bar">
+              <div className="celebration-bulk-info">
+                <Sparkles size={20} className="text-yellow-400" />
+                <div>
+                  <strong>Celebration Infinite Spiral Section (28 Photo Cards)</strong>
+                  <p>
+                    Manage the yellow-background celebration section. Replace individual cards below or bulk upload photos in one click.
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                className="bulk-upload-btn"
+                onClick={handleOpenBulkModal}
+              >
+                <FolderUp size={16} />
+                <span>Bulk Upload Celebration Photos</span>
+              </button>
+            </div>
+          )}
+
           {/* Slots Grid */}
           {loading ? (
             <div className="media-loading-state">
@@ -694,34 +960,72 @@ export default function UploadMediaPage({ embedded = false }) {
                     {/* Media Preview Box */}
                     <div className="slot-preview-wrapper">
                       {slot.type === "video" ? (
-                        slot.url.includes("youtube.com") || slot.url.includes("youtu.be") ? (
-                          <div className="yt-embed-preview">
-                            <img
-                              src={slot.thumbnailUrl}
-                              alt={slot.title}
-                              className="slot-card-img"
+                        (() => {
+                          const info = getVideoInfo(slot.url);
+                          if (info.type === "instagram") {
+                            return (
+                              <div className="ig-embed-preview">
+                                <iframe
+                                  src={info.embedUrl}
+                                  title={slot.title}
+                                  className="slot-card-ig-iframe"
+                                  scrolling="no"
+                                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                                />
+                                <div className="ig-play-pill">
+                                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                  </svg>
+                                  <span>Instagram Reel ({info.id})</span>
+                                </div>
+                                <a
+                                  href={info.directUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="ig-view-link"
+                                  title="Open Reel in new tab"
+                                >
+                                  Open Reel ↗
+                                </a>
+                              </div>
+                            );
+                          }
+                          if (info.type === "youtube") {
+                            return (
+                              <div className="yt-embed-preview">
+                                <img
+                                  src={resolveMediaUrl(slot.thumbnailUrl) || info.thumbnailUrl}
+                                  alt={slot.title}
+                                  className="slot-card-img"
+                                />
+                                <div className="yt-play-pill">YouTube Video ({info.id})</div>
+                              </div>
+                            );
+                          }
+                          return (
+                            <video
+                              src={resolveMediaUrl(slot.url)}
+                              poster={resolveMediaUrl(slot.thumbnailUrl)}
+                              controls
+                              playsInline
+                              preload="metadata"
+                              className="slot-card-video"
                             />
-                            <div className="yt-play-pill">YouTube Video</div>
-                          </div>
-                        ) : (
-                          <video
-                            src={slot.url}
-                            poster={slot.thumbnailUrl}
-                            controls
-                            playsInline
-                            preload="metadata"
-                            className="slot-card-video"
-                          />
-                        )
+                          );
+                        })()
                       ) : (
                         <img
-                          src={slot.url}
+                          src={resolveMediaUrl(slot.url)}
                           alt={slot.title}
-                          loading="lazy"
+                          loading="eager"
                           className="slot-card-img"
                           onError={(e) => {
-                            e.currentTarget.src =
-                              "https://via.placeholder.com/600x400/181A20/EAB308?text=Image+Unavailable";
+                            if (slot.defaultUrl && e.currentTarget.src !== slot.defaultUrl) {
+                              e.currentTarget.src = slot.defaultUrl;
+                            } else {
+                              e.currentTarget.src =
+                                "https://via.placeholder.com/600x400/181A20/EAB308?text=Image+Unavailable";
+                            }
                           }}
                         />
                       )}
@@ -931,12 +1235,40 @@ export default function UploadMediaPage({ embedded = false }) {
                     placeholder={
                       activeSlot.type === "image"
                         ? "https://ik.imagekit.io/.../image.jpg"
-                        : "https://.../video.mp4 or YouTube / Reel URL"
+                        : "Paste Instagram Reel (https://www.instagram.com/reel/...) or YouTube link"
                     }
                     value={replacementUrl}
                     onChange={(e) => setReplacementUrl(e.target.value)}
                     className="modal-text-input"
                   />
+                  {activeSlot.type === "video" && replacementUrl.trim() && (() => {
+                    const parsed = getVideoInfo(replacementUrl.trim());
+                    if (parsed.type === "instagram") {
+                      return (
+                        <div className="url-preview-pill ig-pill">
+                          <CheckCircle2 size={14} className="text-pink-400" />
+                          <span>Valid Instagram Reel detected: <strong>{parsed.id}</strong></span>
+                        </div>
+                      );
+                    }
+                    if (parsed.type === "youtube") {
+                      return (
+                        <div className="url-preview-pill yt-pill">
+                          <CheckCircle2 size={14} className="text-red-400" />
+                          <span>Valid YouTube Video detected: <strong>{parsed.id}</strong></span>
+                        </div>
+                      );
+                    }
+                    if (replacementUrl.trim().startsWith("http")) {
+                      return (
+                        <div className="url-preview-pill direct-pill">
+                          <CheckCircle2 size={14} className="text-emerald-400" />
+                          <span>Direct video stream URL</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })()}
                 </div>
               )}
 
@@ -992,6 +1324,145 @@ export default function UploadMediaPage({ embedded = false }) {
           </div>
         </div>
       )}
+
+      {/* ==========================================================================
+          MODAL: Bulk Upload Celebration Photos
+          ========================================================================== */}
+      {bulkModalOpen && (
+        <div className="modal-backdrop" onClick={handleCloseBulkModal}>
+          <div className="replace-modal-box bulk-modal-box" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <div className="modal-header-left">
+                <div className="modal-badge">
+                  <Sparkles size={12} className="text-yellow-400" />
+                  <span>Celebration Section • Batch Uploader</span>
+                </div>
+                <h3 className="modal-title">Bulk Upload Celebration Photos</h3>
+                <p className="modal-subtitle">
+                  Upload multiple photos at once. They will be uploaded to ImageKit CDN and automatically assigned to Celebration slots #1, #2, #3... in sequence.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                className="modal-close-btn"
+                onClick={handleCloseBulkModal}
+                disabled={bulkUploading}
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <form onSubmit={handleExecuteBulkUpload} className="modal-body-form">
+              {bulkError && (
+                <div className="modal-error-alert">
+                  <AlertCircle size={16} />
+                  <span>{bulkError}</span>
+                </div>
+              )}
+
+              <input
+                ref={bulkFileInputRef}
+                type="file"
+                multiple
+                accept="image/*"
+                onChange={handleBulkFilesChange}
+                style={{ display: "none" }}
+              />
+
+              <div
+                className="dropzone-area"
+                onClick={() => bulkFileInputRef.current?.click()}
+                style={{ cursor: "pointer", textAlign: "center", padding: "28px 20px" }}
+              >
+                <FolderUp size={36} className="text-yellow-400" style={{ margin: "0 auto 12px" }} />
+                <p style={{ fontWeight: 700, fontSize: "1rem", color: "#ffffff", marginBottom: "6px" }}>
+                  Click to select multiple celebration photos (Up to 28)
+                </p>
+                <p style={{ fontSize: "0.82rem", color: "#94a3b8" }}>
+                  Supports PNG, JPG, JPEG, WEBP.
+                </p>
+                <span
+                  style={{
+                    display: "inline-block",
+                    marginTop: "12px",
+                    padding: "6px 16px",
+                    background: "#1f2537",
+                    borderRadius: "999px",
+                    fontSize: "0.8rem",
+                    fontWeight: 600,
+                    color: "#ffd300",
+                    border: "1px solid rgba(255, 211, 0, 0.3)",
+                  }}
+                >
+                  {bulkFiles.length > 0 ? `${bulkFiles.length} photos selected` : "Browse Photos"}
+                </span>
+              </div>
+
+              {/* Selected Files Preview List */}
+              {bulkFiles.length > 0 && (
+                <div className="bulk-selected-preview-list">
+                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.82rem", color: "#cbd5e1", marginBottom: "8px" }}>
+                    <span>Selected ({bulkFiles.length} files):</span>
+                    <span style={{ color: "#ffd300" }}>Will replace slots 1 to {bulkFiles.length}</span>
+                  </div>
+                  <div className="bulk-file-pill-grid">
+                    {bulkFiles.map((file, idx) => (
+                      <div key={idx} className="bulk-file-pill">
+                        <span className="bulk-slot-index">Slot #{idx + 1}</span>
+                        <span className="bulk-file-name" title={file.name}>{file.name}</span>
+                        <span className="bulk-file-size">({(file.size / 1024).toFixed(0)} KB)</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Upload Progress */}
+              {bulkUploading && (
+                <div className="modal-progress-wrap" style={{ marginTop: "16px" }}>
+                  <div className="progress-text">
+                    <span>Uploading {bulkFiles.length} photos to ImageKit CDN...</span>
+                    <span>{bulkProgress}%</span>
+                  </div>
+                  <div className="progress-track">
+                    <div className="progress-fill" style={{ width: `${bulkProgress}%` }} />
+                  </div>
+                </div>
+              )}
+
+              <div className="modal-actions-row" style={{ marginTop: "20px" }}>
+                <button
+                  type="button"
+                  className="modal-cancel-btn"
+                  onClick={handleCloseBulkModal}
+                  disabled={bulkUploading}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={bulkUploading || bulkFiles.length === 0}
+                  className="modal-submit-btn"
+                >
+                  {bulkUploading ? (
+                    <>
+                      <RefreshCw size={16} className="animate-spin" />
+                      <span>Uploading ({bulkProgress}%)...</span>
+                    </>
+                  ) : (
+                    <>
+                      <UploadCloud size={16} />
+                      <span>Upload {bulkFiles.length > 0 ? `${bulkFiles.length} Photos` : "Photos"}</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

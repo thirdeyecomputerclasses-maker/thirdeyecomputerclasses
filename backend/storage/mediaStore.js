@@ -567,6 +567,346 @@ const INITIAL_SECTION_SLOTS = [
   },
 
   // ==========================================
+  // Celebration Infinite Spiral (28 Photos)
+  // ==========================================
+  {
+      slotKey: "memories_celebration_1",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 01 — Graduation Cap Toss Ceremony",
+      description: "Celebration Spiral Card #1 (Turn 1: Milestones & Graduations)",
+      url: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&q=80&auto=format&fit=crop",
+      defaultUrl: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&q=80&auto=format&fit=crop",
+      thumbnailUrl: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&q=80&auto=format&fit=crop",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_2",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 02 — Confetti Victory Bash",
+      description: "Celebration Spiral Card #2 (Turn 1: Milestones & Graduations)",
+      url: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600&q=80&auto=format&fit=crop",
+      defaultUrl: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600&q=80&auto=format&fit=crop",
+      thumbnailUrl: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600&q=80&auto=format&fit=crop",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_3",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 03 — Student Honor & Achievement",
+      description: "Celebration Spiral Card #3 (Turn 1: Milestones & Graduations)",
+      url: "/src/assets/students/student_1.jpg",
+      defaultUrl: "/src/assets/students/student_1.jpg",
+      thumbnailUrl: "/src/assets/students/student_1.jpg",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_4",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 04 — Annual Gala Night",
+      description: "Celebration Spiral Card #4 (Turn 1: Milestones & Graduations)",
+      url: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=80&auto=format&fit=crop",
+      defaultUrl: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=80&auto=format&fit=crop",
+      thumbnailUrl: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=80&auto=format&fit=crop",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_5",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 05 — Festival of Lights Celebration",
+      description: "Celebration Spiral Card #5 (Turn 1: Milestones & Graduations)",
+      url: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=80&auto=format&fit=crop",
+      defaultUrl: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=80&auto=format&fit=crop",
+      thumbnailUrl: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=80&auto=format&fit=crop",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_6",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 06 — Course Completion Milestone",
+      description: "Celebration Spiral Card #6 (Turn 1: Milestones & Graduations)",
+      url: "/src/assets/students/student_2.jpg",
+      defaultUrl: "/src/assets/students/student_2.jpg",
+      thumbnailUrl: "/src/assets/students/student_2.jpg",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_7",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 07 — Faculty & Student Cheers",
+      description: "Celebration Spiral Card #7 (Turn 1: Milestones & Graduations)",
+      url: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&q=80&auto=format&fit=crop",
+      defaultUrl: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&q=80&auto=format&fit=crop",
+      thumbnailUrl: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&q=80&auto=format&fit=crop",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_8",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 08 — Festive Vibes Dance & Music Fest",
+      description: "Celebration Spiral Card #8 (Turn 2: Awards & Parties)",
+      url: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&q=80&auto=format&fit=crop",
+      defaultUrl: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&q=80&auto=format&fit=crop",
+      thumbnailUrl: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&q=80&auto=format&fit=crop",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_9",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 09 — Top Performer Student Award",
+      description: "Celebration Spiral Card #9 (Turn 2: Awards & Parties)",
+      url: "/src/assets/students/student_3.jpg",
+      defaultUrl: "/src/assets/students/student_3.jpg",
+      thumbnailUrl: "/src/assets/students/student_3.jpg",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_10",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 10 — Foundation Day Colorful Balloons",
+      description: "Celebration Spiral Card #10 (Turn 2: Awards & Parties)",
+      url: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80&auto=format&fit=crop",
+      defaultUrl: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80&auto=format&fit=crop",
+      thumbnailUrl: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80&auto=format&fit=crop",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_11",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 11 — Team Reunion & Entire Third Eye Team",
+      description: "Celebration Spiral Card #11 (Turn 2: Awards & Parties)",
+      url: "/src/assets/team_photo.webp",
+      defaultUrl: "/src/assets/team_photo.webp",
+      thumbnailUrl: "/src/assets/team_photo.webp",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_12",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 12 — Annual Night Stage Performance",
+      description: "Celebration Spiral Card #12 (Turn 2: Awards & Parties)",
+      url: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80&auto=format&fit=crop",
+      defaultUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80&auto=format&fit=crop",
+      thumbnailUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80&auto=format&fit=crop",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_13",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 13 — Certified Star Student Joy",
+      description: "Celebration Spiral Card #13 (Turn 2: Awards & Parties)",
+      url: "/src/assets/students/student_4.jpg",
+      defaultUrl: "/src/assets/students/student_4.jpg",
+      thumbnailUrl: "/src/assets/students/student_4.jpg",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_14",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 14 — Birthday & Anniversary Cake Cutting",
+      description: "Celebration Spiral Card #14 (Turn 2: Awards & Parties)",
+      url: "https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?w=600&q=80&auto=format&fit=crop",
+      defaultUrl: "https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?w=600&q=80&auto=format&fit=crop",
+      thumbnailUrl: "https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?w=600&q=80&auto=format&fit=crop",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_15",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 15 — Sparkler Moment & Festive Cheer",
+      description: "Celebration Spiral Card #15 (Turn 3: Festivals & Victories)",
+      url: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&q=80&auto=format&fit=crop",
+      defaultUrl: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&q=80&auto=format&fit=crop",
+      thumbnailUrl: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&q=80&auto=format&fit=crop",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_16",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 16 — Placement Celebration Job Placed",
+      description: "Celebration Spiral Card #16 (Turn 3: Festivals & Victories)",
+      url: "/src/assets/students/student_5.jpg",
+      defaultUrl: "/src/assets/students/student_5.jpg",
+      thumbnailUrl: "/src/assets/students/student_5.jpg",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_17",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 17 — Hackathon Win High Five",
+      description: "Celebration Spiral Card #17 (Turn 3: Festivals & Victories)",
+      url: "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=600&q=80&auto=format&fit=crop",
+      defaultUrl: "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=600&q=80&auto=format&fit=crop",
+      thumbnailUrl: "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=600&q=80&auto=format&fit=crop",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_18",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 18 — Grand Finale Confetti Shower",
+      description: "Celebration Spiral Card #18 (Turn 3: Festivals & Victories)",
+      url: "https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?w=600&q=80&auto=format&fit=crop",
+      defaultUrl: "https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?w=600&q=80&auto=format&fit=crop",
+      thumbnailUrl: "https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?w=600&q=80&auto=format&fit=crop",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_19",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 19 — Innovation Trophy Winner",
+      description: "Celebration Spiral Card #19 (Turn 3: Festivals & Victories)",
+      url: "/src/assets/students/student_6.jpg",
+      defaultUrl: "/src/assets/students/student_6.jpg",
+      thumbnailUrl: "/src/assets/students/student_6.jpg",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_20",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 20 — Outdoor Campus Picnic & Bonding",
+      description: "Celebration Spiral Card #20 (Turn 3: Festivals & Victories)",
+      url: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=600&q=80&auto=format&fit=crop",
+      defaultUrl: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=600&q=80&auto=format&fit=crop",
+      thumbnailUrl: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=600&q=80&auto=format&fit=crop",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_21",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 21 — Youth Beats Live DJ & Music Fest",
+      description: "Celebration Spiral Card #21 (Turn 3: Festivals & Victories)",
+      url: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&q=80&auto=format&fit=crop",
+      defaultUrl: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&q=80&auto=format&fit=crop",
+      thumbnailUrl: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&q=80&auto=format&fit=crop",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_22",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 22 — New Year Bash Celebrations",
+      description: "Celebration Spiral Card #22 (Turn 4: Farewells & Friends)",
+      url: "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=600&q=80&auto=format&fit=crop",
+      defaultUrl: "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=600&q=80&auto=format&fit=crop",
+      thumbnailUrl: "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=600&q=80&auto=format&fit=crop",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_23",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 23 — Lifelong Friends & Campus Bonds",
+      description: "Celebration Spiral Card #23 (Turn 4: Farewells & Friends)",
+      url: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80&auto=format&fit=crop",
+      defaultUrl: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80&auto=format&fit=crop",
+      thumbnailUrl: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80&auto=format&fit=crop",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_24",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 24 — E-Sports & Gaming Win",
+      description: "Celebration Spiral Card #24 (Turn 4: Farewells & Friends)",
+      url: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&q=80&auto=format&fit=crop",
+      defaultUrl: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&q=80&auto=format&fit=crop",
+      thumbnailUrl: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&q=80&auto=format&fit=crop",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_25",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 25 — Farewell Banquet & Senior Send-off",
+      description: "Celebration Spiral Card #25 (Turn 4: Farewells & Friends)",
+      url: "https://images.unsplash.com/photo-1561489413-985b06da5bee?w=600&q=80&auto=format&fit=crop",
+      defaultUrl: "https://images.unsplash.com/photo-1561489413-985b06da5bee?w=600&q=80&auto=format&fit=crop",
+      thumbnailUrl: "https://images.unsplash.com/photo-1561489413-985b06da5bee?w=600&q=80&auto=format&fit=crop",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_26",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 26 — Creative Showcase & Art Festival",
+      description: "Celebration Spiral Card #26 (Turn 4: Farewells & Friends)",
+      url: "https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?w=600&q=80&auto=format&fit=crop",
+      defaultUrl: "https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?w=600&q=80&auto=format&fit=crop",
+      thumbnailUrl: "https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?w=600&q=80&auto=format&fit=crop",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_27",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 27 — Spotlight Star & Concert Lighting",
+      description: "Celebration Spiral Card #27 (Turn 4: Farewells & Friends)",
+      url: "https://images.unsplash.com/photo-1496337589254-7e19d01cec44?w=600&q=80&auto=format&fit=crop",
+      defaultUrl: "https://images.unsplash.com/photo-1496337589254-7e19d01cec44?w=600&q=80&auto=format&fit=crop",
+      thumbnailUrl: "https://images.unsplash.com/photo-1496337589254-7e19d01cec44?w=600&q=80&auto=format&fit=crop",
+      isDefault: true
+  },
+  {
+      slotKey: "memories_celebration_28",
+      page: "memories",
+      section: "celebration",
+      type: "image",
+      title: "Celebration 28 — Convocation Day Stage Cap Toss",
+      description: "Celebration Spiral Card #28 (Turn 4: Farewells & Friends)",
+      url: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600&q=80&auto=format&fit=crop",
+      defaultUrl: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600&q=80&auto=format&fit=crop",
+      thumbnailUrl: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600&q=80&auto=format&fit=crop",
+      isDefault: true
+  },
+
+  // ==========================================
   // 5. STUDENT REVIEWS (reviews) - Video Testimonials Only
   // ==========================================
   {
@@ -641,6 +981,262 @@ const INITIAL_SECTION_SLOTS = [
     thumbnailUrl: "https://img.youtube.com/vi/aiOyEoe6Cz4/hqdefault.jpg",
     isDefault: true,
   },
+
+  // ==========================================
+  // 6. OUR TEAM (team) — 21 Mentors & Leadership
+  // ==========================================
+  {
+    slotKey: "team_member_1",
+    page: "team",
+    section: "founders",
+    type: "image",
+    title: "Preeti Sharma — Chief Managing Director",
+    description: "Chief Managing Director card photo in Founders stack",
+    url: "/src/assets/leadership/preeti_sharma.png",
+    defaultUrl: "/src/assets/leadership/preeti_sharma.png",
+    thumbnailUrl: "/src/assets/leadership/preeti_sharma.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "team_member_2",
+    page: "team",
+    section: "founders",
+    type: "image",
+    title: "Puneet Sharma — Managing Director",
+    description: "Managing Director card photo in Founders stack",
+    url: "/src/assets/leadership/puneet_sharma.png",
+    defaultUrl: "/src/assets/leadership/puneet_sharma.png",
+    thumbnailUrl: "/src/assets/leadership/puneet_sharma.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "team_member_3",
+    page: "team",
+    section: "founders",
+    type: "image",
+    title: "Suumit Sharrma — Chief Operating Officer",
+    description: "Chief Operating Officer card photo in Founders stack",
+    url: "/src/assets/leadership/suumit_sharma.png",
+    defaultUrl: "/src/assets/leadership/suumit_sharma.png",
+    thumbnailUrl: "/src/assets/leadership/suumit_sharma.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "team_member_4",
+    page: "team",
+    section: "founders",
+    type: "image",
+    title: "Mr. M.L. Chaudhary — Founder & Chief Patron",
+    description: "Founder & Chief Patron card photo in Founders stack",
+    url: "/src/assets/leadership/ml_chaudhary.png",
+    defaultUrl: "/src/assets/leadership/ml_chaudhary.png",
+    thumbnailUrl: "/src/assets/leadership/ml_chaudhary.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "team_member_5",
+    page: "team",
+    section: "departments",
+    type: "image",
+    title: "Sheetal Sharma — Sales & B.D. Head",
+    description: "Sales & B.D. Head card photo in Department stack",
+    url: "/src/assets/leadership/sheetal_sharma.png",
+    defaultUrl: "/src/assets/leadership/sheetal_sharma.png",
+    thumbnailUrl: "/src/assets/leadership/sheetal_sharma.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "team_member_6",
+    page: "team",
+    section: "departments",
+    type: "image",
+    title: "Neelam Sharma — Recruitment Head",
+    description: "Recruitment & Admission Head card photo in Department stack",
+    url: "/src/assets/leadership/neelam_sharma.png",
+    defaultUrl: "/src/assets/leadership/neelam_sharma.png",
+    thumbnailUrl: "/src/assets/leadership/neelam_sharma.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "team_member_7",
+    page: "team",
+    section: "departments",
+    type: "image",
+    title: "Muskan Avesthi — Placement Manager",
+    description: "Placement Manager card photo in Department stack",
+    url: "/src/assets/leadership/muskan_avesthi.png",
+    defaultUrl: "/src/assets/leadership/muskan_avesthi.png",
+    thumbnailUrl: "/src/assets/leadership/muskan_avesthi.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "team_member_8",
+    page: "team",
+    section: "departments",
+    type: "image",
+    title: "Kushwang Sharma — Social Media Manager",
+    description: "Social Media & Operations card photo in Department stack",
+    url: "/src/assets/leadership/khushwang_sharma.png",
+    defaultUrl: "/src/assets/leadership/khushwang_sharma.png",
+    thumbnailUrl: "/src/assets/leadership/khushwang_sharma.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "team_member_9",
+    page: "team",
+    section: "faculties",
+    type: "image",
+    title: "Amit Saini — Senior Digital Marketing Manager",
+    description: "Senior Faculty & Digital Marketing Mentor in Faculty stack",
+    url: "/src/assets/leadership/amit_saini.png",
+    defaultUrl: "/src/assets/leadership/amit_saini.png",
+    thumbnailUrl: "/src/assets/leadership/amit_saini.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "team_member_10",
+    page: "team",
+    section: "faculties",
+    type: "image",
+    title: "Shubham Saini — Senior Training Manager",
+    description: "Senior Training Manager & Career Mentor in Faculty stack",
+    url: "/src/assets/leadership/shubham_saini.png",
+    defaultUrl: "/src/assets/leadership/shubham_saini.png",
+    thumbnailUrl: "/src/assets/leadership/shubham_saini.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "team_member_11",
+    page: "team",
+    section: "faculties",
+    type: "image",
+    title: "Tushar Prajapat — Senior Branch Manager",
+    description: "Branch Lead & Digital Marketing Mentor in Faculty stack",
+    url: "/src/assets/mentor_1.png",
+    defaultUrl: "/src/assets/mentor_1.png",
+    thumbnailUrl: "/src/assets/mentor_1.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "team_member_12",
+    page: "team",
+    section: "faculties",
+    type: "image",
+    title: "Gaurav Singh Panwar — IVR & CRM Support Manager",
+    description: "Student Support & CRM Advisor in Faculty stack",
+    url: "/src/assets/leadership/gaurav_singh.png",
+    defaultUrl: "/src/assets/leadership/gaurav_singh.png",
+    thumbnailUrl: "/src/assets/leadership/gaurav_singh.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "team_member_13",
+    page: "team",
+    section: "faculties",
+    type: "image",
+    title: "Rishika Raj — Senior Career Counsellor",
+    description: "Career Advisor & Student Support Mentor in Faculty stack",
+    url: "/src/assets/mentor_2.png",
+    defaultUrl: "/src/assets/mentor_2.png",
+    thumbnailUrl: "/src/assets/mentor_2.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "team_member_14",
+    page: "team",
+    section: "faculties",
+    type: "image",
+    title: "Ishika Jain — Senior Career Counsellor",
+    description: "Academic & Career Counsellor in Faculty stack",
+    url: "/src/assets/mentor_4.png",
+    defaultUrl: "/src/assets/mentor_4.png",
+    thumbnailUrl: "/src/assets/mentor_4.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "team_member_15",
+    page: "team",
+    section: "faculties",
+    type: "image",
+    title: "Diya Saini — Senior Branch Manager",
+    description: "Branch Lead & Counsellor in Faculty stack",
+    url: "/src/assets/mentor_5.png",
+    defaultUrl: "/src/assets/mentor_5.png",
+    thumbnailUrl: "/src/assets/mentor_5.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "team_member_16",
+    page: "team",
+    section: "faculties",
+    type: "image",
+    title: "Sheetanshu Saxena — Digital Marketing Executive",
+    description: "Digital Marketing Specialist in Faculty stack",
+    url: "/src/assets/mentor_3.png",
+    defaultUrl: "/src/assets/mentor_3.png",
+    thumbnailUrl: "/src/assets/mentor_3.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "team_member_17",
+    page: "team",
+    section: "faculties",
+    type: "image",
+    title: "Mohit Sharma — Admin Manager & Animation / VFX",
+    description: "Animation & VFX Lead in Faculty stack",
+    url: "/src/assets/leadership/mohit_sharma.png",
+    defaultUrl: "/src/assets/leadership/mohit_sharma.png",
+    thumbnailUrl: "/src/assets/leadership/mohit_sharma.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "team_member_18",
+    page: "team",
+    section: "faculties",
+    type: "image",
+    title: "Rahul Verma — Designing Executive",
+    description: "Designing Executive & Graphic Design Mentor in Faculty stack",
+    url: "/src/assets/students/student_9.jpg",
+    defaultUrl: "/src/assets/students/student_9.jpg",
+    thumbnailUrl: "/src/assets/students/student_9.jpg",
+    isDefault: true,
+  },
+  {
+    slotKey: "team_member_19",
+    page: "team",
+    section: "faculties",
+    type: "image",
+    title: "Harshita Jain — Senior Career Counsellor",
+    description: "Branch Manager & Tech Counsellor in Faculty stack",
+    url: "/src/assets/students/student_10.jpg",
+    defaultUrl: "/src/assets/students/student_10.jpg",
+    thumbnailUrl: "/src/assets/students/student_10.jpg",
+    isDefault: true,
+  },
+  {
+    slotKey: "team_member_20",
+    page: "team",
+    section: "faculties",
+    type: "image",
+    title: "Rohit Bairwa — Senior Career Counsellor",
+    description: "Academic Counsellor & Career Advisor in Faculty stack",
+    url: "/src/assets/students/student_11.jpg",
+    defaultUrl: "/src/assets/students/student_11.jpg",
+    thumbnailUrl: "/src/assets/students/student_11.jpg",
+    isDefault: true,
+  },
+  {
+    slotKey: "team_member_21",
+    page: "team",
+    section: "faculties",
+    type: "image",
+    title: "Pankaj Sharma — Senior Career Counsellor (AI & ML)",
+    description: "AI & ML Academic Advisor in Faculty stack",
+    url: "/src/assets/students/student_12.jpg",
+    defaultUrl: "/src/assets/students/student_12.jpg",
+    thumbnailUrl: "/src/assets/students/student_12.jpg",
+    isDefault: true,
+  },
 ];
 
 let inMemorySlots = INITIAL_SECTION_SLOTS.map((slot, index) => ({
@@ -650,25 +1246,32 @@ let inMemorySlots = INITIAL_SECTION_SLOTS.map((slot, index) => ({
   updatedAt: new Date(),
 }));
 
+let hasSynced = false;
+
 class MediaStore {
   /**
-   * Seed or synchronize section slots in MongoDB
+   * Seed or synchronize section slots in MongoDB (runs once on startup)
    */
-  static async syncSlots() {
+  static async syncSlots(force = false) {
+    if (hasSynced && !force) return;
     if (getDBStatus()) {
       try {
         const validSlotKeys = INITIAL_SECTION_SLOTS.map((s) => s.slotKey);
         await Media.deleteMany({
-          page: { $in: ["about", "franchise", "placements", "memories", "reviews"] },
+          page: { $in: ["about", "franchise", "placements", "memories", "reviews", "team"] },
           slotKey: { $nin: validSlotKeys },
         });
 
         for (const slot of INITIAL_SECTION_SLOTS) {
+          const { page, section, type, title, description, defaultUrl, ...insertOnly } = slot;
           await Media.updateOne(
             { slotKey: slot.slotKey },
             {
               $setOnInsert: {
-                ...slot,
+                ...insertOnly,
+                url: slot.url,
+                thumbnailUrl: slot.thumbnailUrl || slot.url,
+                fileId: slot.fileId || "",
                 isDefault: true,
                 createdAt: new Date(),
               },
@@ -684,6 +1287,25 @@ class MediaStore {
             { upsert: true }
           );
         }
+
+        // Sync inMemorySlots with the latest MongoDB records
+        const allDocs = await Media.find({ slotKey: { $in: validSlotKeys } });
+        allDocs.forEach((doc) => {
+          const idx = inMemorySlots.findIndex((s) => s.slotKey === doc.slotKey);
+          if (idx !== -1) {
+            inMemorySlots[idx] = {
+              ...inMemorySlots[idx],
+              url: doc.url,
+              thumbnailUrl: doc.thumbnailUrl,
+              fileId: doc.fileId,
+              isDefault: doc.isDefault,
+              updatedAt: doc.updatedAt,
+            };
+          }
+        });
+
+        hasSynced = true;
+        console.log("MediaStore: Initialized and synchronized all section slots with MongoDB.");
       } catch (err) {
         console.warn("MongoDB sync slots warning:", err.message);
       }
@@ -691,10 +1313,28 @@ class MediaStore {
   }
 
   /**
-   * Get all slots filtered by page and type
+   * Get all slots filtered by page and type (High performance, cached & safe)
    */
   static async getAll({ page, type } = {}) {
-    await this.syncSlots();
+    if (!hasSynced && getDBStatus()) {
+      await this.syncSlots();
+    }
+
+    const fs = require("fs");
+    const path = require("path");
+
+    // Defensively sanitize item: if url points to nonexistent local /uploads/, fall back to defaultUrl
+    const sanitizeMedia = (item) => {
+      const doc = typeof item.toObject === "function" ? item.toObject() : { ...item };
+      if (doc.url && doc.url.startsWith("/uploads/")) {
+        const diskPath = path.join(__dirname, "..", doc.url);
+        if (!fs.existsSync(diskPath)) {
+          doc.url = doc.defaultUrl;
+          doc.thumbnailUrl = doc.defaultUrl;
+        }
+      }
+      return doc;
+    };
 
     if (getDBStatus()) {
       try {
@@ -706,9 +1346,10 @@ class MediaStore {
         if (results && results.length > 0) {
           const map = new Map();
           results.forEach((item) => {
-            const existing = map.get(item.slotKey);
-            if (!existing || (!item.isDefault && existing.isDefault)) {
-              map.set(item.slotKey, item);
+            const sanitized = sanitizeMedia(item);
+            const existing = map.get(sanitized.slotKey);
+            if (!existing || (!sanitized.isDefault && existing.isDefault)) {
+              map.set(sanitized.slotKey, sanitized);
             }
           });
           return Array.from(map.values());
@@ -718,12 +1359,14 @@ class MediaStore {
       }
     }
 
-    return inMemorySlots.filter((item) => {
-      if (!item.slotKey) return false;
-      if (page && page !== "all" && item.page !== page) return false;
-      if (type && type !== "all" && item.type !== type) return false;
-      return true;
-    });
+    return inMemorySlots
+      .filter((item) => {
+        if (!item.slotKey) return false;
+        if (page && page !== "all" && item.page !== page) return false;
+        if (type && type !== "all" && item.type !== type) return false;
+        return true;
+      })
+      .map(sanitizeMedia);
   }
 
   static async getById(id) {
@@ -750,9 +1393,38 @@ class MediaStore {
    * Replace/Update a specific existing slot photo or video
    */
   static async updateSlot(slotKey, updateData) {
+    // Keep in-memory cache synchronized immediately
+    const memIndex = inMemorySlots.findIndex((item) => item.slotKey === slotKey);
+    if (memIndex !== -1) {
+      inMemorySlots[memIndex] = {
+        ...inMemorySlots[memIndex],
+        ...updateData,
+        isDefault: false,
+        updatedAt: new Date(),
+      };
+    }
+
     if (getDBStatus()) {
       try {
         const template = INITIAL_SECTION_SLOTS.find((s) => s.slotKey === slotKey) || {};
+        const inferredPage = template.page || (
+          slotKey.startsWith("team_") ? "team" :
+          slotKey.startsWith("memories_") ? "memories" :
+          slotKey.startsWith("placement_") ? "placements" :
+          slotKey.startsWith("about_") ? "about" :
+          slotKey.startsWith("reviews_") ? "reviews" :
+          "franchise"
+        );
+        const inferredSection = template.section || (
+          slotKey.startsWith("team_member_") && [1, 2, 3, 4].includes(parseInt(slotKey.replace("team_member_", ""), 10)) ? "founders" :
+          slotKey.startsWith("team_member_") && [5, 6, 7, 8].includes(parseInt(slotKey.replace("team_member_", ""), 10)) ? "departments" :
+          slotKey.startsWith("team_member_") ? "faculties" :
+          slotKey.includes("celebration") ? "celebration" :
+          slotKey.includes("student") ? "driftwall" :
+          slotKey.includes("branch") ? "branches" :
+          slotKey.includes("reel") ? "reels" :
+          "general"
+        );
         const updated = await Media.findOneAndUpdate(
           { slotKey },
           {
@@ -761,11 +1433,11 @@ class MediaStore {
               thumbnailUrl: updateData.thumbnailUrl || updateData.url,
               fileId: updateData.fileId || "",
               isDefault: false,
+              page: inferredPage,
+              section: inferredSection,
               updatedAt: new Date(),
             },
             $setOnInsert: {
-              page: template.page || "franchise",
-              section: template.section || "general",
               type: template.type || "image",
               title: template.title || slotKey,
               description: template.description || "",
@@ -773,7 +1445,7 @@ class MediaStore {
               createdAt: new Date(),
             },
           },
-          { new: true, upsert: true }
+          { returnDocument: "after", upsert: true }
         );
         if (updated) return updated;
       } catch (err) {
@@ -781,18 +1453,7 @@ class MediaStore {
       }
     }
 
-    const index = inMemorySlots.findIndex((item) => item.slotKey === slotKey);
-    if (index !== -1) {
-      inMemorySlots[index] = {
-        ...inMemorySlots[index],
-        ...updateData,
-        isDefault: false,
-        updatedAt: new Date(),
-      };
-      return inMemorySlots[index];
-    }
-
-    return null;
+    return memIndex !== -1 ? inMemorySlots[memIndex] : null;
   }
 
   /**
@@ -801,6 +1462,18 @@ class MediaStore {
   static async resetSlot(slotKey) {
     const template = INITIAL_SECTION_SLOTS.find((s) => s.slotKey === slotKey);
     if (!template) return null;
+
+    const memIndex = inMemorySlots.findIndex((item) => item.slotKey === slotKey);
+    if (memIndex !== -1) {
+      inMemorySlots[memIndex] = {
+        ...inMemorySlots[memIndex],
+        url: template.defaultUrl,
+        thumbnailUrl: template.defaultUrl,
+        fileId: "",
+        isDefault: true,
+        updatedAt: new Date(),
+      };
+    }
 
     if (getDBStatus()) {
       try {
@@ -823,20 +1496,7 @@ class MediaStore {
       }
     }
 
-    const index = inMemorySlots.findIndex((item) => item.slotKey === slotKey);
-    if (index !== -1) {
-      inMemorySlots[index] = {
-        ...inMemorySlots[index],
-        url: template.defaultUrl,
-        thumbnailUrl: template.defaultUrl,
-        fileId: "",
-        isDefault: true,
-        updatedAt: new Date(),
-      };
-      return inMemorySlots[index];
-    }
-
-    return null;
+    return memIndex !== -1 ? inMemorySlots[memIndex] : null;
   }
 
   static async delete(id) {

@@ -22,7 +22,7 @@ function PlaceholderPage({ title, subtitle }) {
   );
 }
 
-import HomePage from "../pages/home/HomePage";
+const HomePage = React.lazy(() => import("../pages/home/HomePage"));
 
 const Courses = React.lazy(() => import("../pages/course/Courses"));
 const CompareCourses = React.lazy(() => import("../pages/course/CompareCourses"));

@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { fetchMedia } from "../../services/mediaApi";
 import logo from "../../assets/logo.webp";
 import preetiSharmaImg from "../../assets/leadership/preeti_sharma.png";
 import puneetSharmaImg from "../../assets/leadership/puneet_sharma.png";
@@ -17,7 +18,6 @@ import ishikaJainImg from "../../assets/mentor_4.png";
 import diyaSainiImg from "../../assets/mentor_5.png";
 import sheetanshuSaxenaImg from "../../assets/mentor_3.png";
 import mohitSharmaImg from "../../assets/leadership/mohit_sharma.png";
-import MentorsCarousel from "./components/MentorsCarousel";
 import CardSwap from "./components/CardSwap";
 import "./OurTeam.css";
 
@@ -213,34 +213,6 @@ const mentors = [
   },
 ];
 
-// Pre-computed numbered mentors array
-const numberedMentors = mentors.map((mentor, index) => ({
-  ...mentor,
-  index: index + 1,
-}));
-
-// Static leadership & faculty stacks
-const foundersList = [
-  { ...mentors[3], originalIndex: 3 },
-  { ...mentors[0], originalIndex: 0 },
-  { ...mentors[1], originalIndex: 1 },
-  { ...mentors[2], originalIndex: 2 },
-];
-
-const departmentList = [
-  { ...mentors[4], originalIndex: 4 },
-  { ...mentors[5], originalIndex: 5 },
-  { ...mentors[6], originalIndex: 6 },
-  { ...mentors[7], originalIndex: 7 },
-];
-
-const facultiesList = [
-  { ...mentors[8], originalIndex: 8 },
-  { ...mentors[16], originalIndex: 16 },
-  { ...mentors[17], originalIndex: 17 },
-  { ...mentors[18], originalIndex: 18 },
-  { ...mentors[10], originalIndex: 10 },
-];
 
 // Dynamic Typewriter words
 const ROTATING_WORDS = [
@@ -644,7 +616,67 @@ function LiquidChromeBlob() {
 }
 
 export default function OurTeam() {
-  const carouselRef = useRef(null);
+  const [mentorsList, setMentorsList] = useState(mentors);
+
+  // Dynamic team photos managed via Admin Panel
+  useEffect(() => {
+    fetchMedia({ page: "team", type: "image" })
+      .then((data) => {
+        if (!data || data.length === 0) return;
+        const slotMap = {};
+        data.forEach((slot) => {
+          if (slot.slotKey?.startsWith("team_member_") && slot.url) {
+            const num = parseInt(slot.slotKey.replace("team_member_", ""), 10);
+            if (!isNaN(num)) {
+              slotMap[num] = slot.url;
+            }
+          }
+        });
+
+        setMentorsList((prev) =>
+          prev.map((m, idx) => {
+            const memberId = m.id || idx + 1;
+            if (slotMap[memberId]) {
+              return {
+                ...m,
+                image: slotMap[memberId],
+              };
+            }
+            return m;
+          })
+        );
+      })
+      .catch(() => {});
+  }, []);
+
+  const foundersList = useMemo(
+    () => [
+      { ...mentorsList[3], originalIndex: 3 },
+      { ...mentorsList[0], originalIndex: 0 },
+      { ...mentorsList[1], originalIndex: 1 },
+      { ...mentorsList[2], originalIndex: 2 },
+    ],
+    [mentorsList]
+  );
+
+  const departmentList = useMemo(
+    () => [
+      { ...mentorsList[4], originalIndex: 4 },
+      { ...mentorsList[5], originalIndex: 5 },
+      { ...mentorsList[6], originalIndex: 6 },
+      { ...mentorsList[7], originalIndex: 7 },
+    ],
+    [mentorsList]
+  );
+
+  const facultiesList = useMemo(
+    () =>
+      mentorsList.slice(8).map((m, idx) => ({
+        ...m,
+        originalIndex: 8 + idx,
+      })),
+    [mentorsList]
+  );
   const haloRef = useRef(null);
 
   const handleMouseMove = useCallback((e) => {
@@ -656,7 +688,7 @@ export default function OurTeam() {
   }, []);
 
   const scrollToCarousel = useCallback(() => {
-    const el = document.getElementById("mentors-carousel-section");
+    const el = document.getElementById("leadership-teams-section");
     if (el) {
       const yOffset = -70;
       const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
@@ -664,14 +696,7 @@ export default function OurTeam() {
     }
   }, []);
 
-  const jumpToMentor = useCallback(
-    (i) => {
-      scrollToCarousel();
-      carouselRef.current?.goTo(i);
-    },
-    [scrollToCarousel]
-  );
-
+  
   return (
     <div className="team-page-wrapper" onMouseMove={handleMouseMove}>
       {/* Dynamic Ambient Background Effects from Student Feedback */}
@@ -752,35 +777,10 @@ export default function OurTeam() {
         </div>
       </section>
 
-      {/* ─── 2. MENTORS & FACULTY CAROUSEL (REACT BITS 3D CAROUSEL) ─── */}
-      <section
-        id="mentors-carousel-section"
-        className="team-section"
-      >
-        <span
-          id="mentors-book-section"
-          aria-hidden="true"
-          style={{ position: "absolute", top: "-50px" }}
-        />
-        <div className="heading-area">
-          <div className="eyebrow">OUR TEAM</div>
-          <h2>Meet the people behind the learning journey.</h2>
-          <p>
-            Discover the mentors and professionals who guide students at
-            ThirdEye Computer Classes.
-          </p>
-        </div>
-
-        <MentorsCarousel
-          ref={carouselRef}
-          items={numberedMentors}
-          effect="scale"
-          loop={true}
-        />
-      </section>
+      
 
       {/* ─── 3. THREE 3D REVOLVING STACKS ─── */}
-      <section className="three-stacks-section">
+      <section className="three-stacks-section" id="leadership-teams-section">
         <div className="stacks-section-header">
           <h2>Explore Our Leadership & Teams</h2>
         </div>
@@ -795,10 +795,9 @@ export default function OurTeam() {
             <div className="card-swap-stage-wrapper">
               <CardSwap
                 items={foundersList}
-                onSelectMentor={jumpToMentor}
                 delay={3800}
-                width={270}
-                height={350}
+                width={280}
+                height={400}
                 cardDistance={24}
                 verticalDistance={25}
                 depth={50}
@@ -818,10 +817,9 @@ export default function OurTeam() {
             <div className="card-swap-stage-wrapper">
               <CardSwap
                 items={departmentList}
-                onSelectMentor={jumpToMentor}
                 delay={4300}
-                width={270}
-                height={350}
+                width={280}
+                height={400}
                 cardDistance={24}
                 verticalDistance={25}
                 depth={50}
@@ -841,10 +839,9 @@ export default function OurTeam() {
             <div className="card-swap-stage-wrapper">
               <CardSwap
                 items={facultiesList}
-                onSelectMentor={jumpToMentor}
                 delay={4800}
-                width={270}
-                height={350}
+                width={280}
+                height={400}
                 cardDistance={24}
                 verticalDistance={25}
                 depth={50}

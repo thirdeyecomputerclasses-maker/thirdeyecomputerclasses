@@ -28,22 +28,52 @@ export default defineConfig({
   },
   build: {
     chunkSizeWarningLimit: 600,
+    cssCodeSplit: true,
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
-              return 'react-core';
+          const norm = id.replace(/\\/g, '/');
+          if (norm.includes('/node_modules/')) {
+            // 1. Heavy 3D / Graphics engines (lazy on demand)
+            if (norm.includes('/node_modules/three/')) {
+              return 'three-vendor';
             }
-            if (id.includes('framer-motion')) {
+            if (norm.includes('/node_modules/matter-js/')) {
+              return 'matter-vendor';
+            }
+            if (norm.includes('/node_modules/ogl/')) {
+              return 'ogl-vendor';
+            }
+            if (norm.includes('/node_modules/gsap/')) {
+              return 'gsap-vendor';
+            }
+            // 2. Authentication & Security
+            if (norm.includes('/node_modules/@clerk/')) {
+              return 'clerk-vendor';
+            }
+            // 3. Animation
+            if (norm.includes('/node_modules/framer-motion/') || norm.includes('/node_modules/motion/')) {
               return 'framer-motion';
             }
-            if (id.includes('lucide-react') || id.includes('react-icons')) {
+            // 4. Icons
+            if (norm.includes('/node_modules/lucide-react/') || norm.includes('/node_modules/react-icons/')) {
               return 'icons';
             }
-            if (id.includes('@clerk')) {
-              return 'clerk';
+            // 5. Minimal React Runtime Core
+            if (
+              norm.includes('/node_modules/react/') ||
+              norm.includes('/node_modules/react-dom/') ||
+              norm.includes('/node_modules/react-router/') ||
+              norm.includes('/node_modules/react-router-dom/') ||
+              norm.includes('/node_modules/scheduler/')
+            ) {
+              return 'react-core';
             }
+            // 6. UI Helpers
+            if (norm.includes('/node_modules/@base-ui/') || norm.includes('/node_modules/class-variance-authority/')) {
+              return 'ui-vendor';
+            }
+            // 7. Other shared libraries
             return 'vendor';
           }
         },
@@ -51,4 +81,3 @@ export default defineConfig({
     },
   },
 })
-

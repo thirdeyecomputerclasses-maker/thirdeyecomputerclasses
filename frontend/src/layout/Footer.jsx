@@ -306,10 +306,7 @@ export default function Footer() {
               </div>
 
               {/* Address */}
-              <div className="flex items-start gap-2 pt-1 text-zinc-300 text-xs sm:text-sm leading-relaxed">
-                <MapPin className="w-4 h-4 text-[#f6d96b] shrink-0 mt-0.5" />
-                <span>Tonk Road, Near Bus Stand, Jaipur, Rajasthan 302015</span>
-              </div>
+              
             </div>
           </div>
         </div>
@@ -336,7 +333,7 @@ export default function Footer() {
               lineHeight: 0.85,
             }}
           >
-            THIRD EYE
+            THIRDEYE
           </span>
 
           {/* Layer 2: Interactive Lit Fill (Strictly Inside Letters - Zero Outside Bleed) */}
