@@ -1,6 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import { TrendingUp, Handshake, Trophy, GraduationCap } from "lucide-react";
 
+import brandLogo1 from "../../../assets/brand logo/brandlogo1.png";
+import brandLogo2 from "../../../assets/brand logo/brandlogo2.png";
+import brandLogo3 from "../../../assets/brand logo/brandlogo3.png";
+import brandLogo4 from "../../../assets/brand logo/brandlogo4.png";
+import brandLogo5 from "../../../assets/brand logo/brandlogo5.png";
+import brandLogo6 from "../../../assets/brand logo/brandlogo6.png";
+import brandLogo7 from "../../../assets/brand logo/brandlogo7.png";
+import brandLogo8 from "../../../assets/brand logo/brandlogo8.png";
+import brandLogo9 from "../../../assets/brand logo/brandlogo9.png";
+import brandLogo10 from "../../../assets/brand logo/brandlogo10.png";
+import brandLogo11 from "../../../assets/brand logo/brandlogo11.png";
+
 // Interactive 3D tilt card component
 function TiltCard({ children, className = "" }) {
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
@@ -99,163 +111,19 @@ function AnimatedCounter({ end, decimals = 0, suffix = "", duration = 1800, trig
   );
 }
 
-// Full-color, authentic original recruiter and studio brand logos (Scaled & Prominent)
+// Official brand recruiter and partner logos from assets/brand logo
 const companyLogos = [
-  {
-    name: "Accenture",
-    logo: (
-      <div className="flex items-center gap-2 select-none min-w-[170px] sm:min-w-[210px] justify-center">
-        <span className="text-3xl font-black text-[#A100FF] -mr-0.5">&gt;</span>
-        <span className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-sans">
-          accenture
-        </span>
-      </div>
-    ),
-  },
-  {
-    name: "Razorpay",
-    logo: (
-      <div className="flex items-center gap-3 select-none min-w-[180px] sm:min-w-[220px] justify-center">
-        <svg className="w-8 h-8 text-[#0284c7]" viewBox="0 0 24 24" fill="currentColor">
-          <polygon points="12,2 2,22 9,22 14,12 22,2" />
-        </svg>
-        <span className="text-2xl sm:text-3xl font-extrabold tracking-tight italic text-white">
-          Razorpay
-        </span>
-      </div>
-    ),
-  },
-  {
-    name: "Walmart",
-    logo: (
-      <div className="flex items-center gap-2.5 select-none min-w-[180px] sm:min-w-[220px] justify-center">
-        <span className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
-          Walmart
-        </span>
-        <svg className="w-8 h-8 text-[#FFC220]" viewBox="0 0 24 24" fill="currentColor">
-          <circle cx="12" cy="4" r="2.5" />
-          <circle cx="12" cy="20" r="2.5" />
-          <circle cx="4" cy="12" r="2.5" />
-          <circle cx="20" cy="12" r="2.5" />
-          <circle cx="6.5" cy="6.5" r="2.5" />
-          <circle cx="17.5" cy="17.5" r="2.5" />
-        </svg>
-      </div>
-    ),
-  },
-  {
-    name: "TCS",
-    logo: (
-      <div className="flex items-center gap-3 select-none min-w-[200px] sm:min-w-[250px] justify-center">
-        <span className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-[#FF0055] via-[#A855F7] to-[#00D4FF] bg-clip-text text-transparent">
-          tcs
-        </span>
-        <div className="h-6 w-px bg-zinc-600 mx-1 hidden sm:block" />
-        <span className="text-xs font-bold tracking-widest text-zinc-300 uppercase leading-tight hidden sm:block">
-          Tata Consultancy<br />Services
-        </span>
-      </div>
-    ),
-  },
-  {
-    name: "Microsoft",
-    logo: (
-      <div className="flex items-center gap-3.5 select-none min-w-[180px] sm:min-w-[220px] justify-center">
-        <div className="grid grid-cols-2 gap-1 w-6 h-6">
-          <span className="w-2.5 h-2.5 bg-[#F25022] rounded-[1px]" />
-          <span className="w-2.5 h-2.5 bg-[#7FBA00] rounded-[1px]" />
-          <span className="w-2.5 h-2.5 bg-[#00A4EF] rounded-[1px]" />
-          <span className="w-2.5 h-2.5 bg-[#FFB900] rounded-[1px]" />
-        </div>
-        <span className="text-2xl sm:text-3xl font-semibold tracking-tight text-white font-sans">
-          Microsoft
-        </span>
-      </div>
-    ),
-  },
-  {
-    name: "Amazon",
-    logo: (
-      <div className="flex flex-col items-center select-none min-w-[160px] sm:min-w-[200px] justify-center">
-        <span className="text-2xl sm:text-3xl font-bold tracking-tight text-white leading-none">
-          amazon
-        </span>
-        <svg className="w-18 h-4 text-[#FF9900]" viewBox="0 0 100 20" fill="none">
-          <path
-            d="M 5 10 Q 50 25 95 5"
-            stroke="currentColor"
-            strokeWidth="4"
-            strokeLinecap="round"
-          />
-        </svg>
-      </div>
-    ),
-  },
-  {
-    name: "Google",
-    logo: (
-      <div className="flex items-center gap-3 select-none min-w-[170px] sm:min-w-[210px] justify-center">
-        <svg className="w-8 h-8" viewBox="0 0 24 24">
-          <path
-            fill="#4285F4"
-            d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"
-          />
-          <path
-            fill="#34A853"
-            d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.24v3.15C3.26 21.36 7.33 24 12 24z"
-          />
-          <path
-            fill="#FBBC05"
-            d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.24C.45 8.15 0 9.92 0 12s.45 3.85 1.24 5.42l4.04-3.15z"
-          />
-          <path
-            fill="#EA4335"
-            d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.24 6.58l4.04 3.15c.95-2.83 3.6-4.98 6.72-4.98z"
-          />
-        </svg>
-        <span className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
-          Google
-        </span>
-      </div>
-    ),
-  },
-  {
-    name: "Adobe",
-    logo: (
-      <div className="flex items-center gap-3 select-none min-w-[170px] sm:min-w-[200px] justify-center">
-        <div className="w-8 h-8 rounded-lg bg-[#FA0F00] flex items-center justify-center font-black text-white text-sm shadow-md">
-          A
-        </div>
-        <span className="text-2xl sm:text-3xl font-bold tracking-tight text-[#FA0F00]">
-          Adobe
-        </span>
-      </div>
-    ),
-  },
-  {
-    name: "Ubisoft",
-    logo: (
-      <div className="flex items-center gap-3 select-none min-w-[180px] sm:min-w-[220px] justify-center">
-        <svg className="w-8 h-8 text-[#00D4FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-          <circle cx="12" cy="12" r="9" />
-          <path d="M12 7a5 5 0 0 1 5 5c0 3-2.5 5-5 5s-5-2-5-5a3 3 0 0 1 3-3" />
-        </svg>
-        <span className="text-2xl sm:text-3xl font-black tracking-wider text-white">
-          UBISOFT
-        </span>
-      </div>
-    ),
-  },
-  {
-    name: "Infosys",
-    logo: (
-      <div className="flex items-center select-none min-w-[160px] sm:min-w-[190px] justify-center">
-        <span className="text-3xl sm:text-4xl font-black tracking-tight text-[#007CC3]">
-          Infosys
-        </span>
-      </div>
-    ),
-  },
+  { name: "AU Small Finance Bank", src: brandLogo1 },
+  { name: "Reliance Industries", src: brandLogo2 },
+  { name: "Tanishq", src: brandLogo3 },
+  { name: "DMart", src: brandLogo4 },
+  { name: "Lenskart", src: brandLogo5 },
+  { name: "Zomato", src: brandLogo6 },
+  { name: "Genpact", src: brandLogo7 },
+  { name: "Fortis Healthcare", src: brandLogo8 },
+  { name: "Swiggy", src: brandLogo9 },
+  { name: "Cinépolis", src: brandLogo10 },
+  { name: "Bajaj Capital", src: brandLogo11 },
 ];
 
 export default function PlacementStatsMarquee() {
@@ -429,14 +297,21 @@ export default function PlacementStatsMarquee() {
         <div className="absolute right-0 top-0 bottom-0 w-10 sm:w-20 bg-gradient-to-l from-[#0c0a04]/90 to-transparent z-20 pointer-events-none" />
 
         {/* Continuous Full-Width Marquee Track */}
-        <div className="flex items-center gap-16 sm:gap-24 w-max animate-marquee pause-hover py-4 sm:py-5">
-          {/* First Set of Colorful Original Brand Logos */}
+        <div className="flex items-center gap-12 sm:gap-16 md:gap-20 w-max animate-marquee pause-hover py-4 sm:py-5">
+          {/* First Set of Brand Logos */}
           {companyLogos.map((item, index) => (
             <div
               key={`logo-1-${index}`}
-              className="flex items-center justify-center opacity-90 hover:opacity-100 transition-all duration-300 hover:scale-105 cursor-pointer select-none"
+              className="flex items-center justify-center opacity-75 hover:opacity-100 transition-all duration-300 hover:scale-110 cursor-pointer select-none px-2 group shrink-0"
             >
-              {item.logo}
+              <img
+                src={item.src}
+                alt={item.name}
+                title={item.name}
+                loading="lazy"
+                decoding="async"
+                className="h-9 sm:h-11 md:h-12 w-auto max-w-[130px] sm:max-w-[160px] md:max-w-[180px] object-contain filter brightness-0 invert transition-all duration-300 group-hover:drop-shadow-[0_0_12px_rgba(246,217,107,0.35)]"
+              />
             </div>
           ))}
 
@@ -444,9 +319,16 @@ export default function PlacementStatsMarquee() {
           {companyLogos.map((item, index) => (
             <div
               key={`logo-2-${index}`}
-              className="flex items-center justify-center opacity-90 hover:opacity-100 transition-all duration-300 hover:scale-105 cursor-pointer select-none"
+              className="flex items-center justify-center opacity-75 hover:opacity-100 transition-all duration-300 hover:scale-110 cursor-pointer select-none px-2 group shrink-0"
             >
-              {item.logo}
+              <img
+                src={item.src}
+                alt={item.name}
+                title={item.name}
+                loading="lazy"
+                decoding="async"
+                className="h-9 sm:h-11 md:h-12 w-auto max-w-[130px] sm:max-w-[160px] md:max-w-[180px] object-contain filter brightness-0 invert transition-all duration-300 group-hover:drop-shadow-[0_0_12px_rgba(246,217,107,0.35)]"
+              />
             </div>
           ))}
         </div>
