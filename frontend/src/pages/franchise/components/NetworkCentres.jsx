@@ -164,9 +164,9 @@ export default function NetworkCentres() {
               items={carouselItems}
               preset="cylinder"
               onChange={(idx) => setActiveIdx(idx)}
-              cardWidth={290}
-              aspectRatio={1.5}
-              gap={26}
+              cardWidth={380}
+              aspectRatio={1.65}
+              gap={28}
               tilt={-4}
               autoplay="drift"
               speed={12}

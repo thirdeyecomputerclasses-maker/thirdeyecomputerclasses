@@ -17,7 +17,14 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-connectDB();
+connectDB().then(async () => {
+  try {
+    const MediaStore = require("./storage/mediaStore");
+    await MediaStore.syncSlots();
+  } catch (err) {
+    console.warn("Initial MediaStore sync warning:", err.message);
+  }
+});
 
 const allowedOrigins = process.env.FRONTEND_URL
   ? process.env.FRONTEND_URL.split(",").map((url) => url.trim().replace(/\/$/, ""))

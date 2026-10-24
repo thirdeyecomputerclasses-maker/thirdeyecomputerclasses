@@ -170,7 +170,81 @@ const deleteMedia = async (req, res) => {
   }
 };
 
+
+const batchUploadSlots = async (req, res) => {
+  try {
+    const files = req.files;
+    let slotKeys = req.body.slotKeys;
+
+    if (!files || files.length === 0) {
+      return res.status(400).json({ success: false, error: "No files provided for batch upload" });
+    }
+
+    if (typeof slotKeys === "string") {
+      try {
+        slotKeys = JSON.parse(slotKeys);
+      } catch {
+        slotKeys = slotKeys.split(",").map((s) => s.trim());
+      }
+    }
+
+    if (!Array.isArray(slotKeys) || slotKeys.length === 0) {
+      return res.status(400).json({ success: false, error: "Target slot keys not provided" });
+    }
+
+    const results = [];
+    for (let i = 0; i < Math.min(files.length, slotKeys.length); i++) {
+      const file = files[i];
+      const slotKey = slotKeys[i];
+      const isVideo = file.mimetype.startsWith("video/");
+      const folder = isVideo ? "/third_eye_videos" : "/third_eye_photos";
+
+      let uploadResult;
+      if (isImageKitConfigured()) {
+        uploadResult = await uploadFileToImageKit(file.buffer, file.originalname, folder);
+      } else {
+        const mediaDir = path.join(__dirname, "../uploads/media");
+        if (!fs.existsSync(mediaDir)) {
+          fs.mkdirSync(mediaDir, { recursive: true });
+        }
+        const ext = path.extname(file.originalname) || (isVideo ? ".mp4" : ".jpg");
+        const safeName = `${slotKey}_${Date.now()}_${i}${ext}`;
+        const filePath = path.join(mediaDir, safeName);
+        fs.writeFileSync(filePath, file.buffer);
+        const fileUrl = `/uploads/media/${safeName}`;
+        uploadResult = {
+          url: fileUrl,
+          fileId: `local-${Date.now()}-${i}`,
+          name: file.originalname,
+          fileType: isVideo ? "video" : "image",
+          thumbnailUrl: isVideo ? "" : fileUrl,
+        };
+      }
+
+      const updated = await MediaStore.updateSlot(slotKey, {
+        url: uploadResult.url,
+        fileId: uploadResult.fileId,
+        thumbnailUrl: uploadResult.thumbnailUrl || uploadResult.url,
+      });
+
+      if (updated) {
+        results.push(updated);
+      }
+    }
+
+    res.json({
+      success: true,
+      message: `Successfully uploaded and updated ${results.length} section photos`,
+      data: results,
+    });
+  } catch (err) {
+    console.error("Error in batch upload:", err);
+    res.status(500).json({ success: false, error: "Batch upload failed", message: err.message });
+  }
+};
+
 module.exports = {
+  batchUploadSlots,
   getMedia,
   updateSlotFile,
   updateSlotUrl,

@@ -109,7 +109,6 @@ const MentorStackCard = React.memo(function MentorStackCard({
             loading="lazy"
             draggable={false}
           />
-          <div className="mentor-stack-image-overlay" />
         </div>
 
         {/* Info & Category */}
@@ -118,18 +117,7 @@ const MentorStackCard = React.memo(function MentorStackCard({
             <span className="mentor-stack-badge">
               {mentor.category || "FACULTY"}
             </span>
-            <button
-              type="button"
-              className="mentor-stack-jump-btn"
-              onClick={(e) => {
-                e.stopPropagation();
-                onSelect?.(mentor.originalIndex);
-              }}
-              title={`View ${mentor.name} in carousel`}
-              aria-label={`View ${mentor.name}`}
-            >
-              <span>↗</span>
-            </button>
+            
           </div>
 
           <h4 className="mentor-stack-name" title={mentor.name}>

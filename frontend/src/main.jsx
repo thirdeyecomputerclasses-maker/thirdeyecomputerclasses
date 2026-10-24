@@ -11,7 +11,7 @@ import App from './App.jsx'
 if (typeof window !== 'undefined' && 'caches' in window) {
   caches.keys().then((keys) => {
     keys.forEach((key) => {
-      if (key !== 'thirdeye-v3-static') {
+      if (key !== 'thirdeye-v4-static') {
         caches.delete(key);
       }
     });

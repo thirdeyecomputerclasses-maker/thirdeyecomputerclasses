@@ -253,8 +253,17 @@ const InfiniteSpiral = ({
                 className="infinite-spiral__image"
                 src={item.src}
                 alt={item.alt}
-                loading={index < 6 ? 'eager' : 'lazy'}
+                loading="eager"
+                decoding="async"
                 draggable={false}
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  if (item.defaultUrl && e.currentTarget.src !== item.defaultUrl) {
+                    e.currentTarget.src = item.defaultUrl;
+                  } else {
+                    e.currentTarget.src = "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&q=80&auto=format&fit=crop";
+                  }
+                }}
                 style={{
                   width: cardWidth,
                   height: cardHeight,

@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Play, Pause, Volume2, VolumeX, Maximize2, Sparkles } from "lucide-react";
-import { fetchMedia } from "../../../services/mediaApi";
+import { Play, Pause, Volume2, VolumeX, Maximize2, ExternalLink } from "lucide-react";
+import { fetchMedia, getVideoInfo } from "../../../services/mediaApi";
 
 export default function AboutVideoShowcase() {
   const videoRef = useRef(null);
@@ -10,6 +9,8 @@ export default function AboutVideoShowcase() {
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
+
+  const videoInfo = getVideoInfo(videoSrc);
 
   useEffect(() => {
     fetchMedia({ page: "about", type: "video" })
@@ -26,11 +27,9 @@ export default function AboutVideoShowcase() {
     const video = videoRef.current;
     if (!video) return;
 
-    // Auto-play on mount
     video.play().then(() => {
       setIsPlaying(true);
     }).catch(() => {
-      // Autoplay with sound usually blocked, muted ensures it starts
       video.muted = true;
       setIsMuted(true);
       video.play().catch(() => setIsPlaying(false));
@@ -44,7 +43,7 @@ export default function AboutVideoShowcase() {
 
     video.addEventListener("timeupdate", handleTimeUpdate);
     return () => video.removeEventListener("timeupdate", handleTimeUpdate);
-  }, []);
+  }, [videoSrc]);
 
   const togglePlay = () => {
     const video = videoRef.current;
@@ -87,28 +86,110 @@ export default function AboutVideoShowcase() {
           {/* Video Container Frame */}
           <div
             ref={containerRef}
-            onClick={togglePlay}
-            className="relative rounded-[24px] sm:rounded-[30px] overflow-hidden border border-[#f6d96b]/25 bg-[#0a0805] shadow-[0_20px_60px_rgba(0,0,0,0.9)] cursor-pointer aspect-video max-h-[75vh] w-full"
+            onClick={videoInfo.type === "direct" ? togglePlay : undefined}
+            className="relative rounded-[24px] sm:rounded-[30px] overflow-hidden border border-[#f6d96b]/25 bg-[#0a0805] shadow-[0_20px_60px_rgba(0,0,0,0.9)] aspect-video max-h-[75vh] w-full"
           >
-            <video
-              ref={videoRef}
-              key={videoSrc}
-              autoPlay
-              loop
-              muted={isMuted}
-              playsInline
-              preload="metadata"
-              className="w-full h-full object-cover"
-            >
-              <source src={videoSrc} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            {videoInfo.type === "instagram" ? (
+              <div className="relative w-full h-full flex items-center justify-center bg-black/90 p-2 sm:p-4">
+                <iframe
+                  src={videoInfo.embedUrl}
+                  title="Third Eye Instagram Reel"
+                  className="w-full max-w-[440px] h-full rounded-[18px] border-0"
+                  scrolling="no"
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                />
+                <a
+                  href={videoInfo.directUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute top-4 right-4 z-30 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/80 hover:bg-[#f6d96b] text-[#f6d96b] hover:text-black border border-[#f6d96b]/40 text-xs font-bold transition-all shadow-lg"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <span>Open Reel on Instagram</span>
+                  <ExternalLink size={13} />
+                </a>
+              </div>
+            ) : videoInfo.type === "youtube" ? (
+              <iframe
+                src={videoInfo.embedUrl}
+                title="Third Eye Brand Reel"
+                className="w-full h-full border-0 rounded-[24px]"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            ) : (
+              <>
+                <video
+                  ref={videoRef}
+                  key={videoSrc}
+                  autoPlay
+                  loop
+                  muted={isMuted}
+                  playsInline
+                  preload="metadata"
+                  className="w-full h-full object-cover"
+                >
+                  <source src={videoSrc} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
 
-            {/* Subtle Gradient Vignette Overlays */}
-            <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/60 via-transparent to-black/30" />
+                {/* Subtle Gradient Vignette Overlays */}
+                <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/60 via-transparent to-black/30" />
+
+                {/* Center Play Overlay Icon when paused */}
+                {!isPlaying && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px] z-20 transition-all pointer-events-none">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#f6d96b] text-black flex items-center justify-center shadow-[0_0_35px_rgba(246,217,107,0.8)] pl-1">
+                      <Play className="w-8 h-8 fill-black" />
+                    </div>
+                  </div>
+                )}
+
+                {/* Bottom Controls Bar for direct videos */}
+                <div className="absolute bottom-4 sm:bottom-6 right-4 sm:right-6 z-20 flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      togglePlay();
+                    }}
+                    className="p-2 sm:p-2.5 rounded-xl bg-black/75 hover:bg-black/90 text-white hover:text-[#f6d96b] backdrop-blur-md border border-white/15 transition-all shadow-md cursor-pointer"
+                    title={isPlaying ? "Pause" : "Play"}
+                  >
+                    {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 fill-white" />}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={toggleMute}
+                    className="p-2 sm:p-2.5 rounded-xl bg-black/75 hover:bg-black/90 text-white hover:text-[#f6d96b] backdrop-blur-md border border-white/15 transition-all shadow-md cursor-pointer"
+                    title={isMuted ? "Unmute" : "Mute"}
+                  >
+                    {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={toggleFullscreen}
+                    className="hidden sm:inline-flex p-2 sm:p-2.5 rounded-xl bg-black/75 hover:bg-black/90 text-white hover:text-[#f6d96b] backdrop-blur-md border border-white/15 transition-all shadow-md cursor-pointer"
+                    title="Fullscreen"
+                  >
+                    <Maximize2 className="w-4 h-4" />
+                  </button>
+                </div>
+
+                {/* Video scrub / progress line at bottom */}
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/10 z-20">
+                  <div
+                    className="h-full bg-gradient-to-r from-[#f6d96b] to-[#f59e0b] transition-all duration-100"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+              </>
+            )}
 
             {/* Top Left Live Badge */}
-            <div className="absolute top-4 sm:top-6 left-4 sm:left-6 z-20 flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/10 text-white text-[11px] sm:text-xs font-mono font-medium shadow-md">
+            <div className="absolute top-4 sm:top-6 left-4 sm:left-6 z-20 flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/10 text-white text-[11px] sm:text-xs font-mono font-medium shadow-md pointer-events-none">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500" />
@@ -116,56 +197,6 @@ export default function AboutVideoShowcase() {
               <span>LIVE SHOWREEL</span>
               <span className="text-zinc-500">•</span>
               <span className="text-[#f6d96b]">THIRD EYE CREATIVE LABS</span>
-            </div>
-
-            {/* Center Play Overlay Icon when paused */}
-            {!isPlaying && (
-              <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px] z-20 transition-all">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#f6d96b] text-black flex items-center justify-center shadow-[0_0_35px_rgba(246,217,107,0.8)] hover:scale-105 transition-transform pl-1">
-                  <Play className="w-8 h-8 fill-black" />
-                </div>
-              </div>
-            )}
-
-            {/* Bottom Controls Bar */}
-            <div className="absolute bottom-4 sm:bottom-6 right-4 sm:right-6 z-20 flex items-center gap-2">
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  togglePlay();
-                }}
-                className="p-2 sm:p-2.5 rounded-xl bg-black/75 hover:bg-black/90 text-white hover:text-[#f6d96b] backdrop-blur-md border border-white/15 transition-all shadow-md cursor-pointer"
-                title={isPlaying ? "Pause" : "Play"}
-              >
-                {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 fill-white" />}
-              </button>
-
-              <button
-                type="button"
-                onClick={toggleMute}
-                className="p-2 sm:p-2.5 rounded-xl bg-black/75 hover:bg-black/90 text-white hover:text-[#f6d96b] backdrop-blur-md border border-white/15 transition-all shadow-md cursor-pointer"
-                title={isMuted ? "Unmute" : "Mute"}
-              >
-                {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
-              </button>
-
-              <button
-                type="button"
-                onClick={toggleFullscreen}
-                className="hidden sm:inline-flex p-2 sm:p-2.5 rounded-xl bg-black/75 hover:bg-black/90 text-white hover:text-[#f6d96b] backdrop-blur-md border border-white/15 transition-all shadow-md cursor-pointer"
-                title="Fullscreen"
-              >
-                <Maximize2 className="w-4 h-4" />
-              </button>
-            </div>
-
-            {/* Video scrub / progress line at bottom */}
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/10 z-20">
-              <div
-                className="h-full bg-gradient-to-r from-[#f6d96b] to-[#f59e0b] transition-all duration-100"
-                style={{ width: `${progress}%` }}
-              />
             </div>
           </div>
         </div>

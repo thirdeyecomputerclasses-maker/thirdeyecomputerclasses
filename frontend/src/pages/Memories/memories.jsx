@@ -70,7 +70,7 @@ const EVENT_IMAGES = [
 // -------------------------------------------------------------
 const CELEBRATION_IMAGES = [
   // 1 - 7: Turn 1 (Milestones & Graduations)
-  { id: 1, src: spiralPhoto('photo-1523050854058-8df90110c9f1'), alt: 'Graduation Hat Toss', label: 'Graduation Ceremony' },
+  { id: 1, src: spiralPhoto('photo-1541339907198-e08756dedf3f'), alt: 'Graduation Hat Toss', label: 'Graduation Ceremony' },
   { id: 2, src: spiralPhoto('photo-1517457373958-b7bdd4587205'), alt: 'Confetti Bash', label: 'Victory Bash' },
   { id: 3, src: student1, alt: 'Student Achievement', label: 'Student Honor' },
   { id: 4, src: spiralPhoto('photo-1511795409834-ef04bbd61622'), alt: 'Annual Gala Night', label: 'Annual Gala' },
@@ -109,6 +109,7 @@ const CELEBRATION_IMAGES = [
 function Memories() {
   const [eventImages, setEventImages] = useState(EVENT_IMAGES);
   const [panoramicBg, setPanoramicBg] = useState(classroomPanoramic);
+  const [celebrationImages, setCelebrationImages] = useState(CELEBRATION_IMAGES);
 
   useEffect(() => {
     fetchMedia({ page: "memories", type: "image" })
@@ -139,6 +140,34 @@ function Memories() {
             return item;
           })
         );
+
+        // Dynamic Celebration Spiral photos managed from admin panel
+        const celebrationSlots = data.filter(
+          (s) => s.section === "celebration" || s.slotKey?.startsWith("memories_celebration_")
+        );
+
+        if (celebrationSlots.length > 0) {
+          setCelebrationImages((prev) =>
+            prev.map((item, idx) => {
+              const slotNum = idx + 1;
+              const foundSlot = celebrationSlots.find(
+                (s) => s.slotKey === `memories_celebration_${slotNum}`
+              );
+              if (foundSlot?.url) {
+                return {
+                  ...item,
+                  src: foundSlot.url,
+                  defaultUrl: foundSlot.defaultUrl || item.src,
+                  alt: foundSlot.title || item.alt,
+                  label: foundSlot.title
+                    ? foundSlot.title.replace(/^Celebration \d+\s*[—–-]\s*/i, "")
+                    : item.label,
+                };
+              }
+              return item;
+            })
+          );
+        }
       })
       .catch(() => {});
   }, []);
@@ -237,7 +266,7 @@ function Memories() {
         {/* Infinite Spiral Container */}
         <div className="infinite-spiral-wrapper">
           <InfiniteSpiral
-            items={CELEBRATION_IMAGES}
+            items={celebrationImages}
             speed={0.55}
             direction="up"
             animationMode="auto"
