@@ -385,7 +385,7 @@ export default function ContactPage() {
                   <Compass size={22} />
                 </div>
                 <div>
-                  <span className="quick-chat-title branch-finder-title">Find Nearest Third Eye Branch</span>
+                  <span className="quick-chat-title branch-finder-title">Find Nearest ThirdEye Branch</span>
                   <p className="quick-chat-desc">Enter your area PIN code or locality to discover our 10+ Jaipur campuses with live driving distance & map routes</p>
                 </div>
               </div>

@@ -156,11 +156,11 @@ export default function Navbar() {
               <Link
                 to="/"
                 className="flex items-center group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] rounded-xl p-1"
-                aria-label="Third Eye Home"
+                aria-label="ThirdEye Home"
               >
                 <img
                   src={logo}
-                  alt="Third Eye Logo"
+                  alt="ThirdEye Logo"
                   className="h-12 sm:h-14 md:h-16 lg:h-18 w-auto object-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_2px_10px_rgba(243,207,101,0.2)]"
                   loading="eager"
                   fetchPriority="high"
@@ -671,7 +671,7 @@ export default function Navbar() {
         <div>
           {/* Drawer Top Bar - Logo ONLY */}
           <div className="flex items-center justify-between pb-5 border-b border-[#241d14]">
-            <img src={logo} alt="Third Eye Logo" className="h-11 sm:h-12 w-auto object-contain" />
+            <img src={logo} alt="ThirdEye Logo" className="h-11 sm:h-12 w-auto object-contain" />
 
             <button
               type="button"
@@ -971,7 +971,7 @@ export default function Navbar() {
         {/* Drawer Footer Branding */}
         <div className="pt-5 border-t border-[#241d14] text-center">
           <span className="text-[10px] font-mono tracking-wider text-zinc-500 uppercase">
-            THIRD EYE • ENLIGHTENING SUCCESS • ISO 9001
+            THIRDEYE • ENLIGHTENING SUCCESS • ISO 9001
           </span>
         </div>
       </aside>

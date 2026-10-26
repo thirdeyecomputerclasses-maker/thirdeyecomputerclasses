@@ -4,7 +4,7 @@ import AboutUsSection from "./AboutUsSection";
 export default function AboutPage() {
   useEffect(() => {
     document.title =
-      "About Us | Third Eye Computer Classes - Where Dreams Transform Into Code & Art";
+      "About Us | ThirdEye Computer Classes - Where Dreams Transform Into Code & Art";
     window.scrollTo({ top: 0, behavior: "instant" });
   }, []);
 

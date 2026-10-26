@@ -12,7 +12,7 @@ const DEFAULT_POINTS = [
   {
     id: 2,
     title: "Receive Expert Mentorship & Evaluation",
-    desc: "Get detailed code, model, and project critique from Third Eye senior industry mentors.",
+    desc: "Get detailed code, model, and project critique from ThirdEye senior industry mentors.",
   },
   {
     id: 3,
@@ -97,7 +97,7 @@ export default function CertificationSection({
               {/* Background Stacked Card (Depth Layer) */}
               <div className="cert-card cert-card-back">
                 <div className="cert-watermark-logo">
-                  <img src={logo} alt="Third Eye" className="cert-bg-logo" />
+                  <img src={logo} alt="ThirdEye" className="cert-bg-logo" />
                 </div>
               </div>
 
@@ -115,11 +115,11 @@ export default function CertificationSection({
                 {/* Main Certificate Content Canvas */}
                 <div className="cert-body">
                   
-                  {/* Top Header Row with Third Eye Brand Pill */}
+                  {/* Top Header Row with ThirdEye Brand Pill */}
                   <div className="cert-top-row">
                     <div className="cert-brand-pill">
-                      <img src={logo} alt="Third Eye" className="cert-logo-icon" />
-                      <span>THIRD EYE</span>
+                      <img src={logo} alt="ThirdEye" className="cert-logo-icon" />
+                      <span>THIRDEYE</span>
                     </div>
                   </div>
 

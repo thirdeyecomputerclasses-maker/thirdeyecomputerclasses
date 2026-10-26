@@ -1,5 +1,7 @@
+const fs = require("fs");
+const path = require("path");
 const Media = require("../models/Media");
-const { getDBStatus } = require("../config/db");
+const { getDBStatus, ensureConnected } = require("../config/db");
 
 // Predefined existing section slots for the 5 supported pages:
 // 1. About Us (about)
@@ -13,23 +15,11 @@ const INITIAL_SECTION_SLOTS = [
   // 1. ABOUT US (about)
   // ==========================================
   {
-    slotKey: "about_team_photo",
-    page: "about",
-    section: "team",
-    type: "image",
-    title: "Executive Leadership & Faculty Team Photo",
-    description: "Wide team showcase featured in the interactive scroll-expand section of About Us.",
-    url: "/src/assets/about_team_photo.webp",
-    defaultUrl: "/src/assets/about_team_photo.webp",
-    thumbnailUrl: "/src/assets/about_team_photo.webp",
-    isDefault: true,
-  },
-  {
     slotKey: "about_showcase_reel",
     page: "about",
     section: "showcase",
     type: "video",
-    title: "Third Eye Brand Showcase Video Reel",
+    title: "ThirdEye Brand Showcase Video Reel",
     description: "Cinematic full-width showreel featured in the About Us video section.",
     url: "/assets/webreel.mp4",
     defaultUrl: "/assets/webreel.mp4",
@@ -41,18 +31,6 @@ const INITIAL_SECTION_SLOTS = [
   // 2. FRANCHISE (franchise)
   // Two sections only: 1. founder (1 picture), 2. branches (10 pictures)
   // ==========================================
-  {
-    slotKey: "franchise_founder",
-    page: "franchise",
-    section: "founder",
-    type: "image",
-    title: "Founder Portrait (Mr. M.L. Chaudhary)",
-    description: "Hero showcase portrait on the right side of the franchise page with Founder credential tag.",
-    url: "/src/assets/leadership/ml_chaudhary.png",
-    defaultUrl: "/src/assets/leadership/ml_chaudhary.png",
-    thumbnailUrl: "/src/assets/leadership/ml_chaudhary.png",
-    isDefault: true,
-  },
   {
     slotKey: "franchise_branch_1",
     page: "franchise",
@@ -694,7 +672,7 @@ const INITIAL_SECTION_SLOTS = [
       page: "memories",
       section: "celebration",
       type: "image",
-      title: "Celebration 11 — Team Reunion & Entire Third Eye Team",
+      title: "Celebration 11 — Team Reunion & Entire ThirdEye Team",
       description: "Celebration Spiral Card #11 (Turn 2: Awards & Parties)",
       url: "/src/assets/team_photo.webp",
       defaultUrl: "/src/assets/team_photo.webp",
@@ -1237,6 +1215,262 @@ const INITIAL_SECTION_SLOTS = [
     thumbnailUrl: "/src/assets/students/student_12.jpg",
     isDefault: true,
   },
+  // ==========================================
+  // 7. OUR TEAM CAROUSEL (carousel) — 21 Mentors Carousel Cards
+  // ==========================================
+  {
+    slotKey: "carousel_mentor_1",
+    page: "team",
+    section: "carousel",
+    type: "image",
+    title: "Preeti Sharma — Carousel Card Avatar",
+    description: "Preeti Sharma avatar photo in 'Meet the people behind the learning journey' carousel",
+    url: "/src/assets/leadership/preeti_sharma.png",
+    defaultUrl: "/src/assets/leadership/preeti_sharma.png",
+    thumbnailUrl: "/src/assets/leadership/preeti_sharma.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "carousel_mentor_2",
+    page: "team",
+    section: "carousel",
+    type: "image",
+    title: "Puneet Sharma — Carousel Card Avatar",
+    description: "Puneet Sharma avatar photo in 'Meet the people behind the learning journey' carousel",
+    url: "/src/assets/leadership/puneet_sharma.png",
+    defaultUrl: "/src/assets/leadership/puneet_sharma.png",
+    thumbnailUrl: "/src/assets/leadership/puneet_sharma.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "carousel_mentor_3",
+    page: "team",
+    section: "carousel",
+    type: "image",
+    title: "Suumit Sharrma — Carousel Card Avatar",
+    description: "Suumit Sharrma avatar photo in 'Meet the people behind the learning journey' carousel",
+    url: "/src/assets/leadership/suumit_sharma.png",
+    defaultUrl: "/src/assets/leadership/suumit_sharma.png",
+    thumbnailUrl: "/src/assets/leadership/suumit_sharma.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "carousel_mentor_4",
+    page: "team",
+    section: "carousel",
+    type: "image",
+    title: "Mr. M.L. Chaudhary — Carousel Card Avatar",
+    description: "Founder & Chief Patron avatar photo in 'Meet the people behind the learning journey' carousel",
+    url: "/src/assets/leadership/ml_chaudhary.png",
+    defaultUrl: "/src/assets/leadership/ml_chaudhary.png",
+    thumbnailUrl: "/src/assets/leadership/ml_chaudhary.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "carousel_mentor_5",
+    page: "team",
+    section: "carousel",
+    type: "image",
+    title: "Sheetal Sharma — Carousel Card Avatar",
+    description: "Sales & B.D. Head avatar photo in 'Meet the people behind the learning journey' carousel",
+    url: "/src/assets/leadership/sheetal_sharma.png",
+    defaultUrl: "/src/assets/leadership/sheetal_sharma.png",
+    thumbnailUrl: "/src/assets/leadership/sheetal_sharma.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "carousel_mentor_6",
+    page: "team",
+    section: "carousel",
+    type: "image",
+    title: "Neelam Sharma — Carousel Card Avatar",
+    description: "Recruitment & Admission Head avatar photo in 'Meet the people behind the learning journey' carousel",
+    url: "/src/assets/leadership/neelam_sharma.png",
+    defaultUrl: "/src/assets/leadership/neelam_sharma.png",
+    thumbnailUrl: "/src/assets/leadership/neelam_sharma.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "carousel_mentor_7",
+    page: "team",
+    section: "carousel",
+    type: "image",
+    title: "Muskan Avesthi — Carousel Card Avatar",
+    description: "Placement Manager avatar photo in 'Meet the people behind the learning journey' carousel",
+    url: "/src/assets/leadership/muskan_avesthi.png",
+    defaultUrl: "/src/assets/leadership/muskan_avesthi.png",
+    thumbnailUrl: "/src/assets/leadership/muskan_avesthi.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "carousel_mentor_8",
+    page: "team",
+    section: "carousel",
+    type: "image",
+    title: "Kushwang Sharma — Carousel Card Avatar",
+    description: "Social Media & Operations avatar photo in 'Meet the people behind the learning journey' carousel",
+    url: "/src/assets/leadership/khushwang_sharma.png",
+    defaultUrl: "/src/assets/leadership/khushwang_sharma.png",
+    thumbnailUrl: "/src/assets/leadership/khushwang_sharma.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "carousel_mentor_9",
+    page: "team",
+    section: "carousel",
+    type: "image",
+    title: "Amit Saini — Carousel Card Avatar",
+    description: "Senior Faculty & Digital Marketing Mentor in 'Meet the people behind the learning journey' carousel",
+    url: "/src/assets/leadership/amit_saini.png",
+    defaultUrl: "/src/assets/leadership/amit_saini.png",
+    thumbnailUrl: "/src/assets/leadership/amit_saini.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "carousel_mentor_10",
+    page: "team",
+    section: "carousel",
+    type: "image",
+    title: "Shubham Saini — Carousel Card Avatar",
+    description: "Training Head & Sr. Manager avatar photo in 'Meet the people behind the learning journey' carousel",
+    url: "/src/assets/leadership/shubham_saini.png",
+    defaultUrl: "/src/assets/leadership/shubham_saini.png",
+    thumbnailUrl: "/src/assets/leadership/shubham_saini.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "carousel_mentor_11",
+    page: "team",
+    section: "carousel",
+    type: "image",
+    title: "Tushar Prajapat — Carousel Card Avatar",
+    description: "Branch Lead & Technical Mentor in 'Meet the people behind the learning journey' carousel",
+    url: "/src/assets/mentor_1.png",
+    defaultUrl: "/src/assets/mentor_1.png",
+    thumbnailUrl: "/src/assets/mentor_1.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "carousel_mentor_12",
+    page: "team",
+    section: "carousel",
+    type: "image",
+    title: "Gaurav Singh Panwar — Carousel Card Avatar",
+    description: "Student Support & IVR Manager in 'Meet the people behind the learning journey' carousel",
+    url: "/src/assets/leadership/gaurav_singh.png",
+    defaultUrl: "/src/assets/leadership/gaurav_singh.png",
+    thumbnailUrl: "/src/assets/leadership/gaurav_singh.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "carousel_mentor_13",
+    page: "team",
+    section: "carousel",
+    type: "image",
+    title: "Rishika Raj — Carousel Card Avatar",
+    description: "Career Counsellor & Advisor in 'Meet the people behind the learning journey' carousel",
+    url: "/src/assets/mentor_2.png",
+    defaultUrl: "/src/assets/mentor_2.png",
+    thumbnailUrl: "/src/assets/mentor_2.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "carousel_mentor_14",
+    page: "team",
+    section: "carousel",
+    type: "image",
+    title: "Ishika Jain — Carousel Card Avatar",
+    description: "Academic & Career Counsellor in 'Meet the people behind the learning journey' carousel",
+    url: "/src/assets/mentor_4.png",
+    defaultUrl: "/src/assets/mentor_4.png",
+    thumbnailUrl: "/src/assets/mentor_4.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "carousel_mentor_15",
+    page: "team",
+    section: "carousel",
+    type: "image",
+    title: "Diya Saini — Carousel Card Avatar",
+    description: "Branch Lead & Counsellor in 'Meet the people behind the learning journey' carousel",
+    url: "/src/assets/mentor_5.png",
+    defaultUrl: "/src/assets/mentor_5.png",
+    thumbnailUrl: "/src/assets/mentor_5.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "carousel_mentor_16",
+    page: "team",
+    section: "carousel",
+    type: "image",
+    title: "Sheetanshu Saxena — Carousel Card Avatar",
+    description: "Digital Marketing Specialist in 'Meet the people behind the learning journey' carousel",
+    url: "/src/assets/mentor_3.png",
+    defaultUrl: "/src/assets/mentor_3.png",
+    thumbnailUrl: "/src/assets/mentor_3.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "carousel_mentor_17",
+    page: "team",
+    section: "carousel",
+    type: "image",
+    title: "Mohit Sharma — Carousel Card Avatar",
+    description: "Animation & VFX Lead in 'Meet the people behind the learning journey' carousel",
+    url: "/src/assets/leadership/mohit_sharma.png",
+    defaultUrl: "/src/assets/leadership/mohit_sharma.png",
+    thumbnailUrl: "/src/assets/leadership/mohit_sharma.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "carousel_mentor_18",
+    page: "team",
+    section: "carousel",
+    type: "image",
+    title: "Rahul Verma — Carousel Card Avatar",
+    description: "Designing Executive & Graphic Design Mentor in 'Meet the people behind the learning journey' carousel",
+    url: "/src/assets/students/student_9.jpg",
+    defaultUrl: "/src/assets/students/student_9.jpg",
+    thumbnailUrl: "/src/assets/students/student_9.jpg",
+    isDefault: true,
+  },
+  {
+    slotKey: "carousel_mentor_19",
+    page: "team",
+    section: "carousel",
+    type: "image",
+    title: "Harshita Jain — Carousel Card Avatar",
+    description: "Branch Manager & Tech Counsellor in 'Meet the people behind the learning journey' carousel",
+    url: "/src/assets/students/student_10.jpg",
+    defaultUrl: "/src/assets/students/student_10.jpg",
+    thumbnailUrl: "/src/assets/students/student_10.jpg",
+    isDefault: true,
+  },
+  {
+    slotKey: "carousel_mentor_20",
+    page: "team",
+    section: "carousel",
+    type: "image",
+    title: "Rohit Bairwa — Carousel Card Avatar",
+    description: "Academic Counsellor & Career Advisor in 'Meet the people behind the learning journey' carousel",
+    url: "/src/assets/students/student_11.jpg",
+    defaultUrl: "/src/assets/students/student_11.jpg",
+    thumbnailUrl: "/src/assets/students/student_11.jpg",
+    isDefault: true,
+  },
+  {
+    slotKey: "carousel_mentor_21",
+    page: "team",
+    section: "carousel",
+    type: "image",
+    title: "Pankaj Sharma — Carousel Card Avatar",
+    description: "AI & ML Academic Advisor in 'Meet the people behind the learning journey' carousel",
+    url: "/src/assets/students/student_12.jpg",
+    defaultUrl: "/src/assets/students/student_12.jpg",
+    thumbnailUrl: "/src/assets/students/student_12.jpg",
+    isDefault: true,
+  },
+
 ];
 
 let inMemorySlots = INITIAL_SECTION_SLOTS.map((slot, index) => ({
@@ -1247,54 +1481,89 @@ let inMemorySlots = INITIAL_SECTION_SLOTS.map((slot, index) => ({
 }));
 
 let hasSynced = false;
+let isSyncing = false;
+
+// Defensively sanitize item: if url points to nonexistent local /uploads/, fall back to defaultUrl
+// Ensures ImageKit URLs are preserved, and MP4 video URLs are not used as thumbnail images
+const sanitizeMedia = (item) => {
+  const doc = typeof item.toObject === "function" ? item.toObject() : { ...item };
+  if (doc.url && doc.url.startsWith("/uploads/")) {
+    const diskPath = path.join(__dirname, "..", doc.url);
+    if (!fs.existsSync(diskPath)) {
+      doc.url = doc.defaultUrl;
+      doc.thumbnailUrl = doc.defaultUrl;
+    }
+  }
+  // If thumbnailUrl points to a video file, clear it so it doesn't break image tags
+  if (doc.thumbnailUrl && /\.(mp4|webm|mov|mkv)$/i.test(doc.thumbnailUrl)) {
+    doc.thumbnailUrl = "";
+  }
+  return doc;
+};
 
 class MediaStore {
   /**
-   * Seed or synchronize section slots in MongoDB (runs once on startup)
+   * Seed or synchronize section slots in MongoDB using high-performance bulk operations
    */
   static async syncSlots(force = false) {
     if (hasSynced && !force) return;
+    if (isSyncing) return;
+
+    if (!getDBStatus()) {
+      await ensureConnected();
+    }
+
     if (getDBStatus()) {
+      isSyncing = true;
       try {
         const validSlotKeys = INITIAL_SECTION_SLOTS.map((s) => s.slotKey);
+
+        // Remove outdated/obsolete slots not in current configuration
         await Media.deleteMany({
           page: { $in: ["about", "franchise", "placements", "memories", "reviews", "team"] },
           slotKey: { $nin: validSlotKeys },
         });
 
-        for (const slot of INITIAL_SECTION_SLOTS) {
+        // Fast bulkWrite for all 119 slots in a single round-trip
+        const bulkOps = INITIAL_SECTION_SLOTS.map((slot) => {
           const { page, section, type, title, description, defaultUrl, ...insertOnly } = slot;
-          await Media.updateOne(
-            { slotKey: slot.slotKey },
-            {
-              $setOnInsert: {
-                ...insertOnly,
-                url: slot.url,
-                thumbnailUrl: slot.thumbnailUrl || slot.url,
-                fileId: slot.fileId || "",
-                isDefault: true,
-                createdAt: new Date(),
+          return {
+            updateOne: {
+              filter: { slotKey: slot.slotKey },
+              update: {
+                $setOnInsert: {
+                  ...insertOnly,
+                  url: slot.url,
+                  thumbnailUrl: slot.thumbnailUrl || slot.url,
+                  fileId: slot.fileId || "",
+                  isDefault: true,
+                  createdAt: new Date(),
+                },
+                $set: {
+                  page: slot.page,
+                  section: slot.section,
+                  type: slot.type,
+                  title: slot.title,
+                  description: slot.description,
+                  defaultUrl: slot.defaultUrl,
+                },
               },
-              $set: {
-                page: slot.page,
-                section: slot.section,
-                type: slot.type,
-                title: slot.title,
-                description: slot.description,
-                defaultUrl: slot.defaultUrl,
-              },
+              upsert: true,
             },
-            { upsert: true }
-          );
+          };
+        });
+
+        if (bulkOps.length > 0) {
+          await Media.bulkWrite(bulkOps, { ordered: false });
         }
 
         // Sync inMemorySlots with the latest MongoDB records
-        const allDocs = await Media.find({ slotKey: { $in: validSlotKeys } });
+        const allDocs = await Media.find({ slotKey: { $in: validSlotKeys } }).lean();
         allDocs.forEach((doc) => {
-          const idx = inMemorySlots.findIndex((s) => s.slotKey === doc.slotKey);
-          if (idx !== -1) {
-            inMemorySlots[idx] = {
-              ...inMemorySlots[idx],
+          const mIdx = inMemorySlots.findIndex((s) => s.slotKey === doc.slotKey);
+          if (mIdx !== -1) {
+            inMemorySlots[mIdx] = {
+              ...inMemorySlots[mIdx],
               url: doc.url,
               thumbnailUrl: doc.thumbnailUrl,
               fileId: doc.fileId,
@@ -1308,6 +1577,8 @@ class MediaStore {
         console.log("MediaStore: Initialized and synchronized all section slots with MongoDB.");
       } catch (err) {
         console.warn("MongoDB sync slots warning:", err.message);
+      } finally {
+        isSyncing = false;
       }
     }
   }
@@ -1316,37 +1587,26 @@ class MediaStore {
    * Get all slots filtered by page and type (High performance, cached & safe)
    */
   static async getAll({ page, type } = {}) {
+    if (!getDBStatus()) {
+      await ensureConnected();
+    }
+
     if (!hasSynced && getDBStatus()) {
       await this.syncSlots();
     }
 
-    const fs = require("fs");
-    const path = require("path");
-
-    // Defensively sanitize item: if url points to nonexistent local /uploads/, fall back to defaultUrl
-    const sanitizeMedia = (item) => {
-      const doc = typeof item.toObject === "function" ? item.toObject() : { ...item };
-      if (doc.url && doc.url.startsWith("/uploads/")) {
-        const diskPath = path.join(__dirname, "..", doc.url);
-        if (!fs.existsSync(diskPath)) {
-          doc.url = doc.defaultUrl;
-          doc.thumbnailUrl = doc.defaultUrl;
-        }
-      }
-      return doc;
-    };
-
     if (getDBStatus()) {
       try {
-        const filter = { slotKey: { $exists: true, $ne: "" } };
+        const filter = { slotKey: { $exists: true, $ne: "", $nin: ["about_team_photo", "franchise_founder"] } };
         if (page && page !== "all") filter.page = page;
         if (type && type !== "all") filter.type = type;
 
-        const results = await Media.find(filter).sort({ createdAt: 1 });
+        const results = await Media.find(filter).lean().sort({ createdAt: 1 });
         if (results && results.length > 0) {
           const map = new Map();
           results.forEach((item) => {
             const sanitized = sanitizeMedia(item);
+            if (sanitized.slotKey === "about_team_photo" || sanitized.slotKey === "franchise_founder") return;
             const existing = map.get(sanitized.slotKey);
             if (!existing || (!sanitized.isDefault && existing.isDefault)) {
               map.set(sanitized.slotKey, sanitized);
@@ -1361,7 +1621,7 @@ class MediaStore {
 
     return inMemorySlots
       .filter((item) => {
-        if (!item.slotKey) return false;
+        if (!item.slotKey || item.slotKey === "about_team_photo" || item.slotKey === "franchise_founder") return false;
         if (page && page !== "all" && item.page !== page) return false;
         if (type && type !== "all" && item.type !== type) return false;
         return true;
@@ -1370,45 +1630,72 @@ class MediaStore {
   }
 
   static async getById(id) {
+    if (!getDBStatus()) {
+      await ensureConnected();
+    }
     if (getDBStatus()) {
       try {
-        const media = await Media.findById(id);
-        if (media) return media;
+        const media = await Media.findById(id).lean();
+        if (media) return sanitizeMedia(media);
       } catch (err) {}
     }
-    return inMemorySlots.find((item) => String(item._id) === String(id) || item.slotKey === id) || null;
+    const found = inMemorySlots.find((item) => String(item._id) === String(id) || item.slotKey === id);
+    return found ? sanitizeMedia(found) : null;
   }
 
   static async getBySlotKey(slotKey) {
+    if (!getDBStatus()) {
+      await ensureConnected();
+    }
     if (getDBStatus()) {
       try {
-        const media = await Media.findOne({ slotKey });
-        if (media) return media;
+        const media = await Media.findOne({ slotKey }).lean();
+        if (media) return sanitizeMedia(media);
       } catch (err) {}
     }
-    return inMemorySlots.find((item) => item.slotKey === slotKey) || null;
+    const found = inMemorySlots.find((item) => item.slotKey === slotKey);
+    return found ? sanitizeMedia(found) : null;
   }
 
   /**
    * Replace/Update a specific existing slot photo or video
    */
   static async updateSlot(slotKey, updateData) {
+    if (slotKey === "about_team_photo" || slotKey === "franchise_founder") {
+      throw new Error("This slot is managed statically in assets and cannot be modified via backend.");
+    }
+
+    const template = INITIAL_SECTION_SLOTS.find((s) => s.slotKey === slotKey) || {};
+    const inferredType = template.type || (updateData.url && /\.(mp4|webm|mov|mkv)$/i.test(updateData.url) ? "video" : "image");
+    
+    // Clean thumbnailUrl: if it's an MP4, don't store it as an image thumbnail
+    let cleanThumbnail = updateData.thumbnailUrl || "";
+    if (cleanThumbnail && /\.(mp4|webm|mov|mkv)$/i.test(cleanThumbnail)) {
+      cleanThumbnail = "";
+    }
+
     // Keep in-memory cache synchronized immediately
     const memIndex = inMemorySlots.findIndex((item) => item.slotKey === slotKey);
     if (memIndex !== -1) {
       inMemorySlots[memIndex] = {
         ...inMemorySlots[memIndex],
-        ...updateData,
+        url: updateData.url,
+        thumbnailUrl: cleanThumbnail,
+        fileId: updateData.fileId || "",
+        type: inferredType,
         isDefault: false,
         updatedAt: new Date(),
       };
     }
 
+    if (!getDBStatus()) {
+      await ensureConnected();
+    }
+
     if (getDBStatus()) {
       try {
-        const template = INITIAL_SECTION_SLOTS.find((s) => s.slotKey === slotKey) || {};
         const inferredPage = template.page || (
-          slotKey.startsWith("team_") ? "team" :
+          slotKey.startsWith("team_") || slotKey.startsWith("carousel_") ? "team" :
           slotKey.startsWith("memories_") ? "memories" :
           slotKey.startsWith("placement_") ? "placements" :
           slotKey.startsWith("about_") ? "about" :
@@ -1416,6 +1703,7 @@ class MediaStore {
           "franchise"
         );
         const inferredSection = template.section || (
+          slotKey.startsWith("carousel_mentor_") ? "carousel" :
           slotKey.startsWith("team_member_") && [1, 2, 3, 4].includes(parseInt(slotKey.replace("team_member_", ""), 10)) ? "founders" :
           slotKey.startsWith("team_member_") && [5, 6, 7, 8].includes(parseInt(slotKey.replace("team_member_", ""), 10)) ? "departments" :
           slotKey.startsWith("team_member_") ? "faculties" :
@@ -1430,15 +1718,15 @@ class MediaStore {
           {
             $set: {
               url: updateData.url,
-              thumbnailUrl: updateData.thumbnailUrl || updateData.url,
+              thumbnailUrl: cleanThumbnail,
               fileId: updateData.fileId || "",
+              type: inferredType,
               isDefault: false,
               page: inferredPage,
               section: inferredSection,
               updatedAt: new Date(),
             },
             $setOnInsert: {
-              type: template.type || "image",
               title: template.title || slotKey,
               description: template.description || "",
               defaultUrl: template.defaultUrl || updateData.url,
@@ -1447,7 +1735,13 @@ class MediaStore {
           },
           { returnDocument: "after", upsert: true }
         );
-        if (updated) return updated;
+        if (updated) {
+          const doc = updated.toObject ? updated.toObject() : updated;
+          if (memIndex !== -1) {
+            inMemorySlots[memIndex] = { ...inMemorySlots[memIndex], ...doc };
+          }
+          return doc;
+        }
       } catch (err) {
         console.warn("MongoDB update slot failed, falling back to memory:", err.message);
       }
@@ -1475,6 +1769,10 @@ class MediaStore {
       };
     }
 
+    if (!getDBStatus()) {
+      await ensureConnected();
+    }
+
     if (getDBStatus()) {
       try {
         const updated = await Media.findOneAndUpdate(
@@ -1488,9 +1786,15 @@ class MediaStore {
               updatedAt: new Date(),
             },
           },
-          { new: true }
+          { returnDocument: "after" }
         );
-        if (updated) return updated;
+        if (updated) {
+          const doc = updated.toObject ? updated.toObject() : updated;
+          if (memIndex !== -1) {
+            inMemorySlots[memIndex] = { ...inMemorySlots[memIndex], ...doc };
+          }
+          return doc;
+        }
       } catch (err) {
         console.warn("MongoDB reset slot failed, falling back to memory:", err.message);
       }
@@ -1500,6 +1804,9 @@ class MediaStore {
   }
 
   static async delete(id) {
+    if (!getDBStatus()) {
+      await ensureConnected();
+    }
     if (getDBStatus()) {
       try {
         const deleted = await Media.findByIdAndDelete(id);

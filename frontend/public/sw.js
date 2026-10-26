@@ -1,5 +1,5 @@
 /**
- * Third Eye Service Worker - Bandwidth-Optimized Static Cache Engine
+ * ThirdEye Service Worker - Bandwidth-Optimized Static Cache Engine
  * - Serves immutable hashed assets instantly from cache with 0 background fetches.
  * - Caches audio on first play so subsequent plays consume 0 network bandwidth.
  * - Bypasses backend API endpoints completely.

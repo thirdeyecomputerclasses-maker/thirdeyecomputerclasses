@@ -150,7 +150,7 @@ export default function JobDetailPage() {
             <div className="job-company-badge">
               <Building size={18} className="company-icon" />
               <span className="company-name-text">{job.company}</span>
-              <span className="verified-check" title="Verified Third Eye Corporate Hiring Partner">
+              <span className="verified-check" title="Verified ThirdEye Corporate Hiring Partner">
                 <ShieldCheck size={16} />
               </span>
             </div>
@@ -242,9 +242,9 @@ export default function JobDetailPage() {
                 <Sparkles size={24} className="pledge-sparkle" />
               </div>
               <div className="pledge-content">
-                <h3>Third Eye Placement Guarantee</h3>
+                <h3>ThirdEye Placement Guarantee</h3>
                 <p>
-                  As an enrolled student or alumnus of Third Eye Computer Classes, you receive
+                  As an enrolled student or alumnus of ThirdEye Computer Classes, you receive
                   direct portfolio review, mock HR interview drills, and fast-track recruiter referral.
                 </p>
               </div>
@@ -257,7 +257,7 @@ export default function JobDetailPage() {
               <div className="apply-form-header">
                 <h2 className="apply-title-text">Apply for this position</h2>
                 <p className="apply-subtitle-text">
-                  Submit your application directly to {job.company} HR & Third Eye placement desk.
+                  Submit your application directly to {job.company} HR & ThirdEye placement desk.
                 </p>
               </div>
 
@@ -267,7 +267,7 @@ export default function JobDetailPage() {
                   <h3>Application Submitted Successfully!</h3>
                   <p>
                     Thank you, <strong>{formData.fullName}</strong>. Your profile for{" "}
-                    <strong>{job.title}</strong> has been received by the Third Eye Placement Cell.
+                    <strong>{job.title}</strong> has been received by the ThirdEye Placement Cell.
                   </p>
                   <p className="success-contact-hint">
                     Our team will review your resume and coordinate directly with you for interview rounds.
@@ -352,7 +352,7 @@ export default function JobDetailPage() {
                       value={formData.coverLetter}
                       onChange={handleInputChange}
                       required
-                      placeholder="Briefly describe your training, project skills, software tools learned at Third Eye, and why you are interested in this role..."
+                      placeholder="Briefly describe your training, project skills, software tools learned at ThirdEye, and why you are interested in this role..."
                       className="form-textarea-input"
                     />
                   </div>

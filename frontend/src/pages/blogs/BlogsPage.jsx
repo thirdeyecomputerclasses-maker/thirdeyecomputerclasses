@@ -21,7 +21,7 @@ export default function BlogsPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   useEffect(() => {
-    document.title = "Tech Insights & Career Blog | Third Eye Computer Classes Jaipur";
+    document.title = "Tech Insights & Career Blog | ThirdEye Computer Classes Jaipur";
     window.scrollTo(0, 0);
 
     setIsLoading(true);
@@ -153,7 +153,7 @@ export default function BlogsPage() {
         {isLoading ? (
           <div className="text-center py-20">
             <div className="inline-block w-8 h-8 border-2 border-yellow-400 border-t-transparent rounded-full animate-spin mb-4" />
-            <p className="text-zinc-400 text-sm">Loading latest articles from Third Eye...</p>
+            <p className="text-zinc-400 text-sm">Loading latest articles from ThirdEye...</p>
           </div>
         ) : filteredBlogs.length === 0 ? (
           <div className="blogs-empty-state">
@@ -228,7 +228,7 @@ export default function BlogsPage() {
                         <User size={14} />
                       </div>
                       <span className="blogs-author-name">
-                        {featuredBlog.author || "Third Eye Editorial"}
+                        {featuredBlog.author || "ThirdEye Editorial"}
                       </span>
                     </div>
 
@@ -287,7 +287,7 @@ export default function BlogsPage() {
 
                     <div className="blog-card-footer">
                       <span className="blog-card-author">
-                        By {blog.author || "Third Eye Team"}
+                        By {blog.author || "ThirdEye Team"}
                       </span>
                       <span className="blog-card-read-more group-hover:translate-x-1 transition-transform">
                         <span>Read</span>

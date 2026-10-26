@@ -172,7 +172,7 @@ export default function NearestBranchFinder() {
 
           <p className="finder-subtitle">
             Enter your 6-digit PIN code or Jaipur locality to instantly discover your closest
-            Third Eye tech campus with live driving distance, travel time, and route directions.
+            ThirdEye tech campus with live driving distance, travel time, and route directions.
           </p>
 
           {/* Search Box Card */}
@@ -260,7 +260,7 @@ export default function NearestBranchFinder() {
                 </span>
               </div>
               <p className="outside-banner-text">
-                All of Third Eye's state-of-the-art offline campuses are headquartered in Jaipur, Rajasthan.
+                All of ThirdEye's state-of-the-art offline campuses are headquartered in Jaipur, Rajasthan.
                 We provide <strong>verified student hostel / PG accommodations</strong> right next to our Sanganer Flagship campus,
                 fast-track weekend bootcamps, and <strong>Live Interactive Online Classes</strong>!
               </p>
@@ -302,7 +302,7 @@ export default function NearestBranchFinder() {
                 Showing results for: <strong>{searchResult.userLocationName}</strong>
               </span>
               <span className="summary-count">
-                {displayedBranches.length} Third Eye Centers found across Jaipur
+                {displayedBranches.length} ThirdEye Centers found across Jaipur
               </span>
             </div>
           </div>
@@ -631,7 +631,7 @@ export default function NearestBranchFinder() {
         {/* ========================================================= */}
         <section className="finder-amenities-section">
           <div className="amenities-header">
-            <h2 className="amenities-title">Visiting Any Third Eye Campus</h2>
+            <h2 className="amenities-title">Visiting Any ThirdEye Campus</h2>
             <p className="amenities-desc">
               All our Jaipur centers follow standardized infrastructure protocols and modern laboratory environments.
             </p>

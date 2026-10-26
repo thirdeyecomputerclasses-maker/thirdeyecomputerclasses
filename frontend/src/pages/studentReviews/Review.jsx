@@ -5,7 +5,7 @@ import ReviewTrail from './components/ReviewTrail';
 import FoldText from './components/FoldText';
 import StrokeText from './components/StrokeText';
 import { VIDEO_TESTIMONIALS } from './studentReviewsData';
-import { fetchMedia } from '../../services/mediaApi';
+import { fetchMedia, getVideoInfo } from '../../services/mediaApi';
 
 function Review() {
   const haloRef = useRef(null);
@@ -169,7 +169,7 @@ function Review() {
           </div>
 
           <p className="reviews-stroke-watermark mt-2">
-            THIRD EYE
+            THIRDEYE
           </p>
 
           <p className="reviews-subtitle mt-6 max-w-2xl mx-auto">

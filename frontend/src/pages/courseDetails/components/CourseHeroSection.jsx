@@ -114,8 +114,8 @@ export default function CourseHeroSection({ customImage, customTitle }) {
               <div className="course-hero-banner-overlay">
                 <div className="course-hero-banner-top">
                   <div className="course-hero-brand-pill">
-                    <img src={logo} alt="Third Eye" className="course-hero-logo" />
-                    <span>Third Eye Computer Classes</span>
+                    <img src={logo} alt="ThirdEye" className="course-hero-logo" />
+                    <span>ThirdEye Computer Classes</span>
                   </div>
                   <span className="course-hero-status-pill">● Admissions Open</span>
                 </div>

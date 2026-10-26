@@ -172,7 +172,7 @@ export default function SmartEnquiryModal({ isOpen, onClose, contextData }) {
 
   const handleWhatsAppDirect = () => {
     const text = encodeURIComponent(
-      `Hello Third Eye Classes! I would like to enquire about admission in *${course || "Computer Courses"}*. My name is *${fullName || "Prospective Student"}*. Preferred Mode: *${learningMode === "online" ? "Live Online" : preferredBranch}*.`
+      `Hello ThirdEye Classes! I would like to enquire about admission in *${course || "Computer Courses"}*. My name is *${fullName || "Prospective Student"}*. Preferred Mode: *${learningMode === "online" ? "Live Online" : preferredBranch}*.`
     );
     window.open(`https://wa.me/918058061222?text=${text}`, "_blank");
   };

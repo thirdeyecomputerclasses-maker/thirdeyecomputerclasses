@@ -33,7 +33,7 @@ export default function CompareCourses() {
   const { openEnquiry } = useEnquiry();
 
   useEffect(() => {
-    document.title = "Compare Courses Side-by-Side | Third Eye Computer Classes Jaipur";
+    document.title = "Compare Courses Side-by-Side | ThirdEye Computer Classes Jaipur";
     window.scrollTo(0, 0);
 
     let isMounted = true;

@@ -51,7 +51,7 @@ export default function HeroSection() {
       {/* React Bits WebThreads Background (https://reactbits.dev/backgrounds/web-threads) */}
       <div className="absolute inset-0 z-0 pointer-events-auto overflow-hidden">
         <WebThreads
-          color1="#f6d96b" // Third Eye Brand Gold
+          color1="#f6d96b" // ThirdEye Brand Gold
           color2="#eab308" // Rich Amber Gold
           color3="#ffffff" // Radiant White-Gold Core Flare
           speed={0.2}

@@ -62,7 +62,7 @@ export default function AssessmentTestPage() {
         if (data && Array.isArray(data.questions)) {
           setAssessment(data);
           setTimeLeft((data.durationMinutes || 10) * 60);
-          document.title = `${data.title} | Third Eye Skill Assessment`;
+          document.title = `${data.title} | ThirdEye Skill Assessment`;
         } else {
           setAssessment(null);
         }

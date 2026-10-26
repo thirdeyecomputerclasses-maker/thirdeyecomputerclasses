@@ -336,7 +336,7 @@ export function extractSEOFromContent(htmlContent, existingTitle = "") {
     return {
       title: existingTitle,
       seoExcerpt: "",
-      metaTitle: existingTitle ? `${existingTitle} | Third Eye` : "",
+      metaTitle: existingTitle ? `${existingTitle} | ThirdEye` : "",
       keywords: [],
     };
   }
@@ -369,9 +369,9 @@ export function extractSEOFromContent(htmlContent, existingTitle = "") {
   }
 
   // 3. Generate Meta Title (ideal length: 50-60 characters)
-  let metaTitle = detectedTitle ? `${detectedTitle} | Third Eye` : "";
+  let metaTitle = detectedTitle ? `${detectedTitle} | ThirdEye` : "";
   if (metaTitle.length > 60 && detectedTitle) {
-    metaTitle = `${detectedTitle.slice(0, 48)}... | Third Eye`;
+    metaTitle = `${detectedTitle.slice(0, 48)}... | ThirdEye`;
   }
 
   // 4. Extract intelligent keywords from headings and text

@@ -10,6 +10,7 @@ import {
   ChevronRight,
   BookOpen,
   ArrowLeft,
+  ArrowRight,
   Sparkles,
   ArrowUpRight,
   Eye,
@@ -39,7 +40,7 @@ export default function BlogDetailPage() {
           setRelatedBlogs(res.relatedBlogs || []);
 
           // Dynamic SEO meta tags
-          const pageTitle = res.blog.metaTitle || `${res.blog.title} | Third Eye Computer Classes`;
+          const pageTitle = res.blog.metaTitle || `${res.blog.title} | ThirdEye Computer Classes`;
           document.title = pageTitle;
 
           // Update meta description
@@ -225,7 +226,7 @@ export default function BlogDetailPage() {
             </div>
             <div className="blog-detail-author-text">
               <span className="blog-detail-author-title">
-                {blogData.author || "Third Eye Expert Team"}
+                {blogData.author || "ThirdEye Expert Team"}
               </span>
               <span className="blog-detail-author-role">Technical Editorial</span>
             </div>
@@ -344,7 +345,7 @@ export default function BlogDetailPage() {
                 Advance Your Career
               </div>
               <p className="text-xs text-zinc-300 leading-relaxed mb-3">
-                Master practical engineering in live studio labs at Third Eye.
+                Master practical engineering in live studio labs at ThirdEye.
               </p>
               <Link
                 to="/our-courses"
@@ -385,10 +386,10 @@ export default function BlogDetailPage() {
             </div>
             <div>
               <div className="text-base font-bold text-white mb-1">
-                Written by {blogData.author || "Third Eye Editorial"}
+                Written by {blogData.author || "ThirdEye Editorial"}
               </div>
               <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-                Created by industry trainers and curriculum directors at Third Eye Computer Classes Jaipur, equipping students with real-world technical skills and corporate readiness.
+                Created by industry trainers and curriculum directors at ThirdEye Computer Classes Jaipur, equipping students with real-world technical skills and corporate readiness.
               </p>
             </div>
           </div>

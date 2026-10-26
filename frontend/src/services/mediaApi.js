@@ -116,11 +116,18 @@ export async function fetchMedia({ page = "all", type = "all" } = {}) {
     }
   });
 
-  return Array.from(slotMap.values()).map((item) => ({
-    ...item,
-    url: resolveMediaUrl(item.url),
-    thumbnailUrl: resolveMediaUrl(item.thumbnailUrl || item.url),
-  }));
+  return Array.from(slotMap.values()).map((item) => {
+    const isVideo = item.type === "video" || /\.(mp4|webm|mov|mkv)$/i.test(item.url || "");
+    const cleanThumb = (item.thumbnailUrl && !/\.(mp4|webm|mov|mkv)$/i.test(item.thumbnailUrl))
+      ? resolveMediaUrl(item.thumbnailUrl)
+      : (!isVideo ? resolveMediaUrl(item.url) : "");
+
+    return {
+      ...item,
+      url: resolveMediaUrl(item.url),
+      thumbnailUrl: cleanThumb,
+    };
+  });
 }
 
 /**

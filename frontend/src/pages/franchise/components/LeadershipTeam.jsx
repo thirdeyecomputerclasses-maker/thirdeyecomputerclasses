@@ -47,7 +47,7 @@ export default function LeadershipTeam({ onOpenInquiry }) {
       tag: "Ex-Indian Air Force",
       focus: "Institutional Governance & Vision",
       image: mlChaudharyImg,
-      desc: "Trained in technical management with Indian Airforce Commendation. Visionary pioneer who established Third Eye’s educational foundation and values.",
+      desc: "Trained in technical management with Indian Airforce Commendation. Visionary pioneer who established ThirdEye’s educational foundation and values.",
       impact: "Guiding institutional integrity & high-level governance for every branch"
     },
     {
@@ -350,7 +350,7 @@ export default function LeadershipTeam({ onOpenInquiry }) {
             </div>
             <h4 className="assurance-title">Direct Monthly Strategy Reviews With Our C-Suite</h4>
             <p className="assurance-text">
-              Unlike generic corporate franchisors where you only deal with junior reps, Third Eye franchise partners enjoy direct, unfiltered access to our Managing Directors, curriculum heads, and corporate placement team.
+              Unlike generic corporate franchisors where you only deal with junior reps, ThirdEye franchise partners enjoy direct, unfiltered access to our Managing Directors, curriculum heads, and corporate placement team.
             </p>
           </div>
           <div className="assurance-right">

@@ -6,7 +6,7 @@ import { useSound } from "../context/SoundContext";
 /**
  * ExperienceModal
  * Animated popup modal at the center of the screen when opening the website.
- * Welcomes the visitor with "Start the Third Eye Experience" and invites them
+ * Welcomes the visitor with "Start the ThirdEye Experience" and invites them
  * to enable spatial ambient music or continue in silence.
  */
 export default function ExperienceModal() {
@@ -108,7 +108,7 @@ export default function ExperienceModal() {
 
             {/* Main Title */}
             <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-wide bg-gradient-to-r from-white via-zinc-100 to-[#f6d96b] bg-clip-text text-transparent mb-2.5">
-              Start The Third Eye Experience
+              Start The ThirdEye Experience
             </h2>
 
             {/* Description */}

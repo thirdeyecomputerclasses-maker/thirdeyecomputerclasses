@@ -6,7 +6,7 @@ import "./PayNowPage.css";
 
 export default function PayNowPage() {
   useEffect(() => {
-    document.title = "Pay Online & Bank Account Details | Third Eye Computer Classes";
+    document.title = "Pay Online & Bank Account Details | ThirdEye Computer Classes";
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 

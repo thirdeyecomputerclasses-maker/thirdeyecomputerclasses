@@ -18,6 +18,7 @@ import ishikaJainImg from "../../assets/mentor_4.png";
 import diyaSainiImg from "../../assets/mentor_5.png";
 import sheetanshuSaxenaImg from "../../assets/mentor_3.png";
 import mohitSharmaImg from "../../assets/leadership/mohit_sharma.png";
+import MentorsCarousel from "./components/MentorsCarousel";
 import CardSwap from "./components/CardSwap";
 import "./OurTeam.css";
 
@@ -616,6 +617,7 @@ function LiquidChromeBlob() {
 }
 
 export default function OurTeam() {
+  const carouselRef = useRef(null);
   const [mentorsList, setMentorsList] = useState(mentors);
 
   // Dynamic team photos managed via Admin Panel
@@ -623,12 +625,19 @@ export default function OurTeam() {
     fetchMedia({ page: "team", type: "image" })
       .then((data) => {
         if (!data || data.length === 0) return;
-        const slotMap = {};
+        const teamSlotMap = {};
+        const carouselSlotMap = {};
         data.forEach((slot) => {
-          if (slot.slotKey?.startsWith("team_member_") && slot.url) {
+          if (slot.slotKey?.startsWith("team_member_") && slot.url && !slot.isDefault) {
             const num = parseInt(slot.slotKey.replace("team_member_", ""), 10);
             if (!isNaN(num)) {
-              slotMap[num] = slot.url;
+              teamSlotMap[num] = slot.url;
+            }
+          }
+          if (slot.slotKey?.startsWith("carousel_mentor_") && slot.url && !slot.isDefault) {
+            const num = parseInt(slot.slotKey.replace("carousel_mentor_", ""), 10);
+            if (!isNaN(num)) {
+              carouselSlotMap[num] = slot.url;
             }
           }
         });
@@ -636,13 +645,13 @@ export default function OurTeam() {
         setMentorsList((prev) =>
           prev.map((m, idx) => {
             const memberId = m.id || idx + 1;
-            if (slotMap[memberId]) {
-              return {
-                ...m,
-                image: slotMap[memberId],
-              };
-            }
-            return m;
+            const teamImg = teamSlotMap[memberId];
+            const carouselImg = carouselSlotMap[memberId];
+            return {
+              ...m,
+              image: teamImg || m.image,
+              carouselImage: carouselImg || teamImg || m.image,
+            };
           })
         );
       })
@@ -677,6 +686,16 @@ export default function OurTeam() {
       })),
     [mentorsList]
   );
+  const numberedMentors = useMemo(
+    () =>
+      mentorsList.map((mentor, index) => ({
+        ...mentor,
+        index: index + 1,
+        image: mentor.carouselImage || mentor.image,
+      })),
+    [mentorsList]
+  );
+
   const haloRef = useRef(null);
 
   const handleMouseMove = useCallback((e) => {
@@ -688,6 +707,15 @@ export default function OurTeam() {
   }, []);
 
   const scrollToCarousel = useCallback(() => {
+    const el = document.getElementById("mentors-carousel-section");
+    if (el) {
+      const yOffset = -70;
+      const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  }, []);
+
+  const scrollToLeadership = useCallback(() => {
     const el = document.getElementById("leadership-teams-section");
     if (el) {
       const yOffset = -70;
@@ -696,8 +724,15 @@ export default function OurTeam() {
     }
   }, []);
 
-  
-  return (
+  const jumpToMentor = useCallback(
+    (i) => {
+      scrollToCarousel();
+      carouselRef.current?.goTo(i);
+    },
+    [scrollToCarousel]
+  );
+
+return (
     <div className="team-page-wrapper" onMouseMove={handleMouseMove}>
       {/* Dynamic Ambient Background Effects from Student Feedback */}
       <div className="team-ambient-fx" aria-hidden="true">
@@ -740,7 +775,7 @@ export default function OurTeam() {
               <button
                 type="button"
                 className="hero-btn hero-btn-secondary"
-                onClick={scrollToCarousel}
+                onClick={scrollToLeadership}
               >
                 Skip Tour
               </button>
@@ -779,6 +814,33 @@ export default function OurTeam() {
 
       
 
+      {/* ─── 2. MENTORS & FACULTY CAROUSEL (REACT BITS 3D CAROUSEL) ─── */}
+      <section
+        id="mentors-carousel-section"
+        className="team-section"
+      >
+        <span
+          id="mentors-book-section"
+          aria-hidden="true"
+          style={{ position: "absolute", top: "-50px" }}
+        />
+        <div className="heading-area">
+          <div className="eyebrow">OUR TEAM</div>
+          <h2>Meet the people behind the learning journey.</h2>
+          <p>
+            Discover the mentors and professionals who guide students at
+            ThirdEye Computer Classes.
+          </p>
+        </div>
+
+        <MentorsCarousel
+          ref={carouselRef}
+          items={numberedMentors}
+          effect="scale"
+          loop={true}
+        />
+      </section>
+
       {/* ─── 3. THREE 3D REVOLVING STACKS ─── */}
       <section className="three-stacks-section" id="leadership-teams-section">
         <div className="stacks-section-header">
@@ -795,6 +857,7 @@ export default function OurTeam() {
             <div className="card-swap-stage-wrapper">
               <CardSwap
                 items={foundersList}
+                onSelectMentor={jumpToMentor}
                 delay={3800}
                 width={280}
                 height={400}
@@ -817,6 +880,7 @@ export default function OurTeam() {
             <div className="card-swap-stage-wrapper">
               <CardSwap
                 items={departmentList}
+                onSelectMentor={jumpToMentor}
                 delay={4300}
                 width={280}
                 height={400}
@@ -839,6 +903,7 @@ export default function OurTeam() {
             <div className="card-swap-stage-wrapper">
               <CardSwap
                 items={facultiesList}
+                onSelectMentor={jumpToMentor}
                 delay={4800}
                 width={280}
                 height={400}

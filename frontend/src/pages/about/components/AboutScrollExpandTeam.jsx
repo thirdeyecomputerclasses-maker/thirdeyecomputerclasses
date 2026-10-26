@@ -2,24 +2,11 @@ import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Users, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import aboutTeamPhoto from "../../../assets/about_team_photo.webp";
-import { fetchMedia } from "../../../services/mediaApi";
+import aboutTeamPhoto from "../../../assets/about/team.webp";
 
 export default function AboutScrollExpandTeam() {
   const containerRef = useRef(null);
-  const [teamImage, setTeamImage] = useState(aboutTeamPhoto);
   const [isDesktop, setIsDesktop] = useState(true);
-
-  useEffect(() => {
-    fetchMedia({ page: "about", type: "image" })
-      .then((data) => {
-        const slot = data?.find((s) => s.slotKey === "about_team_photo");
-        if (slot?.url) {
-          setTeamImage(slot.url);
-        }
-      })
-      .catch(() => {});
-  }, []);
 
   useEffect(() => {
     const checkWidth = () => {
@@ -101,12 +88,12 @@ export default function AboutScrollExpandTeam() {
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold tracking-tight leading-[1.12] text-white mb-6">
                 The People Who Make <br />
                 <span className="bg-gradient-to-r from-[#ffeab0] via-[#f6d96b] to-[#f59e0b] bg-clip-text text-transparent">
-                  Third Eye A Team
+                  ThirdEye A Team
                 </span>
               </h2>
 
               <p className="text-sm sm:text-base md:text-lg text-zinc-300 font-normal leading-relaxed mb-6">
-                At Third Eye, our strength lies in the people who dream, build, and innovate together. From veteran 3D animators and VFX supervisors to creative designers and relentless coders — every member fuels our mission to redefine IT education. We don't just work; we collaborate, experiment, and evolve as one unstoppable team. Together, we turn ideas into impact and curiosity into creation.
+                At ThirdEye, our strength lies in the people who dream, build, and innovate together. From veteran 3D animators and VFX supervisors to creative designers and relentless coders — every member fuels our mission to redefine IT education. We don't just work; we collaborate, experiment, and evolve as one unstoppable team. Together, we turn ideas into impact and curiosity into creation.
               </p>
 
               <div className="flex items-center gap-4">
@@ -139,10 +126,10 @@ export default function AboutScrollExpandTeam() {
                 <span>The Collective</span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-tight mb-2">
-                The People Who Make Third Eye A Team
+                The People Who Make ThirdEye A Team
               </h2>
               <p className="text-xs text-zinc-400 font-normal line-clamp-3 max-w-md mx-auto">
-                At Third Eye, our strength lies in the people who dream, build, and innovate together. Mentors, animators, coders, and designers united.
+                At ThirdEye, our strength lies in the people who dream, build, and innovate together. Mentors, animators, coders, and designers united.
               </p>
             </motion.div>
           )}
@@ -159,8 +146,8 @@ export default function AboutScrollExpandTeam() {
             className="relative z-20 overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.9)] border border-[#f6d96b]/30 bg-[#0a0805] shrink-0"
           >
             <img
-              src={teamImage}
-              alt="Third Eye Core Mentors & Team"
+              src={aboutTeamPhoto}
+              alt="ThirdEye Core Mentors & Team"
               className="w-full h-full object-cover object-[center_28%]"
             />
 
@@ -174,7 +161,7 @@ export default function AboutScrollExpandTeam() {
             >
               <div>
                 <div className="text-xs font-mono font-bold text-[#f6d96b] uppercase tracking-wider mb-0.5">
-                  ✦ Third Eye Core Mentors & Leaders
+                  ✦ ThirdEye Core Mentors & Leaders
                 </div>
                 <div className="text-sm font-semibold text-white">
                   Over a century of collective industry experience across 3D, VFX, AI & Software

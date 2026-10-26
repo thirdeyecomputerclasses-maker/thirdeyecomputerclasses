@@ -12,7 +12,7 @@ const steps = [
   {
     step: "02",
     title: "Authorized Global Exam",
-    desc: "Appear for authorized partner testing (Certiport, Microsoft, Google, Autodesk) or Third Eye's institutional board.",
+    desc: "Appear for authorized partner testing (Certiport, Microsoft, Google, Autodesk) or ThirdEye's institutional board.",
     icon: Award,
   },
   {

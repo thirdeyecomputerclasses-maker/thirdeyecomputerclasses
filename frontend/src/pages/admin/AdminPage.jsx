@@ -261,7 +261,7 @@ export default function AdminPage() {
   };
 
   useEffect(() => {
-    document.title = "Admin Console | Third Eye Courses, Jobs, Blogs & Skill Tests";
+    document.title = "Admin Console | ThirdEye Courses, Jobs, Blogs & Skill Tests";
     window.scrollTo(0, 0);
 
     loadCourses();
@@ -2193,7 +2193,7 @@ export default function AdminPage() {
                         <div className="admin-details-grid">
                           <div className="admin-detail-item">
                             <User size={13} />
-                            <span>{b.author || "Third Eye Team"}</span>
+                            <span>{b.author || "ThirdEye Team"}</span>
                           </div>
                           <div className="admin-detail-item">
                             <Eye size={13} />

@@ -292,7 +292,7 @@ export default function PayNowSection({ className = "" }) {
                       Payment Gateway
                     </span>
                     <span className="text-lg font-bold text-white tracking-tight">
-                      Third Eye Admission Checkout
+                      ThirdEye Admission Checkout
                     </span>
                   </div>
                   <span className="px-2.5 py-1 rounded-full text-[11px] font-bold font-mono bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
@@ -395,7 +395,7 @@ export default function PayNowSection({ className = "" }) {
                   <div className="relative rounded-2xl overflow-hidden bg-white p-1 border border-zinc-200">
                     <img
                       src={qrCardImage}
-                      alt="Third Eye Computer Classes - Pay Online UPI QR"
+                      alt="ThirdEye Computer Classes - Pay Online UPI QR"
                       className="w-full h-auto object-contain mx-auto"
                       loading="eager"
                     />

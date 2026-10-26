@@ -51,7 +51,7 @@ export default function MentorsCarouselSection() {
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] sm:text-xs font-medium bg-[#f6d96b]/10 text-[#f6d96b] border border-[#f6d96b]/20 mb-3 sm:mb-4">
           <Sparkles className="w-3.5 h-3.5 text-[#f6d96b] animate-pulse" />
           <span className="font-mono tracking-wider uppercase text-[10px] sm:text-[11px]">
-            The Leadership Behind Third Eye
+            The Leadership Behind ThirdEye
           </span>
         </div>
 

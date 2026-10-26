@@ -106,7 +106,7 @@ function ClerkLoginGate() {
             <Lock size={12} /> Gate 1 of 2: Identity Verification
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-            Third Eye Admin Portal
+            ThirdEye Admin Portal
           </h1>
           <p className="text-sm text-zinc-400 mt-1 max-w-sm mx-auto">
             Please sign in to verify your identity before entering security clearance.

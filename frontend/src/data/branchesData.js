@@ -1,4 +1,4 @@
-// Third Eye Computer Classes - Verified Branch Centers Database (Jaipur & Rajasthan)
+// ThirdEye Computer Classes - Verified Branch Centers Database (Jaipur & Rajasthan)
 
 export const JAIPUR_CENTER_COORDINATES = {
   lat: 26.9124,
@@ -639,7 +639,7 @@ export function searchNearestBranches(rawQuery = "", userCoordinates = null) {
         ? {
             detectedPlace: "Outside Jaipur",
             distanceToJaipur: `${Math.round(ranked[0].distanceKm)} km`,
-            note: "You are currently outside Jaipur. Third Eye's flagship offline campuses are in Jaipur. We offer verified hostel facilities, weekend hybrid batches, and online live classes!",
+            note: "You are currently outside Jaipur. ThirdEye's flagship offline campuses are in Jaipur. We offer verified hostel facilities, weekend hybrid batches, and online live classes!",
           }
         : null,
       nearestBranch: ranked[0],
@@ -776,7 +776,7 @@ export function searchNearestBranches(rawQuery = "", userCoordinates = null) {
         detectedPlace: detectedStateCity,
         pincode: cleanPin,
         distanceToJaipur: `~${approxDistance} km`,
-        note: `You searched PIN ${cleanPin} located in ${detectedStateCity}. All Third Eye physical classroom centers are located in Jaipur. We offer student hostel arrangements, intensive bootcamps, and live online batches!`,
+        note: `You searched PIN ${cleanPin} located in ${detectedStateCity}. All ThirdEye physical classroom centers are located in Jaipur. We offer student hostel arrangements, intensive bootcamps, and live online batches!`,
       },
       nearestBranch: outsideBranches[0], // Sanganer Flagship
       branches: outsideBranches,

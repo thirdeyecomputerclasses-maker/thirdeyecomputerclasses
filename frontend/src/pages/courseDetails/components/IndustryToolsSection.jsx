@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Monitor, Layers, Rocket, Award } from "lucide-react";
 import "./IndustryToolsSection.css";
 
-// 4 Universal Standard Tools & Normal Signs (Uniform for every course at Third Eye)
+// 4 Universal Standard Tools & Normal Signs (Uniform for every course at ThirdEye)
 const UNIVERSAL_STANDARD_TOOLS = [
   {
     id: "workstation",

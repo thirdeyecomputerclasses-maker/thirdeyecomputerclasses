@@ -9,7 +9,7 @@ export default function OurCertificationPage() {
 
   useEffect(() => {
     document.title =
-      "Our Certifications & Accreditations | Third Eye Computer Classes Jaipur";
+      "Our Certifications & Accreditations | ThirdEye Computer Classes Jaipur";
     window.scrollTo({ top: 0, behavior: "instant" });
   }, []);
 
