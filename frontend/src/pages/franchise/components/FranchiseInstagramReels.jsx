@@ -66,10 +66,9 @@ export default function FranchiseInstagramReels() {
   useEffect(() => {
     fetchMedia({ page: "franchise", type: "video" })
       .then((data) => {
-        if (data && data.length > 0) {
-          const sorted = [...data].sort((a, b) =>
-            (a.slotKey || "").localeCompare(b.slotKey || "")
-          );
+        const customSlots = (data || []).filter((s) => s.slotKey?.startsWith("franchise_reel_") && !s.isDefault);
+        if (customSlots.length > 0) {
+          const sorted = [...customSlots].sort((a, b) => (a.slotKey || "").localeCompare(b.slotKey || ""));
           setReels(
             sorted.map((item, idx) => {
               const info = getVideoInfo(item.url);
@@ -170,7 +169,7 @@ export default function FranchiseInstagramReels() {
               <span>Instagram Spotlight</span>
             </div>
             <h2 className="reels-title">
-              Life At Third Eye <span className="reels-title-highlight">In Action</span>
+              Life At ThirdEye <span className="reels-title-highlight">In Action</span>
             </h2>
             <p className="reels-subtitle">
               Authentic clips from our active branches, labs, student sessions, and statewide network.
@@ -297,7 +296,7 @@ export default function FranchiseInstagramReels() {
                     <div className="stage-ig-container">
                       <iframe
                         src={videoInfo.embedUrl}
-                        title={`Third Eye Reel ${idx + 1}`}
+                        title={`ThirdEye Reel ${idx + 1}`}
                         className="stage-ig-iframe"
                         frameBorder="0"
                         scrolling="no"
@@ -393,7 +392,7 @@ export default function FranchiseInstagramReels() {
                     <video
                       ref={(el) => (videoRefs.current[idx] = el)}
                       src={reel.videoUrl}
-                      poster={reel.thumbnail}
+                      poster={reel.thumbnail && !/\.(mp4|webm|mov)$/i.test(reel.thumbnail) ? reel.thumbnail : classroomPanoramic}
                       loop
                       muted={isMuted}
                       playsInline

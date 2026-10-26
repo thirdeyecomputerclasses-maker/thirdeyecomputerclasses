@@ -108,7 +108,7 @@ export const JOB_OPENINGS = [
     requirements: [
       "Hands-on expertise in JavaScript (ES6+), React, Node.js, Express, and MongoDB",
       "Experience with Git version control, REST APIs, and responsive design",
-      "Live capstone project portfolio built during Third Eye curriculum",
+      "Live capstone project portfolio built during ThirdEye curriculum",
       "Knowledge of authentication (JWT), state hooks, and API testing"
     ]
   },
@@ -136,7 +136,7 @@ export const JOB_OPENINGS = [
     requirements: [
       "Typing speed of 30+ WPM with high accuracy",
       "Proficiency in MS Office (Excel, Word, Outlook) and Internet tools",
-      "Certification in Basic Computer / RSCIT / ADCS from Third Eye",
+      "Certification in Basic Computer / RSCIT / ADCS from ThirdEye",
       "Punctuality, organizational discipline, and attention to detail"
     ]
   },

@@ -236,7 +236,7 @@ export default function FAQSection() {
               maxWidth: "480px",
             }}
           >
-            Everything you need to know before starting your journey at Third Eye Computer Classes.
+            Everything you need to know before starting your journey at ThirdEye Computer Classes.
           </p>
         </motion.div>
 

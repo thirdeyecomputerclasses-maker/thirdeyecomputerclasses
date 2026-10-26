@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import { fetchMedia } from "../../../services/mediaApi";
 
-// Authentic Third Eye Lab & Campus Visuals
+// Authentic ThirdEye Lab & Campus Visuals
 import classroomPanoramic from "../../../assets/classroom_panoramic.png";
 import classroomSliceLeft from "../../../assets/classroom_slice_left.webp";
 import classroomSliceCenter from "../../../assets/classroom_slice_center.webp";
@@ -111,9 +111,7 @@ export default function NetworkCentres() {
           if (slot.slotKey?.startsWith("franchise_branch_")) {
             const num = parseInt(slot.slotKey.replace("franchise_branch_", ""), 10);
             if (num >= 1 && num <= 10 && slot.url) {
-              if (!branchMap[num] || !slot.isDefault) {
-                branchMap[num] = slot.url;
-              }
+              if (!slot.isDefault) { branchMap[num] = slot.url; }
             }
           }
         });
@@ -136,7 +134,7 @@ export default function NetworkCentres() {
 
   const carouselItems = centres.map((centre) => ({
     src: centre.image,
-    alt: `Third Eye Computer Classes ${centre.name} Center`,
+    alt: `ThirdEye Computer Classes ${centre.name} Center`,
     title: centre.name,
     subtitle: centre.address
   }));

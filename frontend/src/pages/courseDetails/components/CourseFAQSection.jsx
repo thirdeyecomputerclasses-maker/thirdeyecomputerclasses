@@ -17,7 +17,7 @@ const COURSE_FAQS = [
   {
     id: 3,
     q: "Do you provide dedicated placement assistance?",
-    a: "Yes! Third Eye has an active placement network with 300+ hiring partners across India. We provide resume polishing, portfolio reviews, mock technical interviews, and direct referral opportunities.",
+    a: "Yes! ThirdEye has an active placement network with 300+ hiring partners across India. We provide resume polishing, portfolio reviews, mock technical interviews, and direct referral opportunities.",
   },
   {
     id: 4,
@@ -27,7 +27,7 @@ const COURSE_FAQS = [
   {
     id: 5,
     q: "Will I receive an industry-recognized certificate?",
-    a: "Yes. Upon completing your course projects and assessments, you will be awarded an official Third Eye Certificate of Completion with a unique verification credential ID recognized by top hiring studios.",
+    a: "Yes. Upon completing your course projects and assessments, you will be awarded an official ThirdEye Certificate of Completion with a unique verification credential ID recognized by top hiring studios.",
   },
   {
     id: 6,
@@ -88,7 +88,7 @@ function FAQItem({ faq, isOpen, onToggle }) {
 export default function CourseFAQSection({
   badge = "FAQ // FREQUENTLY ASKED QUESTIONS",
   title = "Got Questions? We've Got Answers.",
-  subtitle = "Everything you need to know about Third Eye courses, placement support, lab access, and certification.",
+  subtitle = "Everything you need to know about ThirdEye courses, placement support, lab access, and certification.",
   faqs = COURSE_FAQS,
 }) {
   const [openId, setOpenId] = useState(1);

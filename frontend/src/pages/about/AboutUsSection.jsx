@@ -22,7 +22,7 @@ export default function AboutUsSection({ showFullPageHero = true }) {
       {/* 2. Auto-running Video Showcase (Screenshot 3) */}
       <AboutVideoShowcase />
 
-      {/* 3. The People Who Make Third Eye A Team - Scroll Expand Animation (Screenshot 4) */}
+      {/* 3. The People Who Make ThirdEye A Team - Scroll Expand Animation (Screenshot 4) */}
       <AboutScrollExpandTeam />
 
       {/* 4. Thoughtfully Crafted Core Pillars & Credentials (Ember Agency Inspired) */}

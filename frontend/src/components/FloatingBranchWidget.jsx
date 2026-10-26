@@ -57,8 +57,8 @@ export default function FloatingBranchWidget() {
       onClick={handleWidgetClick}
       role="button"
       tabIndex={0}
-      aria-label="Find Nearest Third Eye Branch with Live Map Route"
-      title="Click to find your nearest Third Eye campus in Jaipur"
+      aria-label="Find Nearest ThirdEye Branch with Live Map Route"
+      title="Click to find your nearest ThirdEye campus in Jaipur"
     >
       {/* Outer ambient glow pulse */}
       <div className="floating-glow-pulse" />

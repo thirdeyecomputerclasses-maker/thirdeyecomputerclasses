@@ -31,7 +31,7 @@ const Courses = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    document.title = "All Courses & Certifications | Third Eye Computer Classes Jaipur";
+    document.title = "All Courses & Certifications | ThirdEye Computer Classes Jaipur";
     window.scrollTo(0, 0);
 
     let isMounted = true;

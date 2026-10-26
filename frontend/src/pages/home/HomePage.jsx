@@ -12,7 +12,7 @@ import "./HomePage.css";
 
 export default function HomePage() {
   useEffect(() => {
-    document.title = "Third Eye Computer Classes | Premier 3D Animation, IT & Tech Labs Jaipur";
+    document.title = "ThirdEye Computer Classes | Premier 3D Animation, IT & Tech Labs Jaipur";
   }, []);
 
   return (

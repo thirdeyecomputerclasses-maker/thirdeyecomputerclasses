@@ -102,7 +102,7 @@ function getContextForPath(path) {
   } else if (path === "/nearest-branch" || path === "/branch-finder") {
     autoSourcePage = "Nearest Branch Finder";
   } else {
-    autoSourcePage = (typeof document !== "undefined" && document.title) ? document.title : "Third Eye Website";
+    autoSourcePage = (typeof document !== "undefined" && document.title) ? document.title : "ThirdEye Website";
   }
 
   return {
@@ -150,7 +150,7 @@ export function EnquiryProvider({ children }) {
 
     setEnquiryContextData({
       course: initialData.course || "",
-      sourcePage: source || "Third Eye Website",
+      sourcePage: source || "ThirdEye Website",
       preferredBranch: initialData.preferredBranch || "",
       learningMode:
         initialData.learningMode ||

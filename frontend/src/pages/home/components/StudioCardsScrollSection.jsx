@@ -57,7 +57,7 @@ function IsometricCubeIcon({ className = "w-[26px] h-[26px]", isDark = false }) 
   );
 }
 
-// 3 Core Pillars Specifically Tailored for Third Eye Computer Classes & Coaching Institute
+// 3 Core Pillars Specifically Tailored for ThirdEye Computer Classes & Coaching Institute
 const cardsData = [
   {
     id: "left",

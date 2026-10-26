@@ -28,7 +28,10 @@ const updateSlotFile = async (req, res) => {
       return res.status(400).json({ success: false, error: "No file provided for upload" });
     }
 
-    const isVideo = file.mimetype.startsWith("video/");
+    const isVideo = Boolean(
+      (file.mimetype && file.mimetype.startsWith("video/")) ||
+      (file.originalname && /\.(mp4|webm|mov|mkv)$/i.test(file.originalname))
+    );
     const folder = isVideo ? "/third_eye_videos" : "/third_eye_photos";
 
     let uploadResult;
@@ -55,10 +58,15 @@ const updateSlotFile = async (req, res) => {
       };
     }
 
+    const cleanThumbnail = (isVideo || (uploadResult.thumbnailUrl && /\.(mp4|webm|mov|mkv)$/i.test(uploadResult.thumbnailUrl)))
+      ? ""
+      : (uploadResult.thumbnailUrl || uploadResult.url);
+
     const updated = await MediaStore.updateSlot(slotKey, {
       url: uploadResult.url,
       fileId: uploadResult.fileId,
-      thumbnailUrl: uploadResult.thumbnailUrl || uploadResult.url,
+      thumbnailUrl: cleanThumbnail,
+      type: isVideo ? "video" : "image",
     });
 
     if (!updated) {
@@ -85,10 +93,14 @@ const updateSlotUrl = async (req, res) => {
       return res.status(400).json({ success: false, error: "URL is required" });
     }
 
+    const isVideo = /\.(mp4|webm|mov|mkv)$/i.test(url) || url.includes("youtube.com") || url.includes("youtu.be") || url.includes("instagram.com/reel");
+    const cleanThumb = (thumbnailUrl && !/\.(mp4|webm|mov|mkv)$/i.test(thumbnailUrl)) ? thumbnailUrl : "";
+
     const updated = await MediaStore.updateSlot(slotKey, {
       url,
-      thumbnailUrl: thumbnailUrl || url,
+      thumbnailUrl: cleanThumb,
       fileId: "",
+      type: isVideo ? "video" : "image",
     });
 
     if (!updated) {
@@ -170,7 +182,6 @@ const deleteMedia = async (req, res) => {
   }
 };
 
-
 const batchUploadSlots = async (req, res) => {
   try {
     const files = req.files;
@@ -193,49 +204,65 @@ const batchUploadSlots = async (req, res) => {
     }
 
     const results = [];
+    const errors = [];
+
     for (let i = 0; i < Math.min(files.length, slotKeys.length); i++) {
       const file = files[i];
       const slotKey = slotKeys[i];
-      const isVideo = file.mimetype.startsWith("video/");
-      const folder = isVideo ? "/third_eye_videos" : "/third_eye_photos";
+      try {
+        const isVideo = Boolean(
+          (file.mimetype && file.mimetype.startsWith("video/")) ||
+          (file.originalname && /\.(mp4|webm|mov|mkv)$/i.test(file.originalname))
+        );
+        const folder = isVideo ? "/third_eye_videos" : "/third_eye_photos";
 
-      let uploadResult;
-      if (isImageKitConfigured()) {
-        uploadResult = await uploadFileToImageKit(file.buffer, file.originalname, folder);
-      } else {
-        const mediaDir = path.join(__dirname, "../uploads/media");
-        if (!fs.existsSync(mediaDir)) {
-          fs.mkdirSync(mediaDir, { recursive: true });
+        let uploadResult;
+        if (isImageKitConfigured()) {
+          uploadResult = await uploadFileToImageKit(file.buffer, file.originalname, folder);
+        } else {
+          const mediaDir = path.join(__dirname, "../uploads/media");
+          if (!fs.existsSync(mediaDir)) {
+            fs.mkdirSync(mediaDir, { recursive: true });
+          }
+          const ext = path.extname(file.originalname) || (isVideo ? ".mp4" : ".jpg");
+          const safeName = `${slotKey}_${Date.now()}_${i}${ext}`;
+          const filePath = path.join(mediaDir, safeName);
+          fs.writeFileSync(filePath, file.buffer);
+          const fileUrl = `/uploads/media/${safeName}`;
+          uploadResult = {
+            url: fileUrl,
+            fileId: `local-${Date.now()}-${i}`,
+            name: file.originalname,
+            fileType: isVideo ? "video" : "image",
+            thumbnailUrl: isVideo ? "" : fileUrl,
+          };
         }
-        const ext = path.extname(file.originalname) || (isVideo ? ".mp4" : ".jpg");
-        const safeName = `${slotKey}_${Date.now()}_${i}${ext}`;
-        const filePath = path.join(mediaDir, safeName);
-        fs.writeFileSync(filePath, file.buffer);
-        const fileUrl = `/uploads/media/${safeName}`;
-        uploadResult = {
-          url: fileUrl,
-          fileId: `local-${Date.now()}-${i}`,
-          name: file.originalname,
-          fileType: isVideo ? "video" : "image",
-          thumbnailUrl: isVideo ? "" : fileUrl,
-        };
-      }
 
-      const updated = await MediaStore.updateSlot(slotKey, {
-        url: uploadResult.url,
-        fileId: uploadResult.fileId,
-        thumbnailUrl: uploadResult.thumbnailUrl || uploadResult.url,
-      });
+        const cleanThumbnail = (isVideo || (uploadResult.thumbnailUrl && /\.(mp4|webm|mov|mkv)$/i.test(uploadResult.thumbnailUrl)))
+          ? ""
+          : (uploadResult.thumbnailUrl || uploadResult.url);
 
-      if (updated) {
-        results.push(updated);
+        const updated = await MediaStore.updateSlot(slotKey, {
+          url: uploadResult.url,
+          fileId: uploadResult.fileId,
+          thumbnailUrl: cleanThumbnail,
+          type: isVideo ? "video" : "image",
+        });
+
+        if (updated) {
+          results.push(updated);
+        }
+      } catch (itemErr) {
+        console.error(`Batch upload error for slot ${slotKey}:`, itemErr.message);
+        errors.push({ slotKey, error: itemErr.message });
       }
     }
 
     res.json({
       success: true,
-      message: `Successfully uploaded and updated ${results.length} section photos`,
+      message: `Successfully uploaded and updated ${results.length} of ${files.length} section files`,
       data: results,
+      errors: errors.length > 0 ? errors : undefined,
     });
   } catch (err) {
     console.error("Error in batch upload:", err);

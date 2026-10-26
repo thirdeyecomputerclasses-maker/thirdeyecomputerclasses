@@ -2,7 +2,7 @@ import React from "react";
 
 /**
  * ThirdEyeSpinner
- * Clean, elegant, minimalist golden spinner matching Third Eye's luxury aesthetic.
+ * Clean, elegant, minimalist golden spinner matching ThirdEye's luxury aesthetic.
  * Dual harmonic concentric arcs with a subtle pulsing center core and warm ambient aura.
  */
 export default function ThirdEyeSpinner({

@@ -23,7 +23,7 @@ const spiralPhoto = (id) => `https://images.unsplash.com/${id}?w=360&q=75&auto=f
 const EVENT_IMAGES = [
   {
     src: eventPhoto('photo-1540575467063-178a50c2df87'),
-    alt: 'Tech Summit & Hackathon at Third Eye',
+    alt: 'Tech Summit & Hackathon at ThirdEye',
     title: 'Annual Tech Hackathon',
     subtitle: '24-hour sprint of coding, design & innovative solutions'
   },
@@ -82,7 +82,7 @@ const CELEBRATION_IMAGES = [
   { id: 8, src: spiralPhoto('photo-1516450360452-9312f5e86fc7'), alt: 'Dance & Music Fest', label: 'Festive Vibes' },
   { id: 9, src: student3, alt: 'Top Performer Award', label: 'Top Performer' },
   { id: 10, src: spiralPhoto('photo-1530103862676-de8c9debad1d'), alt: 'Colorful Balloons', label: 'Foundation Day' },
-  { id: 11, src: teamPhoto, alt: 'Entire Third Eye Team', label: 'Team Reunion' },
+  { id: 11, src: teamPhoto, alt: 'Entire ThirdEye Team', label: 'Team Reunion' },
   { id: 12, src: spiralPhoto('photo-1514525253161-7a46d19cd819'), alt: 'Stage Performance', label: 'Annual Night' },
   { id: 13, src: student4, alt: 'Certification Joy', label: 'Certified Star' },
   { id: 14, src: spiralPhoto('photo-1519751138087-5bf79df62d5b'), alt: 'Cake Cutting Joy', label: 'Birthday & Cake' },
@@ -116,7 +116,7 @@ function Memories() {
       .then((data) => {
         if (!data || data.length === 0) return;
         const panoSlot = data.find((s) => s.slotKey === "memories_panoramic");
-        if (panoSlot?.url) setPanoramicBg(panoSlot.url);
+        if (panoSlot?.url && !panoSlot.isDefault) setPanoramicBg(panoSlot.url);
 
         const slotMap = {
           memories_hackathon: 0,
@@ -131,7 +131,7 @@ function Memories() {
         setEventImages((prev) =>
           prev.map((item, idx) => {
             const foundSlot = data.find((s) => slotMap[s.slotKey] === idx);
-            if (foundSlot?.url) {
+            if (foundSlot?.url && !foundSlot.isDefault) {
               return {
                 ...item,
                 src: foundSlot.url,
@@ -199,7 +199,7 @@ function Memories() {
 
           {/* Subtitle */}
           <p className="mt-6 text-zinc-900 font-normal text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed text-center">
-            Reliving the laughter, breakthroughs, campus workshops, and lifelong friendships created at Third Eye Computer Classes.
+            Reliving the laughter, breakthroughs, campus workshops, and lifelong friendships created at ThirdEye Computer Classes.
           </p>
 
           {/* Jump to Events Button */}
@@ -308,7 +308,7 @@ function Memories() {
           </div>
 
           <p className="stroke-watermark-text mt-2">
-            THIRD EYE
+            THIRDEYE
             </p>
 
           <p className="sweet-memories-section-subtitle mt-6 max-w-2xl mx-auto">

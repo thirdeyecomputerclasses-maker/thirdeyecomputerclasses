@@ -91,7 +91,7 @@ export const Card = forwardRef(
 Card.displayName = "Card";
 
 /**
- * Mentor card customized for Third Eye Stacks
+ * Mentor card customized for ThirdEye Stacks
  */
 const MentorStackCard = React.memo(function MentorStackCard({
   mentor,

@@ -17,7 +17,7 @@ const timelineSections = [
     id: 0,
     number: "01",
     title: "Come",
-    subtitle: "Step Into Third Eye",
+    subtitle: "Step Into ThirdEye",
     desc: "Take your first step. Discover our advanced studio labs, personalized mentoring, and career tracks.",
     icon: Compass,
     metric: "10,000+ Students",
@@ -98,7 +98,7 @@ export default function Immersive3DJourneySection() {
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] sm:text-xs font-medium bg-white/[0.04] text-[#f6d96b] border border-white/[0.12] mb-3 sm:mb-4">
           <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#f6d96b] animate-pulse" />
           <span className="font-mono tracking-widest uppercase text-[10px] sm:text-[11px]">
-            The Third Eye Roadmap
+            The ThirdEye Roadmap
           </span>
         </div>
 

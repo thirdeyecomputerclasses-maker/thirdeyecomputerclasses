@@ -62,7 +62,7 @@ export default function JobFormModal({ isOpen, job, onClose, onSave, isSaving })
       "Collaborate directly with cross-functional team members",
     ],
     requirements: [
-      "Completed certification/course from Third Eye Computer Classes",
+      "Completed certification/course from ThirdEye Computer Classes",
       "Hands-on practical software proficiency and good communication",
     ],
     aliases: "",
@@ -116,7 +116,7 @@ export default function JobFormModal({ isOpen, job, onClose, onSave, isSaving })
           "Collaborate directly with cross-functional team members",
         ],
         requirements: [
-          "Completed certification/course from Third Eye Computer Classes",
+          "Completed certification/course from ThirdEye Computer Classes",
           "Hands-on practical software proficiency and good communication",
         ],
         aliases: "",

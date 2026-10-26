@@ -53,7 +53,7 @@ export default function CertificationHero({ onScrollToGrid }) {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="text-base sm:text-lg text-zinc-300 font-normal leading-relaxed max-w-2xl mx-auto mb-9"
         >
-          Third Eye holds authorized testing, training, and credentialing access from global technology leaders. Every certificate is globally authenticated, ISO accredited, and employer-verified.
+          ThirdEye holds authorized testing, training, and credentialing access from global technology leaders. Every certificate is globally authenticated, ISO accredited, and employer-verified.
         </motion.p>
 
         {/* Action CTAs */}

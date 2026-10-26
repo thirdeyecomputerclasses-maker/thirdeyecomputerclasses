@@ -48,7 +48,7 @@ export default function AboutCorePillars() {
             Crafted for <span className="bg-gradient-to-r from-[#ffeab0] via-[#f6d96b] to-[#f59e0b] bg-clip-text text-transparent">Excellence</span>
           </h2>
           <p className="text-zinc-400 text-sm sm:text-base leading-relaxed font-normal">
-            Three core principles that have anchored Third Eye Computer Classes as Jaipur's premier creative technology academy for over 18 years.
+            Three core principles that have anchored ThirdEye Computer Classes as Jaipur's premier creative technology academy for over 18 years.
           </p>
         </div>
 

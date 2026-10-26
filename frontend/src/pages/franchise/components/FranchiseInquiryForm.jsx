@@ -357,7 +357,7 @@ export default function FranchiseInquiryForm({ formRef }) {
               <div>
                 <strong className="guarantee-title">Guaranteed Territory Exclusivity:</strong>
                 <p className="guarantee-text">
-                  We legally bind your geographic radius in the franchise contract so no other Third Eye branch can be allotted in your catchment zone.
+                  We legally bind your geographic radius in the franchise contract so no other ThirdEye branch can be allotted in your catchment zone.
                 </p>
               </div>
             </div>

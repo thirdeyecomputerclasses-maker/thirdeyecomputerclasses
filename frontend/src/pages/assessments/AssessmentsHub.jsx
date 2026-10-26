@@ -40,7 +40,7 @@ export default function AssessmentsHub() {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   useEffect(() => {
-    document.title = "Free Skill Assessments & Quizzes | Third Eye Computer Classes Jaipur";
+    document.title = "Free Skill Assessments & Quizzes | ThirdEye Computer Classes Jaipur";
     window.scrollTo(0, 0);
 
     setIsLoading(true);

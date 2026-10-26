@@ -62,12 +62,21 @@ const uploadFileToImageKit = async (buffer, originalName = "upload.jpg", folder 
     useUniqueFileName: true,
   });
 
+  const isVideo = Boolean(
+    (originalName && /\.(mp4|webm|mov|mkv)$/i.test(originalName)) ||
+    (folder && folder.includes("video")) ||
+    result.fileType === "non-image"
+  );
+
+  // For video uploads, avoid setting thumbnailUrl to the MP4 video URL as it cannot render as an image poster
+  const cleanThumbnailUrl = isVideo ? "" : (result.thumbnailUrl || result.url);
+
   return {
     url: result.url,
     fileId: result.fileId,
     name: result.name,
-    fileType: result.fileType,
-    thumbnailUrl: result.thumbnailUrl || result.url,
+    fileType: isVideo ? "video" : (result.fileType || "image"),
+    thumbnailUrl: cleanThumbnailUrl,
     size: result.size,
   };
 };

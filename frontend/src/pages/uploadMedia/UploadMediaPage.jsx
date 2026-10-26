@@ -45,14 +45,14 @@ const SUPPORTED_PAGES = [
     label: "About Us",
     path: "/about",
     icon: "ℹ️",
-    desc: "Team Photo (1 photo) & Brand Showcase Reel (1 video)",
+    desc: "Brand Showcase Reel (1 video)",
   },
   {
     id: "franchise",
     label: "Franchise",
     path: "/franchise",
     icon: "🏢",
-    desc: "Founder (1 photo), 10 Branches (10 photos) & 6 Instagram Reels (6 videos)",
+    desc: "10 Branches (10 photos) & 6 Instagram Reels (6 videos)",
   },
   {
     id: "placements",
@@ -93,7 +93,7 @@ export default function UploadMediaPage({ embedded = false }) {
   const [mediaType, setMediaType] = useState("image");
 
   // Step 2: Page selection ('about', 'franchise', 'placements', 'memories', 'reviews')
-  const [selectedPage, setSelectedPage] = useState("about");
+  const [selectedPage, setSelectedPage] = useState("franchise");
 
   // State
   const [slots, setSlots] = useState([]);
@@ -141,7 +141,9 @@ export default function UploadMediaPage({ embedded = false }) {
     try {
       const data = await fetchMedia({ page: "all", type: "all" });
       const slotMap = new Map();
-      (data || []).forEach((item) => {
+      (data || [])
+        .filter((item) => item.slotKey !== "about_team_photo" && item.slotKey !== "franchise_founder")
+        .forEach((item) => {
         const existing = slotMap.get(item.slotKey);
         if (!existing || (!item.isDefault && existing.isDefault)) {
           slotMap.set(item.slotKey, item);
@@ -318,13 +320,13 @@ export default function UploadMediaPage({ embedded = false }) {
 
   // Page slots and unique section groupings
   const pageSlots = React.useMemo(() => {
-    return slots.filter((item) => item.page === selectedPage && item.type === mediaType);
+    return slots.filter((item) => item.slotKey !== "about_team_photo" && item.slotKey !== "franchise_founder" && item.page === selectedPage && item.type === mediaType);
   }, [slots, selectedPage, mediaType]);
 
   const uniqueSections = React.useMemo(() => {
     const list = [];
     pageSlots.forEach((s) => {
-      if (s.section && !list.includes(s.section)) {
+      if (s.section && s.section !== "founder" && s.section !== "team" && !list.includes(s.section)) {
         list.push(s.section);
       }
     });
@@ -367,6 +369,8 @@ export default function UploadMediaPage({ embedded = false }) {
         return "Instagram Reels (6)";
       case "testimonials":
         return "Video Reviews (6)";
+      case "carousel":
+        return "Mentors Carousel (21)";
       case "founders":
         return "The Founders (4)";
       case "departments":
@@ -594,7 +598,7 @@ export default function UploadMediaPage({ embedded = false }) {
             </div>
             <div className="media-badge">
               <Sparkles size={14} className="text-yellow-400" />
-              <span>Third Eye Website Media Manager • ImageKit CDN</span>
+              <span>ThirdEye Website Media Manager • ImageKit CDN</span>
             </div>
 
             <h1 className="media-title">
@@ -743,6 +747,8 @@ export default function UploadMediaPage({ embedded = false }) {
                     <span className="page-meta">
                       {page.id === "reviews" && mediaType === "image"
                         ? "Video-only section (6 videos)"
+                        : page.id === "about" && mediaType === "image"
+                        ? "Video-only section (1 video)"
                         : (page.id === "placements" || page.id === "memories") && mediaType === "video"
                         ? "Photo-only section (0 videos)"
                         : `${count} existing ${mediaType === "image" ? "photos" : "videos"}`}
@@ -861,7 +867,43 @@ export default function UploadMediaPage({ embedded = false }) {
               <p>Loading sections from database & ImageKit...</p>
             </div>
           ) : activeSlots.length === 0 ? (
-            selectedPage === "reviews" && mediaType === "image" ? (
+            selectedPage === "about" && mediaType === "image" ? (
+              <div className="media-empty-state">
+                <div className="empty-icon-wrap" style={{ background: "rgba(255, 211, 0, 0.12)", color: "#ffd300" }}>
+                  <VideoIcon size={36} />
+                </div>
+                <h3 className="empty-title">
+                  About Us Features Video Reel Only
+                </h3>
+                <p className="empty-desc" style={{ maxWidth: "560px", margin: "8px auto 0" }}>
+                  The Executive Team Showcase photo is permanently bundled in the static assets folder and cannot be modified from the backend. Switch to Change Section Videos to manage the Brand Showcase Reel.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setMediaType("video")}
+                  className="switch-to-videos-action-btn"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    background: "#ffd300",
+                    color: "#09090b",
+                    fontWeight: 700,
+                    fontSize: "14px",
+                    padding: "11px 24px",
+                    borderRadius: "999px",
+                    marginTop: "20px",
+                    cursor: "pointer",
+                    border: "none",
+                    boxShadow: "0 6px 20px rgba(255, 211, 0, 0.35)",
+                    transition: "all 0.25s ease",
+                  }}
+                >
+                  <VideoIcon size={16} />
+                  <span>Switch to Change Section Videos (1 Brand Reel)</span>
+                </button>
+              </div>
+            ) : selectedPage === "reviews" && mediaType === "image" ? (
               <div className="media-empty-state">
                 <div className="empty-icon-wrap" style={{ background: "rgba(255, 211, 0, 0.12)", color: "#ffd300" }}>
                   <VideoIcon size={36} />
@@ -1005,7 +1047,7 @@ export default function UploadMediaPage({ embedded = false }) {
                           return (
                             <video
                               src={resolveMediaUrl(slot.url)}
-                              poster={resolveMediaUrl(slot.thumbnailUrl)}
+                              poster={slot.thumbnailUrl && !/\.(mp4|webm|mov)$/i.test(slot.thumbnailUrl) ? resolveMediaUrl(slot.thumbnailUrl) : undefined}
                               controls
                               playsInline
                               preload="metadata"

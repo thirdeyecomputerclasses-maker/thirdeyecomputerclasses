@@ -127,7 +127,7 @@ export default function CourseDetails() {
   const [dynamicCourse, setDynamicCourse] = useState(null);
 
   useEffect(() => {
-    document.title = "Course Details | Third Eye Computer Classes Jaipur";
+    document.title = "Course Details | ThirdEye Computer Classes Jaipur";
     window.scrollTo(0, 0);
 
     if (courseSlug) {

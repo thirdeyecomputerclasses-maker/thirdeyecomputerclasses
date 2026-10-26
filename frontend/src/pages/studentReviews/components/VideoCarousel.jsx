@@ -1,3 +1,4 @@
+import { getVideoInfo } from '../../../services/mediaApi';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import './VideoCarousel.css';
@@ -28,7 +29,8 @@ function VideoCarouselCard({
   const rotateY = useTransform(x, range, outputRange, { clamp: false });
   const scale = useTransform(x, range, [0.92, 1, 0.92], { clamp: false });
 
-  const thumbnailUrl = `https://img.youtube.com/vi/${item.videoId}/hqdefault.jpg`;
+  const info = item.videoInfo || (item.customUrl ? getVideoInfo(item.customUrl) : (item.videoId ? { type: "youtube", id: item.videoId } : null));
+  const thumbnailUrl = item.thumbnailUrl || (info?.type === "youtube" ? `https://img.youtube.com/vi/${info.id}/hqdefault.jpg` : "") || (item.videoId ? `https://img.youtube.com/vi/${item.videoId}/hqdefault.jpg` : "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=75");
   const shouldRenderImage = isPriority || loadRest;
 
   return (
@@ -78,7 +80,7 @@ function VideoCarouselCard({
         </div>
         <h3 className="video-card-title">{item.title}</h3>
         <div className="video-card-meta">
-          <span className="font-semibold text-zinc-300">{item.studentName || 'Third Eye Student'}</span>
+          <span className="font-semibold text-zinc-300">{item.studentName || 'ThirdEye Student'}</span>
           <span className="flex items-center gap-1 text-[#ffd300]">
             ★★★★★
           </span>

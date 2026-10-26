@@ -52,7 +52,7 @@ const BlogSchema = new mongoose.Schema(
     },
     author: {
       type: String,
-      default: "Third Eye Expert Team",
+      default: "ThirdEye Expert Team",
       trim: true,
     },
     readTime: {

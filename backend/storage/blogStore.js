@@ -23,14 +23,14 @@ const INITIAL_SEED_BLOGS = [
     title: "How Generative AI is Reshaping 3D Animation & Visual Effects in 2026",
     slug: "how-generative-ai-reshaping-3d-animation-vfx-2026",
     category: "3D Animation",
-    author: "Third Eye VFX Lab",
+    author: "ThirdEye VFX Lab",
     publishedAt: new Date("2026-03-15T10:00:00.000Z"),
     status: "published",
     readTime: "5 min read",
     views: 1240,
     featuredImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&auto=format&fit=crop&q=80",
     seoExcerpt: "Discover how AI motion capture, neural rendering, and procedural textures are transforming film and game animation pipelines for creators.",
-    metaTitle: "Generative AI in 3D Animation & VFX (2026 Trends) | Third Eye",
+    metaTitle: "Generative AI in 3D Animation & VFX (2026 Trends) | ThirdEye",
     metaDescription: "Learn how modern animation studios and artists in Jaipur leverage AI-assisted modeling, texture generation, and real-time VFX rendering in Blender and Maya.",
     keywords: ["3D Animation", "Generative AI", "VFX Pipelines", "Maya", "Blender", "Jaipur Animation Institute"],
     tags: ["Animation", "AI", "VFX", "Gaming", "Blender"],
@@ -40,7 +40,7 @@ const INITIAL_SEED_BLOGS = [
       
       <h2>1. Neural Motion Capture & Real-time Tracking</h2>
       <p>Gone are the days when motion capture required ultra-expensive multi-camera studio suites with retro-reflective optical suits. Today, multi-view neural networks analyze standard high-framerate smartphone video feeds to extract full-body biomechanics, hand gestures, and micro-facial expressions with sub-millimeter precision.</p>
-      <p>At Third Eye Computer Classes, students learn to combine these AI-accelerated captures with classical kinematic rigging in Autodesk Maya and Blender, reducing tedious keyframe fixing from weeks to hours.</p>
+      <p>At ThirdEye Computer Classes, students learn to combine these AI-accelerated captures with classical kinematic rigging in Autodesk Maya and Blender, reducing tedious keyframe fixing from weeks to hours.</p>
 
       <h2>2. Procedural and AI-Driven Texturing</h2>
       <p>Creating photorealistic PBR (Physically Based Rendering) materials traditionally required hours of manual painting and node network crafting. Tools like Substance 3D integrated with neural diffusion models allow artists to describe complex surface weathering—such as "oxidized hammered bronze with desert dust accumulation"—and receive fully calibrated height, roughness, normal, and metallic maps instantaneously.</p>
@@ -67,7 +67,7 @@ const INITIAL_SEED_BLOGS = [
     views: 2890,
     featuredImage: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&auto=format&fit=crop&q=80",
     seoExcerpt: "Comprehensive analysis of top skill-based technical diplomas in Jaipur offering immediate corporate job placements and freelance earnings.",
-    metaTitle: "Best Computer Courses for 100% Job Placement in Jaipur | Third Eye",
+    metaTitle: "Best Computer Courses for 100% Job Placement in Jaipur | ThirdEye",
     metaDescription: "Explore highest-paying computer certifications in Jaipur, including Full Stack Development, Tally Prime, Graphic Design, and 3D CAD Jewelry.",
     keywords: ["Computer Courses Jaipur", "Job Placement", "Tally Prime", "CAD Jewelry", "Full Stack Web Development", "Graphic Design Jaipur"],
     tags: ["Career", "Placements", "Computer Classes", "Jaipur", "Jobs"],
@@ -88,21 +88,21 @@ const INITIAL_SEED_BLOGS = [
       <p>From social media agencies to packaging firms, graphic designers who understand typography, vector illustration, and digital marketing creatives in Photoshop and Illustrator are constantly in high demand.</p>
 
       <h2>Why Hands-on Project Labs Beat Rote Memorization</h2>
-      <p>At Third Eye Computer Classes, every student builds a verified live portfolio before stepping into employer interviews. Our dedicated placement cell coordinates directly with over 150+ regional and multinational hiring partners.</p>
+      <p>At ThirdEye Computer Classes, every student builds a verified live portfolio before stepping into employer interviews. Our dedicated placement cell coordinates directly with over 150+ regional and multinational hiring partners.</p>
     `,
   },
   {
     title: "Mastering Modern Full Stack Web Architecture: From Zero to Deployment",
     slug: "mastering-modern-full-stack-web-architecture-2026",
     category: "Web Development",
-    author: "Third Eye Engineering Team",
+    author: "ThirdEye Engineering Team",
     publishedAt: new Date("2026-04-05T14:15:00.000Z"),
     status: "published",
     readTime: "7 min read",
     views: 1780,
     featuredImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&auto=format&fit=crop&q=80",
     seoExcerpt: "A complete step-by-step roadmap to building production-ready scalable web applications using React, Express, MongoDB, and modern DevOps.",
-    metaTitle: "Full Stack Web Development Roadmap (2026) | Third Eye Classes",
+    metaTitle: "Full Stack Web Development Roadmap (2026) | ThirdEye Classes",
     metaDescription: "Master modern full stack web development. Learn React, Node.js, MongoDB Atlas, RESTful API design, authentication, and cloud deployment pipelines.",
     keywords: ["Full Stack Development", "React 19", "Node.js", "Express", "MongoDB", "DevOps", "Web Roadmap"],
     tags: ["React", "NodeJS", "JavaScript", "MongoDB", "Full Stack"],
@@ -245,7 +245,7 @@ class BlogStore {
       slug,
       content: data.content || "",
       seoExcerpt: data.seoExcerpt || "",
-      metaTitle: data.metaTitle || `${title} | Third Eye`,
+      metaTitle: data.metaTitle || `${title} | ThirdEye`,
       metaDescription: data.metaDescription || data.seoExcerpt || "",
       keywords: Array.isArray(data.keywords)
         ? data.keywords
@@ -259,7 +259,7 @@ class BlogStore {
         : typeof data.tags === "string"
         ? data.tags.split(",").map((t) => t.trim()).filter(Boolean)
         : [],
-      author: data.author || "Third Eye Expert Team",
+      author: data.author || "ThirdEye Expert Team",
       readTime,
       status: data.status === "draft" ? "draft" : "published",
       publishedAt: data.publishedAt ? new Date(data.publishedAt) : new Date(),

@@ -93,7 +93,7 @@ export default function AboutVideoShowcase() {
               <div className="relative w-full h-full flex items-center justify-center bg-black/90 p-2 sm:p-4">
                 <iframe
                   src={videoInfo.embedUrl}
-                  title="Third Eye Instagram Reel"
+                  title="ThirdEye Instagram Reel"
                   className="w-full max-w-[440px] h-full rounded-[18px] border-0"
                   scrolling="no"
                   allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
@@ -112,7 +112,7 @@ export default function AboutVideoShowcase() {
             ) : videoInfo.type === "youtube" ? (
               <iframe
                 src={videoInfo.embedUrl}
-                title="Third Eye Brand Reel"
+                title="ThirdEye Brand Reel"
                 className="w-full h-full border-0 rounded-[24px]"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
@@ -196,7 +196,7 @@ export default function AboutVideoShowcase() {
               </span>
               <span>LIVE SHOWREEL</span>
               <span className="text-zinc-500">•</span>
-              <span className="text-[#f6d96b]">THIRD EYE CREATIVE LABS</span>
+              <span className="text-[#f6d96b]">THIRDEYE CREATIVE LABS</span>
             </div>
           </div>
         </div>

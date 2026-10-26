@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./FranchiseHero.css";
 import { Sparkles } from "lucide-react";
-import mlChaudharyImg from "../../../assets/leadership/ml_chaudhary.png";
-import { fetchMedia } from "../../../services/mediaApi";
+import mlChaudharyImg from "../../../assets/franchise/owner.png";
 
 // Smooth count-up counter component triggered on viewport intersection
 function AnimatedCounter({ end, suffix = "", duration = 1800 }) {
@@ -58,25 +57,10 @@ const SUBTITLE_TEXT =
   "Join hands with Rajasthan’s leading IT skill development brand. Build a profitable, future-proof education business with 11+ operational centers and complete 360° corporate support.";
 
 export default function FranchiseHero({ onOpenInquiry }) {
-  const [founderImage, setFounderImage] = useState(mlChaudharyImg);
   const [headlineCount, setHeadlineCount] = useState(0);
   const [subtitleCount, setSubtitleCount] = useState(0);
   const [isHeadlineDone, setIsHeadlineDone] = useState(false);
   const [isSubtitleDone, setIsSubtitleDone] = useState(false);
-
-  // Load dynamic founder image from ImageKit if updated
-  useEffect(() => {
-    fetchMedia({ page: "franchise", type: "image" })
-      .then((data) => {
-        const slot =
-          data?.find((s) => s.slotKey === "franchise_founder" && !s.isDefault) ||
-          data?.find((s) => s.slotKey === "franchise_founder");
-        if (slot?.url) {
-          setFounderImage(slot.url);
-        }
-      })
-      .catch(() => {});
-  }, []);
 
   // Character-by-character typewriter animation on visit
   useEffect(() => {
@@ -284,7 +268,7 @@ export default function FranchiseHero({ onOpenInquiry }) {
               {/* Founder Image Wrap */}
               <div className="founder-image-wrap">
                 <img
-                  src={founderImage}
+                  src={mlChaudharyImg}
                   alt="Mr. M.L. Chaudhary - Founder"
                   className="founder-image"
                   loading="lazy"

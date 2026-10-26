@@ -32,7 +32,7 @@ export default function AboutHeroSection({ onScrollToExplore }) {
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[#f6d96b]" />
           </span>
           <span className="tracking-widest uppercase font-mono font-bold text-[11px] sm:text-xs">
-            ✦ THE THIRD EYE CREATIVE REVOLUTION • ESTD. 2008
+            ✦ THE THIRDEYE CREATIVE REVOLUTION • ESTD. 2008
           </span>
         </motion.div>
 
@@ -44,7 +44,7 @@ export default function AboutHeroSection({ onScrollToExplore }) {
           className="relative mb-5"
         >
           <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl bg-gradient-to-br from-[#1c160a] to-[#0c0904] border border-[#f6d96b]/30 p-2.5 flex items-center justify-center shadow-[0_0_25px_rgba(246,217,107,0.15)]">
-            <img src={logo} alt="Third Eye Logo" className="w-full h-full object-contain" />
+            <img src={logo} alt="ThirdEye Logo" className="w-full h-full object-contain" />
           </div>
         </motion.div>
 
@@ -68,10 +68,10 @@ export default function AboutHeroSection({ onScrollToExplore }) {
           transition={{ duration: 0.7, delay: 0.25 }}
           className="text-base sm:text-lg md:text-xl text-zinc-300 font-normal leading-relaxed max-w-2xl mx-auto mb-10"
         >
-          At Third Eye, we turn curiosity into creation. Where disciplined technical rigor unites with creative imagination. Together, we shape ambitious minds into creators who lead the global digital frontier.
+          At ThirdEye, we turn curiosity into creation. Where disciplined technical rigor unites with creative imagination. Together, we shape ambitious minds into creators who lead the global digital frontier.
         </motion.p>
 
-        {/* Action Buttons (Sheryians style: Let's Connect -> / Why Third Eye ->) */}
+        {/* Action Buttons (Sheryians style: Let's Connect -> / Why ThirdEye ->) */}
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
@@ -91,7 +91,7 @@ export default function AboutHeroSection({ onScrollToExplore }) {
             onClick={onScrollToExplore}
             className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm sm:text-base text-zinc-200 bg-[#120e08]/90 border border-[#f6d96b]/30 hover:border-[#f6d96b]/60 hover:text-white hover:bg-[#1c160d] backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
           >
-            <span>Why Third Eye</span>
+            <span>Why ThirdEye</span>
             <ArrowDown className="w-4 h-4 text-[#f6d96b] transition-transform group-hover:translate-y-0.5" />
           </button>
         </motion.div>

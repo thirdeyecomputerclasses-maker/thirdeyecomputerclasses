@@ -186,15 +186,13 @@ export default function JobsAndPlacement() {
         const celebrationMap = {};
 
         data.forEach((slot) => {
-          if (slot.slotKey?.startsWith("placement_student_")) {
+          if (slot.slotKey?.startsWith("placement_student_") && !slot.isDefault && slot.url) {
             const num = parseInt(slot.slotKey.replace("placement_student_", ""), 10);
-            if (num >= 1 && num <= 12 && slot.url) {
+            if (num >= 1 && num <= 12) {
               studentMap[num] = slot.url;
             }
-          } else if (slot.slotKey?.startsWith("placement_celebration_")) {
-            if (slot.url) {
-              celebrationMap[slot.slotKey] = slot.url;
-            }
+          } else if (slot.slotKey?.startsWith("placement_celebration_") && !slot.isDefault && slot.url) {
+            celebrationMap[slot.slotKey] = slot.url;
           }
         });
 
@@ -339,7 +337,7 @@ export default function JobsAndPlacement() {
             JOBS & <span className="title-gold-spark">PLACEMENTS</span>
           </h1>
           <p className="jobs-hero-sub">
-            Verified corporate hiring openings for job-ready Third Eye students,
+            Verified corporate hiring openings for job-ready ThirdEye students,
             paired with direct recruiter connects and celebrating our latest alumni selections.
           </p>
 
@@ -652,7 +650,7 @@ export default function JobsAndPlacement() {
           <div className="join-cool-content">
             <div className="join-cool-badge">
               <Sparkles size={14} className="sparkle-gold-icon" />
-              <span>Shape Your Future With Third Eye</span>
+              <span>Shape Your Future With ThirdEye</span>
             </div>
 
             <h2 className="join-thirdeye-heading">

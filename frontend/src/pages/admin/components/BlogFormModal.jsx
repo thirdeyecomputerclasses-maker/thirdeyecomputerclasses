@@ -71,7 +71,7 @@ export default function BlogFormModal({
   const [featuredImageFile, setFeaturedImageFile] = useState(null);
   const [featuredImageUrl, setFeaturedImageUrl] = useState("");
   const [imagePreview, setImagePreview] = useState("");
-  const [author, setAuthor] = useState("Third Eye Expert Team");
+  const [author, setAuthor] = useState("ThirdEye Expert Team");
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
   const [status, setStatus] = useState("published");
@@ -96,7 +96,7 @@ export default function BlogFormModal({
       setMetaTitle(blog.metaTitle || "");
       setKeywords(Array.isArray(blog.keywords) ? blog.keywords : []);
       setTags(Array.isArray(blog.tags) ? blog.tags : []);
-      setAuthor(blog.author || "Third Eye Expert Team");
+      setAuthor(blog.author || "ThirdEye Expert Team");
       setStatus(blog.status || "published");
       setFeaturedImageUrl(blog.featuredImage || "");
       setImagePreview(blog.featuredImage || "");
@@ -115,7 +115,7 @@ export default function BlogFormModal({
       setMetaTitle("");
       setKeywords([]);
       setTags([]);
-      setAuthor("Third Eye Expert Team");
+      setAuthor("ThirdEye Expert Team");
       setStatus("published");
       setFeaturedImageFile(null);
       setFeaturedImageUrl("");
@@ -802,7 +802,7 @@ export default function BlogFormModal({
                   <span className="text-zinc-400">{slug || "post-url"}</span>
                 </div>
                 <h3 className="blog-serp-title">
-                  {metaTitle || (title ? `${title} | Third Eye` : "Blog Title | Third Eye")}
+                  {metaTitle || (title ? `${title} | ThirdEye` : "Blog Title | ThirdEye")}
                 </h3>
                 <p className="blog-serp-desc">
                   {seoExcerpt ||
@@ -825,7 +825,7 @@ export default function BlogFormModal({
                 <input
                   type="text"
                   className="blog-form-input"
-                  placeholder="e.g. 10 Best Computer Courses with Job Placement in Jaipur | Third Eye"
+                  placeholder="e.g. 10 Best Computer Courses with Job Placement in Jaipur | ThirdEye"
                   value={metaTitle}
                   onChange={(e) => setMetaTitle(e.target.value)}
                 />
@@ -963,7 +963,7 @@ export default function BlogFormModal({
                     className="blog-form-input"
                     value={author}
                     onChange={(e) => setAuthor(e.target.value)}
-                    placeholder="Third Eye Expert Team"
+                    placeholder="ThirdEye Expert Team"
                   />
                 </div>
 

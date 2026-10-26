@@ -86,7 +86,7 @@ export default function Footer() {
             <Link to="/" className="inline-block group focus-visible:outline-none">
               <img
                 src={logo}
-                alt="Third Eye Computer Classes"
+                alt="ThirdEye Computer Classes"
                 className="h-16 sm:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_4px_20px_rgba(246,217,107,0.35)]"
                 loading="lazy"
               />
@@ -94,7 +94,7 @@ export default function Footer() {
 
             <p className="text-sm sm:text-base text-zinc-300 leading-relaxed font-normal max-w-md">
               Unlock the power of tech with{" "}
-              <strong className="text-[#f6d96b] font-semibold">Third Eye Computer Classes</strong>!
+              <strong className="text-[#f6d96b] font-semibold">ThirdEye Computer Classes</strong>!
               Jaipur's top destination for 3D animation, CAD jewelry, VFX, and full-stack development.
             </p>
 
@@ -312,7 +312,7 @@ export default function Footer() {
         </div>
 
         {/* ============================================================ */}
-        {/* ── GIANT TYPOGRAPHIC WATERMARK: "THIRD EYE" (Glow Strictly Inside Text Only) ── */}
+        {/* ── GIANT TYPOGRAPHIC WATERMARK: "THIRDEYE" (Glow Strictly Inside Text Only) ── */}
         {/* ============================================================ */}
         <div
           onMouseMove={handleWatermarkMouseMove}
@@ -351,7 +351,7 @@ export default function Footer() {
               opacity: isWatermarkHovered ? 1 : 0,
             }}
           >
-            THIRD EYE
+            THIRDEYE
           </span>
         </div>
 
@@ -362,7 +362,7 @@ export default function Footer() {
           {/* Copyright Notice */}
           <div className="text-zinc-400 text-center md:text-left font-normal">
             © {new Date().getFullYear()}{" "}
-            <strong className="text-white font-semibold">Third Eye Computer Classes</strong>. All
+            <strong className="text-white font-semibold">ThirdEye Computer Classes</strong>. All
             rights reserved.
           </div>
 

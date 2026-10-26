@@ -56,7 +56,7 @@ export default function CertificateLightbox({ cert, onClose }) {
                 Credential ID: <span className="text-[#f6d96b] font-bold">{cert.id}</span>
               </div>
               <div className="text-xs text-zinc-300 mt-0.5">
-                Issued through Third Eye Authorized Examination Center (ISO 9001:2015)
+                Issued through ThirdEye Authorized Examination Center (ISO 9001:2015)
               </div>
             </div>
 

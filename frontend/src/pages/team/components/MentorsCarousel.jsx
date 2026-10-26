@@ -108,7 +108,7 @@ const MentorCard = React.memo(function MentorCard({ mentor }) {
             ) : (
               <div className="mentor-avatar-monogram">
                 <span>{initials}</span>
-                <span className="mentor-monogram-sub">THIRD EYE</span>
+                <span className="mentor-monogram-sub">THIRDEYE</span>
               </div>
             )}
           </div>
@@ -146,7 +146,7 @@ const MentorCard = React.memo(function MentorCard({ mentor }) {
                     .split("\n")
                     .filter((p) => p.trim().length > 0)
                     .map((paragraph, idx) => <p key={idx}>{paragraph}</p>)
-                : "Dedicated mentor and subject specialist at Third Eye Computer Classes, committed to practical student upskilling and career readiness."}
+                : "Dedicated mentor and subject specialist at ThirdEye Computer Classes, committed to practical student upskilling and career readiness."}
             </div>
           </div>
         </div>
