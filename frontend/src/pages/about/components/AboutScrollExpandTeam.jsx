@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Users, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import aboutTeamPhoto from "../../../assets/about/team.webp";
+import aboutTeamPhoto from "../../../assets/about_team_photo.webp";
 
 export default function AboutScrollExpandTeam() {
   const containerRef = useRef(null);

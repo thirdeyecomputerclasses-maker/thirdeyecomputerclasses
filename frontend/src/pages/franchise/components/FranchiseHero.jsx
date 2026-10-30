@@ -54,7 +54,7 @@ const PART2 = " FRANCHISE IN YOUR CITY";
 const FULL_HEADLINE_LENGTH = PART1.length + HIGHLIGHT_TEXT.length + PART2.length;
 
 const SUBTITLE_TEXT =
-  "Join hands with Rajasthan’s leading IT skill development brand. Build a profitable, future-proof education business with 11+ operational centers and complete 360° corporate support.";
+  "Join hands with Rajasthan’s leading IT skill development brand. Build a profitable, future-proof education business with 15+ branches and counting.. and complete 360° corporate support.";
 
 export default function FranchiseHero({ onOpenInquiry }) {
   const [headlineCount, setHeadlineCount] = useState(0);
@@ -201,22 +201,22 @@ export default function FranchiseHero({ onOpenInquiry }) {
             {/* Unboxed Raw Typographic Metric Counters */}
             <div className="studio-stats-display">
               <div className="studio-stat-col">
-                <div className="studio-stat-number text-[#ffd300]">
+                <div className="studio-stat-number text-[#f6d96b]">
                   <AnimatedCounter end={11500} suffix="+" />
                 </div>
                 <div className="studio-stat-label">Students Trained</div>
               </div>
               <div className="studio-stat-sep" />
               <div className="studio-stat-col">
-                <div className="studio-stat-number text-[#ffd300]">
+                <div className="studio-stat-number text-[#f6d96b]">
                   <AnimatedCounter end={6700} suffix="+" />
                 </div>
                 <div className="studio-stat-label">Students Placed</div>
               </div>
               <div className="studio-stat-sep" />
               <div className="studio-stat-col">
-                <div className="studio-stat-number text-[#ffd300]">
-                  <AnimatedCounter end={11} suffix="+" />
+                <div className="studio-stat-number text-[#f6d96b]">
+                  <AnimatedCounter end={15} suffix="+" />
                 </div>
                 <div className="studio-stat-label">Active Branches</div>
               </div>

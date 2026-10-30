@@ -1,71 +1,95 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./ExpansionTimeline.css";
 import { 
   Milestone, 
   MapPin, 
   Calendar, 
   Compass, 
-  ArrowUpRight, 
   TrendingUp, 
-  CheckCircle2, 
   Radio, 
   Sparkles,
-  ArrowRight
+  ArrowRight,
+  Building2,
+  CheckCircle2
 } from "lucide-react";
 
 export default function ExpansionTimeline() {
-  const [activeStep, setActiveStep] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
+  const [activeBar, setActiveBar] = useState(7); // Default to ACROSS 50+
 
-  const milestones = [
+  const barData = [
     {
-      step: "01",
-      year: "MARCH 2023",
-      metric: "1st Center",
-      title: "The Genesis",
-      subtitle: "Flagship Hub, Sanganer",
-      highlight: "State-of-the-art IT campus"
+      date: "MARCH 2023",
+      count: 10,
+      heightPercent: 20,
+      label: "10",
+      milestone: "Genesis Branch — Sanganer Hub",
+      desc: "First flagship tech campus launched in Jaipur"
     },
     {
-      step: "02",
-      year: "2023 – 2024",
-      metric: "4 Centers",
-      title: "Rapid Expansion",
-      subtitle: "Pratap Nagar & Jagatpura",
-      highlight: "3,500+ active students"
+      date: "AUGUST 2023",
+      count: 15,
+      heightPercent: 30,
+      label: "15",
+      milestone: "Pratap Nagar & Jagatpura",
+      desc: "Rapid expansion into major student education belts"
     },
     {
-      step: "03",
-      year: "2024 – 2025",
-      metric: "11+ Centers",
-      title: "City Dominance",
-      subtitle: "All Core Jaipur Zones",
-      highlight: "11 branches running strong"
+      date: "JANUARY 2024",
+      count: 20,
+      heightPercent: 40,
+      label: "20",
+      milestone: "Vaishali & Mansarovar",
+      desc: "Prime commercial and metro transit corridors covered"
     },
     {
-      step: "04",
-      year: "2025 – 2026+",
-      metric: "Pan-Rajasthan",
-      title: "Statewide Era",
-      subtitle: "District Franchise Hubs",
-      highlight: "Dedicated franchise rollout live",
-      isLive: true
+      date: "MARCH 2025",
+      count: 25,
+      heightPercent: 50,
+      label: "25",
+      milestone: "Gopalpura & Sodala",
+      desc: "City-wide institutional market dominance achieved"
+    },
+    {
+      date: "JULY 2025",
+      count: 30,
+      heightPercent: 60,
+      label: "30",
+      milestone: "Jhotwara & Raja Park",
+      desc: "High-density retail & residential center footprint"
+    },
+    {
+      date: "AUGUST 2025",
+      count: 35,
+      heightPercent: 70,
+      label: "35",
+      milestone: "15+ Running Strong",
+      desc: "15+ active branches operating across capital city"
+    },
+    {
+      date: "JANUARY 2026",
+      count: 40,
+      heightPercent: 80,
+      label: "40",
+      milestone: "Pan-Rajasthan Rollout",
+      desc: "District headquarters entering active onboarding"
+    },
+    {
+      date: "FUTURE VISION",
+      count: 50,
+      heightPercent: 100,
+      label: "ACROSS 50+",
+      isTarget: true,
+      milestone: "50+ Statewide Network",
+      desc: "Pan-India brand recognition with standardized delivery"
     }
   ];
 
-  // Auto-advance timeline steps for high-energy animative feel
-  useEffect(() => {
-    if (isPaused) return;
-    const timer = setInterval(() => {
-      setActiveStep((prev) => (prev + 1) % milestones.length);
-    }, 2800);
-    return () => clearInterval(timer);
-  }, [isPaused, milestones.length]);
-
   const upcomingCities = [
-    { city: "AJMER" },
-    { city: "SIKAR" },
-    { city: "ALWAR" }
+    { city: "AJMER", distance: "District Central Hub" },
+    { city: "SIKAR", distance: "Coaching Capital Belt" },
+    { city: "ALWAR", distance: "Industrial NCR Corridor" },
+    { city: "KOTA", distance: "Premier Student Town" },
+    { city: "UDAIPUR", distance: "Southern Zone Gateway" }
   ];
 
   const handleScrollToInquiry = (cityName = "") => {
@@ -85,6 +109,8 @@ export default function ExpansionTimeline() {
     }
   };
 
+  const selectedData = barData[activeBar] || barData[7];
+
   return (
     <section className="timeline-section" id="timeline">
       {/* Background ambient lighting */}
@@ -92,138 +118,90 @@ export default function ExpansionTimeline() {
       <div className="timeline-ambient-glow timeline-ambient-glow-right" />
 
       <div className="timeline-container">
-        {/* Section Header */}
-        <div className="timeline-header-block">
-          <div className="timeline-badge-pill">
-            <Milestone size={16} className="timeline-pill-icon" />
-            <span>EXPANSION TIMELINE (2023–2026)</span>
-          </div>
-
-          <h2 className="timeline-main-title">
-            GROWTH <span className="timeline-title-highlight">JOURNEY</span>
+        {/* Top Yellow Bar Header (Exact match to User Screenshot 5) */}
+        <div className="timeline-top-banner">
+          <h2 className="timeline-banner-title">
+            THIRDEYE EXPANSION TIMELINE (2023–2026)
           </h2>
+        </div>
 
-          <p className="timeline-sub-text">
-            From our very first branch in Sanganer, Jaipur in March 2023 to now 11+ branches 
-            in less than three years, Thirdeye has continued to grow strong and steady across the state.
-          </p>
+        <p className="timeline-banner-sub">
+          From our very first branch in Sanganer, Jaipur in March 2023 to now 15+ branches in less than three years,
+          Thirdeye has continued to grow strong and steady across the city.
+        </p>
 
-          {/* Quick Metrics Ticker */}
-          <div className="timeline-meta-ticker">
-            <div className="meta-ticker-item">
-              <span className="ticker-val">3+</span>
-              <span className="ticker-lbl">Years of Proven Execution</span>
-            </div>
-            <div className="meta-ticker-divider" />
-            <div className="meta-ticker-item">
-              <span className="ticker-val">11+</span>
-              <span className="ticker-lbl">Jaipur Centers Active</span>
-            </div>
-            <div className="meta-ticker-divider" />
-            <div className="meta-ticker-item">
-              <span className="ticker-val">Pan-RJ</span>
-              <span className="ticker-lbl">Statewide Expansion Phase</span>
-            </div>
+        <div className="timeline-pill-center">
+          <div className="growth-journey-pill">
+            <TrendingUp size={16} />
+            <span>GROWTH JOURNEY</span>
           </div>
         </div>
 
-        {/* Chronological Growth Highway */}
-        <div className="timeline-highway-container">
-          {/* Animated Connecting Track (Desktop) */}
-          <div className="timeline-track-wrapper">
-            <div className="timeline-track-rail">
-              <div className="timeline-track-glow-pulse" />
-              <div 
-                className="timeline-track-active-fill" 
-                style={{ width: `${(activeStep / (milestones.length - 1)) * 100}%` }}
-              />
+        {/* ── Ascending Gold Growth Bar Chart (Exact match to User Screenshot 5) ── */}
+        <div className="chart-outer-wrapper">
+          <div className="chart-viewport">
+            {/* Horizontal Gridlines */}
+            <div className="chart-gridlines">
+              <div className="gridline"><span className="grid-label">50</span><div className="grid-line" /></div>
+              <div className="gridline"><span className="grid-label">40</span><div className="grid-line" /></div>
+              <div className="gridline"><span className="grid-label">30</span><div className="grid-line" /></div>
+              <div className="gridline"><span className="grid-label">20</span><div className="grid-line" /></div>
+              <div className="gridline"><span className="grid-label">10</span><div className="grid-line" /></div>
+              <div className="gridline gridline-base"><span className="grid-label">0</span><div className="grid-line" /></div>
             </div>
 
-            {/* Stage Beacons / Checkpoints on the Track */}
-            <div className="timeline-checkpoints-row">
-              {milestones.map((m, idx) => {
-                const isActive = activeStep === idx;
+            {/* Bars Container */}
+            <div className="chart-bars-container">
+              {barData.map((bar, idx) => {
+                const isSelected = activeBar === idx;
                 return (
                   <div 
                     key={idx} 
-                    className={`timeline-checkpoint-node ${isActive ? "is-active" : ""} ${m.isLive ? "is-live-node" : ""}`}
-                    onClick={() => setActiveStep(idx)}
-                    onMouseEnter={() => {
-                      setIsPaused(true);
-                      setActiveStep(idx);
-                    }}
-                    onMouseLeave={() => setIsPaused(false)}
-                    title={`Click to highlight ${m.year}`}
+                    className={`chart-bar-column ${isSelected ? "bar-is-selected" : ""} ${bar.isTarget ? "bar-is-target" : ""}`}
+                    onClick={() => setActiveBar(idx)}
+                    onMouseEnter={() => setActiveBar(idx)}
                   >
-                    <div className="node-outer-ring">
-                      {m.isLive && <div className="node-radar-ping" />}
-                      <div className="node-inner-core">
-                        {m.isLive ? (
-                          <Radio size={14} className="node-icon-live" />
-                        ) : (
-                          <CheckCircle2 size={14} className="node-icon-check" />
+                    {/* Top Callout Date Label */}
+                    <span className="bar-date-header">{bar.date}</span>
+
+                    {/* Bar Pillar */}
+                    <div className="bar-pillar-wrap">
+                      <div 
+                        className="bar-pillar" 
+                        style={{ height: `${bar.heightPercent}%` }}
+                      >
+                        <div className="bar-top-shine" />
+                        {bar.isTarget && (
+                          <div className="target-glow-ping" />
                         )}
-                        <span className="node-number">{m.step}</span>
+                        <span className="bar-inner-val">{bar.label}</span>
                       </div>
                     </div>
-                    <div className="node-drop-laser" />
                   </div>
                 );
               })}
             </div>
           </div>
 
-          {/* Timeline Cards Grid (Simplified, Yellow & Animative) */}
-          <div className="timeline-cards-grid">
-            {milestones.map((item, index) => {
-              const isSelected = activeStep === index;
-              return (
-                <div 
-                  key={index} 
-                  className={`timeline-step-card ${isSelected ? "card-highlighted" : ""} ${item.isLive ? "card-live-stage" : ""}`}
-                  onMouseEnter={() => {
-                    setIsPaused(true);
-                    setActiveStep(index);
-                  }}
-                  onMouseLeave={() => setIsPaused(false)}
-                  onClick={() => setActiveStep(index)}
-                >
-                  {/* Watermark Step Number */}
-                  <div className="step-watermark-number">{item.step}</div>
-
-                  {/* Top Laser Accent */}
-                  <div className="step-top-laser" />
-
-                  {/* Card Header: Year Capsule & Metric Badge */}
-                  <div className="step-card-top">
-                    <span className="step-year-badge">
-                      <Calendar size={13} />
-                      {item.year}
-                    </span>
-                    <span className="step-metric-badge">
-                      <TrendingUp size={12} className="metric-arrow-icon" />
-                      {item.metric}
-                    </span>
-                  </div>
-
-                  {/* Title & Subtitle */}
-                  <h3 className="step-card-title">{item.title}</h3>
-                  <p className="step-card-sub">{item.subtitle}</p>
-
-                  {/* Clean Highlight Pill */}
-                  <div className="step-highlight-pill">
-                    <Sparkles size={13} className="pill-sparkle" />
-                    <span>{item.highlight}</span>
-                  </div>
-                </div>
-              );
-            })}
+          {/* Interactive Milestone Card for Currently Selected Bar */}
+          <div className="chart-active-card">
+            <div className="active-card-laser" />
+            <div className="active-card-meta">
+              <span className="active-card-phase">
+                <Calendar size={14} className="text-yellow-400" />
+                {selectedData.date}
+              </span>
+              <strong className="active-card-count">
+                {selectedData.label} {selectedData.isTarget ? "Vision" : "Milestone Centers"}
+              </strong>
+            </div>
+            <h4 className="active-card-milestone">{selectedData.milestone}</h4>
+            <p className="active-card-desc">{selectedData.desc}</p>
           </div>
         </div>
 
-        {/* Territory Allotment Radar Module (Upcoming Branches) */}
+        {/* ── Territory Allotment Radar Module (Upcoming Branches) ── */}
         <div className="upcoming-radar-module">
-          <div className="radar-mesh-bg" />
           <div className="radar-glow-rim" />
 
           {/* Radar Header */}
@@ -231,7 +209,6 @@ export default function ExpansionTimeline() {
             <div className="upcoming-title-left">
               <div className="radar-icon-container">
                 <Compass size={24} className="radar-compass-icon" />
-                <div className="radar-pulse-wave" />
               </div>
               <div>
                 <div className="radar-sub-tag">
@@ -239,7 +216,7 @@ export default function ExpansionTimeline() {
                   <span>NEXT-GEN EXPANSION PIPELINE</span>
                 </div>
                 <h4 className="upcoming-title">
-                  UPCOMING <span className="upcoming-title-yellow">BRANCHES</span>
+                  UPCOMING <span className="upcoming-title-yellow">BRANCHES &amp; TERRITORIES</span>
                 </h4>
                 <p className="upcoming-sub">
                   High-demand territories available for immediate partner allotment across Rajasthan
@@ -257,7 +234,7 @@ export default function ExpansionTimeline() {
             </button>
           </div>
 
-          {/* Territory Nodes Grid (Only Names) */}
+          {/* Territory Nodes Grid */}
           <div className="upcoming-cities-grid">
             {upcomingCities.map((item, idx) => (
               <div 
@@ -275,7 +252,10 @@ export default function ExpansionTimeline() {
                 <div className="city-pin-wrapper">
                   <MapPin size={18} className="city-pin" />
                 </div>
-                <span className="city-name">{item.city}</span>
+                <div className="city-chip-text">
+                  <span className="city-name">{item.city}</span>
+                  <span className="city-desc">{item.distance}</span>
+                </div>
               </div>
             ))}
           </div>

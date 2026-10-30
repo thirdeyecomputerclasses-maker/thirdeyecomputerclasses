@@ -19,6 +19,8 @@ import {
   ArrowUpRight,
   Code2,
   Compass,
+  Eye,
+  Mail,
 } from "lucide-react";
 import logo from "../assets/logo.webp";
 import SoundToggle from "../components/SoundToggle";
@@ -143,14 +145,83 @@ export default function Navbar() {
           isVisible ? "translate-y-0" : "-translate-y-full pointer-events-none"
         } ${
           isScrolled
-            ? "py-3 md:py-3.5 bg-[#0a0805]/90 backdrop-blur-xl border-b border-[#261f15]/80 shadow-[0_10px_35px_rgba(0,0,0,0.75),0_1px_0_rgba(246,217,107,0.06)]"
-            : "py-5 md:py-6 bg-transparent border-b border-transparent shadow-none"
+            ? "bg-[#0a0805]/95 backdrop-blur-xl border-b border-[#261f15]/80 shadow-[0_10px_35px_rgba(0,0,0,0.75),0_1px_0_rgba(246,217,107,0.06)]"
+            : "bg-[#0a0805]/65 backdrop-blur-md border-b border-white/[0.05]"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
+        {/* ============================================================ */}
+        {/* TOP CONTACT & NEW BATCH MOVING RIBBON BAR                    */}
+        {/* ============================================================ */}
+        <div className="w-full bg-[#100d07] border-b border-[#ffd300]/20 text-xs py-1.5 px-4 sm:px-6 lg:px-8 shadow-sm">
+          <div className="max-w-[1440px] mx-auto flex items-center justify-between gap-4">
+            {/* Left: Branches & Contact Info */}
+            <div className="flex items-center gap-2.5 sm:gap-4 shrink-0 font-medium text-[11px] sm:text-xs whitespace-nowrap">
+              <Link
+                to="/nearest-branch"
+                className="inline-flex items-center gap-1.5 text-zinc-200 hover:text-[#ffd300] transition-colors group whitespace-nowrap"
+                title="Find nearest ThirdEye campus in Jaipur"
+              >
+                <Compass className="w-3.5 h-3.5 text-[#ffd300] group-hover:rotate-45 transition-transform shrink-0" />
+                <span className="font-bold text-white group-hover:text-[#ffd300]">15+ Branches</span>
+              </Link>
+
+              <span className="text-zinc-700 select-none">•</span>
+
+              <a
+                href="tel:+918058061222"
+                className="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#ffd300] transition-colors font-mono font-medium whitespace-nowrap"
+                title="Call ThirdEye Computer Classes"
+              >
+                <PhoneCall className="w-3.5 h-3.5 text-[#ffd300] shrink-0" />
+                <span className="tracking-wide">+91 805 806 1222</span>
+              </a>
+
+              <span className="text-zinc-700 select-none hidden md:inline">•</span>
+
+              <a
+                href="mailto:info@thirdeyeclasses.com"
+                className="hidden md:inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#ffd300] transition-colors whitespace-nowrap"
+                title="Email ThirdEye Computer Classes"
+              >
+                <Mail className="w-3.5 h-3.5 text-[#ffd300] shrink-0" />
+                <span>info@thirdeyeclasses.com</span>
+              </a>
+            </div>
+
+            {/* Center/Right: Moving Ribbon Carousel with Infinite Loop Effect */}
+            <div className="overflow-hidden relative flex-1 max-w-2xl mx-2 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+              <div className="flex items-center gap-10 whitespace-nowrap animate-topbar-marquee text-[11px] sm:text-xs">
+                <span className="inline-flex items-center gap-2 text-zinc-200">
+                  <span className="inline-block w-2 h-2 rounded-full bg-[#ffd300] animate-pulse shadow-[0_0_8px_#ffd300] shrink-0" />
+                  <span className="text-[#ffd300] font-bold tracking-wide">
+                    New Batch Starts Every Monday &amp; Wednesday
+                  </span>
+                  <span className="text-zinc-600">•</span>
+                  <span className="text-zinc-300">Reserve Your Live Hands-on Lab Seat</span>
+                  <span className="text-zinc-600">•</span>
+                  <span className="text-[#ffd300] font-semibold">15+ Branches Across Jaipur</span>
+                </span>
+
+                <span className="inline-flex items-center gap-2 text-zinc-200" aria-hidden="true">
+                  <span className="inline-block w-2 h-2 rounded-full bg-[#ffd300] animate-pulse shadow-[0_0_8px_#ffd300] shrink-0" />
+                  <span className="text-[#ffd300] font-bold tracking-wide">
+                    New Batch Starts Every Monday &amp; Wednesday
+                  </span>
+                  <span className="text-zinc-600">•</span>
+                  <span className="text-zinc-300">Reserve Your Live Hands-on Lab Seat</span>
+                  <span className="text-zinc-600">•</span>
+                  <span className="text-[#ffd300] font-semibold">15+ Branches Across Jaipur</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* MAIN NAVIGATION BAR */}
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-2 md:py-2.5">
+          <div className="flex items-center justify-between gap-3">
             {/* ============================================================ */}
-            {/* LEFT: Logo ONLY (Brand Badge Removed per User Request)       */}
+            {/* LEFT: Logo ONLY                                               */}
             {/* ============================================================ */}
             <div className="flex items-center flex-shrink-0">
               <Link
@@ -161,7 +232,7 @@ export default function Navbar() {
                 <img
                   src={logo}
                   alt="ThirdEye Logo"
-                  className="h-12 sm:h-14 md:h-16 lg:h-18 w-auto object-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_2px_10px_rgba(243,207,101,0.2)]"
+                  className="h-13 sm:h-14 md:h-15 lg:h-16 xl:h-17 w-auto object-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_2px_12px_rgba(243,207,101,0.28)]"
                   loading="eager"
                   fetchPriority="high"
                 />
@@ -174,14 +245,14 @@ export default function Navbar() {
             <nav
               role="navigation"
               aria-label="Main Navigation"
-              className="hidden lg:flex items-center bg-[#130f0a]/80 border border-[#2b2216] px-6 py-2 rounded-full backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all duration-300 hover:border-[#f6d96b]/40 hover:bg-[#1a140e]/90"
+              className="hidden lg:flex items-center bg-[#130f0a]/90 border border-[#2b2216] px-3.5 xl:px-5 py-1.5 rounded-full backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all duration-300 hover:border-[#f6d96b]/40 hover:bg-[#1a140e]/95 shrink-0"
             >
-              <ul className="flex items-center gap-1 xl:gap-2 list-none m-0 p-0">
+              <ul className="flex items-center gap-0.5 xl:gap-1.5 list-none m-0 p-0 whitespace-nowrap">
                 {/* 1. HOME */}
                 <li>
                   <Link
                     to="/"
-                    className={`px-3.5 py-1.5 rounded-full text-[13px] xl:text-[14px] font-medium tracking-wide transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] ${
+                    className={`px-2.5 xl:px-3 py-1.5 rounded-full text-[12.5px] xl:text-[13.5px] font-medium tracking-wide whitespace-nowrap transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] ${
                       isActive("/")
                         ? "text-[#f3cf65] bg-[#f3cf65]/15 font-semibold shadow-[0_0_12px_rgba(243,207,101,0.15)]"
                         : "text-zinc-300 hover:text-white hover:bg-white/[0.05]"
@@ -191,11 +262,11 @@ export default function Navbar() {
                   </Link>
                 </li>
 
-                {/* 2. COURSES (Direct Link - NO Dropdown per User Request) */}
+                {/* 2. COURSES */}
                 <li>
                   <Link
                     to="/our-courses"
-                    className={`px-3.5 py-1.5 rounded-full text-[13px] xl:text-[14px] font-medium tracking-wide transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] ${
+                    className={`px-2.5 xl:px-3 py-1.5 rounded-full text-[12.5px] xl:text-[13.5px] font-medium tracking-wide whitespace-nowrap transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] ${
                       isActive("/our-courses") ||
                       isActive("/courses") ||
                       isActive("/courses/2d-3d-animation") ||
@@ -223,18 +294,20 @@ export default function Navbar() {
                         activeDropdown === "certification" ? null : "certification"
                       )
                     }
-                    className={`flex items-center gap-1 px-3.5 py-1.5 rounded-full text-[13px] xl:text-[14px] font-medium tracking-wide transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] ${
+                    className={`flex items-center gap-1 px-2.5 xl:px-3 py-1.5 rounded-full text-[12.5px] xl:text-[13.5px] font-medium tracking-wide whitespace-nowrap transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] ${
                       isActive("/certifications") ||
                       isActive("/our-certification") ||
+                      isActive("/certificate-preview") ||
+                      isActive("/preview-certificate") ||
                       isActive("/apply-certificate") ||
                       activeDropdown === "certification"
                         ? "text-[#f3cf65] bg-[#f3cf65]/15 font-semibold"
                         : "text-zinc-300 hover:text-white hover:bg-white/[0.05]"
                     }`}
                   >
-                    <span>Certification</span>
+                    <span className="whitespace-nowrap">Certification</span>
                     <ChevronDown
-                      className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                      className={`w-3.5 h-3.5 transition-transform duration-200 shrink-0 ${
                         activeDropdown === "certification"
                           ? "rotate-180 text-[#f3cf65]"
                           : "text-zinc-400"
@@ -246,7 +319,7 @@ export default function Navbar() {
                   {activeDropdown === "certification" && (
                     <div
                       role="menu"
-                      className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-80 z-50 animate-in fade-in slide-in-from-top-2 duration-150"
+                      className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-[340px] sm:w-[360px] z-50 whitespace-normal animate-in fade-in slide-in-from-top-2 duration-150"
                     >
                       <div className="bg-[#0e0c08]/98 border border-[#2a2217] rounded-2xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.92),0_0_30px_rgba(246,217,107,0.08)] backdrop-blur-2xl">
                         {/* 1. Our Certification */}
@@ -255,15 +328,15 @@ export default function Navbar() {
                           role="menuitem"
                           className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#f6d96b]/10 group transition-all"
                         >
-                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5">
+                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5 shrink-0">
                             <Award className="w-4 h-4" />
                           </div>
-                          <div>
+                          <div className="flex-1 min-w-0">
                             <div className="text-sm font-semibold text-zinc-100 group-hover:text-[#f6d96b] transition-colors">
                               Our Certification
                             </div>
-                            <p className="text-xs text-zinc-400 line-clamp-1">
-                              Govt. recognized & ISO 9001 certified credentials
+                            <p className="text-xs text-zinc-400 line-clamp-2 leading-snug mt-0.5">
+                              Govt. recognized &amp; ISO 9001 certified credentials
                             </p>
                           </div>
                         </Link>
@@ -276,16 +349,16 @@ export default function Navbar() {
                           role="menuitem"
                           className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#f6d96b]/10 group transition-all mt-1"
                         >
-                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5">
+                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5 shrink-0">
                             <FileCheck className="w-4 h-4" />
                           </div>
-                          <div>
+                          <div className="flex-1 min-w-0">
                             <div className="text-sm font-semibold text-zinc-100 group-hover:text-[#f6d96b] transition-colors flex items-center gap-1.5">
                               <span>Apply for Certificate</span>
-                              <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-[#f6d96b]" />
+                              <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-[#f6d96b] shrink-0" />
                             </div>
-                            <p className="text-xs text-zinc-400 line-clamp-1">
-                              Submit your final exam & roll details
+                            <p className="text-xs text-zinc-400 line-clamp-2 leading-snug mt-0.5">
+                              Submit your final exam &amp; roll details
                             </p>
                           </div>
                         </a>
@@ -296,20 +369,44 @@ export default function Navbar() {
                           role="menuitem"
                           className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#f6d96b]/10 group transition-all mt-1"
                         >
-                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5">
+                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5 shrink-0">
                             <Sparkles className="w-4 h-4" />
                           </div>
-                          <div className="flex-1">
-                            <div className="flex items-center justify-between">
-                              <span className="text-sm font-semibold text-zinc-100 group-hover:text-[#f3cf65] transition-colors">
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between gap-2">
+                              <span className="text-sm font-semibold text-zinc-100 group-hover:text-[#f3cf65] transition-colors truncate">
                                 Free Skill Tests
                               </span>
-                              <span className="text-[9px] font-mono font-bold bg-[#f3cf65] text-black px-1.5 py-0.5 rounded">
+                              <span className="text-[9px] font-mono font-bold bg-[#f3cf65] text-black px-1.5 py-0.5 rounded shrink-0">
                                 FREE
                               </span>
                             </div>
-                            <p className="text-xs text-zinc-400 line-clamp-1">
-                              10-question evaluation & score report
+                            <p className="text-xs text-zinc-400 line-clamp-2 leading-snug mt-0.5">
+                              10-question evaluation &amp; score report
+                            </p>
+                          </div>
+                        </Link>
+
+                        {/* 4. Dynamic Certificate Look Preview */}
+                        <Link
+                          to="/certificate-preview"
+                          role="menuitem"
+                          className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#f6d96b]/10 group transition-all mt-1 border-t border-[#221a10] pt-2.5"
+                        >
+                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5 shrink-0">
+                            <Eye className="w-4 h-4" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between gap-2">
+                              <span className="text-sm font-semibold text-zinc-100 group-hover:text-[#f3cf65] transition-colors truncate">
+                                Certificate Look Preview
+                              </span>
+                              <span className="text-[9px] font-mono font-bold bg-[#f3cf65] text-black px-1.5 py-0.5 rounded shrink-0">
+                                DYNAMIC
+                              </span>
+                            </div>
+                            <p className="text-xs text-zinc-400 line-clamp-2 leading-snug mt-0.5">
+                              Simulate your certificate with name &amp; course
                             </p>
                           </div>
                         </Link>
@@ -333,7 +430,7 @@ export default function Navbar() {
                         activeDropdown === "riseAndShine" ? null : "riseAndShine"
                       )
                     }
-                    className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[13px] xl:text-[14px] font-medium tracking-wide transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] ${
+                    className={`flex items-center gap-1.5 px-2.5 xl:px-3 py-1.5 rounded-full text-[12.5px] xl:text-[13.5px] font-medium tracking-wide whitespace-nowrap transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] ${
                       isActive("/students-review-2") ||
                       isActive("/student-reviews") ||
                       isActive("/jobs-placement") ||
@@ -346,10 +443,10 @@ export default function Navbar() {
                         : "text-zinc-300 hover:text-white hover:bg-white/[0.05]"
                     }`}
                   >
-                    <Sparkles className="w-3.5 h-3.5 text-[#f3cf65]" />
-                    <span>Rise & Shine</span>
+                    <Sparkles className="w-3.5 h-3.5 text-[#f3cf65] shrink-0" />
+                    <span className="whitespace-nowrap">Rise &amp; Shine</span>
                     <ChevronDown
-                      className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                      className={`w-3.5 h-3.5 transition-transform duration-200 shrink-0 ${
                         activeDropdown === "riseAndShine"
                           ? "rotate-180 text-[#f3cf65]"
                           : "text-zinc-400"
@@ -361,7 +458,7 @@ export default function Navbar() {
                   {activeDropdown === "riseAndShine" && (
                     <div
                       role="menu"
-                      className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-84 z-50 animate-in fade-in slide-in-from-top-2 duration-150"
+                      className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-[340px] sm:w-[360px] z-50 whitespace-normal animate-in fade-in slide-in-from-top-2 duration-150"
                     >
                       <div className="bg-[#0e0c08]/98 border border-[#2a2217] rounded-2xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.92),0_0_30px_rgba(246,217,107,0.08)] backdrop-blur-2xl">
                         {/* Student Reviews */}
@@ -370,18 +467,18 @@ export default function Navbar() {
                           role="menuitem"
                           className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#f6d96b]/10 group transition-all"
                         >
-                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5">
+                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5 shrink-0">
                             <Star className="w-4 h-4" />
                           </div>
-                          <div>
+                          <div className="flex-1 min-w-0">
                             <div className="text-sm font-semibold text-zinc-100 group-hover:text-[#f6d96b] transition-colors flex items-center gap-1.5">
                               <span>Student Reviews</span>
-                              <span className="text-[10px] text-amber-300 font-mono">
+                              <span className="text-[10px] text-amber-300 font-mono shrink-0">
                                 ★ 4.9/5
                               </span>
                             </div>
-                            <p className="text-xs text-zinc-400 line-clamp-1">
-                              Alumni video reviews & transformation stories
+                            <p className="text-xs text-zinc-400 line-clamp-2 leading-snug mt-0.5">
+                              Alumni video reviews &amp; transformation stories
                             </p>
                           </div>
                         </Link>
@@ -392,15 +489,15 @@ export default function Navbar() {
                           role="menuitem"
                           className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#f6d96b]/10 group transition-all mt-1"
                         >
-                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5">
+                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5 shrink-0">
                             <Briefcase className="w-4 h-4" />
                           </div>
-                          <div>
+                          <div className="flex-1 min-w-0">
                             <div className="text-sm font-semibold text-zinc-100 group-hover:text-[#f6d96b] transition-colors">
-                              Jobs & Placement Cell
+                              Jobs &amp; Placement Cell
                             </div>
-                            <p className="text-xs text-zinc-400 line-clamp-1">
-                              Corporate hiring partners & recruitment drives
+                            <p className="text-xs text-zinc-400 line-clamp-2 leading-snug mt-0.5">
+                              Corporate hiring partners &amp; recruitment drives
                             </p>
                           </div>
                         </Link>
@@ -411,14 +508,14 @@ export default function Navbar() {
                           role="menuitem"
                           className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#f6d96b]/10 group transition-all mt-1"
                         >
-                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5">
+                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5 shrink-0">
                             <Users className="w-4 h-4" />
                           </div>
-                          <div>
+                          <div className="flex-1 min-w-0">
                             <div className="text-sm font-semibold text-zinc-100 group-hover:text-[#f6d96b] transition-colors">
-                              Mentors & Faculty
+                              Mentors &amp; Faculty
                             </div>
-                            <p className="text-xs text-zinc-400 line-clamp-1">
+                            <p className="text-xs text-zinc-400 line-clamp-2 leading-snug mt-0.5">
                               Learn directly from seasoned industry engineers
                             </p>
                           </div>
@@ -430,15 +527,15 @@ export default function Navbar() {
                           role="menuitem"
                           className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#f6d96b]/10 group transition-all mt-1"
                         >
-                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5">
+                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5 shrink-0">
                             <Camera className="w-4 h-4" />
                           </div>
-                          <div>
+                          <div className="flex-1 min-w-0">
                             <div className="text-sm font-semibold text-zinc-100 group-hover:text-[#f6d96b] transition-colors">
                               Campus Memories
                             </div>
-                            <p className="text-xs text-zinc-400 line-clamp-1">
-                              Hackathons, lab workshops & convocation days
+                            <p className="text-xs text-zinc-400 line-clamp-2 leading-snug mt-0.5">
+                              Hackathons, lab workshops &amp; convocation days
                             </p>
                           </div>
                         </Link>
@@ -462,7 +559,7 @@ export default function Navbar() {
                         activeDropdown === "company" ? null : "company"
                       )
                     }
-                    className={`flex items-center gap-1 px-3.5 py-1.5 rounded-full text-[13px] xl:text-[14px] font-medium tracking-wide transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] ${
+                    className={`flex items-center gap-1 px-2.5 xl:px-3 py-1.5 rounded-full text-[12.5px] xl:text-[13.5px] font-medium tracking-wide whitespace-nowrap transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] ${
                       isActive("/trusted-computer-classes-in-jaipur") ||
                       isActive("/about-us") ||
                       isActive("/contact-us") ||
@@ -471,9 +568,9 @@ export default function Navbar() {
                         : "text-zinc-300 hover:text-white hover:bg-white/[0.05]"
                     }`}
                   >
-                    <span>Company</span>
+                    <span className="whitespace-nowrap">Company</span>
                     <ChevronDown
-                      className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                      className={`w-3.5 h-3.5 transition-transform duration-200 shrink-0 ${
                         activeDropdown === "company"
                           ? "rotate-180 text-[#f3cf65]"
                           : "text-zinc-400"
@@ -485,7 +582,7 @@ export default function Navbar() {
                   {activeDropdown === "company" && (
                     <div
                       role="menu"
-                      className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-72 z-50 animate-in fade-in slide-in-from-top-2 duration-150"
+                      className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-[340px] sm:w-[360px] z-50 whitespace-normal animate-in fade-in slide-in-from-top-2 duration-150"
                     >
                       <div className="bg-[#0e0c08]/98 border border-[#2a2217] rounded-2xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.92),0_0_30px_rgba(246,217,107,0.08)] backdrop-blur-2xl">
                         <Link
@@ -493,15 +590,15 @@ export default function Navbar() {
                           role="menuitem"
                           className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#f6d96b]/10 group transition-all"
                         >
-                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5">
+                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5 shrink-0">
                             <Building2 className="w-4 h-4" />
                           </div>
-                          <div>
+                          <div className="flex-1 min-w-0">
                             <div className="text-sm font-semibold text-zinc-100 group-hover:text-[#f6d96b] transition-colors">
                               About Us
                             </div>
-                            <p className="text-xs text-zinc-400 line-clamp-1">
-                              Our history, pedagogy and 20+ year legacy
+                            <p className="text-xs text-zinc-400 line-clamp-2 leading-snug mt-0.5">
+                              Our history, pedagogy and 15+ years of legacy
                             </p>
                           </div>
                         </Link>
@@ -511,14 +608,14 @@ export default function Navbar() {
                           role="menuitem"
                           className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#f6d96b]/10 group transition-all mt-1"
                         >
-                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5">
+                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5 shrink-0">
                             <PhoneCall className="w-4 h-4" />
                           </div>
-                          <div>
+                          <div className="flex-1 min-w-0">
                             <div className="text-sm font-semibold text-zinc-100 group-hover:text-[#f6d96b] transition-colors">
                               Contact Us
                             </div>
-                            <p className="text-xs text-zinc-400 line-clamp-1">
+                            <p className="text-xs text-zinc-400 line-clamp-2 leading-snug mt-0.5">
                               Speak with counselors or visit in-person
                             </p>
                           </div>
@@ -529,20 +626,20 @@ export default function Navbar() {
                           role="menuitem"
                           className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#f6d96b]/10 group transition-all mt-1"
                         >
-                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5">
+                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5 shrink-0">
                             <Compass className="w-4 h-4" />
                           </div>
-                          <div className="flex-1">
-                            <div className="flex items-center justify-between">
-                              <span className="text-sm font-semibold text-zinc-100 group-hover:text-[#f6d96b] transition-colors">
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between gap-2">
+                              <span className="text-sm font-semibold text-zinc-100 group-hover:text-[#f6d96b] transition-colors truncate">
                                 Nearest Branch
                               </span>
-                              <span className="text-[9px] font-mono font-bold bg-[#f6d96b] text-black px-1.5 py-0.5 rounded">
+                              <span className="text-[9px] font-mono font-bold bg-[#f6d96b] text-black px-1.5 py-0.5 rounded shrink-0">
                                 MAPS
                               </span>
                             </div>
-                            <p className="text-xs text-zinc-400 line-clamp-1">
-                              Locate 10+ Jaipur campuses with live routes
+                            <p className="text-xs text-zinc-400 line-clamp-2 leading-snug mt-0.5">
+                              Locate 15+ Jaipur campuses (and counting..) with live routes
                             </p>
                           </div>
                         </Link>
@@ -555,7 +652,7 @@ export default function Navbar() {
                 <li>
                   <Link
                     to="/franchise"
-                    className={`px-3.5 py-1.5 rounded-full text-[13px] xl:text-[14px] font-medium tracking-wide transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] ${
+                    className={`px-2.5 xl:px-3 py-1.5 rounded-full text-[12.5px] xl:text-[13.5px] font-medium tracking-wide whitespace-nowrap transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] ${
                       isActive("/franchise")
                         ? "text-[#f3cf65] bg-[#f3cf65]/15 font-semibold"
                         : "text-zinc-300 hover:text-white hover:bg-white/[0.05]"
@@ -569,7 +666,7 @@ export default function Navbar() {
                 <li>
                   <Link
                     to="/blogs"
-                    className={`px-3.5 py-1.5 rounded-full text-[13px] xl:text-[14px] font-medium tracking-wide transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] ${
+                    className={`px-2.5 xl:px-3 py-1.5 rounded-full text-[12.5px] xl:text-[13.5px] font-medium tracking-wide whitespace-nowrap transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] ${
                       isActive("/blogs") || location.pathname.startsWith("/blogs/") || location.pathname.startsWith("/blog/")
                         ? "text-[#f3cf65] bg-[#f3cf65]/15 font-semibold"
                         : "text-zinc-300 hover:text-white hover:bg-white/[0.05]"
@@ -583,14 +680,14 @@ export default function Navbar() {
                 <li>
                   <Link
                     to="/assessments"
-                    className={`px-3.5 py-1.5 rounded-full text-[13px] xl:text-[14px] font-medium tracking-wide transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] flex items-center gap-1.5 ${
+                    className={`px-2.5 xl:px-3 py-1.5 rounded-full text-[12.5px] xl:text-[13.5px] font-medium tracking-wide whitespace-nowrap transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] flex items-center gap-1.5 ${
                       isActive("/assessments") || location.pathname.startsWith("/assessment/") || location.pathname.startsWith("/skill-assessment")
                         ? "text-[#f3cf65] bg-[#f3cf65]/15 font-semibold"
                         : "text-zinc-300 hover:text-white hover:bg-white/[0.05]"
                     }`}
                   >
-                    <span>Skill Tests</span>
-                    <span className="text-[9px] font-bold bg-[#f6d96b]/20 text-[#f6d96b] border border-[#f6d96b]/40 px-1.5 py-0.5 rounded-full">
+                    <span className="whitespace-nowrap">Skill Tests</span>
+                    <span className="text-[9px] font-bold bg-[#f6d96b]/20 text-[#f6d96b] border border-[#f6d96b]/40 px-1.5 py-0.5 rounded-full shrink-0">
                       FREE
                     </span>
                   </Link>
@@ -601,22 +698,22 @@ export default function Navbar() {
             {/* ============================================================ */}
             {/* RIGHT: Warm Golden CTA Button & Mobile Hamburger Toggle       */}
             {/* ============================================================ */}
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
               {/* Sound Icon Toggle */}
               <SoundToggle />
 
-              {/* Visible on both Mobile & Desktop Header */}
-              <div className="relative inline-flex items-center">
+              {/* Pay Now Button (Always Single Line & Crisp) */}
+              <div className="relative inline-flex items-center shrink-0">
                 <Link
                   to="/pay-now"
-                  className="relative inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2 sm:py-2.5 rounded-full text-sm sm:text-base font-semibold tracking-normal text-zinc-950 bg-gradient-to-r from-[#ffd35a] via-[#f3cf65] to-[#fed156] shadow-[0_4px_20px_rgba(243,207,101,0.35)] hover:shadow-[0_6px_30px_rgba(243,207,101,0.55)] hover:brightness-105 active:scale-95 transition-all duration-200 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                  className="relative inline-flex items-center justify-center gap-1.5 px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold tracking-normal text-zinc-950 bg-gradient-to-r from-[#ffd35a] via-[#f3cf65] to-[#fed156] shadow-[0_4px_16px_rgba(243,207,101,0.35)] hover:shadow-[0_6px_25px_rgba(243,207,101,0.55)] hover:brightness-105 active:scale-95 transition-all duration-200 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] whitespace-nowrap shrink-0"
                   aria-label="Apply or Pay Fees Now"
                 >
-                  <span className="absolute -top-2.5 -right-1 px-1.5 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-emerald-400 text-black shadow-md border border-emerald-300 pointer-events-none animate-pulse">
+                  <span className="absolute -top-2.5 -right-1 px-1.5 py-0.2 rounded-full text-[8.5px] font-black uppercase tracking-wider bg-emerald-400 text-black shadow-sm border border-emerald-300 pointer-events-none whitespace-nowrap">
                     Offer Active
                   </span>
-                  <span>Pay Now</span>
-                  <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 stroke-[2]" />
+                  <span className="whitespace-nowrap font-bold">Pay Now</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 stroke-[2.5] shrink-0" />
                 </Link>
               </div>
 
@@ -770,11 +867,24 @@ export default function Navbar() {
                   <Link
                     to="/assessments"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center justify-between p-2 rounded-lg text-xs text-[#f6d96b] font-semibold hover:bg-[#f6d96b]/10 transition-colors"
+                    className="flex items-center justify-between p-2 rounded-lg text-xs text-zinc-300 hover:text-[#f6d96b] hover:bg-[#f6d96b]/10 transition-colors"
                   >
                     <span>Free Skill Tests</span>
                     <span className="text-[9px] font-mono bg-[#f6d96b] text-black px-1.5 py-0.2 rounded font-bold">
                       FREE
+                    </span>
+                  </Link>
+                  <Link
+                    to="/certificate-preview"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-between p-2 rounded-lg text-xs text-[#f6d96b] font-semibold hover:bg-[#f6d96b]/10 transition-colors"
+                  >
+                    <span className="flex items-center gap-2">
+                      <Eye className="w-3.5 h-3.5 text-[#f6d96b]" />
+                      Certificate Look Preview
+                    </span>
+                    <span className="text-[9px] font-mono bg-[#f6d96b] text-black px-1.5 py-0.2 rounded font-bold">
+                      DYNAMIC
                     </span>
                   </Link>
                 </div>
@@ -966,6 +1076,27 @@ export default function Navbar() {
               </span>
             </Link>
           </nav>
+        </div>
+
+        {/* Mobile Quick Contact & Batch Card */}
+        <div className="mx-5 my-4 p-3.5 rounded-2xl bg-[#141008] border border-[#ffd300]/25 space-y-2.5">
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-[#ffd300] font-bold">New Batch Starts Mon &amp; Wed</span>
+            <span className="w-2 h-2 rounded-full bg-[#ffd300] animate-pulse" />
+          </div>
+          <div className="flex items-center justify-between pt-2 border-t border-white/[0.08] text-xs">
+            <a href="tel:+918058061222" className="flex items-center gap-1.5 text-zinc-200 hover:text-[#ffd300] font-mono">
+              <PhoneCall className="w-3.5 h-3.5 text-[#ffd300]" />
+              <span>+91 805 806 1222</span>
+            </a>
+            <Link to="/nearest-branch" onClick={() => setMobileMenuOpen(false)} className="text-[#ffd300] font-bold hover:underline">
+              15+ Branches →
+            </Link>
+          </div>
+          <a href="mailto:info@thirdeyeclasses.com" className="flex items-center gap-1.5 text-[11px] text-zinc-400 hover:text-white pt-0.5">
+            <Mail className="w-3.5 h-3.5 text-[#ffd300]" />
+            <span>info@thirdeyeclasses.com</span>
+          </a>
         </div>
 
         {/* Drawer Footer Branding */}

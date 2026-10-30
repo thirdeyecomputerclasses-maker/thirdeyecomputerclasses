@@ -56,7 +56,7 @@ export default function ThirdEyeBrandTorchSection() {
         <div className="inline-flex flex-wrap items-center justify-center gap-y-2 gap-x-6 sm:gap-x-8 px-6 py-2.5 rounded-full bg-white/[0.03] border border-white/[0.08] text-xs sm:text-sm text-zinc-400">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-[#f6d96b]" />
-            <span>15+ Years Legacy</span>
+            <span>15+ Years of Legacy</span>
           </div>
           <span className="text-zinc-700 hidden sm:inline">•</span>
           <div className="flex items-center gap-2">

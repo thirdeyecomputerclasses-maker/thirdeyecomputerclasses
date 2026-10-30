@@ -1,0 +1,564 @@
+/* ─── How ThirdEye Helps You Grow Component Styles ─── */
+
+.growth-support-section {
+  width: 100%;
+  background-color: transparent;
+  color: #ffffff;
+  padding: 85px 24px 105px;
+  position: relative;
+  box-sizing: border-box;
+  font-family: "Rajdhani", sans-serif;
+  border-top: 1px solid rgba(246, 217, 107, 0.18);
+  overflow: hidden;
+}
+
+.growth-support-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Ambient Background Lighting ── */
+.growth-ambient-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  filter: blur(150px);
+  pointer-events: none;
+  opacity: 0.15;
+  z-index: 1;
+}
+
+.glow-amber {
+  top: 15%;
+  left: -220px;
+  background: radial-gradient(circle, #f59e0b 0%, transparent 70%);
+}
+
+.glow-gold {
+  bottom: 12%;
+  right: -220px;
+  background: radial-gradient(circle, #f6d96b 0%, transparent 70%);
+}
+
+/* ── Section Header ── */
+.growth-header-block {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 50px;
+}
+
+.growth-top-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  color: #f6d96b;
+  text-transform: uppercase;
+  padding: 5px 16px;
+  background: rgba(246, 217, 107, 0.08);
+  border: 1px solid rgba(246, 217, 107, 0.28);
+  border-radius: 9999px;
+  margin-bottom: 16px;
+}
+
+.pill-zap {
+  color: #f6d96b;
+}
+
+.growth-main-title {
+  font-size: clamp(30px, 4.2vw, 54px);
+  font-weight: 950;
+  line-height: 1.2;
+  letter-spacing: -1px;
+  color: #ffffff;
+  margin: 0 0 16px 0;
+  text-transform: uppercase;
+  font-family: "Rajdhani", sans-serif;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* Hand-drawn neon oval around THIRDEYE */
+.growth-title-highlight {
+  position: relative;
+  display: inline-block;
+  color: #f6d96b;
+  text-shadow: 0 0 25px rgba(246, 217, 107, 0.45);
+  padding: 0 14px;
+}
+
+.title-oval-svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% + 28px);
+  height: calc(100% + 24px);
+  pointer-events: none;
+  filter: drop-shadow(0 0 8px rgba(246, 217, 107, 0.6));
+}
+
+.oval-path-pulse {
+  animation: ovalRotateDash 8s linear infinite;
+}
+
+@keyframes ovalRotateDash {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 150;
+  }
+}
+
+.growth-header-sub {
+  font-size: clamp(16px, 1.2vw, 18.5px);
+  font-weight: 500;
+  color: #a89f91;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── 2-Column Master Grid ── */
+.growth-master-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.95fr;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+/* ── Left Column: 16 Growth Pillars ── */
+.growth-left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* Category Filter Pills */
+.growth-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: rgba(18, 14, 8, 0.6);
+  padding: 6px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.growth-filter-pill {
+  background: transparent;
+  border: 1px solid transparent;
+  color: #a89f91;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  padding: 7px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: "Rajdhani", sans-serif;
+}
+
+.growth-filter-pill:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.growth-filter-pill.active {
+  background: rgba(246, 217, 107, 0.15);
+  border-color: rgba(246, 217, 107, 0.4);
+  color: #f6d96b;
+  font-weight: 800;
+}
+
+.pill-count {
+  font-size: 11px;
+  background: rgba(246, 217, 107, 0.25);
+  color: #f6d96b;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-weight: 800;
+}
+
+/* 16 Pillars Grid */
+.growth-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.growth-pillar-card {
+  background: rgba(18, 14, 8, 0.75);
+  border: 1px solid rgba(246, 217, 107, 0.16);
+  border-radius: 14px;
+  padding: 20px 18px 18px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+}
+
+.growth-pillar-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(246, 217, 107, 0.45);
+  background: rgba(24, 18, 10, 0.95);
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(246, 217, 107, 0.15);
+}
+
+.pillar-laser-beam {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #f6d96b, transparent);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.growth-pillar-card:hover .pillar-laser-beam {
+  opacity: 1;
+}
+
+.pillar-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.pillar-icon-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(246, 217, 107, 0.1);
+  border: 1px solid rgba(246, 217, 107, 0.25);
+  color: #f6d96b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+}
+
+.growth-pillar-card:hover .pillar-icon-box {
+  background: #f6d96b;
+  color: #0d0a06;
+  transform: scale(1.08);
+}
+
+.pillar-number {
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(246, 217, 107, 0.5);
+  letter-spacing: 1px;
+}
+
+.pillar-title {
+  margin: 0 0 6px 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.3;
+  letter-spacing: 0.1px;
+}
+
+.pillar-desc {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: #9c9180;
+  line-height: 1.45;
+}
+
+/* ── Right Column: EMI Console & Partner Pledge ── */
+.growth-right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  position: sticky;
+  top: 120px;
+}
+
+/* ── CARD 1: EMI Console Card ── */
+.growth-emi-console-card {
+  background: rgba(18, 14, 8, 0.85);
+  border: 1px solid rgba(246, 217, 107, 0.22);
+  border-radius: 18px;
+  padding: 30px 28px 26px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(14px);
+}
+
+.console-ambient-glow {
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(246, 217, 107, 0.18) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Yellow Header Banner (Exact Match to User Flyer) */
+.emi-banner-header {
+  background: linear-gradient(90deg, #ffd35a 0%, #f6d96b 50%, #eab308 100%);
+  padding: 14px 20px;
+  border-radius: 6px;
+  text-align: center;
+  margin-bottom: 18px;
+  box-shadow:
+    0 6px 20px rgba(246, 217, 107, 0.25),
+    0 2px 4px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.emi-banner-title {
+  margin: 0;
+  font-size: clamp(16px, 1.45vw, 21px);
+  font-weight: 950;
+  color: #0d0a06;
+  font-style: italic;
+  letter-spacing: -0.2px;
+  line-height: 1.25;
+  font-family: "Rajdhani", sans-serif;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.emi-console-intro {
+  font-size: 14.5px;
+  color: #cfc6b5;
+  line-height: 1.5;
+  margin: 0 0 22px 0;
+}
+
+/* EMI Logos Shelf */
+.emi-logos-shelf {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(246, 217, 107, 0.2);
+  border-radius: 12px;
+  padding: 16px 14px;
+  margin-bottom: 22px;
+}
+
+.emi-logo-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+  padding: 6px;
+  transition: all 0.2s ease;
+}
+
+.emi-logo-item:hover {
+  background: rgba(246, 217, 107, 0.08);
+  transform: translateY(-2px);
+}
+
+.emi-shelf-logo {
+  max-width: 95%;
+  max-height: 48px;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.6));
+}
+
+/* 4 Matrix Cells */
+.emi-features-matrix {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.emi-matrix-cell {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(246, 217, 107, 0.04);
+  border: 1px solid rgba(246, 217, 107, 0.15);
+  border-radius: 10px;
+}
+
+.matrix-check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(246, 217, 107, 0.15);
+  color: #f6d96b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.matrix-title {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.25;
+}
+
+.matrix-sub {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #9c9180;
+  line-height: 1.3;
+}
+
+/* ── CARD 2: GOLDEN PARTNER MOTTO ── */
+.growth-motto-banner-card {
+  background: linear-gradient(135deg, #ffd35a 0%, #f6d96b 60%, #eab308 100%);
+  color: #0d0a06;
+  border-radius: 18px;
+  padding: 30px 28px;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 12px 35px rgba(246, 217, 107, 0.35),
+    0 4px 10px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.motto-laser-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #ffffff, transparent);
+}
+
+.motto-top-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  color: #0d0a06;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+
+.motto-quote-text {
+  margin: 0 0 14px 0;
+  font-size: clamp(17px, 1.55vw, 22px);
+  font-weight: 950;
+  color: #0d0a06;
+  font-style: italic;
+  line-height: 1.3;
+  letter-spacing: -0.3px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.motto-explainer {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #241c0e;
+  line-height: 1.5;
+  margin: 0 0 20px 0;
+}
+
+.motto-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #0d0a06;
+  color: #f6d96b;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: "Rajdhani", sans-serif;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+}
+
+.motto-cta-btn:hover {
+  background: #1a140b;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Responsive Queries ── */
+@media (max-width: 1024px) {
+  .growth-master-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .growth-right-column {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .growth-support-section {
+    padding: 60px 16px 75px;
+  }
+
+  .growth-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .growth-filter-bar {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 8px;
+  }
+
+  .growth-filter-pill {
+    flex-shrink: 0;
+  }
+
+  .emi-logos-shelf {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .emi-logo-item {
+    width: 100%;
+  }
+
+  .emi-features-matrix {
+    grid-template-columns: 1fr;
+  }
+
+  .growth-emi-console-card,
+  .growth-motto-banner-card {
+    padding: 22px 18px;
+  }
+}

@@ -5,7 +5,7 @@ import { ArrowUpRight, ArrowDown, Sparkles } from "lucide-react";
 import logo from "../../../assets/logo.webp";
 
 const quickStats = [
-  { value: "18+", label: "Years of Legacy", sub: "Estd. 2008 in Jaipur" },
+  { value: "15+", label: "Years of Legacy", sub: "Proven Excellence in Jaipur" },
   { value: "25,000+", label: "Alumni Sculpted", sub: "Placed Across Global Studios & Tech" },
   { value: "500+", label: "Hiring Partners", sub: "Top Animation, VFX & IT Firms" },
   { value: "98.4%", label: "Practical Mastery", sub: "100% Studio-First Pedagogy" },

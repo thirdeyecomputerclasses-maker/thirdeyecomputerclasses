@@ -1,4 +1,4 @@
-﻿/* Sweet Memories Page Styling - High Performance & GPU Accelerated */
+/* Sweet Memories Page Styling - High Performance & GPU Accelerated */
 
 /* Section 1: Yellow Hero with Masked Typography */
 .sweet-memories-hero {
@@ -116,15 +116,16 @@
 }
 
 .sweet-memories-section-alt .infinite-spiral__item {
-  border: 2.5px solid #ffffff;
+  border: 3px solid #ffffff;
+  border-radius: 18px;
   background: #ffffff;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.32);
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .sweet-memories-section-alt .infinite-spiral__item:hover {
   border-color: #000000;
-  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 26px 54px rgba(0, 0, 0, 0.45);
 }
 
 /* Section Header Typography */
@@ -182,7 +183,7 @@
   width: 100%;
   max-width: 1350px;
   margin: 0 auto;
-  height: 720px;
+  height: 800px;
   border-radius: 28px;
   background: radial-gradient(circle at 50% 30%, #181a24 0%, #090a0f 100%);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -227,7 +228,7 @@
     border-radius: 20px;
   }
   .infinite-spiral-wrapper {
-    height: 580px;
+    height: 620px;
     border-radius: 20px;
   }
 }

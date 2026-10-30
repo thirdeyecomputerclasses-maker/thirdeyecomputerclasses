@@ -166,7 +166,7 @@ export default function HeroSection() {
         >
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-[#f6d96b]" />
-            <span>15+ Years Legacy</span>
+            <span>15+ Years of Legacy</span>
           </div>
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-[#f6d96b]" />

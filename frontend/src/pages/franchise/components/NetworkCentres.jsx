@@ -19,83 +19,83 @@ const DEFAULT_CENTRES = [
     id: "mansarovar",
     num: "01",
     name: "Mansarovar",
-    address: "Madhyam Marg, Mansarovar, Jaipur",
-    mapUrl: "https://www.google.com/maps/search/?api=1&query=Third+Eye+Computer+Classes+Mansarovar+Jaipur",
-      image: classroomPanoramic
-    },
-    {
-      id: "sodala",
-      num: "02",
-      name: "Sodala",
-      address: "New Sanganer Road, Sodala, Jaipur",
-      mapUrl: "https://www.google.com/maps/search/?api=1&query=Third+Eye+Computer+Classes+Sodala+Jaipur",
-      image: classroomSliceLeft
-    },
-    {
-      id: "pratap-nagar",
-      num: "03",
-      name: "Pratap Nagar",
-      address: "Sector 11, Kumbha Marg, Pratap Nagar, Jaipur",
-      mapUrl: "https://www.google.com/maps/search/?api=1&query=Third+Eye+Computer+Classes+Pratap+Nagar+Jaipur",
-      image: classroomSliceCenter
-    },
-    {
-      id: "sanganer",
-      num: "04",
-      name: "Sanganer",
-      address: "Tonk Road, Near Sanganer Flyover, Jaipur",
-      mapUrl: "https://www.google.com/maps/search/?api=1&query=Third+Eye+Computer+Classes+Sanganer+Jaipur",
-      image: classroomSliceRight
-    },
-    {
-      id: "vaishali-nagar",
-      num: "05",
-      name: "Vaishali Nagar",
-      address: "Amrapali Circle, Vaishali Nagar, Jaipur",
-      mapUrl: "https://www.google.com/maps/search/?api=1&query=Third+Eye+Computer+Classes+Vaishali+Nagar+Jaipur",
-      image: classroomPanoramic
-    },
-    {
-      id: "jagatpura",
-      num: "06",
-      name: "Jagatpura",
-      address: "Near Mahal Road, Jagatpura, Jaipur",
-      mapUrl: "https://www.google.com/maps/search/?api=1&query=Third+Eye+Computer+Classes+Jagatpura+Jaipur",
-      image: classroomSliceLeft
-    },
-    {
-      id: "vidhyadhar-nagar",
-      num: "07",
-      name: "Vidhyadhar Nagar",
-      address: "Sector 2, Vidhyadhar Nagar, Jaipur",
-      mapUrl: "https://www.google.com/maps/search/?api=1&query=Third+Eye+Computer+Classes+Vidhyadhar+Nagar+Jaipur",
-      image: classroomSliceCenter
-    },
-    {
-      id: "raja-park",
-      num: "08",
-      name: "Raja Park",
-      address: "Lane 4, Commercial Complex, Raja Park, Jaipur",
-      mapUrl: "https://www.google.com/maps/search/?api=1&query=Third+Eye+Computer+Classes+Raja+Park+Jaipur",
-      image: classroomSliceRight
-    },
-    {
-      id: "gopalpura",
-      num: "09",
-      name: "Gopalpura",
-      address: "Education Coaching Belt, Gopalpura Bypass, Jaipur",
-      mapUrl: "https://www.google.com/maps/search/?api=1&query=Third+Eye+Computer+Classes+Gopalpura+Jaipur",
-      image: classroomPanoramic
-    },
-    {
-      id: "jhotwara",
-      num: "10",
-      name: "Jhotwara",
-      address: "Kalwar Road Junction, Jhotwara, Jaipur",
-      mapUrl: "https://www.google.com/maps/search/?api=1&query=Third+Eye+Computer+Classes+Jhotwara+Jaipur",
-      image: classroomSliceLeft
-    }
-  ];
+    address: "84/57, Madhyam Marg, near by Indian Bank, Ward 27, Mansarovar Sector 8, Mansarovar, Jaipur, Rajasthan 302020",
+    mapUrl: "https://maps.app.goo.gl/eim3KAKYhPyBF82i7",
+    image: classroomPanoramic,
+  },
+  {
+    id: "sodala",
+    num: "02",
+    name: "Sodala",
+    address: "1st floor, D. P. Colony, Plot no.7, near Vivek Vihar Metro Station, Ganesh Nagar, Sodala, Jaipur, Jaipur Nagar Nigam Area, Rajasthan 302019",
+    mapUrl: "https://maps.app.goo.gl/ewQmBEQnktW2qgmU7",
+    image: classroomSliceLeft,
+  },
+  {
+    id: "pratap-nagar",
+    num: "03",
+    name: "Pratap Nagar",
+    address: "111, First, Haldi ghati Gate, 68, Coaching Hub Road, Sanganer, Pratap Nagar, Jaipur, Rajasthan 302033",
+    mapUrl: "https://maps.app.goo.gl/6vB6EQBBpNWz5BvY7",
+    image: classroomSliceCenter,
+  },
+  {
+    id: "sanganer",
+    num: "04",
+    name: "Sanganer",
+    address: "35, First Floor, Nagar Nigam Rd, above HDFC Bank, near Sanganer Stadium, Printers Colony, Dada Gurudev Nagar, Sanganer, Jaipur, Rajasthan 302029",
+    mapUrl: "https://maps.app.goo.gl/V21L8Br2ZgBVgdB9A",
+    image: classroomSliceRight,
+  },
+  {
+    id: "vaishali-nagar",
+    num: "05",
+    name: "Vaishali Nagar",
+    address: "Shop no. S1, 2nd Floor, Royal Plaza, opposite Gupta Stores, near Amrapali Circle, Sector 6, Vaishali Nagar, Jaipur, Jaipur Nagar Nigam Area, Rajasthan 302021",
+    mapUrl: "https://maps.app.goo.gl/VbPm1bE9vTTDTs3x8",
+    image: classroomPanoramic,
+  },
+  {
+    id: "jagatpura",
+    num: "06",
+    name: "Jagatpura",
+    address: "First Floor 137-138, C 07, near Akshay Patra, mahal yojana, Block B, Central Spine, Jagatpura, Jaipur, Rajasthan 302017",
+    mapUrl: "https://maps.app.goo.gl/FFAoFPtLRuRdUc5R7",
+    image: classroomSliceLeft,
+  },
+  {
+    id: "vidhyadhar-nagar",
+    num: "07",
+    name: "Vidhyadhar Nagar",
+    address: "First Floor, Dwarika Apartment, A-12, Sector 2 Rd, above Jaipur Kurti, Sector 2, Central Spine, Vidyadhar Nagar, Jaipur, Jaipur Nagar Nigam Area, Rajasthan 302039",
+    mapUrl: "https://maps.app.goo.gl/KmZRtZo9TJyJSfSF7",
+    image: classroomSliceCenter,
+  },
+  {
+    id: "raja-park",
+    num: "08",
+    name: "Raja Park",
+    address: "No.1, Plot No.189A, Fashion St, near Panchwati Circle, above Bandhan Bank, Raja Park, Jaipur, Jaipur Nagar Nigam Area, Rajasthan 302004",
+    mapUrl: "https://maps.app.goo.gl/vnRksZ4ZdH7b69HP9",
+    image: classroomSliceRight,
+  },
+  {
+    id: "gopalpura",
+    num: "09",
+    name: "Gopalpura",
+    address: "First Floor, Basant Bahar Colony, 30, Gopalpura Bypass Rd, near Cake World, opposite Bhandari Hospital & Research Centre, Muktanand Nagar, Gopal Pura Mode, Jaipur, Jaipur Nagar Nigam Area, Rajasthan 302018",
+    mapUrl: "https://maps.app.goo.gl/qNJur1SX36cLo7z37",
+    image: classroomPanoramic,
+  },
+  {
+    id: "jhotwara",
+    num: "10",
+    name: "Jhotwara",
+    address: "First Floor, Thirdeye Computer Classes, 93, Kalwar Rd, opposite Hotel Regenta Central, Raghunath Puri, Jagannath Puri, Jhotwara, Jaipur, Jaipur Nagar Nigam Area, Rajasthan 302012",
+    mapUrl: "https://maps.app.goo.gl/9TK52jEhAvqV7x136",
+    image: classroomSliceLeft,
+  },
+];
 
 export default function NetworkCentres() {
   const [activeIdx, setActiveIdx] = useState(0);

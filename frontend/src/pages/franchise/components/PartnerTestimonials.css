@@ -1,14 +1,14 @@
-﻿/* ─── Partner Testimonials — Vibrant Filled Yellow Boxes ─── */
-
+/* ─── Partner Testimonials — Success Begins Here ─── */
 .testimonials-section {
   width: 100%;
-  background-color: transparent;
+  background: #080604;
   color: #ffffff;
   padding: 85px 24px 95px;
   position: relative;
   box-sizing: border-box;
   font-family: "Rajdhani", sans-serif;
   border-top: 1px solid rgba(246, 217, 107, 0.15);
+  border-bottom: 1px solid rgba(246, 217, 107, 0.15);
   overflow: hidden;
 }
 
@@ -19,22 +19,22 @@
   z-index: 2;
 }
 
-/* ── Ambient Background Lighting ── */
+/* Ambient glow */
 .testimonials-ambient-glow {
   position: absolute;
-  width: 520px;
-  height: 520px;
+  width: 540px;
+  height: 540px;
   border-radius: 50%;
-  filter: blur(130px);
+  filter: blur(140px);
   pointer-events: none;
-  opacity: 0.15;
+  opacity: 0.12;
   z-index: 1;
 }
 
 .glow-left {
-  top: 20%;
+  top: 15%;
   left: -150px;
-  background: radial-gradient(circle, #ffd300 0%, transparent 70%);
+  background: radial-gradient(circle, #f6d96b 0%, transparent 70%);
 }
 
 .glow-right {
@@ -43,511 +43,201 @@
   background: radial-gradient(circle, #f59e0b 0%, transparent 70%);
 }
 
-/* ── Section Header ── */
-.testimonials-header-block {
-  text-align: center;
-  max-width: 860px;
-  margin: 0 auto 48px;
-}
-
-.testimonials-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background-color: rgba(246, 217, 107, 0.12);
-  color: #ffd300;
+/* ── Hero Banner (Exact match to User Slide 3 & 4) ── */
+.testimonials-hero-banner {
+  width: 100%;
+  background: #000000;
   border: 1px solid rgba(246, 217, 107, 0.35);
-  padding: 7px 20px;
-  border-radius: 9999px;
-  font-size: 13.5px;
-  font-weight: 800;
-  letter-spacing: 0.8px;
-  margin-bottom: 18px;
-  font-family: "Rajdhani", sans-serif;
-  box-shadow: 0 0 16px rgba(255, 211, 0, 0.12);
+  padding: 16px 24px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(246, 217, 107, 0.08);
+  margin-bottom: 16px;
 }
 
-.testimonials-title {
-  font-size: clamp(34px, 4.6vw, 54px);
+.testimonials-hero-title {
+  color: #f6d96b;
+  font-size: clamp(24px, 3.2vw, 42px);
   font-weight: 950;
-  line-height: 1.15;
-  letter-spacing: -1.2px;
-  color: #ffffff;
-  margin: 0 0 16px 0;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
+  margin: 0;
+  text-shadow: 0 0 16px rgba(246, 217, 107, 0.4);
 }
 
 .testimonials-sub-lead {
-  font-size: clamp(15.5px, 1.25vw, 18px);
+  text-align: center;
+  font-size: clamp(14.5px, 1.2vw, 17px);
   font-weight: 500;
-  line-height: 1.6;
-  color: #d4d4d8;
-  margin: 0 auto 24px;
+  color: #a1a1aa;
+  margin: 0 auto 52px;
   max-width: 720px;
 }
 
-/* Trust Metrics Bar */
-.testimonials-trust-bar {
+/* ── Partner Journey Grid ── */
+.partner-journey-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 36px 30px;
+  margin-bottom: 50px;
+}
+
+@media (max-width: 1024px) {
+  .partner-journey-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .partner-journey-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+/* Partner Card */
+.partner-journey-card {
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 36px 26px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.partner-journey-card:hover,
+.partner-journey-card.card-highlighted {
+  transform: translateY(-6px);
+  border-color: rgba(246, 217, 107, 0.55);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.9), 0 0 24px rgba(246, 217, 107, 0.2);
+}
+
+/* Signature Yellow Circle Avatar (Exact match to User Slide 3 & 4) */
+.partner-yellow-circle-wrapper {
+  margin-bottom: 22px;
+}
+
+.partner-yellow-circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: #f6d96b;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(246, 217, 107, 0.35);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.partner-journey-card:hover .partner-yellow-circle {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(246, 217, 107, 0.5);
+}
+
+.partner-circle-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* Name, Branch & Statement */
+.partner-owner-name {
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  margin: 0 0 4px 0;
+  text-transform: uppercase;
+}
+
+.partner-branch-tag {
+  color: #f6d96b;
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin: 0 0 18px 0;
+  text-transform: uppercase;
+}
+
+.partner-statement-text {
+  color: #d4d4d8;
+  font-size: 13.5px;
+  line-height: 1.6;
+  font-weight: 500;
+  margin: 0 0 22px 0;
+  flex-grow: 1;
+}
+
+.partner-verified-pill {
   display: inline-flex;
   align-items: center;
-  gap: 24px;
-  background: rgba(22, 19, 12, 0.85);
-  border: 1px solid rgba(255, 211, 0, 0.3);
-  backdrop-filter: blur(12px);
+  gap: 6px;
+  background: rgba(246, 217, 107, 0.1);
+  border: 1px solid rgba(246, 217, 107, 0.25);
+  padding: 4px 12px;
   border-radius: 9999px;
-  padding: 8px 26px;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #f6d96b;
+}
+
+/* Trust Footer */
+.testimonials-trust-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  background: rgba(18, 14, 9, 0.9);
+  border: 1px solid rgba(246, 217, 107, 0.25);
+  border-radius: 9999px;
+  padding: 12px 36px;
+  width: fit-content;
+  margin: 0 auto;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
 }
 
-.trust-stat-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.trust-stat-val {
-  font-size: 15px;
-  font-weight: 900;
-  color: #ffd300;
-  font-family: "Rajdhani", sans-serif;
-}
-
-.trust-stat-lbl {
-  font-size: 12.5px;
-  font-weight: 600;
-  color: #a1a1aa;
-}
-
-.trust-stat-sep {
-  width: 1px;
-  height: 16px;
-  background: rgba(255, 211, 0, 0.25);
-}
-
 @media (max-width: 680px) {
-  .testimonials-trust-bar {
+  .testimonials-trust-footer {
     flex-direction: column;
-    gap: 8px;
-    border-radius: 16px;
-    padding: 14px 18px;
+    gap: 12px;
+    border-radius: 14px;
+    padding: 16px 20px;
     width: 100%;
   }
-  .trust-stat-sep {
+  .trust-footer-sep {
     display: none;
   }
 }
 
-/* ══════════════════════════════════════════════════════════════
-   EXECUTIVE SPOTLIGHT STORY CONSOLE (FILLED YELLOW BOX)
-══════════════════════════════════════════════════════════════ */
-.testimonial-spotlight-console {
-  position: relative;
-  background: #ffd300;
-  color: #000000;
-  border: 2.5px solid #000000;
-  border-radius: 26px;
-  padding: 38px 40px;
-  margin-bottom: 48px;
-  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.85), 0 0 35px rgba(255, 211, 0, 0.4);
-  overflow: hidden;
-}
-
-.spotlight-top-laser {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, transparent 0%, #000000 50%, transparent 100%);
-  pointer-events: none;
-}
-
-.spotlight-console-grid {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 38px;
-  align-items: center;
-}
-
-@media (max-width: 960px) {
-  .spotlight-console-grid {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: 28px;
-  }
-}
-
-/* Left: Portrait Column */
-.spotlight-portrait-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.spotlight-avatar-frame {
-  position: relative;
-  width: 154px;
-  height: 154px;
-  margin-bottom: 18px;
-}
-
-.spotlight-avatar-img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3.5px solid #000000;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-}
-
-.spotlight-avatar-ring {
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-  border: 2px dashed rgba(0, 0, 0, 0.45);
-  pointer-events: none;
-  animation: ringRotate 25s linear infinite;
-}
-
-@keyframes ringRotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-
-.spotlight-partner-meta {
-  text-align: center;
-}
-
-.spotlight-author-name {
-  font-size: 23px;
-  font-weight: 950;
-  color: #000000;
-  margin: 0 0 3px 0;
-  letter-spacing: -0.4px;
-}
-
-.spotlight-author-role {
-  font-size: 13px;
-  font-weight: 800;
-  color: #000000;
-  opacity: 0.85;
-  display: block;
-  margin-bottom: 8px;
-  letter-spacing: 0.3px;
-}
-
-.spotlight-author-branch {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(0, 0, 0, 0.1);
-  border: 1.5px solid #000000;
-  padding: 5px 14px;
-  border-radius: 9999px;
-  font-size: 12px;
-  font-weight: 850;
-  color: #000000;
-}
-
-.spotlight-pin-icon {
-  color: #000000;
-}
-
-/* Right: Narrative Column */
-.spotlight-narrative-col {
-  display: flex;
-  flex-direction: column;
-}
-
-.spotlight-narrative-top {
+.trust-footer-item {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 1.5px solid rgba(0, 0, 0, 0.18);
+  gap: 8px;
 }
 
-.spotlight-stars-row {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.spotlight-stars-row svg {
-  fill: #000000;
-  stroke: #000000;
-}
-
-.spotlight-rating-val {
-  font-size: 14px;
-  font-weight: 950;
-  color: #000000;
-  margin-left: 8px;
-  font-family: "Rajdhani", sans-serif;
-}
-
-.spotlight-nav-buttons {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.spotlight-nav-btn {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  background: #000000;
-  border: 1.5px solid #000000;
-  color: #ffd300;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-}
-
-.spotlight-nav-btn:hover {
-  background: #222222;
-  transform: translateY(-2px);
-  color: #ffffff;
-}
-
-.spotlight-nav-counter {
-  font-size: 13px;
+.trust-item-val {
+  font-size: 16px;
   font-weight: 900;
-  color: #000000;
-  font-family: "Rajdhani", sans-serif;
+  color: #f6d96b;
 }
 
-.spotlight-pull-quote {
-  font-size: clamp(21px, 2.3vw, 27px);
-  font-weight: 950;
-  line-height: 1.32;
-  color: #000000;
-  letter-spacing: -0.4px;
-  margin-bottom: 16px;
-  font-style: italic;
+.trust-item-lbl {
+  font-size: 13px;
+  color: #a1a1aa;
+  font-weight: 600;
 }
 
-.spotlight-full-quote {
-  font-size: 15px;
-  font-weight: 550;
-  line-height: 1.65;
-  color: #18181b;
-  margin: 0 0 22px 0;
-}
-
-.spotlight-footer-pills {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.spotlight-tag-pill,
-.spotlight-zone-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  background: rgba(0, 0, 0, 0.08);
-  border: 1.5px solid #000000;
-  color: #000000;
-  padding: 6px 14px;
-  border-radius: 10px;
-  font-size: 12px;
-  font-weight: 850;
-}
-
-.spotlight-tag-pill svg,
-.spotlight-zone-pill svg {
-  color: #000000 !important;
-}
-
-/* ══════════════════════════════════════════════════════════════
-   PARTNER CARDS SELECTOR GRID (5 FILLED YELLOW BOXES)
-══════════════════════════════════════════════════════════════ */
-.testimonials-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 22px;
-}
-
-@media (max-width: 1200px) {
-  .testimonials-cards-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-}
-
-@media (max-width: 780px) {
-  .testimonials-cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-}
-
-@media (max-width: 520px) {
-  .testimonials-cards-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-}
-
-/* ── Individual Filled Yellow Card ── */
-.partner-review-card {
-  position: relative;
-  background: #ffd300;
-  color: #000000;
-  border: 2.5px solid #000000;
-  border-radius: 22px;
-  padding: 26px 20px 22px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.75), 0 0 25px rgba(255, 211, 0, 0.3);
-  overflow: hidden;
-}
-
-.partner-review-card:hover,
-.partner-review-card.card-is-active {
-  transform: translateY(-7px) scale(1.02);
-  border-color: #000000;
-  box-shadow: 0 22px 48px -10px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 211, 0, 0.55);
-}
-
-.partner-review-card.card-is-active {
-  background: #ffe347;
-  border-width: 3px;
-}
-
-.card-top-laser {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2.5px;
-  background: linear-gradient(90deg, transparent 0%, #000000 50%, transparent 100%);
-  pointer-events: none;
-}
-
-.card-watermark-quote {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  color: #000000;
-  opacity: 0.12;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.partner-review-card:hover .card-watermark-quote,
-.partner-review-card.card-is-active .card-watermark-quote {
-  opacity: 0.22;
-}
-
-/* Card Header Bar */
-.card-header-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-  position: relative;
-  z-index: 2;
-}
-
-.stars-cluster {
-  display: flex;
-  gap: 3px;
-}
-
-.stars-cluster svg {
-  fill: #000000;
-  stroke: #000000;
-}
-
-
-
-/* Quote Excerpt */
-.card-quote-excerpt {
-  font-size: 13.5px;
-  font-weight: 550;
-  line-height: 1.6;
-  color: #18181b;
-  margin: 0 0 20px 0;
-  flex-grow: 1;
-  font-style: italic;
-  position: relative;
-  z-index: 2;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Author Footer */
-.card-author-footer {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-top: 14px;
-  border-top: 1.5px solid rgba(0, 0, 0, 0.18);
-  position: relative;
-  z-index: 2;
-}
-
-.author-photo-wrapper {
-  position: relative;
-  width: 46px;
-  height: 46px;
-  flex-shrink: 0;
-}
-
-.author-photo-img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #000000;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
-}
-
-.author-info-block {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.author-full-name {
-  font-size: 15.5px;
-  font-weight: 950;
-  color: #000000;
-  margin: 0 0 2px 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  letter-spacing: -0.3px;
-}
-
-.author-location-line {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 12px;
-  font-weight: 800;
-  color: #000000;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.author-pin {
-  color: #000000;
-  flex-shrink: 0;
+.trust-footer-sep {
+  width: 1px;
+  height: 20px;
+  background: rgba(246, 217, 107, 0.2);
 }

@@ -1,14 +1,14 @@
-﻿/* ─── Expansion Timeline — Growth Journey & Territory Radar ─── */
-
+/* ── Expansion Timeline — Ascending Bar Chart ── */
 .timeline-section {
   width: 100%;
-  background-color: transparent;
+  background: #000000;
   color: #ffffff;
   padding: 85px 24px 95px;
   position: relative;
   box-sizing: border-box;
   font-family: "Rajdhani", sans-serif;
   border-top: 1px solid rgba(246, 217, 107, 0.15);
+  border-bottom: 1px solid rgba(246, 217, 107, 0.15);
   overflow: hidden;
 }
 
@@ -19,13 +19,13 @@
   z-index: 2;
 }
 
-/* ── Ambient Background Lighting ── */
+/* Ambient glow */
 .timeline-ambient-glow {
   position: absolute;
-  width: 500px;
-  height: 500px;
+  width: 550px;
+  height: 550px;
   border-radius: 50%;
-  filter: blur(120px);
+  filter: blur(140px);
   pointer-events: none;
   opacity: 0.12;
   z-index: 1;
@@ -34,529 +34,328 @@
 .timeline-ambient-glow-left {
   top: 15%;
   left: -150px;
-  background: radial-gradient(circle, #ffd300 0%, transparent 70%);
+  background: radial-gradient(circle, #f6d96b 0%, transparent 70%);
 }
 
 .timeline-ambient-glow-right {
-  bottom: 10%;
+  bottom: 15%;
   right: -150px;
   background: radial-gradient(circle, #f59e0b 0%, transparent 70%);
 }
 
-/* ── Section Header ── */
-.timeline-header-block {
+/* ── Top Yellow Banner (Exact match to User Screenshot 5) ── */
+.timeline-top-banner {
+  width: 100%;
+  background: #f6d96b;
+  padding: 10px 20px;
+  border-radius: 4px;
   text-align: center;
-  max-width: 860px;
-  margin: 0 auto 55px;
+  box-shadow: 0 4px 18px rgba(246, 217, 107, 0.25);
+  margin-bottom: 16px;
 }
 
-.timeline-badge-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(246, 217, 107, 0.1);
-  color: #ffd300;
-  border: 1px solid rgba(246, 217, 107, 0.35);
-  padding: 6px 18px;
-  border-radius: 9999px;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.75px;
-  margin-bottom: 18px;
-  box-shadow: 0 0 15px rgba(255, 211, 0, 0.1);
-}
-
-.timeline-pill-icon {
-  color: #ffd300;
-}
-
-.timeline-main-title {
-  font-size: clamp(34px, 4.8vw, 56px);
-  font-weight: 900;
-  line-height: 1.1;
-  letter-spacing: -1.2px;
-  color: #ffffff;
-  margin: 0 0 18px 0;
+.timeline-banner-title {
+  color: #000000;
+  font-size: clamp(16px, 2vw, 24px);
+  font-weight: 950;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
+  margin: 0;
 }
 
-.timeline-title-highlight {
-  background: linear-gradient(135deg, #ffffff 30%, #ffd300 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.timeline-sub-text {
-  font-size: clamp(15px, 1.2vw, 17.5px);
+.timeline-banner-sub {
+  text-align: center;
+  font-size: clamp(13px, 1.1vw, 15px);
   font-weight: 500;
-  line-height: 1.65;
-  color: #d4d4d8;
-  margin: 0 auto 28px;
-  max-width: 780px;
+  color: #a1a1aa;
+  margin: 0 auto 20px;
+  max-width: 860px;
+  line-height: 1.5;
 }
 
-/* Header Meta Ticker */
-.timeline-meta-ticker {
+.timeline-pill-center {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.growth-journey-pill {
   display: inline-flex;
   align-items: center;
-  gap: 24px;
-  background: rgba(22, 19, 12, 0.8);
-  border: 1px solid rgba(255, 211, 0, 0.2);
-  backdrop-filter: blur(12px);
-  border-radius: 9999px;
-  padding: 8px 24px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-}
-
-.meta-ticker-item {
-  display: flex;
-  align-items: center;
   gap: 8px;
-}
-
-.ticker-val {
-  font-size: 15px;
+  background: #f6d96b;
+  color: #000000;
+  padding: 6px 20px;
+  border-radius: 4px;
+  font-size: 13.5px;
   font-weight: 900;
-  color: #ffd300;
-  letter-spacing: -0.2px;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 12px rgba(246, 217, 107, 0.25);
 }
 
-.ticker-lbl {
-  font-size: 12.5px;
-  font-weight: 600;
-  color: #a1a1aa;
-}
-
-.meta-ticker-divider {
-  width: 1px;
-  height: 16px;
-  background: rgba(255, 211, 0, 0.25);
-}
-
-@media (max-width: 680px) {
-  .timeline-meta-ticker {
-    flex-direction: column;
-    gap: 8px;
-    border-radius: 16px;
-    padding: 14px 18px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  .meta-ticker-divider {
-    display: none;
-  }
-}
-
-/* ── Growth Highway Layout ── */
-.timeline-highway-container {
+/* ── Chart Outer Wrapper ── */
+.chart-outer-wrapper {
+  background: #0a0805;
+  border: 1px solid rgba(246, 217, 107, 0.25);
+  border-radius: 14px;
+  padding: 40px 30px 24px;
   margin-bottom: 60px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
 }
 
-/* ── Connecting Laser Track & Checkpoints ── */
-.timeline-track-wrapper {
+@media (max-width: 768px) {
+  .chart-outer-wrapper {
+    padding: 24px 12px 20px;
+  }
+}
+
+.chart-viewport {
   position: relative;
+  height: 380px;
   margin-bottom: 24px;
-  padding: 0 30px;
-}
-
-@media (max-width: 1100px) {
-  .timeline-track-wrapper {
-    display: none; /* Hidden on stacked mobile/tablet view for cleaner layout */
-  }
-}
-
-.timeline-track-rail {
-  position: absolute;
-  top: 24px;
-  left: 60px;
-  right: 60px;
-  height: 4px;
-  background: rgba(255, 211, 0, 0.15);
-  border-radius: 4px;
-  z-index: 1;
-  overflow: hidden;
-}
-
-.timeline-track-glow-pulse {
-  position: absolute;
-  top: 0;
-  left: -20%;
-  width: 40%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent 0%, #ffd300 50%, transparent 100%);
-  animation: trackBeamFlow 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-}
-
-.timeline-track-active-fill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  background: #ffd300;
-  box-shadow: 0 0 14px #ffd300, 0 0 25px rgba(255, 211, 0, 0.7);
-  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  border-radius: 4px;
-}
-
-@keyframes trackBeamFlow {
-  0% { left: -40%; }
-  100% { left: 120%; }
-}
-
-.timeline-checkpoints-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  position: relative;
-  z-index: 2;
-}
-
-.timeline-checkpoint-node {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  transition: transform 0.25s ease;
+  align-items: flex-end;
 }
 
-.timeline-checkpoint-node:hover {
-  transform: translateY(-2px);
-}
-
-.node-outer-ring {
-  position: relative;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: #14110a;
-  border: 2px solid rgba(255, 211, 0, 0.35);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 211, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.timeline-checkpoint-node.is-active .node-outer-ring {
-  border-color: #ffd300;
-  background: #ffd300;
-  box-shadow: 0 0 25px rgba(255, 211, 0, 0.8), 0 0 45px rgba(255, 211, 0, 0.5);
-  transform: scale(1.15);
-}
-
-.timeline-checkpoint-node.is-active .node-inner-core {
-  color: #0c0a06;
-}
-
-.timeline-checkpoint-node.is-active .node-icon-check,
-.timeline-checkpoint-node.is-active .node-icon-live {
-  color: #0c0a06;
-}
-
-.node-radar-ping {
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(255, 211, 0, 0.6);
-  animation: nodeRadarPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-  pointer-events: none;
-}
-
-@keyframes nodeRadarPing {
-  0% {
-    transform: scale(0.9);
-    opacity: 0.9;
-  }
-  100% {
-    transform: scale(1.6);
-    opacity: 0;
+@media (max-width: 768px) {
+  .chart-viewport {
+    height: 320px;
+    overflow-x: auto;
+    padding-bottom: 10px;
   }
 }
 
-.node-inner-core {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  color: #ffd300;
-  font-size: 13px;
-  font-weight: 900;
-}
-
-.node-icon-check {
-  color: #ffd300;
-}
-
-.node-icon-live {
-  color: #ffd300;
-  animation: liveIconPulse 1.4s ease-in-out infinite alternate;
-}
-
-@keyframes liveIconPulse {
-  0% { opacity: 0.6; transform: scale(0.92); }
-  100% { opacity: 1; transform: scale(1.08); }
-}
-
-.node-number {
-  font-size: 12.5px;
-  font-weight: 900;
-  letter-spacing: -0.2px;
-}
-
-.node-drop-laser {
-  width: 2px;
-  height: 20px;
-  background: linear-gradient(180deg, rgba(255, 211, 0, 0.4) 0%, transparent 100%);
-  margin-top: 6px;
-  transition: all 0.3s ease;
-}
-
-.timeline-checkpoint-node.is-active .node-drop-laser {
-  height: 24px;
-  background: linear-gradient(180deg, #ffd300 0%, rgba(255, 211, 0, 0.2) 100%);
-}
-
-/* ── Milestone Cards Grid ── */
-.timeline-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 22px;
-}
-
-@media (max-width: 1100px) {
-  .timeline-cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-}
-
-@media (max-width: 640px) {
-  .timeline-cards-grid {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-}
-
-/* ── Simplified, Animated Cyber-Yellow Milestone Card ── */
-.timeline-step-card {
-  position: relative;
-  background: linear-gradient(170deg, #15120a 0%, #0d0b06 100%);
-  border: 1.5px solid rgba(255, 211, 0, 0.22);
-  border-radius: 20px;
-  padding: 26px 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  box-shadow: 0 14px 35px -10px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 211, 0, 0.03);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.timeline-step-card:hover,
-.timeline-step-card.card-highlighted {
-  border-color: #ffd300;
-  background: linear-gradient(170deg, #221c0e 0%, #120e06 100%);
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 22px 50px -10px rgba(0, 0, 0, 0.95), 0 0 35px rgba(255, 211, 0, 0.35);
-}
-
-.card-live-stage {
-  border-color: rgba(255, 211, 0, 0.45);
-}
-
-.timeline-step-card.card-highlighted .step-top-laser {
-  opacity: 1;
-  background: linear-gradient(90deg, transparent 0%, #ffd300 50%, transparent 100%);
-  box-shadow: 0 0 15px #ffd300;
-}
-
-/* Top Laser Rim */
-.step-top-laser {
+/* Horizontal Gridlines */
+.chart-gridlines {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 2.5px;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 211, 0, 0.5) 50%, transparent 100%);
-  z-index: 3;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   pointer-events: none;
-  opacity: 0.4;
-  transition: opacity 0.3s ease;
+  z-index: 1;
 }
 
-/* Watermark Step Number */
-.step-watermark-number {
-  position: absolute;
-  top: -8px;
-  right: 12px;
-  font-size: 80px;
-  font-weight: 950;
-  color: #ffd300;
-  opacity: 0.05;
-  line-height: 1;
-  pointer-events: none;
-  font-family: "Rajdhani", sans-serif;
-  user-select: none;
-  transition: all 0.4s ease;
-}
-
-.timeline-step-card:hover .step-watermark-number,
-.timeline-step-card.card-highlighted .step-watermark-number {
-  opacity: 0.12;
-  transform: scale(1.05);
-}
-
-/* Card Header: Year & Metric Pill */
-.step-card-top {
+.gridline {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  position: relative;
-  z-index: 2;
-  gap: 8px;
-  flex-wrap: wrap;
+  gap: 12px;
+  width: 100%;
 }
 
-.step-year-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255, 211, 0, 0.1);
-  color: #ffd300;
-  border: 1px solid rgba(255, 211, 0, 0.3);
-  padding: 4px 10px;
-  border-radius: 9999px;
-  font-size: 11px;
-  font-weight: 850;
-  letter-spacing: 0.5px;
-}
-
-.step-metric-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 12px;
-  font-weight: 900;
-  color: #0c0a06;
-  background: #ffd300;
-  padding: 4px 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(255, 211, 0, 0.35);
-  letter-spacing: -0.2px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.timeline-step-card:hover .step-metric-badge,
-.timeline-step-card.card-highlighted .step-metric-badge {
-  transform: scale(1.05);
-  box-shadow: 0 4px 14px rgba(255, 211, 0, 0.6);
-}
-
-.metric-arrow-icon {
-  color: #0c0a06;
-}
-
-/* Simplified Title & Subtitle */
-.step-card-title {
-  font-family: "Rajdhani", sans-serif;
-  font-size: 20px;
-  font-weight: 900;
-  color: #ffffff;
-  margin: 0;
-  line-height: 1.25;
-  position: relative;
-  z-index: 2;
-  letter-spacing: -0.3px;
-  transition: color 0.25s ease;
-}
-
-.timeline-step-card:hover .step-card-title,
-.timeline-step-card.card-highlighted .step-card-title {
-  color: #ffd300;
-}
-
-.step-card-sub {
-  font-size: 13.5px;
-  font-weight: 600;
-  color: #e4e4e7;
-  margin: 0;
-  position: relative;
-  z-index: 2;
-}
-
-/* Highlight Pill (Simpler, Clean, Yellow Tag) */
-.step-highlight-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  background: rgba(255, 211, 0, 0.08);
-  border: 1px solid rgba(255, 211, 0, 0.25);
-  border-radius: 10px;
-  padding: 8px 12px;
-  margin-top: 4px;
-  font-size: 12px;
-  font-weight: 700;
-  color: #ffd300;
-  position: relative;
-  z-index: 2;
-  transition: all 0.3s ease;
-}
-
-.timeline-step-card:hover .step-highlight-pill,
-.timeline-step-card.card-highlighted .step-highlight-pill {
-  background: rgba(255, 211, 0, 0.16);
-  border-color: #ffd300;
-  color: #ffffff;
-}
-
-.pill-sparkle {
-  color: #ffd300;
+.grid-label {
+  font-size: 13px;
+  font-weight: 800;
+  color: #71717a;
+  width: 24px;
+  text-align: right;
   flex-shrink: 0;
 }
 
-/* ── Territory Allotment Radar Module (Upcoming Branches — Full Yellow Box) ── */
-.upcoming-radar-module {
+.grid-line {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  flex-grow: 1;
+}
+
+.gridline-base .grid-line {
+  background: rgba(246, 217, 107, 0.3);
+}
+
+/* Bars Container */
+.chart-bars-container {
   position: relative;
-  background: #ffd300;
-  border: 2px solid #ffd300;
-  border-radius: 24px;
-  padding: 38px 34px;
-  box-shadow: 0 20px 60px rgba(255, 211, 0, 0.35), 0 8px 30px rgba(0, 0, 0, 0.45);
-  overflow: hidden;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding-left: 40px;
+  gap: 12px;
 }
 
-.radar-mesh-bg {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-  background-size: 28px 28px;
-  pointer-events: none;
-  opacity: 0.7;
+@media (max-width: 768px) {
+  .chart-bars-container {
+    min-width: 650px;
+    padding-left: 30px;
+  }
 }
 
-.radar-glow-rim {
+/* Single Bar Column */
+.chart-bar-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  justify-content: flex-end;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.chart-bar-column:hover {
+  transform: translateY(-4px);
+}
+
+.bar-date-header {
+  font-size: 11px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  text-align: center;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.chart-bar-column.bar-is-selected .bar-date-header,
+.chart-bar-column:hover .bar-date-header {
+  color: #f6d96b;
+}
+
+/* Pillar */
+.bar-pillar-wrap {
+  width: 100%;
+  height: calc(100% - 32px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.bar-pillar {
+  width: 80%;
+  max-width: 80px;
+  background: #f6d96b;
+  border-radius: 4px 4px 0 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 16px rgba(246, 217, 107, 0.3);
+  transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chart-bar-column.bar-is-selected .bar-pillar,
+.chart-bar-column:hover .bar-pillar {
+  background: #ffeb3b;
+  box-shadow: 0 0 24px rgba(246, 217, 107, 0.6);
+}
+
+.chart-bar-column.bar-is-target .bar-pillar {
+  background: linear-gradient(180deg, #ffd700 0%, #f59e0b 100%);
+  box-shadow: 0 0 30px rgba(246, 217, 107, 0.7);
+}
+
+.bar-top-shine {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.7) 50%, transparent 100%);
-  pointer-events: none;
+  height: 4px;
+  background: #ffffff;
+  border-radius: 4px 4px 0 0;
 }
 
-/* Radar Header */
+.bar-inner-val {
+  font-size: 12.5px;
+  font-weight: 950;
+  color: #000000;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  letter-spacing: 1px;
+}
+
+.chart-bar-column.bar-is-target .bar-inner-val {
+  font-size: 13.5px;
+}
+
+/* Active Milestone Card */
+.chart-active-card {
+  background: rgba(18, 14, 9, 0.95);
+  border: 1px solid rgba(246, 217, 107, 0.35);
+  border-radius: 10px;
+  padding: 18px 24px;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.active-card-laser {
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #f6d96b, transparent);
+}
+
+.active-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.active-card-phase {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #f6d96b;
+  letter-spacing: 0.5px;
+}
+
+.active-card-count {
+  font-size: 13.5px;
+  font-weight: 900;
+  color: #ffffff;
+  background: rgba(246, 217, 107, 0.15);
+  padding: 2px 10px;
+  border-radius: 4px;
+}
+
+.active-card-milestone {
+  font-size: 18px;
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+}
+
+.active-card-desc {
+  font-size: 14px;
+  color: #a1a1aa;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* ── Territory Allotment Radar Module ── */
+.upcoming-radar-module {
+  background: rgba(18, 14, 9, 0.9);
+  border: 1px solid rgba(246, 217, 107, 0.25);
+  border-radius: 14px;
+  padding: 30px;
+  position: relative;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7);
+}
+
 .upcoming-box-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
   gap: 20px;
-  margin-bottom: 30px;
-  padding-bottom: 22px;
-  border-bottom: 1.5px solid rgba(0, 0, 0, 0.12);
-  position: relative;
-  z-index: 2;
+  margin-bottom: 26px;
+}
+
+@media (max-width: 768px) {
+  .upcoming-box-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .upcoming-title-left {
@@ -566,195 +365,112 @@
 }
 
 .radar-icon-container {
-  position: relative;
   width: 48px;
   height: 48px;
-  border-radius: 14px;
-  background: #000000;
-  border: 1.5px solid #000000;
+  border-radius: 12px;
+  background: rgba(246, 217, 107, 0.12);
+  border: 1px solid rgba(246, 217, 107, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffd300;
+  color: #f6d96b;
   flex-shrink: 0;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-}
-
-.radar-compass-icon {
-  animation: spinSlow 18s linear infinite;
-}
-
-@keyframes spinSlow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.radar-pulse-wave {
-  position: absolute;
-  inset: -4px;
-  border-radius: 16px;
-  border: 1px solid rgba(0, 0, 0, 0.25);
-  animation: radarWave 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
-  pointer-events: none;
-}
-
-@keyframes radarWave {
-  0% { transform: scale(0.95); opacity: 0.8; }
-  100% { transform: scale(1.4); opacity: 0; }
 }
 
 .radar-sub-tag {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 11.5px;
-  font-weight: 900;
-  color: #000000;
+  font-size: 11px;
+  font-weight: 800;
+  color: #f6d96b;
   letter-spacing: 0.8px;
   margin-bottom: 4px;
 }
 
-.radar-sparkle-gold {
-  color: #000000;
-}
-
 .upcoming-title {
-  font-size: 26px;
-  font-weight: 950;
-  color: #000000;
-  margin: 0 0 5px 0;
-  letter-spacing: -0.5px;
+  font-size: 22px;
+  font-weight: 900;
+  margin: 0 0 4px 0;
+  color: #ffffff;
 }
 
 .upcoming-title-yellow {
-  color: #000000;
+  color: #f6d96b;
 }
 
 .upcoming-sub {
-  font-size: 14px;
-  color: #1a1a1a;
+  font-size: 13.5px;
+  color: #a1a1aa;
   margin: 0;
-  font-weight: 600;
+  font-weight: 500;
 }
 
-/* CTA Button */
 .upcoming-cta-btn {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  background: #000000;
-  color: #ffd300;
-  font-size: 13px;
+  gap: 8px;
+  background: #f6d96b;
+  color: #000000;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 13.5px;
   font-weight: 900;
-  padding: 12px 24px;
-  border-radius: 9999px;
   letter-spacing: 0.5px;
-  border: 1.5px solid #000000;
   cursor: pointer;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(246, 217, 107, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  flex-shrink: 0;
 }
 
 .upcoming-cta-btn:hover {
-  background: #18181b;
-  color: #ffffff;
-  border-color: #18181b;
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(246, 217, 107, 0.45);
 }
 
-.cta-arrow-icon {
-  transition: transform 0.2s ease;
-}
-
-.upcoming-cta-btn:hover .cta-arrow-icon {
-  transform: translateX(3px);
-}
-
-/* ── Cities Grid ── */
 .upcoming-cities-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  position: relative;
-  z-index: 2;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
 }
 
-@media (max-width: 960px) {
-  .upcoming-cities-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 580px) {
-  .upcoming-cities-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-}
-
-/* Territory Node Card */
 .city-chip-card {
-  background: #000000;
-  border: 1.5px solid rgba(0, 0, 0, 0.7);
-  border-radius: 18px;
-  padding: 22px 28px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(246, 217, 107, 0.2);
+  border-radius: 10px;
+  padding: 12px 16px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 14px;
+  gap: 12px;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
 .city-chip-card:hover {
-  background: #121008;
-  border-color: #000000;
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+  background: rgba(246, 217, 107, 0.08);
+  border-color: rgba(246, 217, 107, 0.45);
+  transform: translateY(-2px);
 }
 
 .city-pin-wrapper {
-  position: relative;
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background: rgba(255, 211, 0, 0.15);
-  border: 1.5px solid rgba(255, 211, 0, 0.4);
+  color: #f6d96b;
+}
+
+.city-chip-text {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: all 0.25s ease;
-}
-
-.city-chip-card:hover .city-pin-wrapper {
-  background: #ffd300;
-  border-color: #ffd300;
-  transform: scale(1.08);
-}
-
-.city-pin {
-  color: #ffd300;
-  transition: color 0.25s ease;
-}
-
-.city-chip-card:hover .city-pin {
-  color: #000000;
+  flex-direction: column;
 }
 
 .city-name {
-  font-family: "Rajdhani", sans-serif;
-  font-size: 22px;
-  font-weight: 950;
+  font-size: 15px;
+  font-weight: 800;
   color: #ffffff;
-  letter-spacing: 0.8px;
-  margin: 0;
-  transition: all 0.25s ease;
+  letter-spacing: 0.5px;
 }
 
-.city-chip-card:hover .city-name {
-  color: #ffd300;
-  letter-spacing: 1.2px;
+.city-desc {
+  font-size: 11.5px;
+  color: #71717a;
+  font-weight: 600;
 }

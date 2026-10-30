@@ -44,6 +44,7 @@ const AssessmentTestPage = React.lazy(() => import("../pages/assessments/Assessm
 const NearestBranchFinder = React.lazy(() => import("../pages/branchFinder/NearestBranchFinder"));
 const PayNowPage = React.lazy(() => import("../pages/payNow/PayNowPage"));
 const UploadMediaPage = React.lazy(() => import("../pages/uploadMedia/UploadMediaPage"));
+const CertificatePreviewPage = React.lazy(() => import("../pages/certification/CertificatePreviewPage"));
 
 function ApplyCertificateRedirect() {
   React.useEffect(() => {
@@ -152,6 +153,18 @@ export default function AppRoutes() {
         <Route
           path="certification"
           element={<OurCertificationPage />}
+        />
+        <Route
+          path="certificate-preview"
+          element={<CertificatePreviewPage />}
+        />
+        <Route
+          path="preview-certificate"
+          element={<CertificatePreviewPage />}
+        />
+        <Route
+          path="student-certificate-preview"
+          element={<CertificatePreviewPage />}
         />
         <Route
           path="apply-certificate"

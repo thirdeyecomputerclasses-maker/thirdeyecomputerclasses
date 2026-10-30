@@ -1,0 +1,67 @@
+/* CertificatePreviewPage.css */
+
+.certificate-preview-page {
+  position: relative;
+  background-color: #070604;
+  min-height: 100vh;
+}
+
+/* Ambient Radial Glow */
+.cert-ambient-radial {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1200px;
+  height: 600px;
+  background: radial-gradient(circle at 50% 15%, rgba(246, 217, 107, 0.08) 0%, rgba(246, 217, 107, 0.02) 45%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Canvas Frame Glow & Border */
+.cert-canvas-frame {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cert-canvas-frame:hover {
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.95), 0 0 50px rgba(246, 217, 107, 0.1);
+}
+
+.cert-canvas-element {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* Print Specific Optimizations */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .cert-canvas-element,
+  .cert-canvas-frame,
+  .cert-canvas-frame * {
+    visibility: visible;
+  }
+  .cert-canvas-frame {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  .cert-canvas-element {
+    width: 100vw !important;
+    height: auto !important;
+    max-height: 100vh !important;
+    object-fit: contain;
+  }
+}

@@ -24,6 +24,8 @@ import {
   Train,
   Check,
   GraduationCap,
+  ChevronDown,
+  HelpCircle,
 } from "lucide-react";
 import {
   BRANCHES_DATA,
@@ -43,10 +45,86 @@ const POPULAR_LOCALITY_CHIPS = [
   { label: "Pratap Nagar", query: "Pratap Nagar" },
   { label: "Vaishali Nagar", query: "Vaishali Nagar" },
   { label: "Gopalpura", query: "Gopalpura" },
-  { label: "Malviya Nagar", query: "Malviya Nagar" },
+  { label: "Sodala", query: "Sodala" },
   { label: "Jhotwara", query: "Jhotwara" },
   { label: "Vidhyadhar Nagar", query: "Vidhyadhar Nagar" },
   { label: "Raja Park", query: "Raja Park" },
+];
+
+const BRANCH_FINDER_FAQS = [
+  // ── 1. Path Finder & Route Navigation ──
+  {
+    id: "faq-pf-1",
+    category: "pathfinder",
+    categoryLabel: "Path Finder & Route",
+    question: "How does the Nearest Branch Finder locate my closest ThirdEye campus?",
+    answer: "You can enter your 6-digit Jaipur area PIN code (e.g. 302020, 302017, 302033), type your locality name (Mansarovar, Jagatpura, Sanganer, Pratap Nagar, etc.), or simply click 'Use My Location'. Our geospatial algorithm calculates exact road distances and estimated travel times to all 15+ ThirdEye centers across Jaipur, highlighting the optimal campus and driving route for you."
+  },
+  {
+    id: "faq-pf-2",
+    category: "pathfinder",
+    categoryLabel: "Path Finder & Route",
+    question: "Can I choose to enroll at any ThirdEye branch, or am I restricted to the nearest one?",
+    answer: "You have complete freedom to enroll at whichever ThirdEye branch best fits your daily commute, college schedule, or metro convenience. All 15+ Jaipur campuses follow identical ISO 9001:2015 certified teaching protocols, high-spec workstation labs, and centralized syllabus tracking."
+  },
+  {
+    id: "faq-pf-3",
+    category: "pathfinder",
+    categoryLabel: "Path Finder & Route",
+    question: "Can I switch branches or change my batch timings if I relocate within Jaipur?",
+    answer: "Yes! We offer a zero-friction cross-campus transfer facility. If you change your residence, hostel, or college location within Jaipur, you can transfer your ongoing batch to your new nearest ThirdEye branch with zero transfer fees and 100% syllabus continuity."
+  },
+  {
+    id: "faq-pf-4",
+    category: "pathfinder",
+    categoryLabel: "Path Finder & Route",
+    question: "How do I reach the campus using public transport like Jaipur Metro, Low-Floor buses, or E-Rickshaws?",
+    answer: "Every branch listed above includes a 'Transit' guide. Campuses like Mansarovar, Sodala, and Gopalpura are within minutes of the Jaipur Metro line, while Sanganer (HQ), Pratap Nagar, Jagatpura, and Vaishali Nagar have continuous connectivity via Low-Floor City Bus routes and E-Rickshaws. Click 'Start Navigation' on any branch card to launch live Google Maps directions."
+  },
+  {
+    id: "faq-pf-5",
+    category: "pathfinder",
+    categoryLabel: "Path Finder & Route",
+    question: "Are all specialized courses and computer labs available at every branch?",
+    answer: "Yes, all our flagship professional programs — including 2D & 3D Animation, Full-Stack Web Development, Graphic Design, Video Editing, Tally Prime with GST, Python, and RS-CIT — are equipped with dedicated lab setups across all Jaipur campuses. Centralized workshops, masterclasses, and placement drives are organized across the network."
+  },
+
+  // ── 2. General Enquiry & Campus Visits ──
+  {
+    id: "faq-gen-1",
+    category: "general",
+    categoryLabel: "General Enquiry",
+    question: "What are the campus visiting hours and helpline timings?",
+    answer: "All ThirdEye Computer Classes campuses are open Monday to Saturday from 8:00 AM to 8:00 PM for in-person visits, lab walkthroughs, and course counseling. You can also reach our centralized helpline at +91 805 806 1222 during these hours."
+  },
+  {
+    id: "faq-gen-2",
+    category: "general",
+    categoryLabel: "General Enquiry",
+    question: "Do I need to book an appointment before visiting for counseling or demo classes?",
+    answer: "Walk-ins are always warmly welcomed! However, booking in advance via our quick online enquiry form or calling +91 805 806 1222 ensures an assigned senior counselor is ready to give you a personalized career roadmap and reserves a hands-on workstation terminal for your 2-day free demo classes."
+  },
+  {
+    id: "faq-gen-3",
+    category: "general",
+    categoryLabel: "General Enquiry",
+    question: "Does ThirdEye assist outstation students with nearby PG / hostel accommodations?",
+    answer: "Yes! For students joining us from other towns or states, our administration team assists in finding verified, safe, and clean boy's and girl's PGs and hostels within 200m–500m of our major campuses (Pratap Nagar, Mansarovar, Jagatpura, and Sanganer), complete with mess and Wi-Fi facilities."
+  },
+  {
+    id: "faq-gen-4",
+    category: "general",
+    categoryLabel: "General Enquiry",
+    question: "What payment options are available for course admission fees?",
+    answer: "You can pay your admission fees in person at any branch reception via Cash, UPI, or Debit/Credit Card. Alternatively, you can use our secure online Pay Now portal with UPI QR, NetBanking, cards, and zero-cost monthly EMI options."
+  },
+  {
+    id: "faq-gen-5",
+    category: "general",
+    categoryLabel: "General Enquiry",
+    question: "Is vehicle parking available for students at the branches?",
+    answer: "Yes, every ThirdEye campus provides dedicated, secure two-wheeler and four-wheeler parking spaces monitored 24/7 with CCTV cameras and security personnel, allowing students to attend classes and practice labs comfortably."
+  }
 ];
 
 export default function NearestBranchFinder() {
@@ -58,6 +136,16 @@ export default function NearestBranchFinder() {
   const [selectedZone, setSelectedZone] = useState("all");
   const [selectedBranchId, setSelectedBranchId] = useState(BRANCHES_DATA[0].id);
   const [mapMode, setMapMode] = useState("route"); // "route" | "spot"
+
+  // FAQ interactive state
+  const [activeFaqCategory, setActiveFaqCategory] = useState("all");
+  const [openFaqId, setOpenFaqId] = useState("faq-pf-1");
+
+  // Filtered FAQs based on selected category pill
+  const filteredFaqs = useMemo(() => {
+    if (activeFaqCategory === "all") return BRANCH_FINDER_FAQS;
+    return BRANCH_FINDER_FAQS.filter((f) => f.category === activeFaqCategory);
+  }, [activeFaqCategory]);
 
   // Search results calculation
   const searchResult = useMemo(() => {
@@ -117,6 +205,29 @@ export default function NearestBranchFinder() {
     );
   };
 
+  // If browser already granted geolocation permission, automatically fetch live coordinates on mount
+  useEffect(() => {
+    if (navigator.permissions && navigator.permissions.query) {
+      navigator.permissions
+        .query({ name: "geolocation" })
+        .then((result) => {
+          if (result.state === "granted") {
+            navigator.geolocation.getCurrentPosition(
+              (pos) => {
+                setUserCoords({
+                  lat: pos.coords.latitude,
+                  lng: pos.coords.longitude,
+                });
+              },
+              () => {},
+              { timeout: 8000, enableHighAccuracy: true }
+            );
+          }
+        })
+        .catch(() => {});
+    }
+  }, []);
+
   // Quick chip click
   const handleSelectChip = (query) => {
     setUserCoords(null);
@@ -128,6 +239,62 @@ export default function NearestBranchFinder() {
     setSearchInput("");
     setUserCoords(null);
     setLocationError("");
+  };
+
+  // Start turn-by-turn navigation from live user location to target branch
+  const handleStartNavigation = (branch = activeBranch) => {
+    // 1. If we already have exact GPS coordinates, launch immediately
+    if (userCoords && userCoords.lat && userCoords.lng) {
+      window.open(
+        getGoogleMapsDirectionsUrl(userCoords, branch),
+        "_blank",
+        "noopener,noreferrer"
+      );
+      return;
+    }
+
+    // 2. If user entered a manual locality/pincode search, navigate from that location
+    if (searchInput && searchInput.trim()) {
+      window.open(
+        getGoogleMapsDirectionsUrl(searchInput.trim(), branch),
+        "_blank",
+        "noopener,noreferrer"
+      );
+      return;
+    }
+
+    // 3. Otherwise, fetch live device GPS location so it routes from exact current spot
+    if (navigator.geolocation) {
+      setIsLocating(true);
+      const navWindow = window.open("", "_blank");
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          setIsLocating(false);
+          const coords = {
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude,
+          };
+          setUserCoords(coords);
+          if (navWindow) {
+            navWindow.location.href = getGoogleMapsDirectionsUrl(coords, branch);
+          }
+        },
+        () => {
+          setIsLocating(false);
+          // Fallback to Google Maps directions with automatic current location
+          if (navWindow) {
+            navWindow.location.href = getGoogleMapsDirectionsUrl(null, branch);
+          }
+        },
+        { timeout: 8000, enableHighAccuracy: true }
+      );
+    } else {
+      window.open(
+        getGoogleMapsDirectionsUrl(null, branch),
+        "_blank",
+        "noopener,noreferrer"
+      );
+    }
   };
 
   // Google Maps embed URL
@@ -433,8 +600,12 @@ export default function NearestBranchFinder() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-open-gmaps"
-                      onClick={(e) => e.stopPropagation()}
-                      title="Open turn-by-turn route in Google Maps"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        handleStartNavigation(branch);
+                      }}
+                      title="Open turn-by-turn route from your location in Google Maps"
                     >
                       <Navigation size={14} />
                       <span>Directions</span>
@@ -592,6 +763,11 @@ export default function NearestBranchFinder() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="map-start-nav-btn"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleStartNavigation(activeBranch);
+                    }}
+                    title="Start turn-by-turn navigation from your current location"
                   >
                     <Navigation size={17} />
                     <span>Start Navigation</span>
@@ -612,6 +788,21 @@ export default function NearestBranchFinder() {
                     <GraduationCap size={17} />
                     <span>Enquire for Admission</span>
                   </button>
+                </div>
+
+                {/* Direct verified Google Maps listing link */}
+                <div className="map-direct-pin-wrap">
+                  <a
+                    href={activeBranch.mapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="map-direct-pin-link"
+                    title="View verified campus listing, photos & student reviews on Google Maps"
+                  >
+                    <MapPin size={13} />
+                    <span>View verified pin on Google Maps</span>
+                    <ExternalLink size={11} />
+                  </a>
                 </div>
 
                 {/* Metro & Transit Info */}
@@ -676,6 +867,135 @@ export default function NearestBranchFinder() {
               <p>
                 Attend 2 days of live hands-on classroom lab trials before making your admission decision. Zero commitments required.
               </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================= */}
+        {/* PATH FINDER & GENERAL ENQUIRY FAQ SECTION                 */}
+        {/* ========================================================= */}
+        <section className="finder-faq-section" id="branch-faqs">
+          <div className="finder-faq-container">
+            <div className="finder-faq-header">
+              <div className="finder-faq-badge">
+                <HelpCircle size={14} className="text-[#f6d96b]" />
+                <span>FREQUENTLY ASKED QUESTIONS</span>
+              </div>
+              <h2 className="finder-faq-title">
+                Path Finder &amp; <span className="text-[#f6d96b]">General Enquiries</span>
+              </h2>
+              <p className="finder-faq-subtitle">
+                Clear answers to common questions about finding your nearest campus, visiting our labs, 
+                batch scheduling, and course admissions.
+              </p>
+
+              {/* Category Filter Pills */}
+              <div className="faq-category-pills">
+                <button
+                  type="button"
+                  className={`faq-cat-pill ${activeFaqCategory === "all" ? "active" : ""}`}
+                  onClick={() => setActiveFaqCategory("all")}
+                >
+                  <span>All Questions</span>
+                  <span className="faq-pill-count">{BRANCH_FINDER_FAQS.length}</span>
+                </button>
+                <button
+                  type="button"
+                  className={`faq-cat-pill ${activeFaqCategory === "pathfinder" ? "active" : ""}`}
+                  onClick={() => setActiveFaqCategory("pathfinder")}
+                >
+                  <Compass size={14} />
+                  <span>Path Finder &amp; Routes</span>
+                  <span className="faq-pill-count">
+                    {BRANCH_FINDER_FAQS.filter((f) => f.category === "pathfinder").length}
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  className={`faq-cat-pill ${activeFaqCategory === "general" ? "active" : ""}`}
+                  onClick={() => setActiveFaqCategory("general")}
+                >
+                  <HelpCircle size={14} />
+                  <span>General Enquiry &amp; Visits</span>
+                  <span className="faq-pill-count">
+                    {BRANCH_FINDER_FAQS.filter((f) => f.category === "general").length}
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            {/* FAQ Accordion List */}
+            <div className="faq-accordion-list">
+              {filteredFaqs.map((faq) => {
+                const isOpen = openFaqId === faq.id;
+                return (
+                  <div
+                    key={faq.id}
+                    className={`faq-item-card ${isOpen ? "is-open" : ""}`}
+                  >
+                    <button
+                      type="button"
+                      className="faq-question-btn"
+                      onClick={() => setOpenFaqId(isOpen ? null : faq.id)}
+                      aria-expanded={isOpen}
+                    >
+                      <div className="faq-q-left">
+                        <span className="faq-q-badge">{faq.categoryLabel}</span>
+                        <h3 className="faq-q-text">{faq.question}</h3>
+                      </div>
+                      <div className="faq-chevron-wrap">
+                        <ChevronDown
+                          size={18}
+                          className={`faq-chevron-icon ${isOpen ? "is-rotated" : ""}`}
+                        />
+                      </div>
+                    </button>
+
+                    {isOpen && (
+                      <div className="faq-answer-pane">
+                        <p className="faq-answer-text">{faq.answer}</p>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Quick Counselor Helpline Banner */}
+            <div className="faq-helpline-box">
+              <div className="faq-helpline-content">
+                <div className="faq-helpline-icon">
+                  <PhoneCall size={24} />
+                </div>
+                <div>
+                  <h4 className="faq-helpline-title">Still have questions about finding your campus?</h4>
+                  <p className="faq-helpline-sub">
+                    Speak directly with our senior admission counselors. Available Mon–Sat, 8:00 AM – 8:00 PM.
+                  </p>
+                </div>
+              </div>
+              <div className="faq-helpline-actions">
+                <a
+                  href="tel:+918058061222"
+                  className="faq-call-btn"
+                >
+                  <PhoneCall size={15} />
+                  <span>+91 805 806 1222</span>
+                </a>
+                <button
+                  type="button"
+                  className="faq-enquire-btn"
+                  onClick={() =>
+                    openEnquiry({
+                      learningMode: "classroom",
+                      sourcePage: "Nearest Branch Finder - FAQ Section",
+                    })
+                  }
+                >
+                  <GraduationCap size={16} />
+                  <span>Ask a Counselor</span>
+                </button>
+              </div>
             </div>
           </div>
         </section>

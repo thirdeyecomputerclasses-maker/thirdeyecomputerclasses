@@ -14,12 +14,13 @@ export const BRANCHES_DATA = [
     zone: "South Jaipur",
     tag: "Flagship Campus • Head Office",
     isHeadOffice: true,
-    address: "Plot No. 12-15, Main Market Road, Near Sanganer Stadium & Bus Stand, Sanganer, Jaipur, Rajasthan 302029",
-    landmark: "Near Sanganer Stadium & Sanganer Bus Stand",
+    address: "35, First Floor, Nagar Nigam Rd, above HDFC Bank, near Sanganer Stadium, Printers Colony, Dada Gurudev Nagar, Sanganer, Jaipur, Rajasthan 302029",
+    landmark: "Above HDFC Bank, near Sanganer Stadium",
+    mapUrl: "https://maps.app.goo.gl/V21L8Br2ZgBVgdB9A",
     pincode: "302029",
     coordinates: {
-      lat: 26.8188,
-      lng: 75.7679,
+      lat: 26.8187851,
+      lng: 75.7828818,
     },
     coveredPincodes: ["302029", "302030", "302031", "302022", "303902", "303903"],
     servedLocalities: [
@@ -35,7 +36,7 @@ export const BRANCHES_DATA = [
       "Bilwa",
       "Tonk Phatak South",
     ],
-    phone: "+91 80580 61222",
+    phone: "+91 805 806 1222",
     whatsapp: "918058061222",
     email: "sanganer@thirdeyeclasses.com",
     hours: "Mon – Sat: 8:00 AM – 8:30 PM • Sunday Open for Counseling",
@@ -65,12 +66,13 @@ export const BRANCHES_DATA = [
     zone: "South-East Jaipur",
     tag: "Engineering & IT Training Hub",
     isHeadOffice: false,
-    address: "Sector 8, Near Haldi Ghati Marg, Opposite Coaching Hub, Pratap Nagar, Jaipur, Rajasthan 302033",
-    landmark: "Near Haldi Ghati Marg & Coaching Hub Gate",
+    address: "111, First, Haldi ghati Gate, 68, Coaching Hub Road, Sanganer, Pratap Nagar, Jaipur, Rajasthan 302033",
+    landmark: "111, First, Haldi Ghati Gate, Coaching Hub Road",
+    mapUrl: "https://maps.app.goo.gl/6vB6EQBBpNWz5BvY7",
     pincode: "302033",
     coordinates: {
-      lat: 26.8045,
-      lng: 75.8248,
+      lat: 26.8041801,
+      lng: 75.8097162,
     },
     coveredPincodes: ["302033", "302022", "303904", "302029"],
     servedLocalities: [
@@ -88,7 +90,7 @@ export const BRANCHES_DATA = [
       "Mahatma Gandhi Hospital Road",
       "Kumbha Marg",
     ],
-    phone: "+91 80580 61223",
+    phone: "+91 805 806 1222",
     whatsapp: "918058061222",
     email: "pratapnagar@thirdeyeclasses.com",
     hours: "Mon – Sat: 8:00 AM – 8:00 PM • Sunday Demo Batches",
@@ -117,12 +119,13 @@ export const BRANCHES_DATA = [
     zone: "East Jaipur",
     tag: "Design, CAD & Coding Studio",
     isHeadOffice: false,
-    address: "Plot No. 45, Mahal Road, Near Jagatpura Flyover & Bombay Hospital, Jagatpura, Jaipur, Rajasthan 302017",
-    landmark: "Near Jagatpura Flyover & Mahal Road",
+    address: "First Floor 137-138, C 07, near Akshay Patra, mahal yojana, Block B, Central Spine, Jagatpura, Jaipur, Rajasthan 302017",
+    landmark: "Near Akshay Patra, Mahal Yojana & Central Spine",
+    mapUrl: "https://maps.app.goo.gl/FFAoFPtLRuRdUc5R7",
     pincode: "302017",
     coordinates: {
-      lat: 26.8289,
-      lng: 75.8643,
+      lat: 26.8035333,
+      lng: 75.8585822,
     },
     coveredPincodes: ["302017", "302025", "303905"],
     servedLocalities: [
@@ -136,7 +139,7 @@ export const BRANCHES_DATA = [
       "CBI Colony",
       "D-Block Jagatpura",
     ],
-    phone: "+91 80580 61224",
+    phone: "+91 805 806 1222",
     whatsapp: "918058061222",
     email: "jagatpura@thirdeyeclasses.com",
     hours: "Mon – Sat: 8:30 AM – 8:00 PM",
@@ -163,12 +166,13 @@ export const BRANCHES_DATA = [
     zone: "South-West Jaipur",
     tag: "Software Engineering & Animation Hub",
     isHeadOffice: false,
-    address: "Madhyam Marg, Near Mansarovar Metro Station & City Park, Mansarovar, Jaipur, Rajasthan 302020",
-    landmark: "Near Mansarovar Metro Station & City Park Gate",
+    address: "84/57, Madhyam Marg, near by Indian Bank, Ward 27, Mansarovar Sector 8, Mansarovar, Jaipur, Rajasthan 302020",
+    landmark: "Near by Indian Bank, Madhyam Marg (Sector 8)",
+    mapUrl: "https://maps.app.goo.gl/eim3KAKYhPyBF82i7",
     pincode: "302020",
     coordinates: {
-      lat: 26.8573,
-      lng: 75.7681,
+      lat: 26.8551312,
+      lng: 75.7660752,
     },
     coveredPincodes: ["302020", "302019", "302018", "302026"],
     servedLocalities: [
@@ -185,7 +189,7 @@ export const BRANCHES_DATA = [
       "Dholai",
       "Muhana Mandi Border",
     ],
-    phone: "+91 80580 61225",
+    phone: "+91 805 806 1222",
     whatsapp: "918058061222",
     email: "mansarovar@thirdeyeclasses.com",
     hours: "Mon – Sat: 8:00 AM – 8:30 PM",
@@ -212,12 +216,13 @@ export const BRANCHES_DATA = [
     zone: "Central-South Jaipur",
     tag: "Competitive IT & Placement Center",
     isHeadOffice: false,
-    address: "Gopalpura Bypass Road, Near Triveni Flyover & Ridhi Sidhi Crossing, Jaipur, Rajasthan 302018",
-    landmark: "Near Ridhi Sidhi Crossing & Triveni Flyover",
+    address: "First Floor, Basant Bahar Colony, 30, Gopalpura Bypass Rd, near Cake World, opposite Bhandari Hospital & Research Centre, Muktanand Nagar, Gopal Pura Mode, Jaipur, Jaipur Nagar Nigam Area, Rajasthan 302018",
+    landmark: "Near Cake World, opposite Bhandari Hospital & Research Centre",
+    mapUrl: "https://maps.app.goo.gl/qNJur1SX36cLo7z37",
     pincode: "302018",
     coordinates: {
-      lat: 26.8654,
-      lng: 75.7892,
+      lat: 26.8623305,
+      lng: 75.7950522,
     },
     coveredPincodes: ["302018", "302015", "302019"],
     servedLocalities: [
@@ -233,7 +238,7 @@ export const BRANCHES_DATA = [
       "Maharani Farm",
       "Durgapura",
     ],
-    phone: "+91 80580 61226",
+    phone: "+91 805 806 1222",
     whatsapp: "918058061222",
     email: "gopalpura@thirdeyeclasses.com",
     hours: "Mon – Sat: 7:30 AM – 8:30 PM",
@@ -260,12 +265,13 @@ export const BRANCHES_DATA = [
     zone: "West Jaipur",
     tag: "Visual Arts, CAD & Digital Media",
     isHeadOffice: false,
-    address: "Queens Road / Amrapali Circle, Near National Handloom, Vaishali Nagar, Jaipur, Rajasthan 302021",
-    landmark: "Near Amrapali Circle & National Handloom",
+    address: "Shop no. S1, 2nd Floor, Royal Plaza, opposite Gupta Stores, near Amrapali Circle, Sector 6, Vaishali Nagar, Jaipur, Jaipur Nagar Nigam Area, Rajasthan 302021",
+    landmark: "Opposite Gupta Stores, near Amrapali Circle (Sector 6)",
+    mapUrl: "https://maps.app.goo.gl/VbPm1bE9vTTDTs3x8",
     pincode: "302021",
     coordinates: {
-      lat: 26.908,
-      lng: 75.7423,
+      lat: 26.9106381,
+      lng: 75.7434846,
     },
     coveredPincodes: ["302021", "302024", "302034"],
     servedLocalities: [
@@ -280,7 +286,7 @@ export const BRANCHES_DATA = [
       "Khatipura",
       "Panchyawala",
     ],
-    phone: "+91 80580 61227",
+    phone: "+91 805 806 1222",
     whatsapp: "918058061222",
     email: "vaishali@thirdeyeclasses.com",
     hours: "Mon – Sat: 8:30 AM – 8:00 PM",
@@ -307,12 +313,13 @@ export const BRANCHES_DATA = [
     zone: "North-West Jaipur",
     tag: "Foundational & Career Tech Hub",
     isHeadOffice: false,
-    address: "Kalwar Road, Near Jhotwara Overbridge & Panchayat Samiti, Jhotwara, Jaipur, Rajasthan 302012",
-    landmark: "Near Jhotwara Flyover & Kalwar Road T-Point",
+    address: "First Floor, Thirdeye Computer Classes, 93, Kalwar Rd, opposite Hotel Regenta Central, Raghunath Puri, Jagannath Puri, Jhotwara, Jaipur, Jaipur Nagar Nigam Area, Rajasthan 302012",
+    landmark: "Opposite Hotel Regenta Central, Kalwar Road",
+    mapUrl: "https://maps.app.goo.gl/9TK52jEhAvqV7x136",
     pincode: "302012",
     coordinates: {
-      lat: 26.9452,
-      lng: 75.7485,
+      lat: 26.9436093,
+      lng: 75.7482506,
     },
     coveredPincodes: ["302012", "302032", "303706"],
     servedLocalities: [
@@ -327,7 +334,7 @@ export const BRANCHES_DATA = [
       "Hathoj",
       "Bindayaka",
     ],
-    phone: "+91 80580 61228",
+    phone: "+91 805 806 1222",
     whatsapp: "918058061222",
     email: "jhotwara@thirdeyeclasses.com",
     hours: "Mon – Sat: 8:00 AM – 8:00 PM",
@@ -348,50 +355,52 @@ export const BRANCHES_DATA = [
     reviewCount: 215,
   },
   {
-    id: "malviya-nagar",
-    name: "Thirdeye Elite Center (Malviya Nagar)",
-    shortName: "Malviya Nagar Studio",
-    zone: "East-Central Jaipur",
-    tag: "Design, Code & Innovation Lab",
+    id: "sodala",
+    name: "Thirdeye Computer Classes (Sodala)",
+    shortName: "Sodala Center",
+    zone: "West-Central Jaipur",
+    tag: "Metro-Connected IT & Design Campus",
     isHeadOffice: false,
-    address: "Calgiri Road, Near Gaurav Tower (GT) & World Trade Park (WTP), Malviya Nagar, Jaipur, Rajasthan 302017",
-    landmark: "Near Gaurav Tower (GT) & WTP Mall",
-    pincode: "302017",
+    address: "1st floor, D. P. Colony, Plot no.7, near Vivek Vihar Metro Station, Ganesh Nagar, Sodala, Jaipur, Jaipur Nagar Nigam Area, Rajasthan 302019",
+    landmark: "Near Vivek Vihar Metro Station & Ganesh Nagar",
+    mapUrl: "https://maps.app.goo.gl/ewQmBEQnktW2qgmU7",
+    pincode: "302019",
     coordinates: {
-      lat: 26.8532,
-      lng: 75.8174,
+      lat: 26.8905245,
+      lng: 75.7696908,
     },
-    coveredPincodes: ["302017", "302015", "302004"],
+    coveredPincodes: ["302019", "302006", "302001", "302018"],
     servedLocalities: [
-      "Malviya Nagar",
-      "Gaurav Tower (GT)",
-      "World Trade Park (WTP)",
-      "Calgiri Hospital Marg",
-      "Apex Mall",
-      "Pradhan Marg",
-      "Model Town",
-      "MNIT Campus Belt",
-      "JLN Marg",
+      "Sodala",
+      "Vivek Vihar Metro Station",
+      "Ganesh Nagar",
+      "D. P. Colony",
+      "Shyam Nagar",
+      "Swej Farm",
+      "Civil Lines Belt",
+      "Hawa Sadak",
+      "New Sanganer Road",
+      "Ajmer Road",
     ],
-    phone: "+91 80580 61229",
+    phone: "+91 805 806 1222",
     whatsapp: "918058061222",
-    email: "malviyanagar@thirdeyeclasses.com",
+    email: "sodala@thirdeyeclasses.com",
     hours: "Mon – Sat: 8:00 AM – 8:30 PM",
-    labCapacity: "90+ Workstations",
+    labCapacity: "85+ Workstations",
     facilities: [
+      "Vivek Vihar Metro Station Walk-in Access (1 Min)",
       "High-Tech Smart Lecture Theaters",
-      "3D Maya & Blender Animation Workstations",
-      "UI/UX Prototyping Lab",
-      "Corporate Internship Wing",
+      "3D Animation, Maya & Blender Workstations",
+      "Advanced Programming & Software Lab",
     ],
     popularCourses: [
-      "3D Animation & Maya",
-      "UI/UX Design with Figma",
       "Full Stack Web Development",
-      "Digital Marketing & Google Ads",
+      "Tally Prime with GST & Accounting",
+      "Graphic Design & 3D Animation",
+      "Basic Computers & RSCIT",
     ],
-    rating: 4.95,
-    reviewCount: 395,
+    rating: 4.96,
+    reviewCount: 320,
   },
   {
     id: "raja-park",
@@ -400,12 +409,13 @@ export const BRANCHES_DATA = [
     zone: "Central-East Jaipur",
     tag: "Multimedia & Professional Skills",
     isHeadOffice: false,
-    address: "Lane No. 4, Near LBS College & Gol Market, Raja Park, Jaipur, Rajasthan 302004",
-    landmark: "Near Lal Bahadur Shastri (LBS) College & Gol Market",
+    address: "No.1, Plot No.189A, Fashion St, near Panchwati Circle, above Bandhan Bank, Raja Park, Jaipur, Jaipur Nagar Nigam Area, Rajasthan 302004",
+    landmark: "Near Panchwati Circle, above Bandhan Bank, Fashion St",
+    mapUrl: "https://maps.app.goo.gl/vnRksZ4ZdH7b69HP9",
     pincode: "302004",
     coordinates: {
-      lat: 26.8967,
-      lng: 75.8285,
+      lat: 26.8943536,
+      lng: 75.8302993,
     },
     coveredPincodes: ["302004", "302003", "302007"],
     servedLocalities: [
@@ -419,7 +429,7 @@ export const BRANCHES_DATA = [
       "Transport Nagar",
       "Ghat Gate",
     ],
-    phone: "+91 80580 61230",
+    phone: "+91 805 806 1222",
     whatsapp: "918058061222",
     email: "rajapark@thirdeyeclasses.com",
     hours: "Mon – Sat: 8:30 AM – 8:00 PM",
@@ -445,12 +455,13 @@ export const BRANCHES_DATA = [
     zone: "North Jaipur",
     tag: "Advanced Computing & CAD Center",
     isHeadOffice: false,
-    address: "Central Spine Road, Near Cinestar Cinema & National Handloom, Vidhyadhar Nagar, Jaipur, Rajasthan 302039",
-    landmark: "Near Central Spine & Cinestar Cinema",
+    address: "First Floor, Dwarika Apartment, A-12, Sector 2 Rd, above Jaipur Kurti, Sector 2, Central Spine, Vidyadhar Nagar, Jaipur, Jaipur Nagar Nigam Area, Rajasthan 302039",
+    landmark: "Above Jaipur Kurti, Sector 2 Road, Central Spine",
+    mapUrl: "https://maps.app.goo.gl/KmZRtZo9TJyJSfSF7",
     pincode: "302039",
     coordinates: {
-      lat: 26.9698,
-      lng: 75.7792,
+      lat: 26.9627396,
+      lng: 75.7797201,
     },
     coveredPincodes: ["302039", "302013", "302023"],
     servedLocalities: [
@@ -466,7 +477,7 @@ export const BRANCHES_DATA = [
       "VKI Area (Vishwakarma Industrial)",
       "Sikar Road",
     ],
-    phone: "+91 80580 61231",
+    phone: "+91 805 806 1222",
     whatsapp: "918058061222",
     email: "vdnagar@thirdeyeclasses.com",
     hours: "Mon – Sat: 8:00 AM – 8:00 PM",
@@ -962,22 +973,41 @@ export function searchNearestBranches(rawQuery = "", userCoordinates = null) {
 
 // Generate Google Maps Directions URL
 export function getGoogleMapsDirectionsUrl(originTextOrCoords, branch) {
-  const dest = `${branch.coordinates.lat},${branch.coordinates.lng}`;
-  if (!originTextOrCoords) {
-    return `https://www.google.com/maps/dir/?api=1&destination=${dest}&travelmode=driving`;
+  // Use explicit brand name + center + address to ensure Google Maps routes directly to the verified campus
+  const destinationQuery = encodeURIComponent(
+    `Thirdeye Computer Classes ${branch.shortName || branch.name}, ${branch.address}`
+  );
+
+  // If live GPS coordinates object is provided
+  if (originTextOrCoords && typeof originTextOrCoords === "object" && originTextOrCoords.lat) {
+    return `https://www.google.com/maps/dir/?api=1&origin=${originTextOrCoords.lat},${originTextOrCoords.lng}&destination=${destinationQuery}&travelmode=driving`;
   }
-  if (typeof originTextOrCoords === "object" && originTextOrCoords.lat) {
-    return `https://www.google.com/maps/dir/?api=1&origin=${originTextOrCoords.lat},${originTextOrCoords.lng}&destination=${dest}&travelmode=driving`;
+
+  // If search query string is provided
+  if (typeof originTextOrCoords === "string" && originTextOrCoords.trim()) {
+    const trimmed = originTextOrCoords.trim();
+    // Check if it's already "lat,lng" string
+    if (/^-?\d+(\.\d+)?[,\s]+-?\d+(\.\d+)?$/.test(trimmed)) {
+      return `https://www.google.com/maps/dir/?api=1&origin=${trimmed.replace(/\s+/g, "")}&destination=${destinationQuery}&travelmode=driving`;
+    }
+    return `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(trimmed + ", Jaipur")}&destination=${destinationQuery}&travelmode=driving`;
   }
-  return `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(originTextOrCoords + ", Jaipur")}&destination=${dest}&travelmode=driving`;
+
+  // When no origin is specified, Google Maps uses the user's current GPS location ("Your location") as starting point
+  return `https://www.google.com/maps/dir/?api=1&destination=${destinationQuery}&travelmode=driving`;
 }
 
 // Generate embed map URL for an iframe
 export function getGoogleMapsEmbedUrl(branch, originQuery = "") {
+  const destinationQuery = encodeURIComponent(
+    `Thirdeye Computer Classes ${branch.shortName || branch.name}, ${branch.address}`
+  );
+
   if (originQuery && originQuery.trim()) {
     const origin = encodeURIComponent(originQuery.trim() + ", Jaipur");
-    const dest = `${branch.coordinates.lat},${branch.coordinates.lng}`;
-    return `https://maps.google.com/maps?saddr=${origin}&daddr=${dest}&hl=en&z=13&output=embed`;
+    return `https://maps.google.com/maps?saddr=${origin}&daddr=${destinationQuery}&hl=en&z=13&output=embed`;
   }
-  return `https://maps.google.com/maps?q=${branch.coordinates.lat},${branch.coordinates.lng}&hl=en&z=15&output=embed`;
+
+  // Fallback to exact coordinates if specific or query
+  return `https://maps.google.com/maps?q=${branch.coordinates.lat},${branch.coordinates.lng}&hl=en&z=16&output=embed`;
 }

@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ShieldCheck, Award, ArrowDown, ExternalLink, CheckCircle2 } from "lucide-react";
+import { ShieldCheck, Award, ArrowDown, ExternalLink, CheckCircle2, Eye } from "lucide-react";
 
 const trustMetrics = [
   { value: "100%", label: "Authorized Access", sub: "Official Examination Center" },
@@ -71,6 +72,14 @@ export default function CertificationHero({ onScrollToGrid }) {
             <span>Explore 7+ Certifications</span>
             <ArrowDown className="w-4 h-4 transition-transform group-hover:translate-y-0.5" />
           </button>
+
+          <Link
+            to="/certificate-preview"
+            className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-bold text-sm sm:text-base text-[#f6d96b] bg-[#1a140b] border border-[#f6d96b]/40 hover:bg-[#f6d96b] hover:text-black hover:border-[#f6d96b] shadow-[0_0_20px_rgba(246,217,107,0.15)] transition-all duration-200 hover:-translate-y-0.5"
+          >
+            <Eye className="w-4 h-4" />
+            <span>Preview Certificate Template</span>
+          </Link>
 
           <a
             href="https://docs.google.com/forms/d/e/1FAIpQLSdDtLEpiKX4qeeR8YN2-HJ1jy9O7YvjaJh6HaalI7XTPyZ6aA/viewform"

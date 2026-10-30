@@ -221,8 +221,8 @@ export default function LeadershipTeam({ onOpenInquiry }) {
           {/* Directorate Trust Metrics Bar (High-Impact alternative to paragraphs) */}
           <div className="leadership-stats-strip">
             <div className="leadership-stat-pill">
-              <span className="stat-pill-num">35+</span>
-              <span className="stat-pill-label">Years Legacy</span>
+              <span className="stat-pill-num">15+</span>
+              <span className="stat-pill-label">Years of Legacy</span>
             </div>
             <div className="leadership-stat-sep" />
             <div className="leadership-stat-pill">

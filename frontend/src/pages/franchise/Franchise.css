@@ -6,9 +6,9 @@
   background:
     radial-gradient(ellipse 90% 50% at 50% 0%, rgba(246, 217, 107, 0.20), transparent 75%),
     radial-gradient(circle 800px at 15% 18%, rgba(246, 217, 107, 0.14), transparent 60%),
-    radial-gradient(circle 800px at 85% 32%, rgba(255, 211, 0, 0.12), transparent 60%),
+    radial-gradient(circle 800px at 85% 32%, rgba(246, 217, 107, 0.12), transparent 60%),
     radial-gradient(circle 900px at 20% 50%, rgba(246, 217, 107, 0.13), transparent 60%),
-    radial-gradient(circle 800px at 80% 68%, rgba(255, 211, 0, 0.12), transparent 60%),
+    radial-gradient(circle 800px at 80% 68%, rgba(246, 217, 107, 0.12), transparent 60%),
     radial-gradient(circle 900px at 50% 85%, rgba(246, 217, 107, 0.14), transparent 65%),
     radial-gradient(ellipse 90% 50% at 50% 100%, rgba(246, 217, 107, 0.20), transparent 75%),
     #0c0a04;
@@ -49,6 +49,6 @@
 
 /* Selection highlight */
 .franchise-page-wrapper ::selection {
-  background-color: #ffd300;
+  background-color: #f6d96b;
   color: #000000;
 }

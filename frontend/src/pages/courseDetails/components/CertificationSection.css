@@ -199,163 +199,85 @@
   object-fit: contain;
 }
 
-/* Main Front Certificate Card */
-.cert-card-front {
+/* Main Front Certificate Card - Authentic Showcase */
+.cert-showcase-box {
   position: relative;
   z-index: 2;
   width: 100%;
-  min-height: 375px;
-  background: #ffffff;
-  color: #111111;
+  background: #0f0c08;
+  border: 1.5px solid rgba(246, 217, 107, 0.4);
   border-radius: 20px;
-  overflow: hidden;
-  display: flex;
+  padding: 16px;
   box-shadow:
     0 25px 60px rgba(0, 0, 0, 0.85),
-    0 0 35px rgba(246, 217, 107, 0.15);
-  border: 2px solid rgba(246, 217, 107, 0.45);
-  cursor: pointer;
-  user-select: none;
+    0 0 35px rgba(246, 217, 107, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   box-sizing: border-box;
 }
 
-/* Left Vertical Gold Ribbon */
-.cert-vertical-ribbon {
-  width: 42px;
-  background: linear-gradient(180deg, #deb038 0%, #b8860b 100%);
+.cert-control-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cert-card-real {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  aspect-ratio: 2340 / 1655;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
 }
 
-.cert-vertical-ribbon span {
-  writing-mode: vertical-lr;
-  transform: rotate(180deg);
-  color: #000000;
-  font-weight: 900;
-  letter-spacing: 4px;
-  font-size: 12px;
-  text-transform: uppercase;
-}
-
-/* Certificate Body */
-.cert-body {
-  flex: 1;
-  padding: 26px 28px 22px 26px;
-  display: flex;
-  flex-direction: column;
-  background: #ffffff;
-  background-image: radial-gradient(#ececec 1px, transparent 1px);
-  background-size: 16px 16px;
-  box-sizing: border-box;
-  min-width: 0;
-}
-
-.cert-top-row {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 10px;
-}
-
-.cert-brand-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 5px 12px;
-  background: #11141a;
-  border-radius: 7px;
-  color: #ffffff;
-  font-size: 11px;
-  font-weight: 850;
-  letter-spacing: 1px;
-}
-
-.cert-logo-icon {
-  width: 16px;
-  height: 16px;
+.cert-real-img {
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-}
-
-.cert-course-name {
-  font-size: clamp(17px, 2vw, 24px);
-  font-weight: 900;
-  color: #11141a;
-  letter-spacing: -0.4px;
-  margin: 0 0 8px;
-  line-height: 1.25;
-  word-break: break-word;
-}
-
-.cert-presented-label {
-  font-size: 11px;
-  color: #71717a;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 700;
   display: block;
-  margin-bottom: 3px;
+  transition: transform 0.3s ease;
 }
 
-.cert-student-name {
-  font-size: 23px;
-  font-weight: 850;
-  color: #deb038;
-  margin: 0 0 8px;
-  letter-spacing: -0.3px;
-  word-break: break-word;
+.cert-card-real:hover .cert-real-img {
+  transform: scale(1.02);
 }
 
-.cert-statement {
-  font-size: 11px;
-  color: #52525b;
-  line-height: 1.55;
-  margin: 0 0 16px;
-  max-width: 96%;
-}
-
-/* Bottom Verification & Signer Row */
-.cert-footer-row {
-  margin-top: auto;
+.cert-hover-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  border-top: 1px solid #e4e4e7;
-  padding-top: 14px;
-}
-
-.cert-meta-left {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  font-size: 10px;
-  color: #71717a;
-  font-family: monospace;
-  font-weight: 600;
-}
-
-.cert-signature-center {
-  display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
 }
 
-.cert-signer-title {
-  font-size: 9.5px;
-  color: #71717a;
-  font-weight: 700;
-  margin-top: 2px;
+.cert-card-real:hover .cert-hover-overlay {
+  opacity: 1;
 }
 
-.cert-verified-stamp {
-  padding: 4px 10px;
-  border: 1.5px solid #deb038;
-  border-radius: 5px;
-  color: #deb038;
-  font-size: 9.5px;
-  font-weight: 900;
-  letter-spacing: 1px;
-  transform: rotate(-5deg);
+.cert-bottom-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 /* ==========================================================================
@@ -399,39 +321,9 @@
     display: none;
   }
 
-  .cert-card-front {
-    min-height: auto;
+  .cert-showcase-box {
+    padding: 12px;
     border-radius: 16px;
-  }
-
-  .cert-vertical-ribbon {
-    width: 32px;
-  }
-
-  .cert-vertical-ribbon span {
-    font-size: 9.5px;
-    letter-spacing: 2px;
-  }
-
-  .cert-body {
-    padding: 16px 14px 14px 14px;
-  }
-
-  .cert-course-name {
-    font-size: 16px;
-  }
-
-  .cert-student-name {
-    font-size: 18px;
-  }
-
-  .cert-statement {
-    font-size: 10px;
-    margin-bottom: 12px;
-  }
-
-  .cert-footer-row {
-    padding-top: 10px;
   }
 }
 
@@ -440,29 +332,14 @@
     padding: 20px 12px;
   }
 
-  .cert-vertical-ribbon {
-    width: 26px;
+  .cert-control-bar {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .cert-vertical-ribbon span {
-    font-size: 8.5px;
-    letter-spacing: 1px;
-  }
-
-  .cert-body {
-    padding: 12px 10px 10px 10px;
-  }
-
-  .cert-course-name {
-    font-size: 14.5px;
-  }
-
-  .cert-student-name {
-    font-size: 16px;
-  }
-
-  .cert-footer-row {
-    flex-wrap: wrap;
-    gap: 8px;
+  .cert-bottom-actions {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
+

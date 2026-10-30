@@ -73,7 +73,7 @@ export default function FloatingBranchWidget() {
       <div className="floating-text-block">
         <div className="floating-top-row">
           <span className="floating-label">Nearest Branch</span>
-          <span className="floating-badge">10+ CAMPUSES</span>
+          <span className="floating-badge">15+ CAMPUSES &bull; COUNTING..</span>
         </div>
         <span className="floating-sub">Find by Area PIN / GPS Route &gt;&gt;</span>
       </div>

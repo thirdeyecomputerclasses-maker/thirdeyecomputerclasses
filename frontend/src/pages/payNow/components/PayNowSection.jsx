@@ -107,7 +107,7 @@ export default function PayNowSection({ className = "" }) {
               <span className="text-zinc-600">•</span>
               <span className="inline-flex items-center gap-1.5 font-medium text-emerald-300">
                 <Check className="w-4 h-4 text-emerald-400 stroke-[3]" />
-                Zero Convenience Fee
+                Direct Admission Invoice
               </span>
               <span className="text-zinc-600">•</span>
               <span className="inline-flex items-center gap-1.5 font-medium text-emerald-300">
@@ -145,16 +145,19 @@ export default function PayNowSection({ className = "" }) {
                 </button>
               </div>
 
-              {/* Direct Quick Pay Button on Voucher */}
-              <a
-                href={RAZORPAY_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+              {/* Direct Action Button on Voucher (Scrolls to single gateway section) */}
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveTab("razorpay");
+                  const el = document.getElementById("payment-gateway-section");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
                 className="mt-4 w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-zinc-950 bg-gradient-to-r from-[#ffeab0] via-[#f6d96b] to-[#f59e0b] shadow-[0_4px_20px_rgba(246,217,107,0.35)] hover:shadow-[0_6px_25px_rgba(246,217,107,0.55)] hover:brightness-105 active:scale-95 transition-all group cursor-pointer"
               >
-                <span>Claim &amp; Pay on Razorpay</span>
+                <span>Proceed to Payment Gateway</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -163,7 +166,7 @@ export default function PayNowSection({ className = "" }) {
       {/* ============================================================ */}
       {/* 2. PAYMENT METHODS TABS                                      */}
       {/* ============================================================ */}
-      <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 p-1.5 rounded-2xl bg-[#110e08] border border-[#2b2216] max-w-xl mx-auto">
+      <div id="payment-gateway-section" className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 p-1.5 rounded-2xl bg-[#110e08] border border-[#2b2216] max-w-xl mx-auto">
         <button
           type="button"
           onClick={() => setActiveTab("razorpay")}
@@ -317,7 +320,15 @@ export default function PayNowSection({ className = "" }) {
 
                   <div className="flex items-center justify-between text-zinc-300">
                     <span>Payment Processing Charges</span>
-                    <span className="font-mono font-bold text-emerald-400">FREE (₹0)</span>
+                    <span className="font-mono font-bold text-[#ffd300]">2.6%</span>
+                  </div>
+
+                  {/* 2.6% Processing Charges Disclaimer */}
+                  <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-2.5 text-xs text-amber-200">
+                    <span className="font-bold text-amber-400 shrink-0 text-sm">ℹ</span>
+                    <span className="leading-relaxed">
+                      <strong>Disclaimer:</strong> Standard payment processing charges of <strong>2.6%</strong> apply on online transactions via Razorpay (Credit Card, Debit Card, Net Banking, Wallets &amp; EMI). For zero fee payment, you may scan the UPI QR code or initiate a direct bank transfer.
+                    </span>
                   </div>
 
                   <div className="pt-3 border-t border-white/10 flex items-center justify-between">
@@ -611,7 +622,7 @@ export default function PayNowSection({ className = "" }) {
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-white/[0.02] border border-white/10 text-xs text-zinc-400">
         <div className="flex items-center gap-2">
           <ShieldCheck className="w-4 h-4 text-emerald-400" />
-          <span>Need help with payment or fee confirmation? Call our accounts team directly at <strong>+91 8058061222</strong>.</span>
+          <span>Need help with payment or fee confirmation? Call our accounts team directly at <strong>+91 805 806 1222</strong>.</span>
         </div>
         <div className="flex items-center gap-4 text-[11px] font-mono text-zinc-400">
           <span>Razorpay Verified</span>

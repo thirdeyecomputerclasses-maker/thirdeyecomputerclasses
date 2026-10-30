@@ -18,7 +18,7 @@ import student5 from '../../assets/students/student_5.jpg';
 import student6 from '../../assets/students/student_6.jpg';
 
 const eventPhoto = (id) => `https://images.unsplash.com/${id}?w=900&q=75&auto=format&fit=crop`;
-const spiralPhoto = (id) => `https://images.unsplash.com/${id}?w=360&q=75&auto=format&fit=crop`;
+const spiralPhoto = (id) => `https://images.unsplash.com/${id}?w=600&q=80&auto=format&fit=crop`;
 
 const EVENT_IMAGES = [
   {
@@ -110,6 +110,44 @@ function Memories() {
   const [eventImages, setEventImages] = useState(EVENT_IMAGES);
   const [panoramicBg, setPanoramicBg] = useState(classroomPanoramic);
   const [celebrationImages, setCelebrationImages] = useState(CELEBRATION_IMAGES);
+
+  // Responsive large card dimensions for Infinite Spiral
+  const [spiralConfig, setSpiralConfig] = useState({
+    cardWidth: 205,
+    cardHeight: 185,
+    radius: 270,
+    verticalSpacing: 90,
+  });
+
+  useEffect(() => {
+    const updateSize = () => {
+      if (window.innerWidth < 640) {
+        setSpiralConfig({
+          cardWidth: 145,
+          cardHeight: 135,
+          radius: 165,
+          verticalSpacing: 68,
+        });
+      } else if (window.innerWidth < 1024) {
+        setSpiralConfig({
+          cardWidth: 175,
+          cardHeight: 160,
+          radius: 220,
+          verticalSpacing: 78,
+        });
+      } else {
+        setSpiralConfig({
+          cardWidth: 205,
+          cardHeight: 185,
+          radius: 270,
+          verticalSpacing: 90,
+        });
+      }
+    };
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
 
   useEffect(() => {
     fetchMedia({ page: "memories", type: "image" })
@@ -263,20 +301,21 @@ function Memories() {
           </h2>
         </div>
 
-        {/* Infinite Spiral Container */}
+        {/* Infinite Spiral Container (Significantly Enlarged Card Dimensions) */}
         <div className="infinite-spiral-wrapper">
           <InfiniteSpiral
             items={celebrationImages}
-            speed={0.55}
+            speed={0.52}
             direction="up"
             animationMode="auto"
-            radius={180}
-            cardWidth={120}
-            cardHeight={120}
-            verticalSpacing={65}
-            perspective={1000}
+            radius={spiralConfig.radius}
+            cardWidth={spiralConfig.cardWidth}
+            cardHeight={spiralConfig.cardHeight}
+            verticalSpacing={spiralConfig.verticalSpacing}
+            perspective={1100}
             cardsPerTurn={7}
-            centerScale={1.25}
+            centerScale={1.28}
+            cardRadius={16}
             pauseOnHover={false}
             imageFit="cover"
             edgeBlur={2}

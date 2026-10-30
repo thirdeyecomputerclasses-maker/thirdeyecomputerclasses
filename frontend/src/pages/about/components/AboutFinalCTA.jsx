@@ -52,12 +52,12 @@ export default function AboutFinalCTA() {
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 pt-6 border-t border-white/[0.08] text-xs font-mono text-zinc-400">
             <div className="flex items-center gap-1.5">
               <MapPin className="w-3.5 h-3.5 text-[#f6d96b]" />
-              <span>4 Campuses in Jaipur</span>
+              <span>15+ Branches in Jaipur</span>
             </div>
             <span>•</span>
             <span>Government Recognized & ISO 9001:2015</span>
             <span>•</span>
-            <span>18+ Years Legacy</span>
+            <span>15+ Years of Legacy</span>
           </div>
         </div>
       </div>

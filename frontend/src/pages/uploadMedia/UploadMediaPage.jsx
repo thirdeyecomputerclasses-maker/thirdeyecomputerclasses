@@ -52,7 +52,7 @@ const SUPPORTED_PAGES = [
     label: "Franchise",
     path: "/franchise",
     icon: "🏢",
-    desc: "10 Branches (10 photos) & 6 Instagram Reels (6 videos)",
+    desc: "Branches (10), Awards (7), Placement Drives (3), Partner Testimonials (5) & Reels (6 videos)",
   },
   {
     id: "placements",

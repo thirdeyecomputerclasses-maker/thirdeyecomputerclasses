@@ -11,7 +11,10 @@ import {
   Award,
   PhoneCall,
   PartyPopper,
-  Trophy
+  Trophy,
+  Code2,
+  Video,
+  Building2,
 } from "lucide-react";
 
 import { useNavigate } from "react-router-dom";
@@ -317,6 +320,30 @@ export default function JobsAndPlacement() {
     navigate(`/jobs/${job.slug}`);
   };
 
+  // Dynamic interactive spotlight tracking (matching 300+ courses franchise cards)
+  const handleCardMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = Math.round(((e.clientX - rect.left) / rect.width) * 100);
+    const y = Math.round(((e.clientY - rect.top) / rect.height) * 100);
+    e.currentTarget.style.setProperty("--card-mx", `${x}%`);
+    e.currentTarget.style.setProperty("--card-my", `${y}%`);
+  };
+
+  // Helper for card category icon
+  const getCategoryIcon = (category) => {
+    const cat = (category || "").toLowerCase();
+    if (cat.includes("it") || cat.includes("code") || cat.includes("dev") || cat.includes("software")) {
+      return <Code2 size={22} />;
+    }
+    if (cat.includes("design") || cat.includes("video") || cat.includes("media") || cat.includes("vfx") || cat.includes("anim")) {
+      return <Video size={22} />;
+    }
+    if (cat.includes("account") || cat.includes("finance") || cat.includes("tally") || cat.includes("bank")) {
+      return <Building2 size={22} />;
+    }
+    return <Briefcase size={22} />;
+  };
+
   return (
     <div className="jobs-placement-page">
       {/* Background ambient lighting */}
@@ -354,7 +381,7 @@ export default function JobsAndPlacement() {
             </div>
             <div className="metric-ribbon-sep" />
             <div className="metric-ribbon-item">
-              <span className="metric-number">Every 3rd Sat</span>
+              <span className="metric-number">Every 3rd Saturday</span>
               <span className="metric-label">Regular Placement Drive</span>
             </div>
             <div className="metric-ribbon-sep" />
@@ -463,14 +490,15 @@ export default function JobsAndPlacement() {
             </div>
           </div>
 
-          {/* Job Openings Grid (3 Cards per row matching Screenshot 1) */}
+          {/* Job Openings Grid (Matching Franchise 300+ Courses Box Styling) */}
           {filteredJobs.length > 0 ? (
             <div className="jobs-cards-grid">
-              {filteredJobs.map((job) => (
+              {filteredJobs.map((job, idx) => (
                 <div
-                  key={job.id}
+                  key={job.id || idx}
                   className="job-card-item"
                   onClick={() => handleOpenJob(job)}
+                  onMouseMove={handleCardMouseMove}
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
@@ -478,15 +506,24 @@ export default function JobsAndPlacement() {
                       handleOpenJob(job);
                     }
                   }}
+                  aria-label={`${job.title} at ${job.company}`}
                 >
-                  <div className="job-card-header">
-                    <div>
-                      <h3 className="job-card-title">{job.title}</h3>
-                      <div className="job-card-company">{job.company}</div>
+                  {/* Top Row: Index number + Black Icon Box */}
+                  <div className="job-card-top-row">
+                    <span className="job-card-index">{String(idx + 1).padStart(2, "0")}</span>
+                    <div className="job-card-icon-box">
+                      {getCategoryIcon(job.category)}
                     </div>
-                    <span className="job-card-type-badge">{job.jobType}</span>
                   </div>
 
+                  {/* Body: Duration / Job Type Pill + Job Title & Company */}
+                  <div className="job-card-body-block">
+                    <span className="job-card-duration-pill">{job.jobType || "Full Time"}</span>
+                    <h3 className="job-card-title">{job.title}</h3>
+                    <div className="job-card-company">{job.company}</div>
+                  </div>
+
+                  {/* Meta Specs Container */}
                   <div className="job-card-meta-list">
                     <div className="meta-line">
                       <span className="meta-key">Category:</span>
@@ -502,6 +539,7 @@ export default function JobsAndPlacement() {
                     </div>
                   </div>
 
+                  {/* Bottom Footer: Details CTA + Openings Pill */}
                   <div className="job-card-footer">
                     <button
                       type="button"
@@ -677,7 +715,7 @@ export default function JobsAndPlacement() {
                 className="join-secondary-glass-btn"
               >
                 <PhoneCall size={18} className="call-phone-icon" />
-                <span>Call Admissions: +91 80580 61222</span>
+                <span>Call Admissions: +91 805 806 1222</span>
               </a>
             </div>
 

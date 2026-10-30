@@ -100,7 +100,7 @@ export default function CertificationProcessCTA() {
             <span>•</span>
             <span>✓ Government Recognized Institution</span>
             <span>•</span>
-            <span>✓ 18+ Years Academic Legacy</span>
+            <span>✓ 15+ Years of Academic Legacy</span>
           </div>
         </div>
       </div>
