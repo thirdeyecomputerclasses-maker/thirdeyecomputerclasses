@@ -48,15 +48,16 @@ body,
 
 /* Interactive Cursor Spotlight Glow on Mouse Move */
 .team-spotlight-halo {
-  position: absolute;
-  width: 700px;
-  height: 700px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 600px;
+  height: 600px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.45) 0%, rgba(255, 245, 140, 0.22) 35%, transparent 70%);
-  transform: translate(-50%, -50%);
-  transition: left 0.16s ease-out, top 0.16s ease-out;
-  filter: blur(45px);
-  will-change: left, top;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 245, 140, 0.18) 35%, transparent 70%);
+  filter: blur(40px);
+  will-change: transform;
+  pointer-events: none;
 }
 
 /* Floating Ambient Golden Light Blobs */
@@ -345,6 +346,19 @@ body,
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 40px;
+}
+
+.four-stacks-grid {
+  max-width: 1560px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1380px) {
+  .four-stacks-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
 }
 
 .stack-column {

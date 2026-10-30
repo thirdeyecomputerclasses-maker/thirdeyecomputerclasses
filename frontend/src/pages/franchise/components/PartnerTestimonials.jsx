@@ -12,7 +12,7 @@ import {
   ShieldCheck,
   CheckCircle2
 } from "lucide-react";
-import { fetchMedia } from "../../../services/mediaApi";
+import { fetchMedia, getOptimizedImageUrl } from "../../../services/mediaApi";
 
 // Real partner portrait photos (Cropped from original slides)
 import defaultMayaImg from "../../../assets/franchise/partner_maya_sharma.png";
@@ -20,20 +20,31 @@ import defaultKapilImg from "../../../assets/franchise/partner_kapil_nitharwal.p
 import defaultRajImg from "../../../assets/franchise/partner_raj_gurjar.png";
 import defaultKushalImg from "../../../assets/franchise/partner_kushal_avasthi.png";
 import defaultVartikaImg from "../../../assets/franchise/partner_vartika_kumawat.png";
+import defaultDiyaImg from "../../../assets/mentor_5.png";
 
 export default function PartnerTestimonials() {
   const [activeIdx, setActiveIdx] = useState(0);
   const [dynamicMedia, setDynamicMedia] = useState({});
 
+  // Auto-fetch franchise owners: fetches both Franchise & Team page slots so double uploading is prohibited!
   useEffect(() => {
     let isMounted = true;
-    fetchMedia({ page: "franchise", type: "image" })
-      .then((res) => {
-        if (!isMounted || !res || !res.media) return;
+    Promise.all([
+      fetchMedia({ page: "franchise", type: "image" }).catch(() => []),
+      fetchMedia({ page: "team", type: "image" }).catch(() => [])
+    ])
+      .then(([franchiseRes, teamRes]) => {
+        if (!isMounted) return;
         const map = {};
-        res.media.forEach((item) => {
-          if (item.slotKey && item.url) {
-            map[item.slotKey] = item.url;
+        const franchiseList = Array.isArray(franchiseRes) ? franchiseRes : (franchiseRes?.data || franchiseRes?.media || []);
+        const teamList = Array.isArray(teamRes) ? teamRes : (teamRes?.data || teamRes?.media || []);
+        
+        [...franchiseList, ...teamList].forEach((item) => {
+          if (item?.slotKey && item?.url) {
+            // Prioritize custom uploads over defaults
+            if (!map[item.slotKey] || !item.isDefault) {
+              map[item.slotKey] = item.url;
+            }
           }
         });
         setDynamicMedia(map);
@@ -41,6 +52,7 @@ export default function PartnerTestimonials() {
       .catch((err) => {
         console.warn("Could not load dynamic franchise partner images, using bundled assets.", err);
       });
+
     return () => {
       isMounted = false;
     };
@@ -59,6 +71,7 @@ export default function PartnerTestimonials() {
     {
       id: 1,
       slotKey: "franchise_partner_kapil",
+      teamSlotKey: "team_member_8",
       name: "KAPIL NITHARWAL",
       branch: "VAISHALI NAGAR BRANCH",
       fallback: defaultKapilImg,
@@ -67,7 +80,18 @@ export default function PartnerTestimonials() {
     },
     {
       id: 2,
+      slotKey: "franchise_partner_diya",
+      teamSlotKey: "team_member_9",
+      name: "DIYA SAINI",
+      branch: "SODALA BRANCH",
+      fallback: defaultDiyaImg,
+      role: "Franchise Owner",
+      quote: "I, Diya Saini, the franchise owner of Thirdeye Computer Classes – Sodala Branch, am proud to be part of the Thirdeye network. With continuous curriculum support, advanced practical labs, and high student placement satisfaction, our center has grown rapidly."
+    },
+    {
+      id: 3,
       slotKey: "franchise_partner_raj",
+      teamSlotKey: "team_member_10",
       name: "RAJ GURJAR",
       branch: "JHOTWARA BRANCH",
       fallback: defaultRajImg,
@@ -75,8 +99,9 @@ export default function PartnerTestimonials() {
       quote: "I, Raj Gurjar, the franchise owner of Thirdeye Computer Classes – Jhotwara Branch, am pleased to share that our center is running successfully. With expert training, modern facilities, and a strong focus on practical learning, we are committed to offering the best computer education to our students."
     },
     {
-      id: 3,
+      id: 4,
       slotKey: "franchise_partner_kushal",
+      teamSlotKey: "team_member_11",
       name: "KUSHAL AVASTHI",
       branch: "GOPALPURA BRANCH",
       fallback: defaultKushalImg,
@@ -84,8 +109,9 @@ export default function PartnerTestimonials() {
       quote: "I, Kushal Avasthi, the franchise owner of Thirdeye Computer Classes – Gopalpura Branch, am proud to share that our center is running successfully. With quality teaching, practical training, and modern facilities, we are dedicated to providing the best computer education to our students."
     },
     {
-      id: 4,
+      id: 5,
       slotKey: "franchise_partner_vartika",
+      teamSlotKey: "team_member_12",
       name: "VARTIKA KUMAWAT",
       branch: "MANSAROVAR BRANCH",
       fallback: defaultVartikaImg,
@@ -94,8 +120,16 @@ export default function PartnerTestimonials() {
     }
   ];
 
-  const current = testimonials[activeIdx];
-  const currentPhoto = dynamicMedia[current.slotKey] || current.fallback;
+  const resolvePartnerPhoto = (t) => {
+    // Automatically use photo uploaded in Team page franchise owners stack if present
+    const teamUrl = t.teamSlotKey ? dynamicMedia[t.teamSlotKey] : null;
+    const franchiseUrl = dynamicMedia[t.slotKey];
+    const rawUrl = teamUrl || franchiseUrl || t.fallback;
+    return getOptimizedImageUrl(rawUrl, 380, 80);
+  };
+
+  const current = testimonials[activeIdx] || testimonials[0];
+  const currentPhoto = resolvePartnerPhoto(current);
 
   return (
     <section className="testimonials-section" id="partner-testimonials">
@@ -118,7 +152,7 @@ export default function PartnerTestimonials() {
         {/* ── Partner Journey Grid (Exact Match to User Slides 3 & 4) ── */}
         <div className="partner-journey-grid">
           {testimonials.map((t, idx) => {
-            const photoUrl = dynamicMedia[t.slotKey] || t.fallback;
+            const photoUrl = resolvePartnerPhoto(t);
             const isSelected = idx === activeIdx;
 
             return (
@@ -135,6 +169,7 @@ export default function PartnerTestimonials() {
                       alt={t.name} 
                       className="partner-circle-photo"
                       loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 </div>

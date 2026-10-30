@@ -9,6 +9,7 @@ import React, {
   useRef
 } from "react";
 import logo from "../../../assets/logo.webp";
+import { getOptimizedImageUrl } from "../../../services/mediaApi";
 import "./CardSwap.css";
 
 const useIsomorphicLayoutEffect =
@@ -103,10 +104,11 @@ const MentorStackCard = React.memo(function MentorStackCard({
         {/* Mentor Portrait */}
         <div className="mentor-stack-image-wrap">
           <img
-            src={mentor.image || logo}
+            src={getOptimizedImageUrl(mentor.image || logo, 380, 80)}
             alt={mentor.name}
             className="mentor-stack-img"
             loading="lazy"
+            decoding="async"
             draggable={false}
           />
         </div>
@@ -422,6 +424,8 @@ const CardSwap = forwardRef(
 
       const frame = (time) => {
         state.raf = 0;
+        if (!state.inView || document.visibilityState === "hidden") return;
+
         const s = settingsRef.current || settings;
         const dt = state.last ? Math.min(0.05, (time - state.last) / 1000) : 1 / 60;
         state.last = time;
@@ -501,7 +505,7 @@ const CardSwap = forwardRef(
           }
           if (card.hold > time || card.phase !== "rest") busy = true;
           for (const axis of AXES) {
-            const lim = axis === "p" ? 0.001 : 0.02;
+            const lim = axis === "p" ? 0.005 : 0.04;
             if (
               Math.abs(target[axis] - card[axis]) > lim ||
               Math.abs(card.v[axis]) > lim
@@ -632,21 +636,27 @@ const CardSwap = forwardRef(
         };
       };
 
+      let moveRaf = 0;
       const onMove = (event) => {
         const s = settingsRef.current || settings;
         if (event.pointerType !== "touch") {
           const point = local(event);
-          const nx = clamp((point.x / Math.max(1, point.w)) * 2 - 1, -1, 1);
-          const ny = clamp((point.y / Math.max(1, point.h)) * 2 - 1, -1, 1);
-          state.tx = nx * s.parallax * 0.35 * s.bounds.width;
-          state.ty = ny * s.parallax * 0.35 * s.bounds.height;
-          state.hovered = true;
+          if (!moveRaf) {
+            moveRaf = requestAnimationFrame(() => {
+              moveRaf = 0;
+              const nx = clamp((point.x / Math.max(1, point.w)) * 2 - 1, -1, 1);
+              const ny = clamp((point.y / Math.max(1, point.h)) * 2 - 1, -1, 1);
+              state.tx = nx * s.parallax * 0.35 * s.bounds.width;
+              state.ty = ny * s.parallax * 0.35 * s.bounds.height;
+              state.hovered = true;
+              wake();
+            });
+          }
           const overCard = Boolean(event.target.closest?.("[data-swap-index]"));
           if (overCard !== state.overCard) {
             state.overCard = overCard;
             schedule();
           }
-          wake();
         }
         const drag = state.drag;
         if (!drag || drag.id !== event.pointerId) return;
@@ -832,8 +842,20 @@ const CardSwap = forwardRef(
       const resizeObserver = new ResizeObserver(fit);
       resizeObserver.observe(root);
       const intersectionObserver = new IntersectionObserver((entries) => {
-        state.inView = entries[entries.length - 1]?.isIntersecting ?? true;
-        schedule();
+        const isIntersecting = entries[entries.length - 1]?.isIntersecting ?? true;
+        state.inView = isIntersecting;
+        if (!isIntersecting) {
+          if (state.raf) {
+            cancelAnimationFrame(state.raf);
+            state.raf = 0;
+          }
+          clearTimeout(state.timer);
+          state.timer = 0;
+          state.last = 0;
+        } else {
+          wake();
+          schedule();
+        }
       });
       intersectionObserver.observe(root);
       root.addEventListener("pointermove", onMove);
@@ -846,6 +868,7 @@ const CardSwap = forwardRef(
       schedule();
 
       return () => {
+        if (moveRaf) cancelAnimationFrame(moveRaf);
         cancelAnimationFrame(state.raf);
         clearTimeout(state.timer);
         state.queue.forEach(clearTimeout);

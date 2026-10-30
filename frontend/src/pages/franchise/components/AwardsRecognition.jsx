@@ -14,7 +14,7 @@ import {
   Maximize2
 } from "lucide-react";
 
-import { fetchMedia } from "../../../services/mediaApi";
+import { fetchMedia, getOptimizedImageUrl } from "../../../services/mediaApi";
 
 // Curated 7 Award & Recognition Photos
 import imgSuumitAward from "../../../assets/awards/award_poornima_suumit.png";
@@ -161,10 +161,11 @@ export default function AwardsRecognition() {
             >
               <div className="award-photo-frame">
                 <img
-                  src={item.img}
+                  src={getOptimizedImageUrl(item.img, 500, 80)}
                   alt={item.title}
                   className="award-photo-img"
                   loading="lazy"
+                  decoding="async"
                 />
                 <div className="award-photo-overlay">
                   <div className="overlay-badge">

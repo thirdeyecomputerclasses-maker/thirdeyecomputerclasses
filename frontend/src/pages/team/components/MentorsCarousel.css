@@ -179,6 +179,7 @@
   align-items: center;
   gap: 5px;
   padding: 4px 10px;
+  max-width: 135px;
   border-radius: 9999px;
   background: rgba(255, 211, 0, 0.12);
   border: 1px solid rgba(255, 211, 0, 0.35);
@@ -187,6 +188,12 @@
   font-weight: 700;
   letter-spacing: 0.8px;
   text-transform: uppercase;
+}
+
+.mentor-verified-pill span:not(.mentor-verified-dot) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .mentor-verified-dot {

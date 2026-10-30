@@ -41,25 +41,36 @@ export default function TiltedCard({
     mass: 1,
   });
 
+  const mouseRaf = useRef(0);
+
   function handleMouse(e) {
-    if (!ref.current) return;
+    if (!ref.current || mouseRaf.current) return;
+    const clientX = e.clientX;
+    const clientY = e.clientY;
 
-    const rect = ref.current.getBoundingClientRect();
-    const offsetX = e.clientX - rect.left - rect.width / 2;
-    const offsetY = e.clientY - rect.top - rect.height / 2;
+    mouseRaf.current = requestAnimationFrame(() => {
+      mouseRaf.current = 0;
+      if (!ref.current) return;
 
-    const rotationX = (offsetY / (rect.height / 2)) * -rotateAmplitude;
-    const rotationY = (offsetX / (rect.width / 2)) * rotateAmplitude;
+      const rect = ref.current.getBoundingClientRect();
+      const offsetX = clientX - rect.left - rect.width / 2;
+      const offsetY = clientY - rect.top - rect.height / 2;
 
-    rotateX.set(rotationX);
-    rotateY.set(rotationY);
+      const rotationX = (offsetY / (rect.height / 2)) * -rotateAmplitude;
+      const rotationY = (offsetX / (rect.width / 2)) * rotateAmplitude;
 
-    x.set(e.clientX - rect.left);
-    y.set(e.clientY - rect.top);
+      rotateX.set(rotationX);
+      rotateY.set(rotationY);
 
-    const velocityY = offsetY - lastYRef.current;
-    rotateFigcaption.set(-velocityY * 0.6);
-    lastYRef.current = offsetY;
+      x.set(clientX - rect.left);
+      y.set(clientY - rect.top);
+
+      if (showTooltip) {
+        const velocityY = offsetY - lastYRef.current;
+        rotateFigcaption.set(-velocityY * 0.6);
+        lastYRef.current = offsetY;
+      }
+    });
   }
 
   function handleMouseEnter() {
@@ -69,6 +80,10 @@ export default function TiltedCard({
   }
 
   function handleMouseLeave() {
+    if (mouseRaf.current) {
+      cancelAnimationFrame(mouseRaf.current);
+      mouseRaf.current = 0;
+    }
     setIsHovered(false);
     opacity.set(0);
     scale.set(1);

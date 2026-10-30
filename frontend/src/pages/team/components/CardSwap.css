@@ -59,6 +59,8 @@
   touch-action: pan-y;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  will-change: transform;
+  transform: translateZ(0);
   cursor: grab;
   transition: box-shadow 0.25s ease;
 }

@@ -107,30 +107,7 @@ function StudioCard({ card, index, scrollYProgress }) {
     isLeft ? ["0px", "-20px"] : isRight ? ["0px", "20px"] : ["0px", "0px"]
   );
 
-  // Dynamic corner rounding: When 0 gap, inner corners are sharp (0px) to form 1 unified image;
-  // as gap expands, inner corners smoothly round to 18px!
-  const borderTopLeftRadius = useTransform(
-    scrollYProgress,
-    [0, 0.45],
-    isLeft ? ["18px", "18px"] : ["0px", "18px"]
-  );
-  const borderTopRightRadius = useTransform(
-    scrollYProgress,
-    [0, 0.45],
-    isRight ? ["18px", "18px"] : ["0px", "18px"]
-  );
-  const borderBottomLeftRadius = useTransform(
-    scrollYProgress,
-    [0, 0.45],
-    isLeft ? ["18px", "18px"] : ["0px", "18px"]
-  );
-  const borderBottomRightRadius = useTransform(
-    scrollYProgress,
-    [0, 0.45],
-    isRight ? ["18px", "18px"] : ["0px", "18px"]
-  );
-
-  // 3D Flip Rotation:
+  // 3D Flip Rotation (Pure hardware-accelerated transform, zero layout thrashing):
   // Left: 0 to -186deg
   // Center: 0 to 180deg
   // Right: 0 to 186deg
@@ -152,13 +129,9 @@ function StudioCard({ card, index, scrollYProgress }) {
         }}
       >
         {/* FRONT: IMAGE SLICE */}
-        <motion.div
-          className="sc-card-front absolute inset-0 overflow-hidden bg-[#111] z-20"
+        <div
+          className="sc-card-front absolute inset-0 overflow-hidden bg-[#111] z-20 rounded-2xl"
           style={{
-            borderTopLeftRadius,
-            borderTopRightRadius,
-            borderBottomLeftRadius,
-            borderBottomRightRadius,
             transform: "rotateY(0deg)",
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
@@ -179,17 +152,13 @@ function StudioCard({ card, index, scrollYProgress }) {
                 : "center center",
             }}
           />
-        </motion.div>
+        </div>
 
         {/* BACK: STAT BOX */}
-        <motion.div
-          className="sc-card-back absolute inset-0 overflow-hidden z-10"
+        <div
+          className="sc-card-back absolute inset-0 overflow-hidden z-10 rounded-2xl"
           style={{
             background: cardGradients[index],
-            borderTopLeftRadius,
-            borderTopRightRadius,
-            borderBottomLeftRadius,
-            borderBottomRightRadius,
             transform: "rotateY(180deg)",
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
@@ -240,7 +209,7 @@ function StudioCard({ card, index, scrollYProgress }) {
               </p>
             </div>
           </div>
-        </motion.div>
+        </div>
       </motion.div>
     </div>
   );

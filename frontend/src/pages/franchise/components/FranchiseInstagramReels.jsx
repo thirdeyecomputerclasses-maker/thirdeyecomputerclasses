@@ -290,9 +290,9 @@ export default function FranchiseInstagramReels() {
                 {/* Active Live Pulse Badge on Center Card */}
                 {isCenter && <div className="stage-active-pulse-badge" />}
 
-                {/* Render appropriate player depending on video source */}
+                {/* Render appropriate player depending on video source — ONLY center card loads live iframe to save massive bandwidth */}
                 {videoInfo.type === "instagram" ? (
-                  isVisible ? (
+                  isCenter ? (
                     <div className="stage-ig-container">
                       <iframe
                         src={videoInfo.embedUrl}
@@ -303,36 +303,32 @@ export default function FranchiseInstagramReels() {
                         allowTransparency="true"
                         allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                       />
-                      {isCenter ? (
-                        <a
-                          href={videoInfo.directUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="stage-ig-open-btn"
-                          title="Open Reel in Instagram"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <span>Open on Instagram</span>
-                          <ExternalLink size={12} />
-                        </a>
-                      ) : (
-                        /* Click interceptor for side cards so clicking anywhere brings it to center */
-                        <div
-                          className="stage-side-click-scrim"
-                          title="Click to view this reel"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setCurrentIndex(idx);
-                          }}
-                        />
-                      )}
+                      <a
+                        href={videoInfo.directUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="stage-ig-open-btn"
+                        title="Open Reel in Instagram"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <span>Open on Instagram</span>
+                        <ExternalLink size={12} />
+                      </a>
                     </div>
                   ) : (
-                    <div className="stage-ig-card-preview">
+                    <div 
+                      className="stage-ig-card-preview"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentIndex(idx);
+                      }}
+                    >
                       <img
                         src={reel.thumbnail}
                         alt="Instagram Reel"
                         className="stage-video-element"
+                        loading="lazy"
+                        decoding="async"
                         referrerPolicy="no-referrer"
                         onError={(e) => {
                           e.currentTarget.onerror = null;
@@ -352,7 +348,7 @@ export default function FranchiseInstagramReels() {
                     </div>
                   )
                 ) : videoInfo.type === "youtube" ? (
-                  isVisible ? (
+                  isCenter ? (
                     <div className="stage-ig-container">
                       <iframe
                         src={videoInfo.embedUrl}
@@ -361,22 +357,21 @@ export default function FranchiseInstagramReels() {
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                       />
-                      {!isCenter && (
-                        <div
-                          className="stage-side-click-scrim"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setCurrentIndex(idx);
-                          }}
-                        />
-                      )}
                     </div>
                   ) : (
-                    <div className="stage-ig-card-preview">
+                    <div 
+                      className="stage-ig-card-preview"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentIndex(idx);
+                      }}
+                    >
                       <img
                         src={reel.thumbnail || videoInfo.thumbnailUrl}
                         alt="YouTube Video"
                         className="stage-video-element"
+                        loading="lazy"
+                        decoding="async"
                       />
                       <div className="stage-ig-side-badge">
                         <span>YouTube Video</span>

@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import {
   Award,
-  Download,
-  Printer,
   Sparkles,
   RefreshCw,
   ExternalLink,
@@ -504,37 +502,24 @@ export default function CertificatePreviewPage() {
                 </div>
               </div>
 
-              {/* Action Buttons */}
+              {/* Action / Showcase Notice */}
               <div className="mt-8 space-y-3">
-                <div className="grid grid-cols-2 gap-3">
-                  <button
-                    type="button"
-                    onClick={handleDownload}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#f6d96b] hover:bg-[#ffe07a] text-black font-bold text-xs sm:text-sm shadow-[0_4px_20px_rgba(246,217,107,0.3)] transition-all hover:scale-[1.02] active:scale-[0.98]"
-                  >
-                    <Download className="w-4 h-4" />
-                    <span>Download PNG</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={handlePrint}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#1c160e] hover:bg-[#2a2014] text-white font-semibold text-xs sm:text-sm border border-[#3d2d1b] transition-all hover:border-[#f6d96b]/50"
-                  >
-                    <Printer className="w-4 h-4 text-[#f6d96b]" />
-                    <span>Print / PDF</span>
-                  </button>
-                </div>
-
                 <a
                   href="https://docs.google.com/forms/d/e/1FAIpQLSdDtLEpiKX4qeeR8YN2-HJ1jy9O7YvjaJh6HaalI7XTPyZ6aA/viewform"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-[#20180c] to-[#141008] border border-[#f6d96b]/40 text-[#f6d96b] hover:text-white hover:border-[#f6d96b] font-semibold text-xs sm:text-sm transition-all group"
+                  className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-[#f6d96b] hover:bg-[#ffe07a] text-black font-bold text-sm shadow-[0_4px_24px_rgba(246,217,107,0.35)] transition-all hover:scale-[1.02] active:scale-[0.98] group"
                 >
                   <span>Apply for Official Certificate</span>
                   <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </a>
+
+                <div className="flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-[#151009] border border-[#2b2014] text-center">
+                  <ShieldCheck className="w-4 h-4 text-[#f6d96b] shrink-0" />
+                  <span className="text-[11px] font-medium text-zinc-300">
+                    Official Institutional Showcase Only • Download disabled for security
+                  </span>
+                </div>
               </div>
             </div>
 
@@ -643,13 +628,9 @@ export default function CertificatePreviewPage() {
               <span>{studentName || "Student"} - {effectiveCourse}</span>
             </span>
             <div className="flex items-center gap-3">
-              <button
-                type="button"
-                onClick={handleDownload}
-                className="px-3.5 py-1.5 rounded-lg bg-[#f6d96b] text-black font-bold text-xs flex items-center gap-1.5"
-              >
-                <Download className="w-3.5 h-3.5" /> Download
-              </button>
+              <span className="hidden sm:inline-block text-[11px] text-zinc-400 bg-zinc-900 border border-zinc-800 px-2.5 py-1 rounded-md">
+                Institutional Specimen Showcase
+              </span>
               <button
                 type="button"
                 onClick={() => setIsFullscreen(false)}

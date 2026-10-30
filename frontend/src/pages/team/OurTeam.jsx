@@ -22,9 +22,33 @@ import MentorsCarousel from "./components/MentorsCarousel";
 import CardSwap from "./components/CardSwap";
 import "./OurTeam.css";
 
+// Real leadership & team assets
+import kapilNitharwalImg from "../../assets/franchise/partner_kapil_nitharwal.png";
+import rajGurjarImg from "../../assets/franchise/partner_raj_gurjar.png";
+import kushalAvasthiImg from "../../assets/franchise/partner_kushal_avasthi.png";
+import vartikaKumawatImg from "../../assets/franchise/partner_vartika_kumawat.png";
+import student1Img from "../../assets/students/student_1.jpg";
+import student2Img from "../../assets/students/student_2.jpg";
+import student4Img from "../../assets/students/student_4.jpg";
+import student5Img from "../../assets/students/student_5.jpg";
+import student6Img from "../../assets/students/student_6.jpg";
+import student7Img from "../../assets/students/student_7.jpg";
+import student9Img from "../../assets/students/student_9.jpg";
+import student11Img from "../../assets/students/student_11.jpg";
+
 const mentors = [
+  // --- The Founders (1 to 7) ---
   {
     id: 1,
+    name: "Suumit Sharrma",
+    role: "Chief Operating Officer",
+    category: "EXECUTIVE LEAD",
+    image: suumitSharmaImg,
+    description:
+      "Suumit Sharrma is the Chief Operating Officer at Thirdeye Computer Classes, where he oversees daily operations, drives strategic growth initiatives, and ensures the smooth functioning of all departments. With a deep understanding of the education and training industry, he brings forward-thinking execution to every student touchpoint.",
+  },
+  {
+    id: 2,
     name: "Preeti Sharma",
     role: "CHIEF MANAGING DIRECTOR",
     category: "DIRECTORATE",
@@ -33,184 +57,235 @@ const mentors = [
       "Preeti Sharma, Chief Managing Director of Thirdeye Computer Classes, is a proven professional with over 15 years of experience in Business Development and Key Account Management. She has a demonstrated history of success in the staffing and recruiting industry and is highly skilled in Negotiation, HR Consulting, Customer Relationship Management (CRM), Market Research, and Management.",
   },
   {
-    id: 2,
+    id: 3,
     name: "Puneet Sharma",
     role: "Managing Director",
     category: "DIRECTORATE",
     image: puneetSharmaImg,
     description:
-      "Puneet Sharma, Managing Director of Thirdeye computer classses is a results-oriented professional with over 20 years of experience in managing and direction. Possesses excellent time management skills, top customer-relations abilities and strong communication methods",
-  },
-  {
-    id: 3,
-    name: "Suumit sharrma",
-    role: "Chief Operating Officer",
-    category: "EXECUTIVE LEAD",
-    image: suumitSharmaImg,
-    description:
-      "Suumit Sharrma is the Chief Operating Officer at Thirdeye Computer Classes, where he oversees daily operations, drives strategic growth initiatives, and ensures the smooth functioning of all departments. With a deep understanding of the education and training industry",
+      "Puneet Sharma, Managing Director of Thirdeye Computer Classes, is a results-oriented professional with over 20 years of experience in managing and direction. Possesses excellent time management skills, top customer-relations abilities, and strong communication methods.",
   },
   {
     id: 4,
-    name: "Mr. M.L. Chaudhary",
-    role: "Founder & Chief Patron",
-    category: "FOUNDER",
-    image: mlChaudharyImg,
+    name: "Neelam Sharma",
+    role: "RECRUITMENT HEAD",
+    category: "RECRUITMENT LEAD",
+    image: neelamSharmaImg,
     description:
-      "An enthusiastic person and qualified technical instructor, trained in technical management with incredible contributions to Indian Airforce. An accredited technical safety inspector in technical aviation field, Served with innovative ideas for the continues improvement in technical safety. The recipient of Indian Airforce Commandation was an asset to the service.\n\nHis vision is to develop the computer skills, in each and every youth and enlighten the IT knowledge by inspiring every student through the principle of Swami Vivekananda: “Arise, awake n do not stop until the goal is reached.”",
+      "She is a highly accomplished and dedicated professional serving as the Recruitment Head at Thirdeye Computer Classes. With a strong background in student guidance, corporate hiring coordination, and enrollment management, Neelam plays a pivotal role in shaping the career pathways of countless students.",
   },
   {
     id: 5,
-    name: "Sheetal Sharma",
-    role: "SALES & B.D. HEAD",
-    category: "BUSINESS LEAD",
-    image: sheetalSharmaImg,
-    description:
-      "A seasoned leader with 27 years of experience, Sheetal Sharma spearheads Sales and Business Development at Thirdeye. Formerly the Sales & B.D. Head and Franchise Manager at Samyak, she brings unmatched expertise in business expansion and strategic growth. She is an ICF-accredited Life Coach, a Corporate Soft Skills Trainer, and an award-winning storyteller from Toastmasters International.\n\nCombining her deep industry knowledge with a passion for English literature, Sheetal is dedicated to scaling Thirdeye’s vision to new heights.",
-  },
-  {
-    id: 6,
-    name: "Neelam Sharma",
-    role: "RECRUITMENT HEAD",
-    category: "ADMISSION LEAD",
-    image: neelamSharmaImg,
-    description:
-      "She is a highly accomplished and dedicated professional serving as the Admission & Counseling Head at Thirdeye Computer Classes. With a strong background in student guidance and enrollment management, Neelam plays a pivotal role in shaping the academic journeys of countless students. Their expertise in career counseling, admissions strategy, and student support has made them invaluable to the institution.\n\nKnown for their commitment to fostering a supportive and growth-oriented environment, Neelam strives to help students make informed decisions and achieve their academic and career aspirations.",
-  },
-  {
-    id: 7,
-    name: "Muskan Avesthi",
-    role: "PLACEMENT MANAGER",
-    category: "CAREER PLACEMENTS",
-    image: muskanAvesthiImg,
-    description:
-      "Team Member Muskan Avesthi-An enthusiastic soft and communication skills trainer with demonstrated history of providing process training to new hires. With overall 8+ years of Experience in Career counselling and overseas consultant, Known for driving initiatives for business development.",
-  },
-  {
-    id: 8,
     name: "Kushwang Sharma",
     role: "Social Media Manager",
     category: "OPERATIONS",
     image: khushwangSharmaImg,
     description:
-      "Social Media Manager & Operations Head, ThirdEye Computer Classes Khushwang Sharma leads social media and operations at ThirdEye Computer Classes, combining digital marketing expertise with strong organizational skills. His work has enhanced the institute’s brand presence and streamlined daily operations. Under his leadership, social media engagement and student enrollments have seen significant growth through effective, data-driven strategies.",
+      "Social Media Manager & Operations Head, Thirdeye Computer Classes. Kushwang Sharma leads social media and operations, combining digital marketing expertise with strong organizational skills. His work has enhanced the institute’s brand presence and streamlined daily operations.",
+  },
+  {
+    id: 6,
+    name: "Mr. M.L. Chaudhary",
+    role: "Founder & Chief Patron",
+    category: "FOUNDER",
+    image: mlChaudharyImg,
+    description:
+      "An enthusiastic person and qualified technical instructor, trained in technical management with incredible contributions to Indian Airforce. An accredited technical safety inspector in technical aviation field, Served with innovative ideas for continuous improvement in technical safety. The recipient of Indian Airforce Commendation was an asset to the service.\n\nHis vision is to develop computer skills in each and every youth and enlighten IT knowledge through the principle of Swami Vivekananda: “Arise, awake and do not stop until the goal is reached.”",
+  },
+  {
+    id: 7,
+    name: "Sheetal Sharma",
+    role: "SALES & B.D. HEAD",
+    category: "BUSINESS LEAD",
+    image: sheetalSharmaImg,
+    description:
+      "A seasoned leader with 27 years of experience, Sheetal Sharma spearheads Sales and Business Development at Thirdeye. Formerly the Sales & B.D. Head and Franchise Manager at Samyak, she brings unmatched expertise in business expansion and strategic growth. She is an ICF-accredited Life Coach, Corporate Soft Skills Trainer, and an award-winning storyteller.",
+  },
+
+  // --- Franchise Owners (8 to 12) ---
+  {
+    id: 8,
+    name: "Kapil Nitharwal",
+    role: "FRANCHISE OWNER / VAISHALI NAGAR BRANCH",
+    category: "FRANCHISE OWNER",
+    image: kapilNitharwalImg,
+    description:
+      "Kapil Nitharwal is the franchise director of Thirdeye Computer Classes – Vaishali Nagar Branch. With quality teaching, practical training, and modern facilities, he leads one of the most successful tech learning centers in West Jaipur.",
   },
   {
     id: 9,
-    name: "Amit Saini",
-    role: "Senior Digital Marketing Manager",
-    category: "SENIOR FACULTY",
-    image: amitSainiImg,
+    name: "Diya Saini",
+    role: "FRANCHISE OWNER / Sodala Branch",
+    category: "FRANCHISE OWNER",
+    image: diyaSainiImg,
     description:
-      "Amit Saini is an experienced Digital Marketing Manager and Graphic Design Expert with over 9 years of experience in digital marketing, design, and brand strategy. He is a Senior Digital Marketing Manager and Educator at Thirdeye Computer Classes. He is also the Founder of Digitallitsolutions and has previously taught at Dicazo. Amit has successfully worked with brands like Lapinoz Pizza, GD Goenka, Maharaja Masala, Kids Pride School, Naughty Dogs, and Carz Spa.",
+      "Diya Saini is the franchise owner of Thirdeye Computer Classes – Sodala Branch. With over 4 years of experience in education and student guidance, she brings dedicated leadership to ensure students gain practical, job-ready skills.",
   },
   {
     id: 10,
-    name: "Shubham Saini",
-    role: "SR. TRAINING MANAGER",
-    category: "TRAINING HEAD",
-    image: shubhamSainiImg,
+    name: "Raj Gurjar",
+    role: "FRANCHISE OWNER / Jhotwara Branch",
+    category: "FRANCHISE OWNER",
+    image: rajGurjarImg,
     description:
-      "Shubham Saini is an accomplished Senior Manager at Thirdeye Computer Classes, where he brings a wealth of experience in business development, franchise management, and career counseling. With his strong leadership skills and strategic vision, Shubham has played a significant role in expanding the institute’s operations and guiding students toward successful career paths.\n\nAt Thirdeye Computer Classes, Shubham took on the role of Senior Branch Manager, where he successfully lead business development initiatives, expanded franchise operations, and offered career counseling to students. His role involves overseeing the daily operations of the branch, developing new business opportunities, managing franchise partnerships, and ensuring the overall growth and success of the organization.",
+      "Raj Gurjar is the franchise owner of Thirdeye Computer Classes – Jhotwara Branch. Delivering expert training, modern facilities, and a relentless focus on practical learning, he drives student success across the industrial and tech corridor.",
   },
   {
     id: 11,
-    name: "Tushar prajapat",
-    role: "Senior bRANCH MANAGER",
-    category: "BRANCH LEAD",
-    image: tusharPrajapatImg,
+    name: "Kushal Avasthi",
+    role: "FRANCHISE OWNER / Gopalpura Branch",
+    category: "FRANCHISE OWNER",
+    image: kushalAvasthiImg,
     description:
-      "Digital Marketer | Designer | Freelancer | Video Editor | Career Counsellor With 6 years of experience, Tushar Prajapat combines creativity and strategy to craft impactful digital solutions. At ThirdEye Computer Classes, he drives digital marketing, design, and career counselling initiatives—helping students and brands grow in the digital era.\n\nA versatile professional with expertise in branding, design, content, and freelancing, Tushar’s innovative and result-driven approach inspires learners to upskill and achieve their goals. Philosophy: “Learn. Create. Grow — because your skills define your success.”",
+      "Kushal Avasthi is the franchise owner of Thirdeye Computer Classes – Gopalpura Branch. Located right in the heart of Jaipur's premier coaching belt, he is dedicated to delivering the highest caliber of computer education.",
   },
   {
     id: 12,
-    name: "Gaurav Singh Panwar",
-    role: "IVR & CRM SUPPORT mANAGER",
-    category: "STUDENT SUPPORT",
-    image: gauravSinghImg,
+    name: "Vartika Kumawat",
+    role: "FRANCHISE OWNER / Mansarovar Branch",
+    category: "FRANCHISE OWNER",
+    image: vartikaKumawatImg,
     description:
-      "With 5+ years of experience in operations, sales, and client advisory, I’ve worked with leading MNCs like Genpact and Concentrix. At Genpact, I managed international projects, and at Concentrix, I served as a Senior Advisor for US/UK processes. Currently, I’m working with Thirdeye – The digital skills powerhouse, focused on driving growth of students.",
+      "Vartika Kumawat is the franchise owner of Thirdeye Computer Classes – Mansarovar Branch. With expert faculty, practical learning labs, and modern infrastructure, she is committed to providing high-quality computer education to all students.",
   },
+
+  // --- The Department Ones (13 to 25) ---
   {
     id: 13,
-    name: "Rishika Raj",
-    role: "Senior Career Counsellor",
-    category: "CAREER ADVISOR",
-    image: rishikaRajImg,
+    name: "Sheetanshu Saxena",
+    role: "Senior Digital Marketing Executive",
+    category: "DIGITAL MARKETING",
+    image: sheetanshuSaxenaImg,
     description:
-      "Rishika Raj is an B.A. Graduate from Jaipur, With over 3.5 years of experience international clients handeling in Qdegrees, teleperformance and CarDekho. specializing in: Customer Support, Tele Sales, Customer Experience, Feedback Management. She is Dedicated professional and has a enthusiastic personality In Thirdeye she helps & guides students to choose correct pathway to build their career.",
+      "With a passion for creativity and data-driven strategy, Sheetanshu manages digital growth campaigns and visibility for Thirdeye Computer Classes, connecting aspiring students with high-value technical courses.",
   },
   {
     id: 14,
-    name: "ishika jain",
-    role: "Senior Career Counsellor",
-    category: "CAREER ADVISOR",
-    image: ishikaJainImg,
+    name: "Anjali Nama",
+    role: "Digital Marketing Executive",
+    category: "DIGITAL MARKETING",
+    image: student1Img,
     description:
-      "Ishika Jain holds a BBA, M.Com (HRM), and an MBA, and brings over five years of teaching experience at both domestic and international levels. She is passionate about guiding students through their academic journey with clarity and confidence. Her teaching approach focuses not only on building strong subject knowledge but also on developing the skills and self-assurance students need to succeed in their future careers.",
+      "Anjali is a dynamic Digital Marketing Executive specializing in brand storytelling, social outreach, and creative ad management across modern student platforms.",
   },
   {
     id: 15,
-    name: "Diya Saini",
-    role: "Senior bRANCH MANAGER",
-    category: "BRANCH LEAD",
-    image: diyaSainiImg,
+    name: "Simran Sharma",
+    role: "Talent Acquisition Manager",
+    category: "TALENT & HR",
+    image: student2Img,
     description:
-      "With over 4 years of experience in education, I have guided students in English to enhance their communication and academic skills. I also worked as an E-commerce Executive in the Amazon Advertisement Department at Jaipur Global Services, gaining expertise in digital operations. Currently, I serve as a Counsellor at Thirdeye Computer Classes, helping students choose the right career-oriented courses for a successful future.",
+      "Simran leads talent acquisition and corporate relations, bridging top-performing students and certified alumni with leading employer networks.",
   },
   {
     id: 16,
-    name: "Sheetanshu Saxena",
-    role: "Digital Marketing Executive",
-    category: "MARKETING",
-    image: sheetanshuSaxenaImg,
+    name: "Gaurav Singh Panwar",
+    role: "IVR & CRM SUPPORT MANAGER",
+    category: "CRM & SUPPORT",
+    image: gauravSinghImg,
     description:
-      "With a passion for creativity and data-driven strategy, Sheetanshu manages the digital presence of Thirdeye Computer Classes. From running impactful ad campaigns to optimizing online visibility, he ensures that Thirdeye stays ahead in the digital space. His innovative approach and keen eye for trends help connect students with the right opportunities and courses.",
+      "With 5+ years of experience in operations, sales, and client advisory with leading MNCs like Genpact and Concentrix, Gaurav leads IVR infrastructure and CRM support for seamless student assistance.",
   },
   {
     id: 17,
     name: "Mohit Sharma",
     role: "ADMIN MANAGER",
-    category: "ANIMATION & VFX",
+    category: "OPERATIONS",
     image: mohitSharmaImg,
     description:
-      "A creative and passionate Animation & VFX Faculty with expertise in 2D & 3D Animation, Motion Graphics, and Visual Effects. With strong industry knowledge and hands-on software skills, they focus on practical learning and portfolio development. At ThirdEye Computer Classes, they train and mentor students to build successful careers in the animation and media industry.",
+      "As Admin Manager, Mohit ensures smooth day-to-day operations, student academic administration, and seamless campus infrastructure across centers.",
   },
   {
     id: 18,
-    name: "Rahul Verma",
-    role: "Designing Executive",
-    category: "DESIGN FACULTY",
-    image: "",
+    name: "Shubham Saini",
+    role: "SR. TRAINING MANAGER",
+    category: "TRAINING HEAD",
+    image: shubhamSainiImg,
     description:
-      "Rahul is a creative Designing Executive with expertise in graphic design, branding, and visual content creation. With strong knowledge of modern design tools and trends, he develops impactful creatives for digital and print media. At ThirdEye Computer Classes, he contributes by creating engaging designs and supporting the institute’s branding and promotional activities.",
+      "Shubham brings deep expertise in curriculum standardization, faculty mentoring, and student career counseling, ensuring high pedagogical quality across all batches.",
   },
   {
     id: 19,
-    name: "Harshita jain",
-    role: "Senior Career Counsellor",
-    category: "TECH COUNSELLOR",
-    image: "",
+    name: "Tushar Prajapat",
+    role: "Senior BRANCH MANAGER",
+    category: "BRANCH LEAD",
+    image: tusharPrajapatImg,
     description:
-      "I am a B.Tech graduate in Computer Science & Engineering with a strong foundation in both technology and education. I have experience in web development, software training, and student counseling, which helps me bridge technical knowledge with student needs. Currently, I am working as Branch Manager and Academic Counsellor, where I guide students in choosing the right career path and support their overall learning. I am dedicated to mentoring and helping students build a successful future in the IT field.",
+      "With 6 years of experience across branding, digital strategy, and student guidance, Tushar drives center growth and inspires learners to upskill for modern industry roles.",
   },
   {
     id: 20,
-    name: "rohit bairwa",
+    name: "Rishika Raj",
     role: "Senior Career Counsellor",
     category: "CAREER ADVISOR",
-    image: "",
+    image: rishikaRajImg,
     description:
-      "Rohit Bairwa is a dedicated academic counselor who helps students plan their IT careers with clarity and confidence. Known for his detail-oriented approach, Rohit guides learners to align their goals with current industry trends. His personalized support ensures that every student makes informed and confident career decisions.",
+      "Dedicated professional with extensive experience in client handling and student advisory, helping learners choose the exact career pathway tailored to their ambitions.",
   },
   {
     id: 21,
-    name: "Pankaj sharma",
+    name: "Rohit Bairwa",
     role: "Senior Career Counsellor",
-    category: "AI & ML MENTOR",
-    image: "",
+    category: "CAREER ADVISOR",
+    image: student11Img,
     description:
-      "Pankaj holds a BBA from Jai Narain Vyas University and an MCA in AI & ML from Amity University, Noida. He guides students in choosing the right career path with practical, industry-focused advice and personalized support.",
+      "Rohit is a dedicated academic counselor who helps students plan their IT careers with clarity and confidence, ensuring every learner makes informed career decisions.",
+  },
+  {
+    id: 22,
+    name: "Ishika Jain",
+    role: "Senior Career Counsellor",
+    category: "CAREER ADVISOR",
+    image: ishikaJainImg,
+    description:
+      "Ishika holds a BBA, M.Com (HRM), and MBA with over 5 years of teaching and counseling experience, mentoring students with personalized academic roadmaps.",
+  },
+  {
+    id: 23,
+    name: "Seema Agarwal",
+    role: "Senior Career Counsellor",
+    category: "CAREER ADVISOR",
+    image: student4Img,
+    description:
+      "Seema brings deep empathy and student-first guidance, helping students and parents navigate emerging technical certifications and professional degree paths.",
+  },
+  {
+    id: 24,
+    name: "Jay Singh Rathor",
+    role: "Senior career counsellor",
+    category: "CAREER ADVISOR",
+    image: student5Img,
+    description:
+      "Jay specializes in analyzing student skill levels and mapping them to high-demand corporate job vacancies and specialized computer training tracks.",
+  },
+  {
+    id: 25,
+    name: "Mratyunjay Mishra",
+    role: "Senior career counsellor",
+    category: "CAREER ADVISOR",
+    image: student6Img,
+    description:
+      "Mratyunjay mentors students with industry-relevant counsel, helping them build practical confidence and choose the most impactful IT certifications.",
+  },
+
+  // --- The Faculties (26 & 27) ---
+  {
+    id: 26,
+    name: "Rahul Verma",
+    role: "Designing Executive",
+    category: "DESIGN FACULTY",
+    image: student9Img,
+    description:
+      "Rahul is a creative Designing Executive with expertise in graphic design, branding, and visual content creation, mentoring students in industry-standard creative software.",
+  },
+  {
+    id: 27,
+    name: "Pramendra Sankhla",
+    role: "Civil and Mechanical Trainer",
+    category: "ENGINEERING FACULTY",
+    image: student7Img,
+    description:
+      "Pramendra specializes in Civil and Mechanical CAD/CAM training, guiding engineering students and professionals in 2D drafting, 3D modeling, and architectural visualization.",
   },
 ];
 
@@ -556,56 +631,83 @@ function LiquidChromeBlob() {
       if (canvas) rect = canvas.getBoundingClientRect();
     };
 
+
+    let isVisible = false;
+    let animationId = 0;
+    let mouseRaf = 0;
+
     const onMove = (e) => {
-      if (!rect.width || !rect.height) {
-        rect = canvas.getBoundingClientRect();
-      }
-      mouse = [
-        (e.clientX - rect.left) / (rect.width || 1),
-        (e.clientY - rect.top) / (rect.height || 1),
-      ];
+      if (!isVisible || mouseRaf) return;
+      mouseRaf = requestAnimationFrame(() => {
+        mouseRaf = 0;
+        if (!rect.width || !rect.height) {
+          rect = canvas.getBoundingClientRect();
+        }
+        mouse = [
+          (e.clientX - rect.left) / (rect.width || 1),
+          (e.clientY - rect.top) / (rect.height || 1),
+        ];
+      });
     };
 
     window.addEventListener("mousemove", onMove, { passive: true });
     window.addEventListener("resize", updateRect, { passive: true });
 
-    let isVisible = true;
-    let animationId;
-
-    // Pause WebGL rendering when canvas is outside viewport
-    const observer = new IntersectionObserver(([entry]) => {
-      isVisible = entry.isIntersecting;
-    });
-    observer.observe(canvas);
-
     const render = (time) => {
-      if (isVisible) {
-        if (
-          canvas.width !== canvas.clientWidth ||
-          canvas.height !== canvas.clientHeight
-        ) {
-          canvas.width = canvas.clientWidth;
-          canvas.height = canvas.clientHeight;
-          gl.viewport(0, 0, canvas.width, canvas.height);
-          rect = canvas.getBoundingClientRect();
-        }
-
-        gl.uniform2f(uResLoc, canvas.width, canvas.height);
-        gl.uniform1f(uTimeLoc, time * 0.001);
-        gl.uniform2f(uMouseLoc, mouse[0], mouse[1]);
-
-        gl.drawArrays(gl.TRIANGLES, 0, 6);
+      if (!isVisible) {
+        animationId = 0;
+        return;
       }
+
+      // Render at half resolution capped at 500x320 to preserve high framerate without GPU lag
+      const targetW = Math.min(500, Math.max(220, Math.floor(canvas.clientWidth * 0.45)));
+      const targetH = Math.min(320, Math.max(160, Math.floor(canvas.clientHeight * 0.45)));
+
+      if (canvas.width !== targetW || canvas.height !== targetH) {
+        canvas.width = targetW;
+        canvas.height = targetH;
+        gl.viewport(0, 0, targetW, targetH);
+        rect = canvas.getBoundingClientRect();
+      }
+
+      gl.uniform2f(uResLoc, canvas.width, canvas.height);
+      gl.uniform1f(uTimeLoc, time * 0.001);
+      gl.uniform2f(uMouseLoc, mouse[0], mouse[1]);
+
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
       animationId = requestAnimationFrame(render);
     };
 
-    animationId = requestAnimationFrame(render);
+    const startRender = () => {
+      if (!animationId) {
+        animationId = requestAnimationFrame(render);
+      }
+    };
+
+    const stopRender = () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+        animationId = 0;
+      }
+    };
+
+    // Strict IntersectionObserver: Completely stop requestAnimationFrame when canvas is off-screen
+    const observer = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+      if (isVisible) {
+        startRender();
+      } else {
+        stopRender();
+      }
+    });
+    observer.observe(canvas);
 
     return () => {
       observer.disconnect();
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("resize", updateRect);
-      cancelAnimationFrame(animationId);
+      if (mouseRaf) cancelAnimationFrame(mouseRaf);
+      stopRender();
       gl.deleteProgram(program);
       gl.deleteShader(vertShader);
       gl.deleteShader(fragShader);
@@ -647,10 +749,12 @@ export default function OurTeam() {
             const memberId = m.id || idx + 1;
             const teamImg = teamSlotMap[memberId];
             const carouselImg = carouselSlotMap[memberId];
+            // Automatically sync upper readable card photos directly from below card uploads
+            const resolvedImg = teamImg || carouselImg || m.image;
             return {
               ...m,
-              image: teamImg || m.image,
-              carouselImage: carouselImg || teamImg || m.image,
+              image: resolvedImg,
+              carouselImage: resolvedImg,
             };
           })
         );
@@ -659,30 +763,37 @@ export default function OurTeam() {
   }, []);
 
   const foundersList = useMemo(
-    () => [
-      { ...mentorsList[3], originalIndex: 3 },
-      { ...mentorsList[0], originalIndex: 0 },
-      { ...mentorsList[1], originalIndex: 1 },
-      { ...mentorsList[2], originalIndex: 2 },
-    ],
+    () =>
+      mentorsList.slice(0, 7).map((m, idx) => ({
+        ...m,
+        originalIndex: idx,
+      })),
+    [mentorsList]
+  );
+
+  const franchiseOwnersList = useMemo(
+    () =>
+      mentorsList.slice(7, 12).map((m, idx) => ({
+        ...m,
+        originalIndex: 7 + idx,
+      })),
     [mentorsList]
   );
 
   const departmentList = useMemo(
-    () => [
-      { ...mentorsList[4], originalIndex: 4 },
-      { ...mentorsList[5], originalIndex: 5 },
-      { ...mentorsList[6], originalIndex: 6 },
-      { ...mentorsList[7], originalIndex: 7 },
-    ],
+    () =>
+      mentorsList.slice(12, 25).map((m, idx) => ({
+        ...m,
+        originalIndex: 12 + idx,
+      })),
     [mentorsList]
   );
 
   const facultiesList = useMemo(
     () =>
-      mentorsList.slice(8).map((m, idx) => ({
+      mentorsList.slice(25).map((m, idx) => ({
         ...m,
-        originalIndex: 8 + idx,
+        originalIndex: 25 + idx,
       })),
     [mentorsList]
   );
@@ -691,19 +802,23 @@ export default function OurTeam() {
       mentorsList.map((mentor, index) => ({
         ...mentor,
         index: index + 1,
-        image: mentor.carouselImage || mentor.image,
+        image: mentor.image || mentor.carouselImage,
       })),
     [mentorsList]
   );
 
   const haloRef = useRef(null);
+  const haloRaf = useRef(0);
 
   const handleMouseMove = useCallback((e) => {
-    if (!haloRef.current) return;
-    const x = Math.round((e.clientX / window.innerWidth) * 100);
-    const y = Math.round((e.clientY / window.innerHeight) * 100);
-    haloRef.current.style.left = `${x}%`;
-    haloRef.current.style.top = `${y}%`;
+    if (!haloRef.current || haloRaf.current) return;
+    const clientX = e.clientX;
+    const clientY = e.clientY;
+    haloRaf.current = requestAnimationFrame(() => {
+      haloRaf.current = 0;
+      if (!haloRef.current) return;
+      haloRef.current.style.transform = `translate3d(${clientX}px, ${clientY}px, 0) translate(-50%, -50%)`;
+    });
   }, []);
 
   const scrollToCarousel = useCallback(() => {
@@ -847,7 +962,7 @@ return (
           <h2>Explore Our Leadership & Teams</h2>
         </div>
 
-        <div className="three-stacks-grid">
+        <div className="three-stacks-grid four-stacks-grid">
           {/* Stack 1: The Founders */}
           <div className="stack-column">
             <div className="stack-title-box">
@@ -871,17 +986,17 @@ return (
             </div>
           </div>
 
-          {/* Stack 2: The Department Ones */}
+          {/* Stack 2: Franchise Owners */}
           <div className="stack-column">
             <div className="stack-title-box">
               <span className="stack-num">02</span>
-              <h3>The Department Ones</h3>
+              <h3>Franchise Owners</h3>
             </div>
             <div className="card-swap-stage-wrapper">
               <CardSwap
-                items={departmentList}
+                items={franchiseOwnersList}
                 onSelectMentor={jumpToMentor}
-                delay={4300}
+                delay={4100}
                 width={280}
                 height={400}
                 cardDistance={24}
@@ -894,10 +1009,33 @@ return (
             </div>
           </div>
 
-          {/* Stack 3: The Faculties */}
+          {/* Stack 3: The Department Ones */}
           <div className="stack-column">
             <div className="stack-title-box">
               <span className="stack-num">03</span>
+              <h3>The Department Ones</h3>
+            </div>
+            <div className="card-swap-stage-wrapper">
+              <CardSwap
+                items={departmentList}
+                onSelectMentor={jumpToMentor}
+                delay={4400}
+                width={280}
+                height={400}
+                cardDistance={24}
+                verticalDistance={25}
+                depth={50}
+                skewAmount={2.5}
+                visibleCards={4}
+                pauseOnHover={true}
+              />
+            </div>
+          </div>
+
+          {/* Stack 4: The Faculties */}
+          <div className="stack-column">
+            <div className="stack-title-box">
+              <span className="stack-num">04</span>
               <h3>The Faculties</h3>
             </div>
             <div className="card-swap-stage-wrapper">

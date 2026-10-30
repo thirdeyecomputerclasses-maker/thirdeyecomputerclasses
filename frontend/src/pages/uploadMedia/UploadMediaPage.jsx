@@ -80,7 +80,7 @@ const SUPPORTED_PAGES = [
     label: "Our Team",
     path: "/our-team-new",
     icon: "👥",
-    desc: "The Founders (4), Department Heads (4) & Faculty Mentors (13) — 21 Photos",
+    desc: "The Founders (7), Franchise Owners (5), The Department Ones (13) & Faculties (2) — 27 Slots",
   },
 ];
 
@@ -267,17 +267,43 @@ export default function UploadMediaPage({ embedded = false }) {
         });
       }
 
+const PAIRED_FRANCHISE_SLOTS = {
+  team_member_8: "franchise_partner_kapil",
+  franchise_partner_kapil: "team_member_8",
+  team_member_9: "franchise_partner_diya",
+  franchise_partner_diya: "team_member_9",
+  team_member_10: "franchise_partner_raj",
+  franchise_partner_raj: "team_member_10",
+  team_member_11: "franchise_partner_kushal",
+  franchise_partner_kushal: "team_member_11",
+  team_member_12: "franchise_partner_vartika",
+  franchise_partner_vartika: "team_member_12",
+};
+
       // Update state locally & refresh
       if (updatedSlot) {
         setSlots((prev) => {
           const map = new Map(prev.map((s) => [s.slotKey, s]));
           map.set(activeSlot.slotKey, updatedSlot);
+
+          // Auto-sync paired slot locally if updated (e.g. team_member_8 <-> franchise_partner_kapil)
+          const pairedKey = PAIRED_FRANCHISE_SLOTS[activeSlot.slotKey];
+          if (pairedKey && map.has(pairedKey)) {
+            const pairedItem = map.get(pairedKey);
+            map.set(pairedKey, {
+              ...pairedItem,
+              url: updatedSlot.url,
+              thumbnailUrl: updatedSlot.thumbnailUrl,
+              fileId: updatedSlot.fileId,
+              isDefault: false,
+            });
+          }
           return Array.from(map.values());
         });
       }
       setActionMessage({
         type: "success",
-        text: `Successfully replaced photo for "${activeSlot.title}"!`,
+        text: `Successfully replaced photo for "${activeSlot.title}"! Auto-synced across Franchise & Team pages.`,
       });
       setTimeout(() => setActionMessage(null), 4000);
       handleCloseReplace();
@@ -299,7 +325,20 @@ export default function UploadMediaPage({ embedded = false }) {
     try {
       const resetSlot = await resetSlotToDefault(slot.slotKey);
       setSlots((prev) =>
-        prev.map((s) => (s.slotKey === slot.slotKey ? resetSlot : s))
+        prev.map((s) => {
+          if (s.slotKey === slot.slotKey) return resetSlot;
+          const pairedKey = PAIRED_FRANCHISE_SLOTS[slot.slotKey];
+          if (s.slotKey === pairedKey) {
+            return {
+              ...s,
+              url: s.defaultUrl,
+              thumbnailUrl: s.defaultUrl,
+              fileId: "",
+              isDefault: true,
+            };
+          }
+          return s;
+        })
       );
       setActionMessage({
         type: "info",
@@ -370,13 +409,19 @@ export default function UploadMediaPage({ embedded = false }) {
       case "testimonials":
         return "Video Reviews (6)";
       case "carousel":
-        return "Mentors Carousel (21)";
+        return "Mentors Carousel (27)";
       case "founders":
-        return "The Founders (4)";
+        return "The Founders (7)";
+      case "franchise_owners":
+        return "Franchise Owners (5) — Auto-Synced";
+      case "partner_testimonials":
+        return "Franchise Owners / Partners (6) — Auto-Synced";
+      case "placement_drive":
+        return "Placement Drive Photos (3)";
       case "departments":
-        return "The Department Heads (4)";
+        return "The Department Ones (13)";
       case "faculties":
-        return "Faculties & Mentors (13)";
+        return "The Faculties (2)";
       default:
         return sec.charAt(0).toUpperCase() + sec.slice(1);
     }

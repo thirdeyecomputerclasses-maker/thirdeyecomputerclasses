@@ -15,18 +15,18 @@ import {
   ShieldCheck,
   Check
 } from "lucide-react";
-import { fetchMedia } from "../../../services/mediaApi";
+import { fetchMedia, getOptimizedImageUrl } from "../../../services/mediaApi";
 
 // Default bundled placement drive photos
 import defaultInterviewPhoto1 from "../../../assets/awards/placement_interview_1.png";
 import defaultInterviewPhoto2 from "../../../assets/awards/placement_interview_2.png";
 import defaultInterviewPhoto3 from "../../../assets/awards/placement_interview_3.png";
 
-// Student placement photos
-import kushalImg from "../../../assets/students/kushal_sharma.png";
-import nishaImg from "../../../assets/students/nisha_nama.png";
+// Real student placement portraits
 import student1 from "../../../assets/students/student_1.jpg";
 import student2 from "../../../assets/students/student_2.jpg";
+import student3 from "../../../assets/students/student_3.jpg";
+import student4 from "../../../assets/students/student_4.jpg";
 
 export default function FranchisePlacementDrive({ onOpenInquiry }) {
   // Dynamic media state from ImageKit CDN
@@ -34,13 +34,20 @@ export default function FranchisePlacementDrive({ onOpenInquiry }) {
 
   useEffect(() => {
     let isMounted = true;
-    fetchMedia({ page: "franchise", type: "image" })
-      .then((res) => {
-        if (!isMounted || !res || !res.media) return;
+    Promise.all([
+      fetchMedia({ page: "franchise", type: "image" }).catch(() => []),
+      fetchMedia({ page: "placements", type: "image" }).catch(() => [])
+    ])
+      .then(([franchiseRes, placementRes]) => {
+        if (!isMounted) return;
+        const franchiseList = Array.isArray(franchiseRes) ? franchiseRes : (franchiseRes?.data || franchiseRes?.media || []);
+        const placementList = Array.isArray(placementRes) ? placementRes : (placementRes?.data || placementRes?.media || []);
         const map = {};
-        res.media.forEach((item) => {
-          if (item.slotKey && item.url) {
-            map[item.slotKey] = item.url;
+        [...franchiseList, ...placementList].forEach((item) => {
+          if (item?.slotKey && item?.url) {
+            if (!map[item.slotKey] || !item.isDefault) {
+              map[item.slotKey] = item.url;
+            }
           }
         });
         setDynamicMedia(map);
@@ -101,31 +108,35 @@ export default function FranchisePlacementDrive({ onOpenInquiry }) {
     }
   ];
 
-  // Placed students for the spotlight ticker (User Screenshot 1)
+  // Placed students for the spotlight ticker (User Screenshot 3)
   const placedCandidates = [
     {
       name: "KUSHAL SHARMA",
       company: "Beyond Designer",
       role: "Graphic Designer",
-      photo: kushalImg
+      slotKey: "placement_student_2",
+      fallback: student2
     },
     {
       name: "NISHA NAMA",
       company: "Vasco Teleradiology",
       role: "MIS Executive",
-      photo: nishaImg
+      slotKey: "placement_student_4",
+      fallback: student4
     },
     {
       name: "KIRTI KHANDELWAL",
       company: "Teleperformance",
       role: "Operations Associate",
-      photo: student1
+      slotKey: "placement_student_1",
+      fallback: student1
     },
     {
       name: "SHUBH SHARMA",
       company: "TechnoSoft Solutions",
       role: "Web Developer",
-      photo: student2
+      slotKey: "placement_student_3",
+      fallback: student3
     }
   ];
 
@@ -150,11 +161,19 @@ export default function FranchisePlacementDrive({ onOpenInquiry }) {
 
           {/* Placed Candidates Row */}
           <div className="strip-candidates-row">
-            {placedCandidates.map((cand, cIdx) => (
-              <div key={cIdx} className="placed-candidate-card">
-                <div className="candidate-avatar-frame">
-                  <img src={cand.photo} alt={cand.name} className="candidate-avatar-img" />
-                </div>
+            {placedCandidates.map((cand, cIdx) => {
+              const photoUrl = getOptimizedImageUrl(dynamicMedia[cand.slotKey] || cand.fallback, 200, 80);
+              return (
+                <div key={cIdx} className="placed-candidate-card">
+                  <div className="candidate-avatar-frame">
+                    <img 
+                      src={photoUrl} 
+                      alt={cand.name} 
+                      className="candidate-avatar-img" 
+                      loading="lazy" 
+                      decoding="async" 
+                    />
+                  </div>
                 <div className="candidate-info-box">
                   <span className="candidate-name-badge">{cand.name}</span>
                   <div className="candidate-placement-sub">
@@ -165,7 +184,8 @@ export default function FranchisePlacementDrive({ onOpenInquiry }) {
                   </div>
                 </div>
               </div>
-            ))}
+            );
+          })}
           </div>
         </div>
 
@@ -243,7 +263,7 @@ export default function FranchisePlacementDrive({ onOpenInquiry }) {
             {/* 3 Interview Photos Row - Connected to ImageKit CDN */}
             <div className="placement-photos-row">
               {interviewPhotos.map((photo, pIdx) => {
-                const displayImg = dynamicMedia[photo.slotKey] || photo.fallback;
+                const displayImg = getOptimizedImageUrl(dynamicMedia[photo.slotKey] || photo.fallback, 600, 80);
                 return (
                   <div key={pIdx} className="interview-photo-card">
                     <div className="photo-frame">
@@ -252,6 +272,7 @@ export default function FranchisePlacementDrive({ onOpenInquiry }) {
                         alt={photo.title}
                         className="photo-img"
                         loading="lazy"
+                        decoding="async"
                       />
                       <div className="photo-overlay">
                         <span className="overlay-tag">{photo.title}</span>

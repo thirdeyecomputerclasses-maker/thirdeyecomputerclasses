@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./FranchiseHero.css";
 import { Sparkles } from "lucide-react";
+import { fetchMedia, getOptimizedImageUrl } from "../../../services/mediaApi";
 import mlChaudharyImg from "../../../assets/franchise/owner.png";
 
 // Smooth count-up counter component triggered on viewport intersection
@@ -57,10 +58,35 @@ const SUBTITLE_TEXT =
   "Join hands with Rajasthan’s leading IT skill development brand. Build a profitable, future-proof education business with 15+ branches and counting.. and complete 360° corporate support.";
 
 export default function FranchiseHero({ onOpenInquiry }) {
+  const [founderPhoto, setFounderPhoto] = useState(mlChaudharyImg);
   const [headlineCount, setHeadlineCount] = useState(0);
   const [subtitleCount, setSubtitleCount] = useState(0);
   const [isHeadlineDone, setIsHeadlineDone] = useState(false);
   const [isSubtitleDone, setIsSubtitleDone] = useState(false);
+
+  // Auto-fetch founder ML Chaudhary from Team / Founder slot
+  useEffect(() => {
+    let isMounted = true;
+    fetchMedia({ page: "team", type: "image" })
+      .then((res) => {
+        if (!isMounted) return;
+        const list = Array.isArray(res) ? res : (res?.data || res?.media || []);
+        const mlSlot = list.find(
+          (s) =>
+            (s.slotKey === "team_member_6" || s.slotKey === "carousel_mentor_6" || s.slotKey === "about_founder") &&
+            s.url &&
+            !s.isDefault
+        );
+        if (mlSlot?.url) {
+          setFounderPhoto(mlSlot.url);
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   // Character-by-character typewriter animation on visit
   useEffect(() => {
@@ -268,10 +294,11 @@ export default function FranchiseHero({ onOpenInquiry }) {
               {/* Founder Image Wrap */}
               <div className="founder-image-wrap">
                 <img
-                  src={mlChaudharyImg}
+                  src={getOptimizedImageUrl(founderPhoto, 650, 85)}
                   alt="Mr. M.L. Chaudhary - Founder"
                   className="founder-image"
                   loading="lazy"
+                  decoding="async"
                 />
                 <div className="founder-image-scrim" />
 

@@ -7,6 +7,7 @@ import React, {
   useRef,
   useState
 } from "react";
+import { getOptimizedImageUrl } from "../../../services/mediaApi";
 import "./MentorsCarousel.css";
 
 const useIsomorphicLayoutEffect =
@@ -100,10 +101,11 @@ const MentorCard = React.memo(function MentorCard({ mentor }) {
           <div className="mentor-avatar-frame">
             {mentor.image ? (
               <img
-                src={mentor.image}
+                src={getOptimizedImageUrl(mentor.image, 360, 80)}
                 alt={mentor.name}
                 className="mentor-avatar-img"
                 loading="lazy"
+                decoding="async"
               />
             ) : (
               <div className="mentor-avatar-monogram">
@@ -112,9 +114,9 @@ const MentorCard = React.memo(function MentorCard({ mentor }) {
               </div>
             )}
           </div>
-          <div className="mentor-verified-pill">
+          <div className="mentor-verified-pill" title={mentor.role || mentor.category || "TEAM"}>
             <span className="mentor-verified-dot" />
-            <span>FACULTY</span>
+            <span>{(mentor.category || mentor.role || "TEAM").toUpperCase()}</span>
           </div>
         </div>
 
@@ -553,8 +555,17 @@ const MentorsCarousel = forwardRef(function MentorsCarousel(
     resizeObserver.observe(stage);
 
     const visibility = new IntersectionObserver((entries) => {
-      state.visible = entries.some((entry) => entry.isIntersecting);
-      if (state.visible) wake();
+      const isVisible = entries.some((entry) => entry.isIntersecting);
+      state.visible = isVisible;
+      if (isVisible) {
+        wake();
+      } else {
+        if (raf) {
+          cancelAnimationFrame(raf);
+          raf = 0;
+        }
+        state.last = 0;
+      }
     });
     visibility.observe(root);
 

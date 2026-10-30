@@ -40,6 +40,18 @@ export const resolveMediaUrl = (url) => {
   return url;
 };
 
+export const getOptimizedImageUrl = (url, width = 600, quality = 80) => {
+  if (!url) return "";
+  const resolved = resolveMediaUrl(url);
+  if (resolved.includes("ik.imagekit.io")) {
+    const separator = resolved.includes("?") ? "&" : "?";
+    if (!resolved.includes("tr=")) {
+      return `${resolved}${separator}tr=w-${width},q-${quality},f-auto`;
+    }
+  }
+  return resolved;
+};
+
 export const getInstagramReelId = (url) => {
   if (!url || typeof url !== "string") return null;
   const match = url.match(/(?:instagram\.com\/(?:reel|reels|p|tv)\/([a-zA-Z0-9_-]+))/i);
