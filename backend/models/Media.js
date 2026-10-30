@@ -6,7 +6,7 @@ const MediaSchema = new mongoose.Schema(
       type: String,
       required: true,
       index: true,
-      enum: ["home", "franchise", "about", "courses", "placements", "reviews", "memories", "general"],
+      enum: ["home", "franchise", "about", "courses", "placements", "reviews", "memories", "team", "general"],
     },
     section: {
       type: String,

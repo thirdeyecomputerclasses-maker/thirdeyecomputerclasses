@@ -110,6 +110,13 @@ const MentorStackCard = React.memo(function MentorStackCard({
             loading="lazy"
             decoding="async"
             draggable={false}
+            onError={(e) => {
+              if (mentor.defaultImage && e.currentTarget.src !== mentor.defaultImage) {
+                e.currentTarget.src = mentor.defaultImage;
+              } else if (e.currentTarget.src !== logo) {
+                e.currentTarget.src = logo;
+              }
+            }}
           />
         </div>
 

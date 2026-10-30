@@ -1159,8 +1159,13 @@ const INITIAL_SECTION_SLOTS = [
     title: "Review 6 — Rohit Khandelwal (3D CAD & Modeling)",
     description: "CAD 3D Modeling & Mechanical Design Student Review.",
     url: "https://www.youtube.com/watch?v=aiOyEoe6Cz4",
-     // ==========================================
-  // 6. OUR TEAM (team) — 20 Mentors, Leadership & Franchise Owners
+    defaultUrl: "https://www.youtube.com/watch?v=aiOyEoe6Cz4",
+    thumbnailUrl: "https://img.youtube.com/vi/aiOyEoe6Cz4/hqdefault.jpg",
+    isDefault: true,
+  },
+
+  // ==========================================
+  // 6. OUR TEAM (team) — 27 Mentors, Leadership & Franchise Owners
   // ==========================================
   // --- Founders (Slots 1 to 7) ---
   {
@@ -1851,6 +1856,20 @@ const sanitizeMedia = (item) => {
   return doc;
 };
 
+// Paired slots for franchise owners: uploading in either Team or Franchise page automatically syncs both!
+const PAIRED_FRANCHISE_SLOTS = {
+  team_member_8: "franchise_partner_kapil",
+  franchise_partner_kapil: "team_member_8",
+  team_member_9: "franchise_partner_diya",
+  franchise_partner_diya: "team_member_9",
+  team_member_10: "franchise_partner_raj",
+  franchise_partner_raj: "team_member_10",
+  team_member_11: "franchise_partner_kushal",
+  franchise_partner_kushal: "team_member_11",
+  team_member_12: "franchise_partner_vartika",
+  franchise_partner_vartika: "team_member_12",
+};
+
 class MediaStore {
   /**
    * Seed or synchronize section slots in MongoDB using high-performance bulk operations
@@ -2006,20 +2025,6 @@ class MediaStore {
     const found = inMemorySlots.find((item) => item.slotKey === slotKey);
     return found ? sanitizeMedia(found) : null;
   }
-
-// Paired slots for franchise owners: uploading in either Team or Franchise page automatically syncs both!
-const PAIRED_FRANCHISE_SLOTS = {
-  team_member_8: "franchise_partner_kapil",
-  franchise_partner_kapil: "team_member_8",
-  team_member_9: "franchise_partner_diya",
-  franchise_partner_diya: "team_member_9",
-  team_member_10: "franchise_partner_raj",
-  franchise_partner_raj: "team_member_10",
-  team_member_11: "franchise_partner_kushal",
-  franchise_partner_kushal: "team_member_11",
-  team_member_12: "franchise_partner_vartika",
-  franchise_partner_vartika: "team_member_12",
-};
 
   /**
    * Replace/Update a specific existing slot photo or video
@@ -2212,3 +2217,4 @@ const PAIRED_FRANCHISE_SLOTS = {
 }
 
 module.exports = MediaStore;
+module.exports.INITIAL_SECTION_SLOTS = INITIAL_SECTION_SLOTS;

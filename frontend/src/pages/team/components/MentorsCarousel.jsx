@@ -106,6 +106,11 @@ const MentorCard = React.memo(function MentorCard({ mentor }) {
                 className="mentor-avatar-img"
                 loading="lazy"
                 decoding="async"
+                onError={(e) => {
+                  if (mentor.defaultImage && e.currentTarget.src !== mentor.defaultImage) {
+                    e.currentTarget.src = mentor.defaultImage;
+                  }
+                }}
               />
             ) : (
               <div className="mentor-avatar-monogram">

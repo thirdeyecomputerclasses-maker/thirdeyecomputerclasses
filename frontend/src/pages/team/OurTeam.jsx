@@ -749,10 +749,15 @@ export default function OurTeam() {
             const memberId = m.id || idx + 1;
             const teamImg = teamSlotMap[memberId];
             const carouselImg = carouselSlotMap[memberId];
-            // Automatically sync upper readable card photos directly from below card uploads
-            const resolvedImg = teamImg || carouselImg || m.image;
+            const dynamicImg = teamImg || carouselImg;
+            // Guard against local /uploads/ orphaned URLs when viewed on production domains
+            const isLocalUpload = dynamicImg && typeof dynamicImg === "string" && dynamicImg.startsWith("/uploads/");
+            const isProd = typeof window !== "undefined" && window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1";
+            const safeDynamicImg = (isProd && isLocalUpload) ? null : dynamicImg;
+            const resolvedImg = safeDynamicImg || m.defaultImage || m.image;
             return {
               ...m,
+              defaultImage: m.defaultImage || m.image,
               image: resolvedImg,
               carouselImage: resolvedImg,
             };
