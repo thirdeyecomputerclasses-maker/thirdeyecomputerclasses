@@ -1640,3 +1640,269 @@
   border: 1px solid rgba(16, 185, 129, 0.3);
   color: #34d399;
 }
+
+
+/* ==========================================================================
+   Certificate Management Enhancements (Our Certificates / ImageKit)
+   ========================================================================== */
+
+.certificate-action-bar {
+  background: linear-gradient(135deg, rgba(246, 217, 107, 0.14) 0%, rgba(20, 16, 10, 0.95) 100%);
+  border: 1px solid rgba(246, 217, 107, 0.4);
+}
+
+.add-cert-btn {
+  background: linear-gradient(135deg, #ffd300 0%, #f59e0b 100%);
+  color: #0b0c10;
+  font-weight: 800;
+  box-shadow: 0 4px 18px rgba(246, 217, 107, 0.35);
+}
+
+.add-cert-btn:hover {
+  background: linear-gradient(135deg, #ffe033 0%, #f59e0b 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(246, 217, 107, 0.45);
+}
+
+/* Certificate Meta Badges on Slot Cards */
+.slot-cert-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.slot-cert-partner-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  background: rgba(246, 217, 107, 0.16);
+  border: 1px solid rgba(246, 217, 107, 0.35);
+  color: #ffd300;
+  font-size: 0.72rem;
+  font-weight: 750;
+  font-family: inherit;
+}
+
+.slot-cert-category-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #d1d5db;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.slot-cert-id-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #9ca3af;
+  font-size: 0.68rem;
+  font-family: monospace;
+}
+
+.slot-edit-meta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e5e7eb;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.slot-edit-meta-btn:hover {
+  background: rgba(246, 217, 107, 0.15);
+  border-color: rgba(246, 217, 107, 0.4);
+  color: #ffd300;
+}
+
+.slot-delete-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #f87171;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.slot-delete-btn:hover {
+  background: rgba(239, 68, 68, 0.25);
+  color: #ffffff;
+  border-color: #ef4444;
+}
+
+/* ==========================================================================
+   Certificate Modal Styles
+   ========================================================================== */
+.cert-modal-box {
+  background: #10131d;
+  border: 1px solid rgba(246, 217, 107, 0.3);
+  border-radius: 20px;
+  width: 95%;
+  max-width: 780px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(246, 217, 107, 0.12);
+  padding: 26px 28px;
+  position: relative;
+  z-index: 1001;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(246, 217, 107, 0.3) transparent;
+}
+
+.cert-modal-form {
+  margin-top: 18px;
+}
+
+.cert-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 18px;
+}
+
+.cert-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.cert-form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.cert-form-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #cbd5e1;
+}
+
+.cert-form-input,
+.cert-form-select,
+.cert-form-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  background: #090b10;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 0.88rem;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.cert-form-input:focus,
+.cert-form-select:focus,
+.cert-form-textarea:focus {
+  border-color: #ffd300;
+  box-shadow: 0 0 10px rgba(255, 211, 0, 0.25);
+  background: #0d0f17;
+}
+
+.cert-image-section {
+  margin-top: 18px;
+  padding: 14px 16px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.cert-dropzone {
+  border: 2px dashed rgba(246, 217, 107, 0.4);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  background: rgba(246, 217, 107, 0.03);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cert-dropzone:hover {
+  background: rgba(246, 217, 107, 0.08);
+  border-color: #ffd300;
+}
+
+.cert-dropzone-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.cert-dropzone-title {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.cert-dropzone-hint {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.cert-preview-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.cert-preview-img {
+  max-height: 180px;
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid rgba(246, 217, 107, 0.3);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+}
+
+.cert-existing-thumb {
+  max-height: 120px;
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  margin-bottom: 6px;
+}
+
+.cert-preview-info {
+  display: flex;
+  gap: 12px;
+  font-size: 0.78rem;
+  color: #cbd5e1;
+}
+
+@media (max-width: 640px) {
+  .cert-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .cert-modal-box {
+    padding: 20px 16px;
+  }
+}

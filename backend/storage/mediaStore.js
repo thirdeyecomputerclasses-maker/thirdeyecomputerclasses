@@ -1826,6 +1826,135 @@ const INITIAL_SECTION_SLOTS = [
     thumbnailUrl: "/src/assets/students/student_7.jpg",
     isDefault: true,
   },
+  // ==========================================
+  // 7. OUR CERTIFICATES & ACCREDITATIONS (certificates)
+  // ==========================================
+  {
+    slotKey: "certificate_apna",
+    page: "certificates",
+    section: "credentials",
+    type: "image",
+    title: "India's Top Job Creator 2025",
+    description: "Honored as a foremost job creator for outstanding recruitment enablement and corporate campus placement records.",
+    url: "/src/assets/certificates/apna_top_creator.jpg",
+    defaultUrl: "/src/assets/certificates/apna_top_creator.jpg",
+    thumbnailUrl: "/src/assets/certificates/apna_top_creator.jpg",
+    isDefault: true,
+    certId: "APNA-JOB-2025-TE",
+    partner: "Apna Hiring",
+    category: "Industry & Hiring",
+    issuer: "Apna - India's Leading Hiring Platform",
+    skills: "Corporate Placements, Technical Talent Sourcing, Career Readiness",
+    impact: "Over 25,000+ student careers facilitated across 500+ top enterprises.",
+  },
+  {
+    slotKey: "certificate_google",
+    page: "certificates",
+    section: "credentials",
+    type: "image",
+    title: "The Fundamentals of Digital Marketing",
+    description: "Official credential accredited by Google Digital Unlocked and The Open University covering full-funnel digital strategy.",
+    url: "/src/assets/certificates/google_digital_unlocked.jpg",
+    defaultUrl: "/src/assets/certificates/google_digital_unlocked.jpg",
+    thumbnailUrl: "/src/assets/certificates/google_digital_unlocked.jpg",
+    isDefault: true,
+    certId: "NZR-AS3-QUK",
+    partner: "Google",
+    category: "Global Tech",
+    issuer: "Google EMEA & Interactive Advertising Bureau Europe",
+    skills: "Search Engine Optimization, SEM, Web Analytics, Conversion Optimization",
+    impact: "Recognized globally across marketing agencies, MNCs, and eCommerce brands.",
+  },
+  {
+    slotKey: "certificate_microsoft",
+    page: "certificates",
+    section: "credentials",
+    type: "image",
+    title: "Microsoft Certified Professional (MCP)",
+    description: "Rigorous international credential verifying proficiency in enterprise systems architecture, cloud computing, and developer tech.",
+    url: "/src/assets/certificates/microsoft_certified.jpg",
+    defaultUrl: "/src/assets/certificates/microsoft_certified.jpg",
+    thumbnailUrl: "/src/assets/certificates/microsoft_certified.jpg",
+    isDefault: true,
+    certId: "MS-MCP-89421",
+    partner: "Microsoft",
+    category: "Global Tech",
+    issuer: "Microsoft Corporation (Satya Nadella Signatory)",
+    skills: "Enterprise Architecture, Azure Cloud Systems, C# .NET, Modern DevOps",
+    impact: "Industry gold standard for software developers and enterprise systems engineers worldwide.",
+  },
+  {
+    slotKey: "certificate_adobe",
+    page: "certificates",
+    section: "credentials",
+    type: "image",
+    title: "Visual Design using Adobe Photoshop",
+    description: "Adobe Certified Associate credential demonstrating industry-standard visual design, digital illustration, and photo compositing.",
+    url: "/src/assets/certificates/adobe_photoshop.jpg",
+    defaultUrl: "/src/assets/certificates/adobe_photoshop.jpg",
+    thumbnailUrl: "/src/assets/certificates/adobe_photoshop.jpg",
+    isDefault: true,
+    certId: "ADOBE-ACA-92841",
+    partner: "Adobe",
+    category: "Creative & CAD",
+    issuer: "Adobe Systems & Certiport (Shantanu Narayen Signatory)",
+    skills: "Adobe Photoshop CC, Color Grading, Digital Compositing, Visual Layout",
+    impact: "Required qualification for leading VFX studios, gaming companies, and design agencies.",
+  },
+  {
+    slotKey: "certificate_autodesk",
+    page: "certificates",
+    section: "credentials",
+    type: "image",
+    title: "Autodesk AutoCAD Professional",
+    description: "Official authorized certification validating professional expertise in precision 2D drafting, architectural plans, and 3D modeling.",
+    url: "/src/assets/certificates/autodesk_autocad.webp",
+    defaultUrl: "/src/assets/certificates/autodesk_autocad.webp",
+    thumbnailUrl: "/src/assets/certificates/autodesk_autocad.webp",
+    isDefault: true,
+    certId: "AUTODESK-ATC-4819",
+    partner: "Autodesk",
+    category: "Creative & CAD",
+    issuer: "Autodesk Authorized Training Center",
+    skills: "AutoCAD 2D Drafting, 3D Spatial Modeling, Isometric Blueprints, CAD Matrix",
+    impact: "Standard of competence required by civil, mechanical, architectural, and interior firms.",
+  },
+  {
+    slotKey: "certificate_eccouncil",
+    page: "certificates",
+    section: "credentials",
+    type: "image",
+    title: "Cybersecurity & IT Network Defense",
+    description: "Certificate of achievement certifying hands-on tactical ethical hacking, threat hunting, and infrastructure protection.",
+    url: "/src/assets/certificates/eccouncil_codered.png",
+    defaultUrl: "/src/assets/certificates/eccouncil_codered.png",
+    thumbnailUrl: "/src/assets/certificates/eccouncil_codered.png",
+    isDefault: true,
+    certId: "CR-ECC-78192",
+    partner: "EC-Council",
+    category: "Industry & Hiring",
+    issuer: "EC-Council CodeRed USA",
+    skills: "Network Defense, Vulnerability Assessment, Threat Mitigation, Linux Hardening",
+    impact: "Recognized by cybersecurity defense teams and enterprise IT departments worldwide.",
+  },
+  {
+    slotKey: "certificate_redhat",
+    page: "certificates",
+    section: "credentials",
+    type: "image",
+    title: "Red Hat Certified System Administrator",
+    description: "Performance-based credential proving enterprise Linux skills including installation, command-line control, and storage management.",
+    url: "/src/assets/certificates/redhat_rhcsa.png",
+    defaultUrl: "/src/assets/certificates/redhat_rhcsa.png",
+    thumbnailUrl: "/src/assets/certificates/redhat_rhcsa.png",
+    isDefault: true,
+    certId: "RHCSA-240-9182",
+    partner: "Red Hat",
+    category: "Global Tech",
+    issuer: "Red Hat Inc. Global Examination Board",
+    skills: "RHEL Administration, Shell Automation, File Systems, Security SELinux",
+    impact: "One of the most respected credentials for cloud infrastructure and systems engineering.",
+  },
 ];
 
 let inMemorySlots = INITIAL_SECTION_SLOTS.map((slot, index) => ({
@@ -2213,6 +2342,118 @@ class MediaStore {
       return removed;
     }
     return null;
+  }
+
+  /**
+   * Create a new custom certificate
+   */
+  static async createCertificate(certData) {
+    if (!getDBStatus()) {
+      await ensureConnected();
+    }
+    const slotKey = certData.slotKey || `certificate_custom_${Date.now()}`;
+    const docData = {
+      page: "certificates",
+      section: "credentials",
+      slotKey,
+      type: "image",
+      title: certData.title || "Custom Certificate",
+      description: certData.description || "",
+      url: certData.url,
+      defaultUrl: certData.url,
+      thumbnailUrl: certData.thumbnailUrl || certData.url,
+      fileId: certData.fileId || "",
+      isDefault: false,
+      isCustom: true,
+      certId: certData.certId || `CERT-${Date.now().toString().slice(-6)}`,
+      partner: certData.partner || "Accredited",
+      category: certData.category || "Global Tech",
+      issuer: certData.issuer || "",
+      skills: certData.skills || "",
+      impact: certData.impact || "",
+    };
+
+    let savedDoc;
+    if (getDBStatus()) {
+      savedDoc = await Media.create(docData);
+      savedDoc = savedDoc.toObject ? savedDoc.toObject() : savedDoc;
+    } else {
+      savedDoc = { _id: `custom-${Date.now()}`, ...docData, createdAt: new Date(), updatedAt: new Date() };
+    }
+
+    inMemorySlots.push(savedDoc);
+    return sanitizeMedia(savedDoc);
+  }
+
+  /**
+   * Update certificate details or replace image
+   */
+  static async updateCertificate(idOrSlotKey, updateData) {
+    if (!getDBStatus()) {
+      await ensureConnected();
+    }
+    const filter = String(idOrSlotKey).startsWith("certificate_")
+      ? { slotKey: idOrSlotKey }
+      : { _id: idOrSlotKey };
+
+    const updateFields = {
+      updatedAt: new Date(),
+    };
+    if (updateData.title !== undefined) updateFields.title = updateData.title;
+    if (updateData.description !== undefined) updateFields.description = updateData.description;
+    if (updateData.certId !== undefined) updateFields.certId = updateData.certId;
+    if (updateData.partner !== undefined) updateFields.partner = updateData.partner;
+    if (updateData.category !== undefined) updateFields.category = updateData.category;
+    if (updateData.issuer !== undefined) updateFields.issuer = updateData.issuer;
+    if (updateData.skills !== undefined) updateFields.skills = updateData.skills;
+    if (updateData.impact !== undefined) updateFields.impact = updateData.impact;
+    if (updateData.url) {
+      updateFields.url = updateData.url;
+      updateFields.thumbnailUrl = updateData.thumbnailUrl || updateData.url;
+      updateFields.isDefault = false;
+    }
+    if (updateData.fileId !== undefined) updateFields.fileId = updateData.fileId;
+
+    let updatedDoc = null;
+    if (getDBStatus()) {
+      const doc = await Media.findOneAndUpdate(filter, { $set: updateFields }, { returnDocument: "after" });
+      if (doc) updatedDoc = doc.toObject ? doc.toObject() : doc;
+    }
+
+    const memIdx = inMemorySlots.findIndex(
+      (s) => String(s._id) === String(idOrSlotKey) || s.slotKey === idOrSlotKey
+    );
+    if (memIdx !== -1) {
+      inMemorySlots[memIdx] = { ...inMemorySlots[memIdx], ...updateFields };
+      if (!updatedDoc) updatedDoc = inMemorySlots[memIdx];
+    }
+
+    return updatedDoc ? sanitizeMedia(updatedDoc) : null;
+  }
+
+  /**
+   * Delete custom certificate
+   */
+  static async deleteCertificate(idOrSlotKey) {
+    if (!getDBStatus()) {
+      await ensureConnected();
+    }
+    const filter = String(idOrSlotKey).startsWith("certificate_")
+      ? { slotKey: idOrSlotKey }
+      : { _id: idOrSlotKey };
+
+    let deletedDoc = null;
+    if (getDBStatus()) {
+      deletedDoc = await Media.findOneAndDelete(filter);
+    }
+    const memIdx = inMemorySlots.findIndex(
+      (s) => String(s._id) === String(idOrSlotKey) || s.slotKey === idOrSlotKey
+    );
+    if (memIdx !== -1) {
+      const [removed] = inMemorySlots.splice(memIdx, 1);
+      if (!deletedDoc) deletedDoc = removed;
+    }
+    return deletedDoc;
   }
 }
 

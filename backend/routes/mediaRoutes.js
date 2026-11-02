@@ -7,6 +7,9 @@ const {
   resetSlot,
   deleteMedia,
   batchUploadSlots,
+  createCertificate,
+  updateCertificate,
+  deleteCertificate,
 } = require("../controllers/mediaController");
 
 const router = express.Router();
@@ -17,8 +20,13 @@ const upload = multer({
     fileSize: 100 * 1024 * 1024, // 100MB to support high-def videos & photos
   },
   fileFilter: (req, file, cb) => {
-    const isImageOrVideoMime = file.mimetype && (file.mimetype.startsWith("image/") || file.mimetype.startsWith("video/"));
-    const isImageOrVideoExt = /\.(jpe?g|png|webp|gif|avif|bmp|svg|mp4|webm|mov|mkv)$/i.test(file.originalname || "");
+    const isImageOrVideoMime =
+      file.mimetype &&
+      (file.mimetype.startsWith("image/") || file.mimetype.startsWith("video/"));
+    const isImageOrVideoExt =
+      /\.(jpe?g|png|webp|gif|avif|bmp|svg|mp4|webm|mov|mkv)$/i.test(
+        file.originalname || ""
+      );
     if (isImageOrVideoMime || isImageOrVideoExt) {
       cb(null, true);
     } else {
@@ -34,5 +42,10 @@ router.post("/media/batch-upload", upload.array("files", 50), batchUploadSlots);
 router.put("/media/slot/:slotKey/url", updateSlotUrl);
 router.post("/media/slot/:slotKey/reset", resetSlot);
 router.delete("/media/:id", deleteMedia);
+
+// Certificate creation, update, and deletion routes (ImageKit direct upload support)
+router.post("/media/certificate", upload.single("file"), createCertificate);
+router.put("/media/certificate/:id", upload.single("file"), updateCertificate);
+router.delete("/media/certificate/:id", deleteCertificate);
 
 module.exports = router;

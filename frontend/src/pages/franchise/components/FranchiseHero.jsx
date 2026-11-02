@@ -235,7 +235,7 @@ export default function FranchiseHero({ onOpenInquiry }) {
               <div className="studio-stat-sep" />
               <div className="studio-stat-col">
                 <div className="studio-stat-number text-[#f6d96b]">
-                  <AnimatedCounter end={6700} suffix="+" />
+                  <AnimatedCounter end={10000} suffix="+" />
                 </div>
                 <div className="studio-stat-label">Students Placed</div>
               </div>

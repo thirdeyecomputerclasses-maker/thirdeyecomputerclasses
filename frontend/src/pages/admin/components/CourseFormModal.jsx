@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import {
   X,
   Upload,
@@ -46,11 +46,35 @@ const slugify = (text) =>
     .replace(/[\s_-]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
-export default function CourseFormModal({ isOpen, course, onClose, onSave, isSaving }) {
+export default function CourseFormModal({
+  isOpen,
+  course,
+  onClose,
+  onSave,
+  isSaving,
+  existingCategories = [],
+}) {
   const [activeTab, setActiveTab] = useState("basic");
   const [title, setTitle] = useState(course?.title || "");
   const [slug, setSlug] = useState(course?.slug || "");
-  const [category, setCategory] = useState(course?.category || "Web Development");
+  const availableCategories = useMemo(() => {
+    const set = new Set([
+      ...CATEGORIES,
+      ...(Array.isArray(existingCategories) ? existingCategories : []),
+    ]);
+    if (course?.category) {
+      set.add(course.category);
+    }
+    return Array.from(set).filter((c) => typeof c === "string" && c.trim().length > 0);
+  }, [existingCategories, course]);
+
+  const [selectedCategoryOption, setSelectedCategoryOption] = useState(() => {
+    if (course?.category) {
+      return course.category;
+    }
+    return "Web Development";
+  });
+  const [customCategory, setCustomCategory] = useState("");
   const [duration, setDuration] = useState(course?.duration || "6 Months");
   const [badge, setBadge] = useState(course?.badge || "Job Oriented");
   const [description, setDescription] = useState(course?.description || "");
@@ -132,10 +156,22 @@ export default function CourseFormModal({ isOpen, course, onClose, onSave, isSav
     const validTools = tools.filter((t) => t && typeof t.name === "string" && t.name.trim().length > 0);
     const validModules = modules.filter((m) => m && typeof m.title === "string" && m.title.trim().length > 0);
 
+    let finalCategory = selectedCategoryOption;
+    if (selectedCategoryOption === "__new__") {
+      finalCategory = customCategory.trim();
+      if (!finalCategory) {
+        setErrorMsg("Please enter a name for the new category, or select an existing one.");
+        setActiveTab("basic");
+        return;
+      }
+    } else {
+      finalCategory = (finalCategory || "").trim() || "General";
+    }
+
     const payload = {
       title: title.trim(),
       slug: (slug.trim() || slugify(title)),
-      category: category.trim(),
+      category: finalCategory,
       duration: duration.trim(),
       badge: badge.trim(),
       description: description.trim(),
@@ -224,13 +260,47 @@ export default function CourseFormModal({ isOpen, course, onClose, onSave, isSav
 
               <div className="form-row-3">
                 <div className="form-group">
-                  <label>Category</label>
-                  <select value={category} onChange={(e) => setCategory(e.target.value)}>
-                    {CATEGORIES.map((cat) => (
-                      <option key={cat} value={cat}>
-                        {cat}
-                      </option>
-                    ))}
+                  <div className="category-label-row">
+                    <label>Category *</label>
+                    {selectedCategoryOption !== "__new__" ? (
+                      <button
+                        type="button"
+                        className="category-add-inline-btn"
+                        onClick={() => setSelectedCategoryOption("__new__")}
+                        title="Create a new category"
+                      >
+                        + New
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="category-add-inline-btn"
+                        onClick={() => setSelectedCategoryOption(availableCategories[0] || "Web Development")}
+                        title="Select an existing category"
+                      >
+                        Existing
+                      </button>
+                    )}
+                  </div>
+                  <select
+                    value={selectedCategoryOption}
+                    onChange={(e) => {
+                      setSelectedCategoryOption(e.target.value);
+                      if (e.target.value !== "__new__") {
+                        setCustomCategory("");
+                      }
+                    }}
+                  >
+                    <optgroup label="Existing Categories">
+                      {availableCategories.map((cat) => (
+                        <option key={cat} value={cat}>
+                          {cat}
+                        </option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="Actions">
+                      <option value="__new__">➕ + Create New Category...</option>
+                    </optgroup>
                   </select>
                 </div>
                 <div className="form-group">
@@ -252,6 +322,35 @@ export default function CourseFormModal({ isOpen, course, onClose, onSave, isSav
                   />
                 </div>
               </div>
+
+              {selectedCategoryOption === "__new__" && (
+                <div className="form-group custom-category-box">
+                  <div className="custom-category-header">
+                    <label>New Category Name *</label>
+                    <button
+                      type="button"
+                      className="category-cancel-btn"
+                      onClick={() => {
+                        setSelectedCategoryOption(availableCategories[0] || "Web Development");
+                        setCustomCategory("");
+                      }}
+                    >
+                      Use existing category instead
+                    </button>
+                  </div>
+                  <input
+                    type="text"
+                    value={customCategory}
+                    onChange={(e) => setCustomCategory(e.target.value)}
+                    placeholder="e.g. Mobile App Development, Artificial Intelligence, Digital Marketing..."
+                    autoFocus
+                    required
+                  />
+                  <span className="category-hint">
+                    This new category will automatically be saved with this course and appear across all category filters.
+                  </span>
+                </div>
+              )}
 
               <div className="form-group">
                 <label>Course Summary / Description</label>

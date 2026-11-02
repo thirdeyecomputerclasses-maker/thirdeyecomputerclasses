@@ -213,7 +213,7 @@ export default function AwardsRecognition() {
               <div className="credential-point">
                 <span className="cred-bullet-dot" />
                 <span className="cred-text">
-                  <strong className="cred-stat">6700+</strong> Students Successfully Placed
+                  <strong className="cred-stat">10,000+</strong> Students Successfully Placed
                 </span>
               </div>
             </div>

@@ -6,7 +6,19 @@ const MediaSchema = new mongoose.Schema(
       type: String,
       required: true,
       index: true,
-      enum: ["home", "franchise", "about", "courses", "placements", "reviews", "memories", "team", "general"],
+      enum: [
+        "home",
+        "franchise",
+        "about",
+        "courses",
+        "placements",
+        "reviews",
+        "memories",
+        "team",
+        "certificates",
+        "certification",
+        "general",
+      ],
     },
     section: {
       type: String,
@@ -49,6 +61,35 @@ const MediaSchema = new mongoose.Schema(
       default: "",
     },
     isDefault: {
+      type: Boolean,
+      default: false,
+    },
+    // Certificate specific metadata
+    certId: {
+      type: String,
+      default: "",
+    },
+    partner: {
+      type: String,
+      default: "",
+    },
+    category: {
+      type: String,
+      default: "Global Tech",
+    },
+    issuer: {
+      type: String,
+      default: "",
+    },
+    skills: {
+      type: String,
+      default: "",
+    },
+    impact: {
+      type: String,
+      default: "",
+    },
+    isCustom: {
       type: Boolean,
       default: false,
     },

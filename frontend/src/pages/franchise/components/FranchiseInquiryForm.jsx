@@ -317,13 +317,13 @@ export default function FranchiseInquiryForm({ formRef }) {
             </div>
 
             <div className="contact-channels">
-              <a href="tel:+918058061222" className="channel-box">
+              <a href="tel:+917413880666" className="channel-box">
                 <div className="channel-icon-wrap">
                   <PhoneCall size={20} />
                 </div>
                 <div className="channel-content">
                   <div className="channel-label">Direct Expansion Hotline</div>
-                  <div className="channel-value">+91 805 806 1222</div>
+                  <div className="channel-value">+91 74138 80666</div>
                   <div className="channel-hint">Instant Connect with C-Suite Support</div>
                 </div>
               </a>

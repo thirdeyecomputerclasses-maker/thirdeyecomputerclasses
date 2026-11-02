@@ -1,5 +1,6 @@
 /* ==========================================================================
    Placed Students Section (Dual Marquee Opposite Scrolling & Pause on Hover)
+   Synchronized with Jobs and Placement Cell Data & ImageKit
    ========================================================================== */
 
 .placed-students-section {
@@ -147,8 +148,8 @@
    ========================================================================== */
 
 .placed-student-card {
-  width: 220px;
-  height: 300px;
+  width: 225px;
+  height: 310px;
   flex-shrink: 0;
   position: relative;
   border-radius: 22px;
@@ -233,13 +234,13 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 18px 16px;
+  padding: 16px 14px;
   background: linear-gradient(
     to top,
-    rgba(5, 5, 5, 0.95) 0%,
-    rgba(5, 5, 5, 0.6) 35%,
-    rgba(5, 5, 5, 0.15) 60%,
-    transparent 80%
+    rgba(5, 5, 5, 0.98) 0%,
+    rgba(5, 5, 5, 0.8) 38%,
+    rgba(5, 5, 5, 0.25) 65%,
+    transparent 85%
   );
   z-index: 3;
 }
@@ -250,7 +251,7 @@
 }
 
 .placed-main-title {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 900;
   color: #ffffff;
   line-height: 1;
@@ -259,26 +260,85 @@
 }
 
 .placed-sub-brand {
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 800;
   color: #f6d96b;
-  letter-spacing: 3.5px;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  margin-top: 4px;
+  margin-top: 3px;
   text-shadow: 0 0 10px rgba(246, 217, 107, 0.4);
 }
 
+/* Student Full Name */
+.placed-student-name {
+  margin: 7px 0 0;
+  font-size: 14.5px;
+  font-weight: 750;
+  color: #ffffff;
+  line-height: 1.25;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
+}
+
+/* Placement Company Badge */
 .placed-company-badge {
   align-self: flex-start;
-  margin-top: 8px;
+  margin-top: 6px;
   font-size: 11px;
   font-weight: 700;
   padding: 3px 9px;
   border-radius: 6px;
-  background: rgba(246, 217, 107, 0.15);
+  background: rgba(246, 217, 107, 0.16);
   color: #f6d96b;
-  border: 1px solid rgba(246, 217, 107, 0.35);
+  border: 1px solid rgba(246, 217, 107, 0.38);
   backdrop-filter: blur(8px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Bottom CTA to Placements Portal */
+.placed-footer-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  position: relative;
+  z-index: 5;
+}
+
+.placed-view-all-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 28px;
+  border-radius: 9999px;
+  background: rgba(246, 217, 107, 0.08);
+  border: 1px solid rgba(246, 217, 107, 0.35);
+  color: #f6d96b;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+
+.placed-view-all-btn:hover {
+  background: rgba(246, 217, 107, 0.18);
+  border-color: #f6d96b;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(246, 217, 107, 0.2);
+}
+
+.placed-view-all-btn .cta-arrow {
+  transition: transform 0.3s ease;
+}
+
+.placed-view-all-btn:hover .cta-arrow {
+  transform: translateX(4px);
 }
 
 /* Keyframes for Continuous Marquee */
@@ -321,23 +381,34 @@
   }
 
   .placed-student-card {
-    width: 165px;
-    height: 235px;
+    width: 175px;
+    height: 250px;
     border-radius: 16px;
   }
 
   .placed-main-title {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .placed-sub-brand {
-    font-size: 8.5px;
+    font-size: 8px;
     letter-spacing: 2px;
   }
 
+  .placed-student-name {
+    font-size: 13px;
+    margin-top: 5px;
+  }
+
   .placed-company-badge {
-    font-size: 9.5px;
-    padding: 2px 7px;
+    font-size: 9px;
+    padding: 2.5px 7px;
+    margin-top: 4px;
+  }
+
+  .placed-view-all-btn {
+    font-size: 13px;
+    padding: 10px 22px;
   }
 
   .track-left {
@@ -355,21 +426,32 @@
   }
 
   .placed-student-card {
-    width: 145px;
-    height: 210px;
+    width: 150px;
+    height: 220px;
     border-radius: 14px;
   }
 
   .placed-main-title {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .placed-sub-brand {
-    font-size: 7.5px;
+    font-size: 7px;
     letter-spacing: 1.5px;
   }
 
+  .placed-student-name {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  .placed-company-badge {
+    font-size: 8px;
+    padding: 2px 5px;
+    margin-top: 3px;
+  }
+
   .placed-card-overlay {
-    padding: 12px 10px;
+    padding: 10px 8px;
   }
 }

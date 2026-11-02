@@ -273,7 +273,7 @@ export default function PlacementStatsMarquee() {
                 </div>
               </div>
               <div className="text-xs text-zinc-400 font-normal">
-                10,000+ certified alumni community
+                15,000+ certified alumni community
               </div>
             </TiltCard>
           </div>

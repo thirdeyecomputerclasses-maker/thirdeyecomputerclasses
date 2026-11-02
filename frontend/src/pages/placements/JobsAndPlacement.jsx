@@ -371,7 +371,7 @@ export default function JobsAndPlacement() {
           {/* Quick Metrics Bar */}
           <div className="jobs-metrics-ribbon">
             <div className="metric-ribbon-item">
-              <span className="metric-number">6,700+</span>
+              <span className="metric-number">10,000+</span>
               <span className="metric-label">Students Placed</span>
             </div>
             <div className="metric-ribbon-sep" />
@@ -722,7 +722,7 @@ export default function JobsAndPlacement() {
             {/* Micro Highlights Badges */}
             <div className="join-trust-chips">
               <span className="trust-chip-item">
-                <CheckCircle2 size={15} className="trust-icon" /> 10,000+ Alumni Network
+                <CheckCircle2 size={15} className="trust-icon" /> 15,000+ Alumni Network
               </span>
               <span className="trust-separator">•</span>
               <span className="trust-chip-item">

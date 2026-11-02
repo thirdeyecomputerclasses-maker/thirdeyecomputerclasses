@@ -326,3 +326,159 @@ export async function batchUploadSlots({ files, slotKeys, onProgress }) {
     thumbnailUrl: resolveMediaUrl(slot.thumbnailUrl || slot.url),
   }));
 }
+
+
+/**
+ * Create a new Certificate with direct file upload to ImageKit or image URL
+ */
+export async function createCertificate(formData, onProgress) {
+  if (onProgress) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", `${MEDIA_API}/certificate`);
+
+      xhr.upload.onprogress = (event) => {
+        if (event.lengthComputable) {
+          const percent = Math.round((event.loaded / event.total) * 100);
+          onProgress(percent);
+        }
+      };
+
+      xhr.onload = () => {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try {
+            const data = JSON.parse(xhr.responseText);
+            const cert = data.data;
+            if (cert) {
+              cert.url = resolveMediaUrl(cert.url);
+              cert.thumbnailUrl = resolveMediaUrl(cert.thumbnailUrl || cert.url);
+            }
+            resolve(cert);
+          } catch {
+            resolve(null);
+          }
+        } else {
+          try {
+            const errData = JSON.parse(xhr.responseText);
+            reject(new Error(errData.error || errData.message || `Failed to create certificate (HTTP ${xhr.status})`));
+          } catch {
+            reject(new Error(`Failed to create certificate (HTTP ${xhr.status})`));
+          }
+        }
+      };
+
+      xhr.onerror = () => reject(new Error("Network error during certificate creation"));
+      xhr.send(formData);
+    });
+  }
+
+  const res = await fetch(`${MEDIA_API}/certificate`, {
+    method: "POST",
+    body: formData,
+  });
+
+  if (!res.ok) {
+    let errMsg = `Failed to create certificate (HTTP ${res.status})`;
+    try {
+      const data = await res.json();
+      if (data.error) errMsg = data.error;
+    } catch {}
+    throw new Error(errMsg);
+  }
+
+  const data = await res.json();
+  const cert = data.data;
+  if (cert) {
+    cert.url = resolveMediaUrl(cert.url);
+    cert.thumbnailUrl = resolveMediaUrl(cert.thumbnailUrl || cert.url);
+  }
+  return cert;
+}
+
+/**
+ * Update an existing Certificate
+ */
+export async function updateCertificate(id, formData, onProgress) {
+  if (onProgress) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("PUT", `${MEDIA_API}/certificate/${id}`);
+
+      xhr.upload.onprogress = (event) => {
+        if (event.lengthComputable) {
+          const percent = Math.round((event.loaded / event.total) * 100);
+          onProgress(percent);
+        }
+      };
+
+      xhr.onload = () => {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try {
+            const data = JSON.parse(xhr.responseText);
+            const cert = data.data;
+            if (cert) {
+              cert.url = resolveMediaUrl(cert.url);
+              cert.thumbnailUrl = resolveMediaUrl(cert.thumbnailUrl || cert.url);
+            }
+            resolve(cert);
+          } catch {
+            resolve(null);
+          }
+        } else {
+          try {
+            const errData = JSON.parse(xhr.responseText);
+            reject(new Error(errData.error || errData.message || `Failed to update certificate (HTTP ${xhr.status})`));
+          } catch {
+            reject(new Error(`Failed to update certificate (HTTP ${xhr.status})`));
+          }
+        }
+      };
+
+      xhr.onerror = () => reject(new Error("Network error during certificate update"));
+      xhr.send(formData);
+    });
+  }
+
+  const res = await fetch(`${MEDIA_API}/certificate/${id}`, {
+    method: "PUT",
+    body: formData,
+  });
+
+  if (!res.ok) {
+    let errMsg = `Failed to update certificate (HTTP ${res.status})`;
+    try {
+      const data = await res.json();
+      if (data.error) errMsg = data.error;
+    } catch {}
+    throw new Error(errMsg);
+  }
+
+  const data = await res.json();
+  const cert = data.data;
+  if (cert) {
+    cert.url = resolveMediaUrl(cert.url);
+    cert.thumbnailUrl = resolveMediaUrl(cert.thumbnailUrl || cert.url);
+  }
+  return cert;
+}
+
+/**
+ * Delete a custom Certificate
+ */
+export async function deleteCertificate(id) {
+  const res = await fetch(`${MEDIA_API}/certificate/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) {
+    let errMsg = `Failed to delete certificate (HTTP ${res.status})`;
+    try {
+      const data = await res.json();
+      if (data.error) errMsg = data.error;
+    } catch {}
+    throw new Error(errMsg);
+  }
+
+  const data = await res.json();
+  return data.data;
+}

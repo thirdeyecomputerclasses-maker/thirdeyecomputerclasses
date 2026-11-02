@@ -270,6 +270,154 @@ const batchUploadSlots = async (req, res) => {
   }
 };
 
+
+const createCertificate = async (req, res) => {
+  try {
+    const file = req.file;
+    const { title, partner, category, issuer, description, skills, impact, certId, url } = req.body;
+
+    let imageUrl = url;
+    let fileId = "";
+
+    if (file) {
+      if (isImageKitConfigured()) {
+        const uploadResult = await uploadFileToImageKit(
+          file.buffer,
+          file.originalname || "certificate.jpg",
+          "/third_eye_certificates"
+        );
+        imageUrl = uploadResult.url;
+        fileId = uploadResult.fileId;
+      } else {
+        const mediaDir = path.join(__dirname, "../uploads/media");
+        if (!fs.existsSync(mediaDir)) {
+          fs.mkdirSync(mediaDir, { recursive: true });
+        }
+        const ext = path.extname(file.originalname) || ".jpg";
+        const safeName = `cert_${Date.now()}${ext}`;
+        fs.writeFileSync(path.join(mediaDir, safeName), file.buffer);
+        imageUrl = `/uploads/media/${safeName}`;
+        fileId = `local-${Date.now()}`;
+      }
+    }
+
+    if (!imageUrl) {
+      return res.status(400).json({ success: false, error: "Certificate image file or URL is required" });
+    }
+
+    const created = await MediaStore.createCertificate({
+      title,
+      partner,
+      category,
+      issuer,
+      description,
+      skills,
+      impact,
+      certId,
+      url: imageUrl,
+      thumbnailUrl: imageUrl,
+      fileId,
+    });
+
+    res.status(201).json({
+      success: true,
+      message: "Certificate created successfully and uploaded to ImageKit",
+      data: created,
+    });
+  } catch (err) {
+    console.error("Error creating certificate:", err);
+    res.status(500).json({ success: false, error: "Failed to create certificate", message: err.message });
+  }
+};
+
+const updateCertificate = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const file = req.file;
+    const { title, partner, category, issuer, description, skills, impact, certId, url } = req.body;
+
+    const updateData = {
+      title,
+      partner,
+      category,
+      issuer,
+      description,
+      skills,
+      impact,
+      certId,
+    };
+
+    if (file) {
+      if (isImageKitConfigured()) {
+        const uploadResult = await uploadFileToImageKit(
+          file.buffer,
+          file.originalname || "certificate.jpg",
+          "/third_eye_certificates"
+        );
+        updateData.url = uploadResult.url;
+        updateData.thumbnailUrl = uploadResult.thumbnailUrl || uploadResult.url;
+        updateData.fileId = uploadResult.fileId;
+      } else {
+        const mediaDir = path.join(__dirname, "../uploads/media");
+        if (!fs.existsSync(mediaDir)) {
+          fs.mkdirSync(mediaDir, { recursive: true });
+        }
+        const ext = path.extname(file.originalname) || ".jpg";
+        const safeName = `cert_${Date.now()}${ext}`;
+        fs.writeFileSync(path.join(mediaDir, safeName), file.buffer);
+        updateData.url = `/uploads/media/${safeName}`;
+        updateData.thumbnailUrl = `/uploads/media/${safeName}`;
+        updateData.fileId = `local-${Date.now()}`;
+      }
+    } else if (url) {
+      updateData.url = url;
+      updateData.thumbnailUrl = url;
+    }
+
+    const updated = await MediaStore.updateCertificate(id, updateData);
+    if (!updated) {
+      return res.status(404).json({ success: false, error: "Certificate not found" });
+    }
+
+    res.json({
+      success: true,
+      message: "Certificate updated successfully",
+      data: updated,
+    });
+  } catch (err) {
+    console.error("Error updating certificate:", err);
+    res.status(500).json({ success: false, error: "Failed to update certificate", message: err.message });
+  }
+};
+
+const deleteCertificate = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const cert = (await MediaStore.getById(id)) || (await MediaStore.getBySlotKey(id));
+    if (!cert) {
+      return res.status(404).json({ success: false, error: "Certificate not found" });
+    }
+
+    if (cert.fileId && isImageKitConfigured()) {
+      try {
+        await deleteFromImageKit(cert.fileId);
+      } catch (e) {
+        console.warn("Could not delete certificate file from ImageKit:", e.message);
+      }
+    }
+
+    const deleted = await MediaStore.deleteCertificate(id);
+    res.json({
+      success: true,
+      message: "Certificate deleted successfully",
+      data: deleted,
+    });
+  } catch (err) {
+    console.error("Error deleting certificate:", err);
+    res.status(500).json({ success: false, error: "Failed to delete certificate", message: err.message });
+  }
+};
+
 module.exports = {
   batchUploadSlots,
   getMedia,
@@ -277,4 +425,8 @@ module.exports = {
   updateSlotUrl,
   resetSlot,
   deleteMedia,
+  createCertificate,
+  updateCertificate,
+  deleteCertificate,
 };
+

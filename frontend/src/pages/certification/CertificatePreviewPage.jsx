@@ -15,6 +15,7 @@ import {
   Maximize2,
   X,
   Share2,
+  Download,
 } from "lucide-react";
 import certTemplateImage from "../../assets/ThirdEyeCertificate_template.png";
 import "./CertificatePreviewPage.css";
@@ -97,12 +98,24 @@ export default function CertificatePreviewPage() {
     window.scrollTo({ top: 0, behavior: "instant" });
 
     const img = new Image();
-    img.src = certTemplateImage;
     img.crossOrigin = "anonymous";
     img.onload = () => {
       templateImgRef.current = img;
       setIsImageLoaded(true);
     };
+    img.onerror = () => {
+      const retry = new Image();
+      retry.onload = () => {
+        templateImgRef.current = retry;
+        setIsImageLoaded(true);
+      };
+      retry.src = certTemplateImage;
+    };
+    img.src = certTemplateImage;
+    if (img.complete && img.naturalWidth) {
+      templateImgRef.current = img;
+      setIsImageLoaded(true);
+    }
   }, []);
 
   // Effective course title

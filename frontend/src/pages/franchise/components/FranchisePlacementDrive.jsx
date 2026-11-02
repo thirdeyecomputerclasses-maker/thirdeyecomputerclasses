@@ -246,7 +246,7 @@ export default function FranchisePlacementDrive({ onOpenInquiry }) {
                 </div>
                 <div className="milestone-divider" />
                 <div className="milestone-metric">
-                  <strong className="metric-num">6,700+</strong>
+                  <strong className="metric-num">10,000+</strong>
                   <span className="metric-text">Students Successfully Placed</span>
                 </div>
                 <div className="milestone-divider" />

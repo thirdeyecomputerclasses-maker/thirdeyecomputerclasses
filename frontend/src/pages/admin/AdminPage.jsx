@@ -2568,6 +2568,7 @@ export default function AdminPage() {
         onClose={() => setIsCourseFormOpen(false)}
         onSave={handleSaveCourse}
         isSaving={isCourseSaving}
+        existingCategories={courseCategoriesList.filter((c) => c !== "all")}
       />
 
       {/* Job Form Modal (MongoDB) */}

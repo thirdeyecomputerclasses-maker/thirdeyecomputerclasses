@@ -134,6 +134,260 @@ export default function UploadMediaPage({ embedded = false }) {
 
   const fileInputRef = useRef(null);
 
+  // Certificate Management State
+  const [addCertModalOpen, setAddCertModalOpen] = useState(false);
+  const [certFormData, setCertFormData] = useState({
+    title: "",
+    partner: "",
+    certId: "",
+    category: "Global Tech",
+    customCategory: "",
+    issuer: "",
+    skills: "",
+    impact: "",
+    description: "",
+    url: "",
+  });
+  const [certFile, setCertFile] = useState(null);
+  const [certFilePreview, setCertFilePreview] = useState(null);
+  const [certUploading, setCertUploading] = useState(false);
+  const [certUploadProgress, setCertUploadProgress] = useState(0);
+  const [certModalError, setCertModalError] = useState(null);
+  const certFileInputRef = useRef(null);
+
+  // Edit Certificate State
+  const [editCertModalOpen, setEditCertModalOpen] = useState(false);
+  const [editCertSlot, setEditCertSlot] = useState(null);
+  const [editCertFormData, setEditCertFormData] = useState({
+    title: "",
+    partner: "",
+    certId: "",
+    category: "Global Tech",
+    customCategory: "",
+    issuer: "",
+    skills: "",
+    impact: "",
+    description: "",
+    url: "",
+  });
+  const [editCertFile, setEditCertFile] = useState(null);
+  const [editCertFilePreview, setEditCertFilePreview] = useState(null);
+  const [editCertUploading, setEditCertUploading] = useState(false);
+  const [editCertUploadProgress, setEditCertUploadProgress] = useState(0);
+  const [editCertModalError, setEditCertModalError] = useState(null);
+  const editCertFileInputRef = useRef(null);
+
+  // Preview cleanup for new cert file
+  useEffect(() => {
+    if (!certFile) {
+      setCertFilePreview(null);
+      return;
+    }
+    const url = URL.createObjectURL(certFile);
+    setCertFilePreview(url);
+    return () => URL.revokeObjectURL(url);
+  }, [certFile]);
+
+  // Preview cleanup for edit cert file
+  useEffect(() => {
+    if (!editCertFile) {
+      setEditCertFilePreview(null);
+      return;
+    }
+    const url = URL.createObjectURL(editCertFile);
+    setEditCertFilePreview(url);
+    return () => URL.revokeObjectURL(url);
+  }, [editCertFile]);
+
+  // Open / Close Add Certificate Modal
+  const handleOpenAddCertModal = () => {
+    setCertFormData({
+      title: "",
+      partner: "",
+      certId: `CERT-${Math.floor(100000 + Math.random() * 900000)}`,
+      category: "Global Tech",
+      customCategory: "",
+      issuer: "",
+      skills: "",
+      impact: "",
+      description: "",
+      url: "",
+    });
+    setCertFile(null);
+    setCertFilePreview(null);
+    setCertModalError(null);
+    setCertUploadProgress(0);
+    setAddCertModalOpen(true);
+  };
+
+  const handleCloseAddCertModal = () => {
+    if (certUploading) return;
+    setAddCertModalOpen(false);
+    setCertFile(null);
+    setCertFilePreview(null);
+    setCertModalError(null);
+  };
+
+  // Submit Add Certificate
+  const handleSubmitAddCert = async (e) => {
+    e.preventDefault();
+    if (!certFormData.title.trim()) {
+      setCertModalError("Please provide a Certificate Title.");
+      return;
+    }
+    if (!certFormData.partner.trim()) {
+      setCertModalError("Please specify the Partner / Organization (e.g. Apna, Google, AWS, Microsoft).");
+      return;
+    }
+    if (!certFile && !certFormData.url.trim()) {
+      setCertModalError("Please upload an image file or provide an image URL.");
+      return;
+    }
+
+    setCertUploading(true);
+    setCertModalError(null);
+    setCertUploadProgress(0);
+
+    try {
+      const fd = new FormData();
+      if (certFile) fd.append("file", certFile);
+      fd.append("title", certFormData.title.trim());
+      fd.append("partner", certFormData.partner.trim());
+      fd.append("certId", certFormData.certId.trim());
+      const chosenCategory =
+        certFormData.category === "custom"
+          ? certFormData.customCategory.trim()
+          : certFormData.category;
+      fd.append("category", chosenCategory || "Global Tech");
+      fd.append("issuer", certFormData.issuer.trim());
+      fd.append("skills", certFormData.skills.trim());
+      fd.append("impact", certFormData.impact.trim());
+      fd.append("description", certFormData.description.trim());
+      if (certFormData.url.trim()) fd.append("url", certFormData.url.trim());
+
+      const created = await createCertificate(fd, (pct) => {
+        setCertUploadProgress(pct);
+      });
+
+      if (created) {
+        setSlots((prev) => [created, ...prev]);
+        setActionMessage(`Certificate "${created.title}" added and uploaded to ImageKit successfully!`);
+        setTimeout(() => setActionMessage(null), 5000);
+        handleCloseAddCertModal();
+      }
+    } catch (err) {
+      console.error("Error creating certificate:", err);
+      setCertModalError(err.message || "Failed to create certificate.");
+    } finally {
+      setCertUploading(false);
+    }
+  };
+
+  // Open / Close Edit Certificate Modal
+  const handleOpenEditCertModal = (slot) => {
+    setEditCertSlot(slot);
+    setEditCertFormData({
+      title: slot.title || "",
+      partner: slot.partner || "",
+      certId: slot.certId || slot.slotKey || "",
+      category: slot.category || "Global Tech",
+      customCategory: "",
+      issuer: slot.issuer || "",
+      skills: slot.skills || "",
+      impact: slot.impact || "",
+      description: slot.description || "",
+      url: slot.url || "",
+    });
+    setEditCertFile(null);
+    setEditCertFilePreview(null);
+    setEditCertModalError(null);
+    setEditCertUploadProgress(0);
+    setEditCertModalOpen(true);
+  };
+
+  const handleCloseEditCertModal = () => {
+    if (editCertUploading) return;
+    setEditCertModalOpen(false);
+    setEditCertSlot(null);
+    setEditCertFile(null);
+    setEditCertFilePreview(null);
+    setEditCertModalError(null);
+  };
+
+  // Submit Edit Certificate
+  const handleSubmitEditCert = async (e) => {
+    e.preventDefault();
+    if (!editCertSlot) return;
+
+    if (!editCertFormData.title.trim()) {
+      setEditCertModalError("Please provide a Certificate Title.");
+      return;
+    }
+    if (!editCertFormData.partner.trim()) {
+      setEditCertModalError("Please specify the Partner / Organization.");
+      return;
+    }
+
+    setEditCertUploading(true);
+    setEditCertModalError(null);
+    setEditCertUploadProgress(0);
+
+    try {
+      const fd = new FormData();
+      if (editCertFile) fd.append("file", editCertFile);
+      fd.append("title", editCertFormData.title.trim());
+      fd.append("partner", editCertFormData.partner.trim());
+      fd.append("certId", editCertFormData.certId.trim());
+      const chosenCategory =
+        editCertFormData.category === "custom"
+          ? editCertFormData.customCategory.trim()
+          : editCertFormData.category;
+      fd.append("category", chosenCategory || "Global Tech");
+      fd.append("issuer", editCertFormData.issuer.trim());
+      fd.append("skills", editCertFormData.skills.trim());
+      fd.append("impact", editCertFormData.impact.trim());
+      fd.append("description", editCertFormData.description.trim());
+      if (editCertFormData.url.trim()) fd.append("url", editCertFormData.url.trim());
+
+      const updated = await updateCertificate(
+        editCertSlot._id || editCertSlot.slotKey,
+        fd,
+        (pct) => setEditCertUploadProgress(pct)
+      );
+
+      if (updated) {
+        setSlots((prev) =>
+          prev.map((s) => (s.slotKey === editCertSlot.slotKey || s._id === editCertSlot._id ? { ...s, ...updated } : s))
+        );
+        setActionMessage(`Certificate "${updated.title}" updated successfully!`);
+        setTimeout(() => setActionMessage(null), 5000);
+        handleCloseEditCertModal();
+      }
+    } catch (err) {
+      console.error("Error updating certificate:", err);
+      setEditCertModalError(err.message || "Failed to update certificate.");
+    } finally {
+      setEditCertUploading(false);
+    }
+  };
+
+  // Delete Custom Certificate
+  const handleDeleteCert = async (slot) => {
+    if (!window.confirm(`Are you sure you want to permanently delete the "${slot.title}" certificate?`)) {
+      return;
+    }
+    try {
+      await deleteCertificate(slot._id || slot.slotKey);
+      setSlots((prev) => prev.filter((s) => s.slotKey !== slot.slotKey && s._id !== slot._id));
+      setActionMessage(`Certificate "${slot.title}" has been deleted.`);
+      setTimeout(() => setActionMessage(null), 5000);
+    } catch (err) {
+      console.error("Error deleting certificate:", err);
+      alert(err.message || "Failed to delete certificate.");
+    }
+  };
+
+
   // Load all section slots
   const loadSlots = useCallback(async () => {
     setLoading(true);
@@ -883,6 +1137,30 @@ const PAIRED_FRANCHISE_SLOTS = {
           )}
 
           {/* Special Celebration Banner & Bulk Upload Button for Campus Memories */}
+          
+          {/* Certificate Management Action Banner */}
+          {selectedPage === "certificates" && mediaType === "image" && (
+            <div className="celebration-bulk-bar certificate-action-bar">
+              <div className="celebration-bulk-info">
+                <Award size={22} className="text-yellow-400" />
+                <div>
+                  <strong>Authorized Certificates &amp; Accreditations Vault</strong>
+                  <p>
+                    Manage official certificate templates with ImageKit or add new verified certifications with custom partners, categories &amp; credentials to appear in the 3D Credential Vault.
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                className="bulk-upload-btn add-cert-btn"
+                onClick={handleOpenAddCertModal}
+              >
+                <Plus size={16} />
+                <span>+ Add New Certificate</span>
+              </button>
+            </div>
+          )}
+
           {selectedPage === "memories" && mediaType === "image" && (
             <div className="celebration-bulk-bar">
               <div className="celebration-bulk-info">
@@ -1130,6 +1408,25 @@ const PAIRED_FRANCHISE_SLOTS = {
 
                     {/* Slot Info & Content */}
                     <div className="slot-card-body">
+                      
+                      {/* Certificate Specific Badges */}
+                      {slot.page === "certificates" && (
+                        <div className="slot-cert-meta-row">
+                          {slot.partner && (
+                            <span className="slot-cert-partner-pill">
+                              <Award size={11} />
+                              {slot.partner}
+                            </span>
+                          )}
+                          {slot.category && (
+                            <span className="slot-cert-category-pill">{slot.category}</span>
+                          )}
+                          {slot.certId && (
+                            <span className="slot-cert-id-pill">{slot.certId}</span>
+                          )}
+                        </div>
+                      )}
+
                       <h4 className="slot-card-title">{slot.title}</h4>
                       <p className="slot-card-desc">{slot.description}</p>
 

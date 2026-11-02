@@ -1,42 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import s1 from "../../../assets/students/student_1.jpg";
-import s2 from "../../../assets/students/student_2.jpg";
-import s3 from "../../../assets/students/student_3.jpg";
-import s4 from "../../../assets/students/student_4.jpg";
-import s5 from "../../../assets/students/student_5.jpg";
-import s6 from "../../../assets/students/student_6.jpg";
-import s7 from "../../../assets/students/student_7.jpg";
-import s8 from "../../../assets/students/student_8.jpg";
-import s9 from "../../../assets/students/student_9.jpg";
-import s10 from "../../../assets/students/student_10.jpg";
-import s11 from "../../../assets/students/student_11.jpg";
-import s12 from "../../../assets/students/student_12.jpg";
+import { Link } from "react-router-dom";
+import {
+  PLACEMENT_STUDENTS,
+  mergePlacementMedia,
+} from "../../../data/placementStudentsData";
+import { fetchMedia } from "../../../services/mediaApi";
 import "./PlacedStudentsSection.css";
 
-// Row 1 Students
-const ROW_1_STUDENTS = [
-  { id: 1, name: "Rahul Sharma", company: "@ Amazon", image: s1 },
-  { id: 2, name: "Priya Patel", company: "@ Google", image: s2 },
-  { id: 3, name: "Aditya Verma", company: "@ Microsoft", image: s3 },
-  { id: 4, name: "Sneha Reddy", company: "@ Adobe", image: s4 },
-  { id: 5, name: "Vikram Singh", company: "@ Swiggy", image: s5 },
-  { id: 6, name: "Ananya Joshi", company: "@ Oracle", image: s6 },
-];
-
-// Row 2 Students
-const ROW_2_STUDENTS = [
-  { id: 7, name: "Rohan Gupta", company: "@ Uber", image: s7 },
-  { id: 8, name: "Tanvi Mehta", company: "@ Meta", image: s8 },
-  { id: 9, name: "Ayush Mishra", company: "@ Flipkart", image: s9 },
-  { id: 10, name: "Ritu Saxena", company: "@ Autodesk", image: s10 },
-  { id: 11, name: "Kunal Nair", company: "@ Cisco", image: s11 },
-  { id: 12, name: "Pooja Choudhary", company: "@ Zomato", image: s12 },
-];
-
 function StudentCard({ student }) {
+  const displayCompany = student.company
+    ? student.company.startsWith("@")
+      ? student.company
+      : `@ ${student.company}`
+    : "";
+
   return (
-    <div className="placed-student-card">
+    <div className="placed-student-card" title={`${student.name} - ${student.company || "Placed"}`}>
       {/* Background Yellow Aura */}
       <div className="placed-card-glow" />
 
@@ -50,9 +30,14 @@ function StudentCard({ student }) {
       {/* Student Portrait Image */}
       <img
         src={student.image}
-        alt={student.name}
+        alt={student.name || "Placed Student"}
         className="placed-student-img"
         loading="lazy"
+        onError={(e) => {
+          if (student.fallbackImage && e.target.src !== student.fallbackImage) {
+            e.target.src = student.fallbackImage;
+          }
+        }}
       />
 
       {/* Foreground Overlay Badge */}
@@ -61,8 +46,19 @@ function StudentCard({ student }) {
           <span className="placed-main-title">PLACED</span>
           <span className="placed-sub-brand">T H I R D &nbsp; E Y E</span>
         </div>
-        {student.company && (
-          <span className="placed-company-badge">{student.company}</span>
+
+        {/* Student Name */}
+        {student.name && (
+          <h4 className="placed-student-name" title={student.name}>
+            {student.name}
+          </h4>
+        )}
+
+        {/* Placement Company Badge */}
+        {displayCompany && (
+          <span className="placed-company-badge" title={displayCompany}>
+            {displayCompany}
+          </span>
         )}
       </div>
     </div>
@@ -70,9 +66,34 @@ function StudentCard({ student }) {
 }
 
 export default function PlacedStudentsSection() {
+  const [studentsList, setStudentsList] = useState(PLACEMENT_STUDENTS);
+
+  // Synchronize with live Media records from MongoDB / ImageKit
+  useEffect(() => {
+    let isMounted = true;
+    fetchMedia({ page: "placements", type: "image" })
+      .then((mediaList) => {
+        if (isMounted && Array.isArray(mediaList) && mediaList.length > 0) {
+          setStudentsList((prev) => mergePlacementMedia(prev, mediaList));
+        }
+      })
+      .catch((err) => {
+        console.warn("Using fallback placement students data:", err?.message);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Split students into two continuous rows
+  const half = Math.ceil(studentsList.length / 2);
+  const row1Students = studentsList.slice(0, half);
+  const row2Students = studentsList.slice(half);
+
   // Seamless loop by duplicating arrays
-  const row1Track = [...ROW_1_STUDENTS, ...ROW_1_STUDENTS, ...ROW_1_STUDENTS];
-  const row2Track = [...ROW_2_STUDENTS, ...ROW_2_STUDENTS, ...ROW_2_STUDENTS];
+  const row1Track = [...row1Students, ...row1Students, ...row1Students];
+  const row2Track = [...row2Students, ...row2Students, ...row2Students];
 
   return (
     <section className="placed-students-section">
@@ -109,7 +130,7 @@ export default function PlacedStudentsSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.15 }}
         >
-          From classroom learners to high-impact professionals at top global studios & tech giants
+          Verified student placements and selections from our dedicated Jobs &amp; Placement Cell
         </motion.p>
       </div>
 
@@ -128,7 +149,7 @@ export default function PlacedStudentsSection() {
           </div>
         </div>
 
-        {/* Row 2: Scrolling Right (Stops on hover) */}
+        {/* Row 2: Scrolling Right (Opposite Direction) */}
         <div className="placed-marquee-row row-right">
           <div className="placed-marquee-track track-right">
             {row2Track.map((student, idx) => (
@@ -136,6 +157,14 @@ export default function PlacedStudentsSection() {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Bottom CTA to Jobs & Placement Portal */}
+      <div className="placed-footer-cta">
+        <Link to="/jobs-placement" className="placed-view-all-btn">
+          <span>Explore All 150+ Hiring Partners &amp; Recent Selections</span>
+          <span className="cta-arrow">→</span>
+        </Link>
       </div>
     </section>
   );
