@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { Sparkles, Users, Award, GraduationCap } from "lucide-react";
 import TiltedCard from "./TiltedCard";
 import { fetchMedia, resolveMediaUrl } from "../../../services/mediaApi";
+import { getMentors } from "../../../services/mentorApi";
 
 // Local Fallbacks (Latest updated assets)
 import mlChaudharyImg from "../../../assets/leadership/ml_chaudhary.png";
@@ -52,7 +53,7 @@ const INITIAL_MEMBERS = [
     slotKey: "team_member_1",
     carouselSlotKey: "carousel_mentor_1",
     nameMatch: "suumit",
-    name: "Suumit sharrma",
+    name: "Suumit Sharma",
     designation: "Chief Operating Officer",
     category: "leadership",
     defaultImage: suumitSharmaWebp,
@@ -114,6 +115,20 @@ const INITIAL_MEMBERS = [
 export default function MentorsCarouselSection() {
   const [activeCategory, setActiveCategory] = useState("leadership");
   const [slotMap, setSlotMap] = useState({});
+  const [dbMentors, setDbMentors] = useState([]);
+
+  // Fetch dynamic mentors created via Admin Panel
+  const loadMentorsFromApi = useCallback(() => {
+    getMentors({ activeOnly: true })
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setDbMentors(data);
+        }
+      })
+      .catch((err) => {
+        console.warn("Failed to fetch dynamic mentors list:", err.message);
+      });
+  }, []);
 
   // Dynamic fetch directly from backend Team media slots
   const loadMedia = useCallback(() => {
@@ -159,22 +174,55 @@ export default function MentorsCarouselSection() {
 
   useEffect(() => {
     loadMedia();
+    loadMentorsFromApi();
 
-    // Auto-update instantly whenever an admin uploads/updates a media slot
-    const handleUpdate = () => loadMedia();
+    // Auto-update instantly whenever an admin uploads/updates a media slot or mentors
+    const handleUpdate = () => {
+      loadMedia();
+      loadMentorsFromApi();
+    };
     window.addEventListener("thirdeye_media_updated", handleUpdate);
+    window.addEventListener("thirdeye_mentors_updated", handleUpdate);
     window.addEventListener("storage", handleUpdate);
     window.addEventListener("focus", handleUpdate);
 
     return () => {
       window.removeEventListener("thirdeye_media_updated", handleUpdate);
+      window.removeEventListener("thirdeye_mentors_updated", handleUpdate);
       window.removeEventListener("storage", handleUpdate);
       window.removeEventListener("focus", handleUpdate);
     };
-  }, [loadMedia]);
+  }, [loadMedia, loadMentorsFromApi]);
 
   // Compute live profiles with ImageKit dynamic photo or fallback
   const resolvedMembers = useMemo(() => {
+    if (dbMentors.length > 0) {
+      return dbMentors.map((member) => {
+        const match = INITIAL_MEMBERS.find(
+          (init) =>
+            init.id === member.id ||
+            init.name.toLowerCase() === member.name?.toLowerCase() ||
+            (init.nameMatch && member.name?.toLowerCase().includes(init.nameMatch))
+        );
+
+        const liveUrl =
+          (match && slotMap[match.slotKey]) ||
+          (match && slotMap[match.carouselSlotKey]) ||
+          (match?.nameMatch && slotMap[match.nameMatch]) ||
+          member.image ||
+          match?.defaultImage;
+
+        return {
+          id: member._id || member.id,
+          name: member.name,
+          designation: member.designation,
+          category: member.category || "faculty",
+          order: member.order ?? 10,
+          image: liveUrl,
+        };
+      });
+    }
+
     return INITIAL_MEMBERS.map((member) => {
       const liveUrl =
         slotMap[member.slotKey] ||
@@ -187,7 +235,18 @@ export default function MentorsCarouselSection() {
         image: liveUrl,
       };
     });
-  }, [slotMap]);
+  }, [dbMentors, slotMap]);
+
+  // Dynamic counts for tab pills
+  const leadershipCount = useMemo(
+    () => resolvedMembers.filter((m) => m.category === "leadership").length,
+    [resolvedMembers]
+  );
+  const facultyCount = useMemo(
+    () => resolvedMembers.filter((m) => m.category === "faculty").length,
+    [resolvedMembers]
+  );
+  const totalCount = resolvedMembers.length;
 
   // Filter based on active category tab
   const displayedMembers = useMemo(() => {
@@ -227,7 +286,7 @@ export default function MentorsCarouselSection() {
             }`}
           >
             <Users className="w-3.5 h-3.5" />
-            <span>Executive Leadership (5)</span>
+            <span>Executive Leadership ({leadershipCount})</span>
           </button>
 
           <button
@@ -240,7 +299,7 @@ export default function MentorsCarouselSection() {
             }`}
           >
             <GraduationCap className="w-3.5 h-3.5" />
-            <span>Faculty & Mentors (4)</span>
+            <span>Faculty & Mentors ({facultyCount})</span>
           </button>
 
           <button
@@ -253,7 +312,7 @@ export default function MentorsCarouselSection() {
             }`}
           >
             <Award className="w-3.5 h-3.5" />
-            <span>All Profiles (9)</span>
+            <span>All Profiles ({totalCount})</span>
           </button>
         </div>
       </div>

@@ -87,7 +87,7 @@ export default function Footer() {
               <img
                 src={logo}
                 alt="ThirdEye Computer Classes"
-                className="h-16 sm:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_4px_20px_rgba(246,217,107,0.35)]"
+                className="h-[84px] sm:h-[100px] md:h-[115px] lg:h-[125px] w-auto object-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_6px_28px_rgba(246,217,107,0.45)]"
                 loading="lazy"
               />
             </Link>

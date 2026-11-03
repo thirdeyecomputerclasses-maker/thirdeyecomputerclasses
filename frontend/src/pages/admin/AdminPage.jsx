@@ -18,6 +18,7 @@ import {
   Building,
   Banknote,
   Users,
+  User,
   Clock,
   Eye,
   Inbox,
@@ -71,11 +72,18 @@ import {
   updateAssessment,
   deleteAssessment,
 } from "../../services/assessmentApi";
+import {
+  getMentors,
+  createMentor,
+  updateMentor,
+  deleteMentor,
+} from "../../services/mentorApi";
 import { getStoredSession, clearAdminSession } from "../../services/authApi";
 import CourseFormModal from "./components/CourseFormModal";
 import JobFormModal from "./components/JobFormModal";
 import BlogFormModal from "./components/BlogFormModal";
 import AssessmentFormModal from "./components/AssessmentFormModal";
+import MentorFormModal from "./components/MentorFormModal";
 import DeleteConfirmModal from "./components/DeleteConfirmModal";
 import AdminGateScreen from "./AdminGateScreen";
 import SecurityManagerTab from "./components/SecurityManagerTab";
@@ -160,6 +168,18 @@ export default function AdminPage() {
   const [deletingAssessment, setDeletingAssessment] = useState(null);
   const [isAssessmentSaving, setIsAssessmentSaving] = useState(false);
   const [isAssessmentDeleting, setIsAssessmentDeleting] = useState(false);
+
+  // Mentors & Faculty state (MongoDB & ImageKit)
+  const [mentors, setMentors] = useState([]);
+  const [isLoadingMentors, setIsLoadingMentors] = useState(true);
+  const [mentorSearchQuery, setMentorSearchQuery] = useState("");
+  const [selectedMentorCategory, setSelectedMentorCategory] = useState("all");
+  const [isMentorFormOpen, setIsMentorFormOpen] = useState(false);
+  const [editingMentor, setEditingMentor] = useState(null);
+  const [isMentorDeleteOpen, setIsMentorDeleteOpen] = useState(false);
+  const [deletingMentor, setDeletingMentor] = useState(null);
+  const [isMentorSaving, setIsMentorSaving] = useState(false);
+  const [isMentorDeleting, setIsMentorDeleting] = useState(false);
 
   // Shared state
   const [toastMessage, setToastMessage] = useState("");
@@ -251,6 +271,21 @@ export default function AdminPage() {
       });
   };
 
+  // Fetch mentors from MongoDB & ImageKit
+  const loadMentors = () => {
+    setIsLoadingMentors(true);
+    getMentors()
+      .then((data) => {
+        setMentors(Array.isArray(data) ? data : []);
+      })
+      .catch((err) => {
+        console.error("Failed to load mentors:", err);
+      })
+      .finally(() => {
+        setIsLoadingMentors(false);
+      });
+  };
+
   // Health check
   const checkHealth = () => {
     getHealthStatus()
@@ -269,6 +304,7 @@ export default function AdminPage() {
     loadSubmissions();
     loadBlogs();
     loadAssessments();
+    loadMentors();
     checkHealth();
   }, []);
 
@@ -820,6 +856,94 @@ export default function AdminPage() {
     }
   };
 
+  // -------------------------------------------------------------
+  // MENTORS & FACULTY HANDLERS & COMPUTED (MONGODB & IMAGEKIT)
+  // -------------------------------------------------------------
+  const filteredMentors = useMemo(() => {
+    return mentors.filter((m) => {
+      const matchesCategory =
+        selectedMentorCategory === "all" || m.category === selectedMentorCategory;
+
+      const q = mentorSearchQuery.toLowerCase();
+      const matchesSearch =
+        !q ||
+        m.name?.toLowerCase().includes(q) ||
+        m.designation?.toLowerCase().includes(q) ||
+        m.description?.toLowerCase().includes(q);
+
+      return matchesCategory && matchesSearch;
+    });
+  }, [mentors, mentorSearchQuery, selectedMentorCategory]);
+
+  const totalLeadershipCount = useMemo(() => {
+    return mentors.filter((m) => m.category === "leadership").length;
+  }, [mentors]);
+
+  const totalFacultyCount = useMemo(() => {
+    return mentors.filter((m) => m.category === "faculty").length;
+  }, [mentors]);
+
+  const totalActiveMentorsCount = useMemo(() => {
+    return mentors.filter((m) => m.isActive !== false).length;
+  }, [mentors]);
+
+  const handleOpenCreateMentor = () => {
+    setEditingMentor(null);
+    setIsMentorFormOpen(true);
+  };
+
+  const handleOpenEditMentor = (m) => {
+    setEditingMentor(m);
+    setIsMentorFormOpen(true);
+  };
+
+  const handleSaveMentor = async (formData, id) => {
+    setIsMentorSaving(true);
+    try {
+      if (id) {
+        await updateMentor(id, formData);
+        showToast("Mentor card updated successfully!");
+      } else {
+        await createMentor(formData);
+        showToast("Mentor card created and synced successfully!");
+      }
+      setIsMentorFormOpen(false);
+      setEditingMentor(null);
+      loadMentors();
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new Event("thirdeye_mentors_updated"));
+      }
+    } catch (err) {
+      alert("Error saving mentor: " + err.message);
+    } finally {
+      setIsMentorSaving(false);
+    }
+  };
+
+  const handleOpenDeleteMentor = (m) => {
+    setDeletingMentor(m);
+    setIsMentorDeleteOpen(true);
+  };
+
+  const handleConfirmDeleteMentor = async () => {
+    if (!deletingMentor) return;
+    setIsMentorDeleting(true);
+    try {
+      await deleteMentor(deletingMentor._id || deletingMentor.id);
+      showToast("Mentor card permanently deleted.");
+      setIsMentorDeleteOpen(false);
+      setDeletingMentor(null);
+      loadMentors();
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new Event("thirdeye_mentors_updated"));
+      }
+    } catch (err) {
+      alert("Failed to delete mentor: " + err.message);
+    } finally {
+      setIsMentorDeleting(false);
+    }
+  };
+
   const formatTimestamp = (isoString) => {
     if (!isoString) return "Just now";
     try {
@@ -877,6 +1001,7 @@ export default function AdminPage() {
   const canAccessForms = role === "global_admin" || role === "submissions_admin";
   const canAccessSecurity = role === "global_admin";
   const canAccessMedia = role === "global_admin";
+  const canAccessMentors = role === "global_admin" || role === "course_admin";
 
   return (
     <div className="admin-page">
@@ -979,6 +1104,7 @@ export default function AdminPage() {
               {activeSection === "forms" && "Website Form Submissions"}
               {activeSection === "security" && "Security Clearance & Access Keys"}
               {activeSection === "media" && "Add Photos/Videos Management"}
+              {activeSection === "mentors" && "Our Mentors & Faculty Management"}
             </h1>
             <p className="admin-subtitle">
               {activeSection === "courses" &&
@@ -995,6 +1121,8 @@ export default function AdminPage() {
                 "Configure passwords for each of the 4 admin levels and inspect recent login audit events."}
               {activeSection === "media" &&
                 "Replace existing section photos and videos across supported pages with instant ImageKit CDN synchronization."}
+              {activeSection === "mentors" &&
+                "Add, edit, remove, and manage mentor & faculty cards displayed dynamically across Home and Team pages."}
             </p>
           </div>
 
@@ -1008,6 +1136,7 @@ export default function AdminPage() {
                   else if (activeSection === "blogs") loadBlogs();
                   else if (activeSection === "assessments") loadAssessments();
                   else if (activeSection === "forms") loadSubmissions();
+                  else if (activeSection === "mentors") loadMentors();
                 }}
                 title="Refresh data"
               >
@@ -1018,7 +1147,8 @@ export default function AdminPage() {
                     (activeSection === "jobs" && isLoadingJobs) ||
                     (activeSection === "blogs" && isLoadingBlogs) ||
                     (activeSection === "assessments" && isLoadingAssessments) ||
-                    (activeSection === "forms" && isLoadingSubmissions)
+                    (activeSection === "forms" && isLoadingSubmissions) ||
+                    (activeSection === "mentors" && isLoadingMentors)
                       ? "spin"
                       : ""
                   }
@@ -1057,6 +1187,15 @@ export default function AdminPage() {
               >
                 <RefreshCw size={17} />
                 <span>Refresh Leads</span>
+              </button>
+            )}
+            {activeSection === "mentors" && canAccessMentors && (
+              <button
+                className="admin-add-btn"
+                onClick={handleOpenCreateMentor}
+              >
+                <Plus size={18} />
+                <span>Add Mentor Card</span>
               </button>
             )}
           </div>
@@ -1103,6 +1242,20 @@ export default function AdminPage() {
               <FileText size={18} />
               <span>Blogs CMS</span>
               <span className="section-count-badge">{blogs.length}</span>
+            </button>
+          )}
+
+          {canAccessMentors && (
+            <button
+              type="button"
+              className={`admin-section-tab-btn ${
+                activeSection === "mentors" ? "active" : ""
+              }`}
+              onClick={() => setActiveSection("mentors")}
+            >
+              <Users size={18} />
+              <span>Mentors & Faculty</span>
+              <span className="section-count-badge">{mentors.length}</span>
             </button>
           )}
 
@@ -2536,6 +2689,198 @@ export default function AdminPage() {
         )}
 
         {/* ========================================================= */}
+        {/* TAB 4.8: OUR MENTORS & FACULTY (MONGODB & IMAGEKIT)       */}
+        {/* ========================================================= */}
+        {activeSection === "mentors" && (
+          <>
+            {/* Metrics Row */}
+            <div className="admin-metrics-grid">
+              <div className="admin-metric-card">
+                <div className="metric-header">
+                  <span className="metric-label">Total Profiles</span>
+                  <div className="metric-icon-wrap global">
+                    <Users size={16} />
+                  </div>
+                </div>
+                <div className="metric-value">{mentors.length}</div>
+                <div className="metric-subtext">Active cards in team registry</div>
+              </div>
+
+              <div className="admin-metric-card">
+                <div className="metric-header">
+                  <span className="metric-label">Executive Leadership</span>
+                  <div className="metric-icon-wrap yellow">
+                    <Crown size={16} />
+                  </div>
+                </div>
+                <div className="metric-value">{totalLeadershipCount}</div>
+                <div className="metric-subtext">Directors, Patrons, and COOs</div>
+              </div>
+
+              <div className="admin-metric-card">
+                <div className="metric-header">
+                  <span className="metric-label">Faculty & Mentors</span>
+                  <div className="metric-icon-wrap blue">
+                    <GraduationCap size={16} />
+                  </div>
+                </div>
+                <div className="metric-value">{totalFacultyCount}</div>
+                <div className="metric-subtext">Specialized industry instructors</div>
+              </div>
+
+              <div className="admin-metric-card">
+                <div className="metric-header">
+                  <span className="metric-label">Live on Website</span>
+                  <div className="metric-icon-wrap emerald">
+                    <CheckCircle2 size={16} />
+                  </div>
+                </div>
+                <div className="metric-value">{totalActiveMentorsCount}</div>
+                <div className="metric-subtext">Visible on Home & Team pages</div>
+              </div>
+            </div>
+
+            {/* Filter and Search Bar */}
+            <div className="admin-filters-bar">
+              <div className="admin-search-box">
+                <Search size={18} />
+                <input
+                  type="text"
+                  placeholder="Search mentors by name, role, bio..."
+                  value={mentorSearchQuery}
+                  onChange={(e) => setMentorSearchQuery(e.target.value)}
+                />
+              </div>
+
+              <div className="admin-category-filter">
+                <select
+                  value={selectedMentorCategory}
+                  onChange={(e) => setSelectedMentorCategory(e.target.value)}
+                  className="admin-select"
+                >
+                  <option value="all">All Departments ({mentors.length})</option>
+                  <option value="leadership">Executive Leadership ({totalLeadershipCount})</option>
+                  <option value="faculty">Faculty & Mentors ({totalFacultyCount})</option>
+                </select>
+              </div>
+
+              {canAccessMentors && (
+                <button
+                  className="admin-add-btn ml-auto"
+                  onClick={handleOpenCreateMentor}
+                >
+                  <Plus size={18} />
+                  <span>Add Mentor Card</span>
+                </button>
+              )}
+            </div>
+
+            {/* Mentors Cards Grid */}
+            {isLoadingMentors ? (
+              <div className="admin-loading-state">
+                <div className="spinner" />
+                <p>Loading mentors & faculty from database...</p>
+              </div>
+            ) : filteredMentors.length > 0 ? (
+              <div className="admin-grid">
+                {filteredMentors.map((m) => (
+                  <div key={m._id || m.id} className="admin-card mentor-admin-card">
+                    <div className="admin-card-header">
+                      <div className="admin-card-img-wrap" style={{ aspectRatio: "4/5", maxHeight: "240px" }}>
+                        <img
+                          src={m.image}
+                          alt={m.name}
+                          className="w-full h-full object-cover rounded-xl"
+                          onError={(e) => {
+                            e.currentTarget.src = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80";
+                          }}
+                        />
+                        <span
+                          className={`status-pill ${
+                            m.category === "leadership" ? "status-open" : "bg-blue-500/20 text-blue-300 border border-blue-500/30"
+                          }`}
+                        >
+                          {m.category === "leadership" ? "👑 Leadership" : "🎓 Faculty"}
+                        </span>
+                      </div>
+
+                      <div className="admin-card-title-wrap">
+                        <div className="flex items-center justify-between gap-2 mb-1">
+                          <span className="admin-category-pill">
+                            Order #{m.order ?? 10}
+                          </span>
+                          <span className="text-[11px] text-zinc-400">
+                            {m.isActive !== false ? "● Active" : "○ Hidden"}
+                          </span>
+                        </div>
+                        <h3 className="admin-card-title">{m.name}</h3>
+                        <p className="text-xs text-[#f6d96b] font-medium mt-0.5">
+                          {m.designation}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="admin-card-body">
+                      <p className="admin-card-desc text-xs line-clamp-3">
+                        {m.description || "Active mentor shaping career pathways at ThirdEye Computer Classes."}
+                      </p>
+                    </div>
+
+                    <div className="admin-card-actions">
+                      {canAccessMentors && (
+                        <>
+                          <button
+                            type="button"
+                            className="admin-action-btn edit"
+                            onClick={() => handleOpenEditMentor(m)}
+                            title="Edit mentor profile"
+                          >
+                            <Edit2 size={16} />
+                            <span>Edit</span>
+                          </button>
+                          <button
+                            type="button"
+                            className="admin-action-btn delete"
+                            onClick={() => handleOpenDeleteMentor(m)}
+                            title="Delete mentor card"
+                          >
+                            <Trash2 size={16} />
+                            <span>Delete</span>
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="admin-empty-state">
+                <div className="empty-icon-wrap">
+                  <Users size={36} />
+                </div>
+                <h3>No mentor profiles found</h3>
+                <p>
+                  {mentorSearchQuery
+                    ? `No profiles matching "${mentorSearchQuery}".`
+                    : "Add faculty and leadership cards to showcase them on the Home and Team pages."}
+                </p>
+                {canAccessMentors && (
+                  <div className="empty-actions">
+                    <button
+                      className="empty-btn-primary"
+                      onClick={handleOpenCreateMentor}
+                    >
+                      <Plus size={16} />
+                      <span>Add First Mentor Card</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+          </>
+        )}
+
+        {/* ========================================================= */}
         {/* TAB 5: SECURITY & PASSWORDS (GLOBAL ADMIN ONLY)           */}
         {/* ========================================================= */}
         {activeSection === "security" && role === "global_admin" && (
@@ -2661,6 +3006,30 @@ export default function AdminPage() {
         onClose={() => setIsAssessmentDeleteOpen(false)}
         onConfirm={handleConfirmDeleteAssessment}
         isDeleting={isAssessmentDeleting}
+      />
+
+      {/* Mentor Form Modal (MongoDB & ImageKit) */}
+      <MentorFormModal
+        key={
+          editingMentor?._id ||
+          editingMentor?.id ||
+          (isMentorFormOpen ? "mentor-open" : "mentor-closed")
+        }
+        isOpen={isMentorFormOpen}
+        mentor={editingMentor}
+        onClose={() => setIsMentorFormOpen(false)}
+        onSave={handleSaveMentor}
+        isSaving={isMentorSaving}
+      />
+
+      {/* Delete Confirmation Modal for Mentor */}
+      <DeleteConfirmModal
+        isOpen={isMentorDeleteOpen}
+        item={deletingMentor ? { ...deletingMentor, title: deletingMentor.name } : null}
+        itemType="Mentor Card"
+        onClose={() => setIsMentorDeleteOpen(false)}
+        onConfirm={handleConfirmDeleteMentor}
+        isDeleting={isMentorDeleting}
       />
     </div>
   );

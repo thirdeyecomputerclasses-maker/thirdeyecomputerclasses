@@ -128,8 +128,40 @@ const INITIAL_SEED_BLOGS = [
 let inMemoryBlogs = [...INITIAL_SEED_BLOGS];
 
 class BlogStore {
-  static async getAll({ category, search, status, tag, limit, page = 1 } = {}) {
+  static async seedIfEmpty() {
     if (getDBStatus()) {
+      try {
+        const count = await Blog.countDocuments();
+        if (count === 0 && INITIAL_SEED_BLOGS.length > 0) {
+          await Blog.insertMany(INITIAL_SEED_BLOGS);
+          console.log("Seeded initial blogs into MongoDB Atlas.");
+        }
+      } catch (err) {
+        console.warn("Failed to seed initial blogs:", err.message);
+      }
+    }
+  }
+
+  static async seedIfEmpty() {
+
+      try {
+        const count = await Blog.countDocuments();
+        if (count === 0 && INITIAL_SEED_BLOGS.length > 0) {
+          await Blog.insertMany(INITIAL_SEED_BLOGS);
+          console.log("Seeded initial blogs into MongoDB Atlas.");
+        }
+      } catch (err) {
+        console.warn("Failed to seed initial blogs:", err.message);
+      }
+    }
+  }
+
+  static async getAll({ category, search, status, tag, limit, page = 1 } = {}) {
+
+      await this.seedIfEmpty();
+    }
+
+      await this.seedIfEmpty();
       const filter = {};
       if (category && category !== "all") {
         filter.category = new RegExp(`^${category}$`, "i");
@@ -204,7 +236,7 @@ class BlogStore {
   static async getBySlugOrId(idOrSlug) {
     if (!idOrSlug) return null;
 
-    if (getDBStatus()) {
+
       let blog = null;
       if (/^[0-9a-fA-F]{24}$/.test(idOrSlug)) {
         blog = await Blog.findById(idOrSlug).lean();
@@ -266,7 +298,7 @@ class BlogStore {
       views: data.views || 0,
     };
 
-    if (getDBStatus()) {
+
       let uniqueSlug = newBlogData.slug;
       let counter = 1;
       while (await Blog.findOne({ slug: uniqueSlug })) {
@@ -293,7 +325,7 @@ class BlogStore {
   }
 
   static async update(idOrSlug, data) {
-    if (getDBStatus()) {
+
       let query = { slug: idOrSlug };
       if (/^[0-9a-fA-F]{24}$/.test(idOrSlug)) {
         query = { _id: idOrSlug };
@@ -350,7 +382,7 @@ class BlogStore {
   }
 
   static async delete(idOrSlug) {
-    if (getDBStatus()) {
+
       let query = { slug: idOrSlug };
       if (/^[0-9a-fA-F]{24}$/.test(idOrSlug)) {
         query = { _id: idOrSlug };
@@ -371,7 +403,7 @@ class BlogStore {
   }
 
   static async incrementViews(idOrSlug) {
-    if (getDBStatus()) {
+
       let query = { slug: idOrSlug };
       if (/^[0-9a-fA-F]{24}$/.test(idOrSlug)) {
         query = { _id: idOrSlug };
@@ -393,7 +425,7 @@ class BlogStore {
   }
 
   static async getStats() {
-    if (getDBStatus()) {
+
       const [total, published, draft, viewStats, categories] = await Promise.all([
         Blog.countDocuments(),
         Blog.countDocuments({ status: "published" }),

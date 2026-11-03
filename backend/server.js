@@ -11,6 +11,7 @@ const blogRoutes = require("./routes/blogRoutes");
 const assessmentRoutes = require("./routes/assessmentRoutes");
 const path = require("path");
 const mediaRoutes = require("./routes/mediaRoutes");
+const mentorRoutes = require("./routes/mentorRoutes");
 
 dotenv.config();
 
@@ -67,6 +68,7 @@ app.use("/api", blogRoutes);
 app.use("/api", assessmentRoutes);
 app.use("/api/submissions", submissionRoutes);
 app.use("/api", mediaRoutes);
+app.use("/api", mentorRoutes);
 
 app.get("/api/health", (req, res) => {
   res.json({

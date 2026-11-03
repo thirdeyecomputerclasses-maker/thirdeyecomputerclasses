@@ -130,7 +130,7 @@ export default function JoinHandsBrand() {
             <div className="join-hands-trust-strip">
               <div className="trust-strip-item">
                 <Building2 size={16} className="trust-icon" />
-                <span>10+ Operational Campuses</span>
+                <span>15+ Operational Campuses</span>
               </div>
               <span className="trust-strip-sep">•</span>
               <div className="trust-strip-item">

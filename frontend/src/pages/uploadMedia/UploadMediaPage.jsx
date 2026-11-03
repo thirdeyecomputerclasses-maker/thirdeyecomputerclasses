@@ -649,7 +649,7 @@ const PAIRED_FRANCHISE_SLOTS = {
       case "hero":
         return "Hero Panoramic (1)";
       case "branches":
-        return "10 Running Centers";
+        return "15+ Running Centers";
       case "founder":
         return "Founder Portrait";
       case "driftwall":

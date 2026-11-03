@@ -264,7 +264,7 @@ export default function ContactPage() {
                   <div className="channel-text-wrap">
                     <span className="channel-title-text">Head Office / Campus</span>
                     <span className="channel-value-text">35, 1st Floor, Nagar Nigam Rd, above HDFC Bank, Sanganer, Jaipur 302029</span>
-                    <span className="channel-sub-hint">10+ Branches Across Jaipur • Walk-in Counseling Welcome</span>
+                    <span className="channel-sub-hint">15+ Branches Across Jaipur • Walk-in Counseling Welcome</span>
                   </div>
                 </div>
               </div>

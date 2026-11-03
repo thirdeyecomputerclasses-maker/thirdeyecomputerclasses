@@ -151,7 +151,7 @@ export default function NetworkCentres() {
         {/* ── Section Heading (Exact Matching User Request) ── */}
         <div className="network-header-block">
           <h2 className="network-title">
-            OUR 10 RUNNING CENTRES <span className="network-title-gold">ACROSS JAIPUR</span>
+            OUR 15+ RUNNING CENTRES <span className="network-title-gold">ACROSS JAIPUR</span>
           </h2>
         </div>
 

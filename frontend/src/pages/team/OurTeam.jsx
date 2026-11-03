@@ -40,12 +40,12 @@ const mentors = [
   // --- The Founders (1 to 7) ---
   {
     id: 1,
-    name: "Suumit Sharrma",
+    name: "Suumit Sharma",
     role: "Chief Operating Officer",
     category: "EXECUTIVE LEAD",
     image: suumitSharmaImg,
     description:
-      "Suumit Sharrma is the Chief Operating Officer at Thirdeye Computer Classes, where he oversees daily operations, drives strategic growth initiatives, and ensures the smooth functioning of all departments. With a deep understanding of the education and training industry, he brings forward-thinking execution to every student touchpoint.",
+      "Suumit Sharma is the Chief Operating Officer at Thirdeye Computer Classes, where he oversees daily operations, drives strategic growth initiatives, and ensures the smooth functioning of all departments. With a deep understanding of the education and training industry, he brings forward-thinking execution to every student touchpoint.",
   },
   {
     id: 2,

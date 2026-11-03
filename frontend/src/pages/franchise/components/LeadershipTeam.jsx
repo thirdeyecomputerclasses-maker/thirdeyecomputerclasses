@@ -76,7 +76,7 @@ export default function LeadershipTeam({ onOpenInquiry }) {
     },
     {
       id: "suumit-sharma",
-      name: "Suumit Sharrma",
+      name: "Suumit Sharma",
       role: "CHIEF OPERATING OFFICER",
       category: "board",
       tier: "Directorate",

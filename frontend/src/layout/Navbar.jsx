@@ -152,10 +152,10 @@ export default function Navbar() {
         {/* ============================================================ */}
         {/* TOP CONTACT & NEW BATCH MOVING RIBBON BAR                    */}
         {/* ============================================================ */}
-        <div className="w-full bg-[#100d07] border-b border-[#ffd300]/20 text-xs py-1.5 px-4 sm:px-6 lg:px-8 shadow-sm">
+        <div className="w-full bg-[#100d07] border-b border-[#ffd300]/20 text-xs py-1.5 px-4 sm:px-6 lg:px-8 shadow-sm font-bold">
           <div className="max-w-[1440px] mx-auto flex items-center justify-between gap-4">
             {/* Left: Branches & Contact Info */}
-            <div className="flex items-center gap-2.5 sm:gap-4 shrink-0 font-medium text-[11px] sm:text-xs whitespace-nowrap">
+            <div className="flex items-center gap-2.5 sm:gap-4 shrink-0 font-bold text-[11px] sm:text-xs whitespace-nowrap">
               <Link
                 to="/nearest-branch"
                 className="inline-flex items-center gap-1.5 text-zinc-200 hover:text-[#ffd300] transition-colors group whitespace-nowrap"
@@ -169,48 +169,48 @@ export default function Navbar() {
 
               <a
                 href="tel:+918058061222"
-                className="inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#ffd300] transition-colors font-mono font-medium whitespace-nowrap"
+                className="inline-flex items-center gap-1.5 text-white hover:text-[#ffd300] transition-colors font-mono font-bold whitespace-nowrap"
                 title="Call ThirdEye Computer Classes"
               >
                 <PhoneCall className="w-3.5 h-3.5 text-[#ffd300] shrink-0" />
-                <span className="tracking-wide">+91 805 806 1222</span>
+                <span className="tracking-wide font-bold">+91 805 806 1222</span>
               </a>
 
               <span className="text-zinc-700 select-none hidden md:inline">•</span>
 
               <a
                 href="mailto:info@thirdeyeclasses.com"
-                className="hidden md:inline-flex items-center gap-1.5 text-zinc-300 hover:text-[#ffd300] transition-colors whitespace-nowrap"
+                className="hidden md:inline-flex items-center gap-1.5 text-white hover:text-[#ffd300] transition-colors font-bold whitespace-nowrap"
                 title="Email ThirdEye Computer Classes"
               >
                 <Mail className="w-3.5 h-3.5 text-[#ffd300] shrink-0" />
-                <span>info@thirdeyeclasses.com</span>
+                <span className="font-bold">info@thirdeyeclasses.com</span>
               </a>
             </div>
 
             {/* Center/Right: Moving Ribbon Carousel with Infinite Loop Effect */}
             <div className="overflow-hidden relative flex-1 max-w-2xl mx-2 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-              <div className="flex items-center gap-10 whitespace-nowrap animate-topbar-marquee text-[11px] sm:text-xs">
-                <span className="inline-flex items-center gap-2 text-zinc-200">
+              <div className="flex items-center gap-10 whitespace-nowrap animate-topbar-marquee text-[11px] sm:text-xs font-bold">
+                <span className="inline-flex items-center gap-2 text-white font-bold">
                   <span className="inline-block w-2 h-2 rounded-full bg-[#ffd300] animate-pulse shadow-[0_0_8px_#ffd300] shrink-0" />
                   <span className="text-[#ffd300] font-bold tracking-wide">
                     New Batch Starts Every Monday &amp; Wednesday
                   </span>
                   <span className="text-zinc-600">•</span>
-                  <span className="text-zinc-300">Reserve Your Live Hands-on Lab Seat</span>
+                  <span className="text-white font-bold">Reserve Your Live Hands-on Lab Seat</span>
                   <span className="text-zinc-600">•</span>
-                  <span className="text-[#ffd300] font-semibold">15+ Branches Across Jaipur</span>
+                  <span className="text-[#ffd300] font-bold">15+ Branches Across Jaipur</span>
                 </span>
 
-                <span className="inline-flex items-center gap-2 text-zinc-200" aria-hidden="true">
+                <span className="inline-flex items-center gap-2 text-white font-bold" aria-hidden="true">
                   <span className="inline-block w-2 h-2 rounded-full bg-[#ffd300] animate-pulse shadow-[0_0_8px_#ffd300] shrink-0" />
                   <span className="text-[#ffd300] font-bold tracking-wide">
                     New Batch Starts Every Monday &amp; Wednesday
                   </span>
                   <span className="text-zinc-600">•</span>
-                  <span className="text-zinc-300">Reserve Your Live Hands-on Lab Seat</span>
+                  <span className="text-white font-bold">Reserve Your Live Hands-on Lab Seat</span>
                   <span className="text-zinc-600">•</span>
-                  <span className="text-[#ffd300] font-semibold">15+ Branches Across Jaipur</span>
+                  <span className="text-[#ffd300] font-bold">15+ Branches Across Jaipur</span>
                 </span>
               </div>
             </div>
@@ -232,7 +232,7 @@ export default function Navbar() {
                 <img
                   src={logo}
                   alt="ThirdEye Logo"
-                  className="h-13 sm:h-14 md:h-15 lg:h-16 xl:h-17 w-auto object-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_2px_12px_rgba(243,207,101,0.28)]"
+                  className="h-[60px] sm:h-[68px] md:h-[76px] lg:h-[84px] xl:h-[90px] w-auto object-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_2px_14px_rgba(243,207,101,0.32)]"
                   loading="eager"
                   fetchPriority="high"
                 />
@@ -768,7 +768,7 @@ export default function Navbar() {
         <div>
           {/* Drawer Top Bar - Logo ONLY */}
           <div className="flex items-center justify-between pb-5 border-b border-[#241d14]">
-            <img src={logo} alt="ThirdEye Logo" className="h-11 sm:h-12 w-auto object-contain" />
+            <img src={logo} alt="ThirdEye Logo" className="h-[52px] sm:h-[60px] w-auto object-contain filter drop-shadow-[0_2px_10px_rgba(243,207,101,0.3)]" />
 
             <button
               type="button"
