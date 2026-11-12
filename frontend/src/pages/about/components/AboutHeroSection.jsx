@@ -43,8 +43,14 @@ export default function AboutHeroSection({ onScrollToExplore }) {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="relative mb-5"
         >
-          <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-2xl bg-gradient-to-br from-[#1c160a] to-[#0c0904] border border-[#f6d96b]/30 p-2.5 flex items-center justify-center shadow-[0_0_25px_rgba(246,217,107,0.15)]">
-            <img src={logo} alt="ThirdEye Logo" className="w-full h-full object-contain" />
+          <div className="flex items-center justify-center">
+            <Link to="/" className="inline-flex items-center justify-center group focus-visible:outline-none" aria-label="ThirdEye Home">
+              <img
+                src={logo}
+                alt="ThirdEye Logo"
+                className="h-[68px] sm:h-[76px] md:h-[84px] lg:h-[92px] xl:h-[96px] w-auto object-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_4px_22px_rgba(246,217,107,0.4)]"
+              />
+            </Link>
           </div>
         </motion.div>
 

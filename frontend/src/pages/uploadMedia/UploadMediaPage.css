@@ -1247,7 +1247,7 @@
 .media-back-admin-btn:hover {
   background: rgba(255, 211, 0, 0.12);
   border-color: rgba(255, 211, 0, 0.35);
-  color: #ffd300;
+  color: #f9e209;
   transform: translateX(-2px);
 }
 
@@ -1390,7 +1390,7 @@
 .section-tab-pill.celebration-highlight.is-active {
   background: rgba(234, 179, 8, 0.15);
   border-color: rgba(234, 179, 8, 0.4);
-  color: #ffd300;
+  color: #f9e209;
 }
 
 .section-tab-count {
@@ -1404,7 +1404,7 @@
 
 .section-tab-pill.is-active .section-tab-count {
   background: #090b10;
-  color: #ffd300;
+  color: #f9e209;
 }
 
 /* Celebration bulk action banner */
@@ -1432,7 +1432,7 @@
 .celebration-bulk-info strong {
   display: block;
   font-size: 0.95rem;
-  color: #ffd300;
+  color: #f9e209;
   margin-bottom: 3px;
 }
 
@@ -1448,7 +1448,7 @@
   align-items: center;
   gap: 8px;
   padding: 11px 22px;
-  background: #ffd300;
+  background: #f9e209;
   color: #0b0c10;
   font-size: 0.88rem;
   font-weight: 700;
@@ -1503,7 +1503,7 @@
 
 .bulk-slot-index {
   font-weight: 700;
-  color: #ffd300;
+  color: #f9e209;
   font-size: 0.72rem;
   background: rgba(255, 211, 0, 0.12);
   padding: 2px 6px;
@@ -1546,7 +1546,7 @@
 }
 
 .dropzone-area.is-drag-over {
-  border-color: #ffd300 !important;
+  border-color: #f9e209 !important;
   background: rgba(255, 211, 0, 0.08) !important;
   transform: scale(1.01);
 }
@@ -1598,7 +1598,7 @@
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 211, 0, 0.4);
-  color: #ffd300;
+  color: #f9e209;
   font-size: 0.68rem;
   font-weight: 700;
   border-radius: 4px;
@@ -1608,7 +1608,7 @@
 }
 
 .ig-view-link:hover {
-  background: #ffd300;
+  background: #f9e209;
   color: #000000;
 }
 
@@ -1652,7 +1652,7 @@
 }
 
 .add-cert-btn {
-  background: linear-gradient(135deg, #ffd300 0%, #f59e0b 100%);
+  background: linear-gradient(135deg, #f9e209 0%, #f59e0b 100%);
   color: #0b0c10;
   font-weight: 800;
   box-shadow: 0 4px 18px rgba(246, 217, 107, 0.35);
@@ -1681,7 +1681,7 @@
   border-radius: 9999px;
   background: rgba(246, 217, 107, 0.16);
   border: 1px solid rgba(246, 217, 107, 0.35);
-  color: #ffd300;
+  color: #f9e209;
   font-size: 0.72rem;
   font-weight: 750;
   font-family: inherit;
@@ -1729,7 +1729,7 @@
 .slot-edit-meta-btn:hover {
   background: rgba(246, 217, 107, 0.15);
   border-color: rgba(246, 217, 107, 0.4);
-  color: #ffd300;
+  color: #f9e209;
 }
 
 .slot-delete-btn {
@@ -1818,7 +1818,7 @@
 .cert-form-input:focus,
 .cert-form-select:focus,
 .cert-form-textarea:focus {
-  border-color: #ffd300;
+  border-color: #f9e209;
   box-shadow: 0 0 10px rgba(255, 211, 0, 0.25);
   background: #0d0f17;
 }
@@ -1843,7 +1843,7 @@
 
 .cert-dropzone:hover {
   background: rgba(246, 217, 107, 0.08);
-  border-color: #ffd300;
+  border-color: #f9e209;
 }
 
 .cert-dropzone-inner {

@@ -152,27 +152,27 @@ export default function Navbar() {
         {/* ============================================================ */}
         {/* TOP CONTACT & NEW BATCH MOVING RIBBON BAR                    */}
         {/* ============================================================ */}
-        <div className="w-full bg-[#100d07] border-b border-[#ffd300]/20 text-xs py-1.5 px-4 sm:px-6 lg:px-8 shadow-sm font-bold">
+        <div className="w-full bg-[#100d07] border-b border-[#f9e209]/20 text-xs py-1.5 px-4 sm:px-6 lg:px-8 shadow-sm font-bold">
           <div className="max-w-[1440px] mx-auto flex items-center justify-between gap-4">
             {/* Left: Branches & Contact Info */}
             <div className="flex items-center gap-2.5 sm:gap-4 shrink-0 font-bold text-[11px] sm:text-xs whitespace-nowrap">
               <Link
                 to="/nearest-branch"
-                className="inline-flex items-center gap-1.5 text-zinc-200 hover:text-[#ffd300] transition-colors group whitespace-nowrap"
+                className="inline-flex items-center gap-1.5 text-zinc-200 hover:text-[#f9e209] transition-colors group whitespace-nowrap"
                 title="Find nearest ThirdEye campus in Jaipur"
               >
-                <Compass className="w-3.5 h-3.5 text-[#ffd300] group-hover:rotate-45 transition-transform shrink-0" />
-                <span className="font-bold text-white group-hover:text-[#ffd300]">15+ Branches</span>
+                <Compass className="w-3.5 h-3.5 text-[#f9e209] group-hover:rotate-45 transition-transform shrink-0" />
+                <span className="font-bold text-white group-hover:text-[#f9e209]">15+ Branches</span>
               </Link>
 
               <span className="text-zinc-700 select-none">•</span>
 
               <a
                 href="tel:+918058061222"
-                className="inline-flex items-center gap-1.5 text-white hover:text-[#ffd300] transition-colors font-mono font-bold whitespace-nowrap"
+                className="inline-flex items-center gap-1.5 text-white hover:text-[#f9e209] transition-colors font-mono font-bold whitespace-nowrap"
                 title="Call ThirdEye Computer Classes"
               >
-                <PhoneCall className="w-3.5 h-3.5 text-[#ffd300] shrink-0" />
+                <PhoneCall className="w-3.5 h-3.5 text-[#f9e209] shrink-0" />
                 <span className="tracking-wide font-bold">+91 805 806 1222</span>
               </a>
 
@@ -180,10 +180,10 @@ export default function Navbar() {
 
               <a
                 href="mailto:info@thirdeyeclasses.com"
-                className="hidden md:inline-flex items-center gap-1.5 text-white hover:text-[#ffd300] transition-colors font-bold whitespace-nowrap"
+                className="hidden md:inline-flex items-center gap-1.5 text-white hover:text-[#f9e209] transition-colors font-bold whitespace-nowrap"
                 title="Email ThirdEye Computer Classes"
               >
-                <Mail className="w-3.5 h-3.5 text-[#ffd300] shrink-0" />
+                <Mail className="w-3.5 h-3.5 text-[#f9e209] shrink-0" />
                 <span className="font-bold">info@thirdeyeclasses.com</span>
               </a>
             </div>
@@ -192,25 +192,25 @@ export default function Navbar() {
             <div className="overflow-hidden relative flex-1 max-w-2xl mx-2 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
               <div className="flex items-center gap-10 whitespace-nowrap animate-topbar-marquee text-[11px] sm:text-xs font-bold">
                 <span className="inline-flex items-center gap-2 text-white font-bold">
-                  <span className="inline-block w-2 h-2 rounded-full bg-[#ffd300] animate-pulse shadow-[0_0_8px_#ffd300] shrink-0" />
-                  <span className="text-[#ffd300] font-bold tracking-wide">
+                  <span className="inline-block w-2 h-2 rounded-full bg-[#f9e209] animate-pulse shadow-[0_0_8px_#f9e209] shrink-0" />
+                  <span className="text-[#f9e209] font-bold tracking-wide">
                     New Batch Starts Every Monday &amp; Wednesday
                   </span>
                   <span className="text-zinc-600">•</span>
                   <span className="text-white font-bold">Reserve Your Live Hands-on Lab Seat</span>
                   <span className="text-zinc-600">•</span>
-                  <span className="text-[#ffd300] font-bold">15+ Branches Across Jaipur</span>
+                  <span className="text-[#f9e209] font-bold">15+ Branches Worldwide</span>
                 </span>
 
                 <span className="inline-flex items-center gap-2 text-white font-bold" aria-hidden="true">
-                  <span className="inline-block w-2 h-2 rounded-full bg-[#ffd300] animate-pulse shadow-[0_0_8px_#ffd300] shrink-0" />
-                  <span className="text-[#ffd300] font-bold tracking-wide">
+                  <span className="inline-block w-2 h-2 rounded-full bg-[#f9e209] animate-pulse shadow-[0_0_8px_#f9e209] shrink-0" />
+                  <span className="text-[#f9e209] font-bold tracking-wide">
                     New Batch Starts Every Monday &amp; Wednesday
                   </span>
                   <span className="text-zinc-600">•</span>
                   <span className="text-white font-bold">Reserve Your Live Hands-on Lab Seat</span>
                   <span className="text-zinc-600">•</span>
-                  <span className="text-[#ffd300] font-bold">15+ Branches Across Jaipur</span>
+                  <span className="text-[#f9e209] font-bold">15+ Branches Worldwide</span>
                 </span>
               </div>
             </div>
@@ -706,7 +706,7 @@ export default function Navbar() {
               <div className="relative inline-flex items-center shrink-0">
                 <Link
                   to="/pay-now"
-                  className="relative inline-flex items-center justify-center gap-1.5 px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold tracking-normal text-zinc-950 bg-gradient-to-r from-[#ffd35a] via-[#f3cf65] to-[#fed156] shadow-[0_4px_16px_rgba(243,207,101,0.35)] hover:shadow-[0_6px_25px_rgba(243,207,101,0.55)] hover:brightness-105 active:scale-95 transition-all duration-200 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f3cf65] whitespace-nowrap shrink-0"
+                  className="relative inline-flex items-center justify-center gap-1.5 px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold tracking-normal text-zinc-950 bg-[#f9e209] shadow-[0_4px_16px_rgba(249,226,9,0.4)] hover:shadow-[0_6px_25px_rgba(249,226,9,0.6)] hover:brightness-105 active:scale-95 transition-all duration-200 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f9e209] whitespace-nowrap shrink-0"
                   aria-label="Apply or Pay Fees Now"
                 >
                   <span className="absolute -top-2.5 -right-1 px-1.5 py-0.2 rounded-full text-[8.5px] font-black uppercase tracking-wider bg-emerald-400 text-black shadow-sm border border-emerald-300 pointer-events-none whitespace-nowrap">
@@ -1079,22 +1079,22 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Quick Contact & Batch Card */}
-        <div className="mx-5 my-4 p-3.5 rounded-2xl bg-[#141008] border border-[#ffd300]/25 space-y-2.5">
+        <div className="mx-5 my-4 p-3.5 rounded-2xl bg-[#141008] border border-[#f9e209]/25 space-y-2.5">
           <div className="flex items-center justify-between text-xs">
-            <span className="text-[#ffd300] font-bold">New Batch Starts Mon &amp; Wed</span>
-            <span className="w-2 h-2 rounded-full bg-[#ffd300] animate-pulse" />
+            <span className="text-[#f9e209] font-bold">New Batch Starts Mon &amp; Wed</span>
+            <span className="w-2 h-2 rounded-full bg-[#f9e209] animate-pulse" />
           </div>
           <div className="flex items-center justify-between pt-2 border-t border-white/[0.08] text-xs">
-            <a href="tel:+918058061222" className="flex items-center gap-1.5 text-zinc-200 hover:text-[#ffd300] font-mono">
-              <PhoneCall className="w-3.5 h-3.5 text-[#ffd300]" />
+            <a href="tel:+918058061222" className="flex items-center gap-1.5 text-zinc-200 hover:text-[#f9e209] font-mono">
+              <PhoneCall className="w-3.5 h-3.5 text-[#f9e209]" />
               <span>+91 805 806 1222</span>
             </a>
-            <Link to="/nearest-branch" onClick={() => setMobileMenuOpen(false)} className="text-[#ffd300] font-bold hover:underline">
+            <Link to="/nearest-branch" onClick={() => setMobileMenuOpen(false)} className="text-[#f9e209] font-bold hover:underline">
               15+ Branches →
             </Link>
           </div>
           <a href="mailto:info@thirdeyeclasses.com" className="flex items-center gap-1.5 text-[11px] text-zinc-400 hover:text-white pt-0.5">
-            <Mail className="w-3.5 h-3.5 text-[#ffd300]" />
+            <Mail className="w-3.5 h-3.5 text-[#f9e209]" />
             <span>info@thirdeyeclasses.com</span>
           </a>
         </div>

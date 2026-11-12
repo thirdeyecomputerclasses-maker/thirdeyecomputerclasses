@@ -53,7 +53,7 @@ const INITIAL_MEMBERS = [
     slotKey: "team_member_1",
     carouselSlotKey: "carousel_mentor_1",
     nameMatch: "suumit",
-    name: "Suumit Sharma",
+    name: "Suumit Sharrma",
     designation: "Chief Operating Officer",
     category: "leadership",
     defaultImage: suumitSharmaWebp,
@@ -275,44 +275,71 @@ export default function MentorsCarouselSection() {
         </p>
 
         {/* ── Interactive Category Filter Tabs ── */}
-        <div className="flex items-center justify-center gap-2 sm:gap-3 mt-6 flex-wrap">
+        <div className="flex items-center justify-center gap-2.5 sm:gap-3.5 mt-7 sm:mt-9 flex-wrap">
           <button
             type="button"
             onClick={() => setActiveCategory("leadership")}
-            className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-300 flex items-center gap-1.5 border ${
+            className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm md:text-base font-bold transition-all duration-300 flex items-center gap-2 sm:gap-2.5 border cursor-pointer ${
               activeCategory === "leadership"
-                ? "bg-[#f6d96b] text-black border-[#f6d96b] shadow-lg shadow-[#f6d96b]/20 font-semibold"
-                : "bg-white/5 text-zinc-400 border-white/10 hover:border-[#f6d96b]/40 hover:text-white"
+                ? "bg-[#f9e209] text-zinc-950 border-[#f9e209] shadow-[0_4px_22px_rgba(249,226,9,0.45)] scale-[1.03]"
+                : "bg-[#18130d] text-zinc-200 border-[#3d2e18] hover:border-[#f9e209]/70 hover:text-white hover:bg-[#251d10] hover:shadow-[0_4px_16px_rgba(249,226,9,0.2)]"
             }`}
           >
-            <Users className="w-3.5 h-3.5" />
-            <span>Executive Leadership ({leadershipCount})</span>
+            <Users className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
+            <span>Executive Leadership</span>
+            <span
+              className={`px-2 py-0.5 rounded-full text-[11px] sm:text-xs font-mono font-bold ${
+                activeCategory === "leadership"
+                  ? "bg-black/15 text-zinc-950"
+                  : "bg-[#f9e209]/15 text-[#f9e209] border border-[#f9e209]/30"
+              }`}
+            >
+              {leadershipCount}
+            </span>
           </button>
 
           <button
             type="button"
             onClick={() => setActiveCategory("faculty")}
-            className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-300 flex items-center gap-1.5 border ${
+            className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm md:text-base font-bold transition-all duration-300 flex items-center gap-2 sm:gap-2.5 border cursor-pointer ${
               activeCategory === "faculty"
-                ? "bg-[#f6d96b] text-black border-[#f6d96b] shadow-lg shadow-[#f6d96b]/20 font-semibold"
-                : "bg-white/5 text-zinc-400 border-white/10 hover:border-[#f6d96b]/40 hover:text-white"
+                ? "bg-[#f9e209] text-zinc-950 border-[#f9e209] shadow-[0_4px_22px_rgba(249,226,9,0.45)] scale-[1.03]"
+                : "bg-[#18130d] text-zinc-200 border-[#3d2e18] hover:border-[#f9e209]/70 hover:text-white hover:bg-[#251d10] hover:shadow-[0_4px_16px_rgba(249,226,9,0.2)]"
             }`}
           >
-            <GraduationCap className="w-3.5 h-3.5" />
-            <span>Faculty & Mentors ({facultyCount})</span>
+            <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
+            <span>Faculty & Mentors</span>
+            <span
+              className={`px-2 py-0.5 rounded-full text-[11px] sm:text-xs font-mono font-bold ${
+                activeCategory === "faculty"
+                  ? "bg-black/15 text-zinc-950"
+                  : "bg-[#f9e209]/15 text-[#f9e209] border border-[#f9e209]/30"
+              }`}
+            >
+              {facultyCount}
+            </span>
           </button>
 
           <button
             type="button"
             onClick={() => setActiveCategory("all")}
-            className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-300 flex items-center gap-1.5 border ${
+            className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm md:text-base font-bold transition-all duration-300 flex items-center gap-2 sm:gap-2.5 border cursor-pointer ${
               activeCategory === "all"
-                ? "bg-[#f6d96b] text-black border-[#f6d96b] shadow-lg shadow-[#f6d96b]/20 font-semibold"
-                : "bg-white/5 text-zinc-400 border-white/10 hover:border-[#f6d96b]/40 hover:text-white"
+                ? "bg-[#f9e209] text-zinc-950 border-[#f9e209] shadow-[0_4px_22px_rgba(249,226,9,0.45)] scale-[1.03]"
+                : "bg-[#18130d] text-zinc-200 border-[#3d2e18] hover:border-[#f9e209]/70 hover:text-white hover:bg-[#251d10] hover:shadow-[0_4px_16px_rgba(249,226,9,0.2)]"
             }`}
           >
-            <Award className="w-3.5 h-3.5" />
-            <span>All Profiles ({totalCount})</span>
+            <Award className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
+            <span>All Profiles</span>
+            <span
+              className={`px-2 py-0.5 rounded-full text-[11px] sm:text-xs font-mono font-bold ${
+                activeCategory === "all"
+                  ? "bg-black/15 text-zinc-950"
+                  : "bg-[#f9e209]/15 text-[#f9e209] border border-[#f9e209]/30"
+              }`}
+            >
+              {totalCount}
+            </span>
           </button>
         </div>
       </div>

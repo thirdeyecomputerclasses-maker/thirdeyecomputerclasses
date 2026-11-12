@@ -35,7 +35,7 @@ const INITIAL_SEED_MENTORS = [
   },
   {
     id: "seed_4",
-    name: "Suumit Sharma",
+    name: "Suumit Sharrma",
     designation: "Chief Operating Officer",
     category: "leadership",
     image: "https://ik.imagekit.io/thirdeye/leadership/suumit_sharma.png",

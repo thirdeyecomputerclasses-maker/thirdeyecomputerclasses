@@ -31,7 +31,7 @@ const INITIAL_AWARD_GALLERY = [
     img: imgSuumitAward,
     title: "Best Tech Institute Award",
     organization: "Poornima Global University",
-    caption: "Founder Suumit Sharma receiving the prestigious Best Technical Training Institute trophy."
+    caption: "Founder Suumit Sharrma receiving the prestigious Best Technical Training Institute trophy."
   },
   {
     id: "poornima-preeti",

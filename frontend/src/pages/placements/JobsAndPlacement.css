@@ -43,13 +43,13 @@
 .glow-1 {
   top: -120px;
   left: 20%;
-  background: #ffd300;
+  background: #f9e209;
 }
 
 .glow-2 {
   bottom: -150px;
   right: 15%;
-  background: #ffd300;
+  background: #f9e209;
 }
 
 .jobs-page-container {
@@ -73,7 +73,7 @@
   align-items: center;
   gap: 8px;
   background: rgba(255, 211, 0, 0.1);
-  color: #ffd300;
+  color: #f9e209;
   border: 1px solid rgba(255, 211, 0, 0.35);
   padding: 6px 18px;
   border-radius: 9999px;
@@ -87,7 +87,7 @@
 }
 
 .badge-gold-icon {
-  color: #ffd300;
+  color: #f9e209;
 }
 
 .jobs-hero-title {
@@ -102,7 +102,7 @@
 }
 
 .title-gold-spark {
-  color: #ffd300;
+  color: #f9e209;
   text-shadow: 0 0 35px rgba(255, 211, 0, 0.45);
 }
 
@@ -142,7 +142,7 @@
   font-family: "Rajdhani", sans-serif;
   font-size: 17px;
   font-weight: 900;
-  color: #ffd300;
+  color: #f9e209;
   white-space: nowrap;
 }
 
@@ -182,7 +182,7 @@
   font-family: "Rajdhani", sans-serif;
   font-size: 12px;
   font-weight: 850;
-  color: #ffd300;
+  color: #f9e209;
   letter-spacing: 1px;
   text-transform: uppercase;
   margin-bottom: 4px;
@@ -204,7 +204,7 @@
 }
 
 .section-right-count strong {
-  color: #ffd300;
+  color: #f9e209;
 }
 
 /* Filters Bar */
@@ -236,7 +236,7 @@
 }
 
 .search-icon {
-  color: #ffd300;
+  color: #f9e209;
   flex-shrink: 0;
 }
 
@@ -295,7 +295,7 @@
 
 .filter-native-select:focus,
 .filter-native-select:hover {
-  border-color: #ffd300;
+  border-color: #f9e209;
   box-shadow: 0 0 12px rgba(255, 211, 0, 0.2);
 }
 
@@ -313,13 +313,13 @@
 
 /* Job Cards Grid - Franchise 300+ Courses Box Styling */
 .job-card-item {
-  background-color: #ffd300;
+  background-color: #f9e209;
   background-image: 
     radial-gradient(circle at var(--card-mx, 50%) var(--card-my, 30%), rgba(255, 255, 255, 0.5) 0%, rgba(255, 245, 140, 0.22) 35%, transparent 70%),
     radial-gradient(rgba(0, 0, 0, 0.08) 1.5px, transparent 1.5px),
     linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
-    linear-gradient(145deg, #fff275 0%, #ffd300 50%, #f0be00 100%);
+    linear-gradient(145deg, #fff275 0%, #f9e209 50%, #f0be00 100%);
   background-size: 100% 100%, 20px 20px, 60px 60px, 60px 60px, 100% 100%;
   color: #000000;
   border: 2px solid #000000;
@@ -388,7 +388,7 @@
   height: 48px;
   border-radius: 14px;
   background: #000000;
-  color: #ffd300;
+  color: #f9e209;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -510,7 +510,7 @@
 
 .openings-pill {
   font-size: 11.5px;
-  color: #ffd300;
+  color: #f9e209;
   font-weight: 850;
   background: #000000;
   padding: 4px 12px;
@@ -528,7 +528,7 @@
 }
 
 .empty-briefcase-icon {
-  color: #ffd300;
+  color: #f9e209;
   margin-bottom: 14px;
 }
 
@@ -547,7 +547,7 @@
 }
 
 .reset-filters-btn {
-  background-color: #ffd300;
+  background-color: #f9e209;
   color: #000000;
   border: none;
   padding: 10px 24px;
@@ -576,7 +576,7 @@
   align-items: center;
   gap: 8px;
   background: rgba(255, 211, 0, 0.1);
-  color: #ffd300;
+  color: #f9e209;
   border: 1px solid rgba(255, 211, 0, 0.32);
   padding: 6px 18px;
   border-radius: 9999px;
@@ -658,13 +658,13 @@
 }
 
 .highlight-stat-pill:hover {
-  border-color: #ffd300;
+  border-color: #f9e209;
   transform: translateY(-2px);
   background: rgba(30, 24, 12, 0.85);
 }
 
 .highlight-stat-pill .stat-pill-icon {
-  color: #ffd300;
+  color: #f9e209;
 }
 
 
@@ -693,7 +693,7 @@
   background: rgba(255, 211, 0, 0.08);
   border: 1px solid rgba(255, 211, 0, 0.3);
   border-radius: 999px;
-  color: #ffd300;
+  color: #f9e209;
   font-family: "Rajdhani", sans-serif;
   font-size: 13px;
   font-weight: 700;
@@ -793,7 +793,7 @@
   font-family: "Rajdhani", sans-serif;
   font-size: 12px;
   font-weight: 700;
-  color: #ffd300;
+  color: #f9e209;
   letter-spacing: 0.04em;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
@@ -816,7 +816,7 @@
 }
 
 .celebration-photo-card:hover .celebration-caption-title {
-  color: #ffd300;
+  color: #f9e209;
 }
 
 .celebration-caption-desc {
@@ -903,7 +903,7 @@
   align-items: center;
   gap: 8px;
   background: rgba(255, 211, 0, 0.12);
-  color: #ffd300;
+  color: #f9e209;
   border: 1px solid rgba(255, 211, 0, 0.38);
   padding: 7px 20px;
   border-radius: 9999px;
@@ -917,7 +917,7 @@
 }
 
 .sparkle-gold-icon {
-  color: #ffd300;
+  color: #f9e209;
   animation: sparkleSpin 4s ease-in-out infinite;
 }
 
@@ -938,7 +938,7 @@
   line-height: 1.04;
   letter-spacing: -0.025em;
   text-transform: uppercase;
-  background: linear-gradient(135deg, #ffffff 0%, #fff2ad 25%, #ffd300 50%, #f59e0b 78%, #ffffff 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #fff2ad 25%, #f9e209 50%, #f59e0b 78%, #ffffff 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -982,7 +982,7 @@
   align-items: center;
   gap: 12px;
   padding: 16px 36px;
-  background: linear-gradient(135deg, #fff099 0%, #ffd300 50%, #f59e0b 100%);
+  background: linear-gradient(135deg, #fff099 0%, #f9e209 50%, #f59e0b 100%);
   color: #050505;
   font-family: "Rajdhani", sans-serif;
   font-size: 15px;
@@ -1028,13 +1028,13 @@
 
 .join-secondary-glass-btn:hover {
   background: rgba(255, 211, 0, 0.12);
-  border-color: #ffd300;
+  border-color: #f9e209;
   transform: translateY(-2px);
-  color: #ffd300;
+  color: #f9e209;
 }
 
 .call-phone-icon {
-  color: #ffd300;
+  color: #f9e209;
 }
 
 /* Trust Badges */
@@ -1060,7 +1060,7 @@
 }
 
 .trust-icon {
-  color: #ffd300;
+  color: #f9e209;
 }
 
 .trust-separator {
@@ -1157,7 +1157,7 @@
   border-radius: 50%;
   background: rgba(255, 211, 0, 0.12);
   border: 1.5px solid rgba(255, 211, 0, 0.35);
-  color: #ffd300;
+  color: #f9e209;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1167,7 +1167,7 @@
 }
 
 .job-modal-close-btn:hover {
-  background: #ffd300;
+  background: #f9e209;
   color: #000000;
 }
 
@@ -1180,7 +1180,7 @@
   font-family: "Rajdhani", sans-serif;
   font-size: 11px;
   font-weight: 900;
-  color: #ffd300;
+  color: #f9e209;
   letter-spacing: 1px;
   text-transform: uppercase;
   display: block;
@@ -1227,7 +1227,7 @@
 }
 
 .gold-salary {
-  color: #ffd300;
+  color: #f9e209;
   font-family: "Rajdhani", sans-serif;
   font-weight: 850;
 }
@@ -1250,7 +1250,7 @@
 }
 
 .callout-lead-text strong {
-  color: #ffd300;
+  color: #f9e209;
 }
 
 .callout-sub-text {
@@ -1279,7 +1279,7 @@
 }
 
 .call-action {
-  background: #ffd300;
+  background: #f9e209;
   color: #000000;
 }
 
@@ -1340,7 +1340,7 @@
   font-family: "Rajdhani", sans-serif;
   font-size: 14px;
   font-weight: 900;
-  color: #ffd300;
+  color: #f9e209;
   margin: 0 0 10px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -1421,7 +1421,7 @@
 
 .modal-input-control:focus,
 .modal-textarea-control:focus {
-  border-color: #ffd300;
+  border-color: #f9e209;
   background-color: rgba(26, 21, 14, 0.95);
   box-shadow: 0 0 0 3px rgba(255, 211, 0, 0.18);
 }
@@ -1450,7 +1450,7 @@
   gap: 6px;
   background: rgba(255, 211, 0, 0.15);
   border: 1px solid rgba(255, 211, 0, 0.4);
-  color: #ffd300;
+  color: #f9e209;
   padding: 7px 14px;
   border-radius: 8px;
   font-family: "Rajdhani", sans-serif;
@@ -1461,7 +1461,7 @@
 }
 
 .file-picker-btn:hover {
-  background: #ffd300;
+  background: #f9e209;
   color: #000000;
 }
 
@@ -1492,7 +1492,7 @@
   margin-top: 3px;
   width: 17px;
   height: 17px;
-  accent-color: #ffd300;
+  accent-color: #f9e209;
   cursor: pointer;
 }
 
@@ -1571,11 +1571,11 @@
 
 .success-contact-note {
   font-size: 13px !important;
-  color: #ffd300 !important;
+  color: #f9e209 !important;
 }
 
 .close-success-btn {
-  background: #ffd300;
+  background: #f9e209;
   color: #000000;
   border: none;
   padding: 11px 26px;

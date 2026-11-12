@@ -333,10 +333,10 @@
   top: -6px;
   width: 12px;
   height: 12px;
-  background: #ffd700;
+  background: #f9e209;
   border-radius: 50%;
   animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
-  box-shadow: 0 0 12px #ffd700;
+  box-shadow: 0 0 12px #f9e209;
 }
 
 @keyframes ping {
@@ -403,7 +403,7 @@
 }
 
 .chart-bar-column.bar-is-target .bar-branch-name {
-  color: #ffd700;
+  color: #f9e209;
   font-weight: 950;
 }
 

@@ -265,7 +265,7 @@ function Memories() {
       <section id="events-section" className="sweet-memories-section text-center">
         <div className="max-w-6xl mx-auto px-4 mb-10">
           <div className="sweet-memories-pill">
-            <span className="w-2 h-2 rounded-full bg-[#ffd300]" />
+            <span className="w-2 h-2 rounded-full bg-[#f9e209]" />
             Campus Highlights & Workshops
           </div>
           <h2 className="sweet-memories-section-title">
@@ -293,7 +293,7 @@ function Memories() {
       <section className="sweet-memories-section-alt text-center">
         <div className="max-w-6xl mx-auto px-4 mb-10">
           <div className="sweet-memories-pill">
-            <span className="w-2 h-2 rounded-full bg-[#ffd300]" />
+            <span className="w-2 h-2 rounded-full bg-[#f9e209]" />
             Joy & Milestone Memories
           </div>
           <h2 className="sweet-memories-section-title">
@@ -332,7 +332,7 @@ function Memories() {
           <div className="stroke-text-wrapper my-4">
             <StrokeText
               text="MEMORIES"
-              strokeColor="#ffd300"
+              strokeColor="#f9e209"
               fillColor="#ffffff"
               strokeWidth={1.8}
               drawDuration={1.8}

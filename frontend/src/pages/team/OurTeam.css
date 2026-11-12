@@ -5,7 +5,7 @@
 html,
 body,
 #root {
-  background: #ffd300;
+  background: #f9e209;
   margin: 0;
   padding: 0;
 }
@@ -13,7 +13,7 @@ body,
 /* Our Team Page - Yellow Gradient with Student Feedback Ambient Texture & Spotlight */
 .team-page-wrapper {
   width: 100%;
-  background-color: #ffd300;
+  background-color: #f9e209;
   position: relative;
   min-height: 100vh;
   color: #000000;
@@ -206,7 +206,7 @@ body,
 
 .hero-btn-primary {
   background-color: #000000;
-  color: #ffd300;
+  color: #f9e209;
   border: 2px solid #000000;
 }
 
@@ -471,7 +471,7 @@ body,
 /* ─── 5. Mentorship Journey Workflow (Spaced Out) ─── */
 .workflow-steps-section {
   width: 100%;
-  background-color: #ffd300;
+  background-color: #f9e209;
   color: #000000;
   margin-top: 40px;
   padding: 90px 6% 130px;
@@ -548,7 +548,7 @@ body,
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #ffd300;
+  background: #f9e209;
   border-radius: 50%;
   padding: 10px;
   transition: transform 0.3s ease;
@@ -569,7 +569,7 @@ body,
   font-weight: 900;
   letter-spacing: 2px;
   color: #000;
-  background: #ffd300;
+  background: #f9e209;
   padding: 3px 10px;
   border-radius: 9999px;
   margin-bottom: 10px;
@@ -600,7 +600,7 @@ body,
 /* ─── 6. noth.in Liquid Mercury / Chrome Section ─── */
 .nothin-mentorship-section {
   width: 100%;
-  background-color: #ffd300;
+  background-color: #f9e209;
   color: #000000;
   padding: 70px 8% 140px;
   border: none;
@@ -716,7 +716,7 @@ body,
   height: 52px;
   border-radius: 50%;
   background: #000000;
-  color: #ffd300;
+  color: #f9e209;
   display: flex;
   align-items: center;
   justify-content: center;

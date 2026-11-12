@@ -75,13 +75,13 @@ function VideoCarouselCard({
       {/* Video Details */}
       <div className="video-card-content">
         <div className="video-card-badge">
-          <span className="w-2 h-2 rounded-full bg-[#ffd300]" />
+          <span className="w-2 h-2 rounded-full bg-[#f9e209]" />
           <span>{item.course || 'Student Testimonial'}</span>
         </div>
         <h3 className="video-card-title">{item.title}</h3>
         <div className="video-card-meta">
           <span className="font-semibold text-zinc-300">{item.studentName || 'ThirdEye Student'}</span>
-          <span className="flex items-center gap-1 text-[#ffd300]">
+          <span className="flex items-center gap-1 text-[#f9e209]">
             ★★★★★
           </span>
         </div>

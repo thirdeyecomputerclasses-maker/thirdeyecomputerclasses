@@ -67,7 +67,7 @@
 
 .review-card:hover {
   transform: translateY(-5px);
-  border-color: #ffd300;
+  border-color: #f9e209;
   box-shadow: 0 22px 48px -10px rgba(0, 0, 0, 0.75), 0 0 24px rgba(255, 211, 0, 0.15);
 }
 
@@ -100,7 +100,7 @@
 .review-author-role {
   font-size: 12.5px;
   font-weight: 600;
-  color: #ffd300;
+  color: #f9e209;
   letter-spacing: 0.02em;
   text-align: left;
 }
@@ -128,20 +128,20 @@
   display: flex;
   align-items: center;
   gap: 3px;
-  color: #ffd300;
+  color: #f9e209;
   font-size: 16px;
   line-height: 1;
   text-align: left;
 }
 
 .review-star-item {
-  color: #ffd300;
+  color: #f9e209;
 }
 
 .review-rating-score {
   font-size: 11.5px;
   font-weight: 700;
-  color: #ffd300;
+  color: #f9e209;
   background: rgba(255, 211, 0, 0.12);
   padding: 2px 7px;
   border-radius: 6px;

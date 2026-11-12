@@ -281,8 +281,8 @@ export default function PlacementStatsMarquee() {
 
         {/* Recruiter Marquee Header */}
         <div className="text-center">
-          <span className="text-xs font-mono uppercase tracking-widest text-zinc-400 inline-flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#f6d96b] animate-pulse" />
+          <span className="text-sm sm:text-base md:text-lg lg:text-xl font-bold font-mono uppercase tracking-wider sm:tracking-widest text-zinc-200 inline-flex items-center gap-2.5 sm:gap-3">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#f9e209] animate-pulse shadow-[0_0_8px_rgba(249,226,9,0.7)] shrink-0" />
             Top Recruiters & Hiring Partners Network
           </span>
         </div>

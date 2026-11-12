@@ -153,7 +153,7 @@ export default function PayNowSection({ className = "" }) {
                   const el = document.getElementById("payment-gateway-section");
                   if (el) el.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="mt-4 w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-zinc-950 bg-gradient-to-r from-[#ffeab0] via-[#f6d96b] to-[#f59e0b] shadow-[0_4px_20px_rgba(246,217,107,0.35)] hover:shadow-[0_6px_25px_rgba(246,217,107,0.55)] hover:brightness-105 active:scale-95 transition-all group cursor-pointer"
+                className="mt-4 w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-zinc-950 bg-[#f9e209] shadow-[0_4px_20px_rgba(249,226,9,0.35)] hover:shadow-[0_6px_25px_rgba(249,226,9,0.55)] hover:brightness-105 active:scale-95 transition-all group cursor-pointer"
               >
                 <span>Proceed to Payment Gateway</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -172,7 +172,7 @@ export default function PayNowSection({ className = "" }) {
           onClick={() => setActiveTab("razorpay")}
           className={`flex-1 min-w-[150px] inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
             activeTab === "razorpay"
-              ? "bg-gradient-to-r from-[#ffd35a] to-[#f6d96b] text-zinc-950 shadow-md shadow-yellow-400/20"
+              ? "bg-[#f9e209] text-zinc-950 shadow-md shadow-[#f9e209]/25"
               : "text-zinc-400 hover:text-white hover:bg-white/[0.04]"
           }`}
         >
@@ -188,7 +188,7 @@ export default function PayNowSection({ className = "" }) {
           onClick={() => setActiveTab("qr")}
           className={`flex-1 min-w-[130px] inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
             activeTab === "qr"
-              ? "bg-gradient-to-r from-[#ffd35a] to-[#f6d96b] text-zinc-950 shadow-md shadow-yellow-400/20"
+              ? "bg-[#f9e209] text-zinc-950 shadow-md shadow-[#f9e209]/25"
               : "text-zinc-400 hover:text-white hover:bg-white/[0.04]"
           }`}
         >
@@ -201,7 +201,7 @@ export default function PayNowSection({ className = "" }) {
           onClick={() => setActiveTab("bank")}
           className={`flex-1 min-w-[130px] inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
             activeTab === "bank"
-              ? "bg-gradient-to-r from-[#ffd35a] to-[#f6d96b] text-zinc-950 shadow-md shadow-yellow-400/20"
+              ? "bg-[#f9e209] text-zinc-950 shadow-md shadow-[#f9e209]/25"
               : "text-zinc-400 hover:text-white hover:bg-white/[0.04]"
           }`}
         >
@@ -320,7 +320,7 @@ export default function PayNowSection({ className = "" }) {
 
                   <div className="flex items-center justify-between text-zinc-300">
                     <span>Payment Processing Charges</span>
-                    <span className="font-mono font-bold text-[#ffd300]">2.6%</span>
+                    <span className="font-mono font-bold text-[#f9e209]">2.6%</span>
                   </div>
 
                   {/* 2.6% Processing Charges Disclaimer */}
@@ -356,7 +356,7 @@ export default function PayNowSection({ className = "" }) {
                   href={RAZORPAY_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-5 w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-sm text-black bg-[#f6d96b] hover:bg-[#ffeab0] active:scale-95 transition-all shadow-md cursor-pointer"
+                  className="mt-5 w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-sm text-black bg-[#f9e209] hover:brightness-105 active:scale-95 transition-all shadow-md shadow-[#f9e209]/25 cursor-pointer"
                 >
                   <span>Proceed to Payment</span>
                   <ArrowRight className="w-4 h-4" />

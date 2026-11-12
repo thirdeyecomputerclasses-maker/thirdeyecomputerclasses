@@ -216,17 +216,17 @@ export default function Immersive3DJourneySection() {
                 </div>
 
                 {/* Section Title */}
-                <h3 className="mt-3 sm:mt-4 font-semibold text-xs sm:text-base md:text-xl text-white group-hover:text-[#f6d96b] transition-colors tracking-tight">
+                <h3 className="mt-3 sm:mt-4 font-bold text-sm sm:text-lg md:text-2xl text-white group-hover:text-[#f6d96b] transition-colors tracking-tight">
                   {item.title}
                 </h3>
 
-                {/* Subtitle / Tagline on Desktop & Tablet */}
-                <span className="hidden sm:block text-[11px] font-mono text-[#f6d96b]/80 mt-0.5">
+                {/* Subtitle / Tagline */}
+                <span className="block text-xs sm:text-sm md:text-base font-semibold text-[#f6d96b] mt-1 sm:mt-1.5 tracking-wide">
                   {item.subtitle}
                 </span>
 
-                {/* Description on Desktop (matching Sheryians pattern) */}
-                <p className="hidden md:block mt-2 text-[0.82rem] text-zinc-400 leading-relaxed max-w-[200px]">
+                {/* Description Paragraph */}
+                <p className="hidden sm:block mt-2 sm:mt-2.5 text-xs sm:text-sm md:text-[0.95rem] lg:text-base text-zinc-300 leading-relaxed max-w-[240px]">
                   {item.desc}
                 </p>
               </div>

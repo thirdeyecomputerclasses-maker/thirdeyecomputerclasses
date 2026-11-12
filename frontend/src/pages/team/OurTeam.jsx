@@ -40,12 +40,12 @@ const mentors = [
   // --- The Founders (1 to 7) ---
   {
     id: 1,
-    name: "Suumit Sharma",
+    name: "Suumit Sharrma",
     role: "Chief Operating Officer",
     category: "EXECUTIVE LEAD",
     image: suumitSharmaImg,
     description:
-      "Suumit Sharma is the Chief Operating Officer at Thirdeye Computer Classes, where he oversees daily operations, drives strategic growth initiatives, and ensures the smooth functioning of all departments. With a deep understanding of the education and training industry, he brings forward-thinking execution to every student touchpoint.",
+      "Suumit Sharrma is the Chief Operating Officer at Thirdeye Computer Classes, where he oversees daily operations, drives strategic growth initiatives, and ensures the smooth functioning of all departments. With a deep understanding of the education and training industry, he brings forward-thinking execution to every student touchpoint.",
   },
   {
     id: 2,
@@ -310,8 +310,8 @@ const learningSteps = [
     icon: (
       <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="50" cy="50" r="42" fill="#000" stroke="#000" strokeWidth="3" />
-        <path d="M35 50L45 60L65 40" stroke="#ffd300" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
-        <circle cx="70" cy="30" r="10" fill="#ffd300" />
+        <path d="M35 50L45 60L65 40" stroke="#f9e209" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="70" cy="30" r="10" fill="#f9e209" />
       </svg>
     ),
   },
@@ -323,7 +323,7 @@ const learningSteps = [
     icon: (
       <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="20" y="18" width="60" height="64" rx="8" fill="#000" />
-        <path d="M32 36H68M32 48H68M32 60H54" stroke="#ffd300" strokeWidth="5" strokeLinecap="round" />
+        <path d="M32 36H68M32 48H68M32 60H54" stroke="#f9e209" strokeWidth="5" strokeLinecap="round" />
         <path d="M62 62L76 76" stroke="#000" strokeWidth="6" strokeLinecap="round" />
       </svg>
     ),
@@ -336,8 +336,8 @@ const learningSteps = [
     icon: (
       <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="22" y="24" width="56" height="44" rx="6" fill="#000" />
-        <path d="M22 56L40 40L54 54L64 44L78 58" stroke="#ffd300" strokeWidth="4" strokeLinejoin="round" />
-        <circle cx="36" cy="38" r="4" fill="#ffd300" />
+        <path d="M22 56L40 40L54 54L64 44L78 58" stroke="#f9e209" strokeWidth="4" strokeLinejoin="round" />
+        <circle cx="36" cy="38" r="4" fill="#f9e209" />
         <path d="M42 74L58 74" stroke="#000" strokeWidth="5" strokeLinecap="round" />
       </svg>
     ),
@@ -350,7 +350,7 @@ const learningSteps = [
     icon: (
       <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="22" y="22" width="56" height="56" rx="10" fill="#000" />
-        <path d="M38 34L50 50L62 34M50 50V68" stroke="#ffd300" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M38 34L50 50L62 34M50 50V68" stroke="#f9e209" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
         <circle cx="50" cy="50" r="30" stroke="#000" strokeWidth="3" strokeDasharray="6 6" />
       </svg>
     ),
@@ -363,8 +363,8 @@ const learningSteps = [
     icon: (
       <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="50" cy="50" r="38" fill="#000" />
-        <path d="M34 50C34 40 40 32 50 32C60 32 66 40 66 50C66 60 56 68 50 68" stroke="#ffd300" strokeWidth="5" strokeLinecap="round" />
-        <circle cx="50" cy="74" r="3" fill="#ffd300" />
+        <path d="M34 50C34 40 40 32 50 32C60 32 66 40 66 50C66 60 56 68 50 68" stroke="#f9e209" strokeWidth="5" strokeLinecap="round" />
+        <circle cx="50" cy="74" r="3" fill="#f9e209" />
       </svg>
     ),
   },
@@ -376,7 +376,7 @@ const learningSteps = [
     icon: (
       <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="50" cy="40" r="40" fill="#000" />
-        <path d="M32 50L44 62L68 38" stroke="#ffd300" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M32 50L44 62L68 38" stroke="#f9e209" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
         <path d="M50 18V26M50 74V82M18 50H26M74 50H82" stroke="#000" strokeWidth="4" strokeLinecap="round" />
       </svg>
     ),

@@ -20,6 +20,10 @@ import {
   CheckCircle2,
   Crown,
   Lock,
+  Award,
+  Plus,
+  Trash2,
+  Edit3,
 } from "lucide-react";
 import {
   fetchMedia,
@@ -29,6 +33,9 @@ import {
   batchUploadSlots,
   getVideoInfo,
   resolveMediaUrl,
+  createCertificate,
+  updateCertificate,
+  deleteCertificate,
 } from "../../services/mediaApi";
 import { getStoredSession } from "../../services/authApi";
 import "./UploadMediaPage.css";
@@ -81,6 +88,13 @@ const SUPPORTED_PAGES = [
     path: "/our-team-new",
     icon: "👥",
     desc: "The Founders (7), Franchise Owners (5), The Department Ones (13) & Faculties (2) — 27 Slots",
+  },
+  {
+    id: "certificates",
+    label: "Certifications",
+    path: "/certifications",
+    icon: "📜",
+    desc: "Authorized Certificates & Accreditations (7 presets + Custom Certificates) — Photos only",
   },
 ];
 
@@ -866,7 +880,7 @@ const PAIRED_FRANCHISE_SLOTS = {
             <div className="media-lock-notice">
               <ShieldCheck size={16} className="text-emerald-400" />
               <span>
-                <strong>Section Integrity Protected:</strong> You can only replace photos and videos in existing website sections across the 5 supported pages.
+                <strong>Section Integrity Protected:</strong> You can only replace photos and videos in existing website sections across the {SUPPORTED_PAGES.length} supported pages.
               </span>
             </div>
             <div className="media-status-bar">
@@ -875,7 +889,7 @@ const PAIRED_FRANCHISE_SLOTS = {
                 <span>CDN: ik.imagekit.io/l9o8hinjo</span>
               </div>
               <div className="status-pill">
-                <span>Supported Pages: 5</span>
+                <span>Supported Pages: {SUPPORTED_PAGES.length}</span>
               </div>
               <button
                 type="button"
@@ -923,7 +937,7 @@ const PAIRED_FRANCHISE_SLOTS = {
                 <span>CDN: ik.imagekit.io/l9o8hinjo</span>
               </div>
               <div className="status-pill">
-                <span>Supported Pages: 5</span>
+                <span>Supported Pages: {SUPPORTED_PAGES.length}</span>
               </div>
               <button
                 type="button"
@@ -1048,7 +1062,7 @@ const PAIRED_FRANCHISE_SLOTS = {
                         ? "Video-only section (6 videos)"
                         : page.id === "about" && mediaType === "image"
                         ? "Video-only section (1 video)"
-                        : (page.id === "placements" || page.id === "memories") && mediaType === "video"
+                        : (page.id === "placements" || page.id === "memories" || page.id === "certificates" || page.id === "team") && mediaType === "video"
                         ? "Photo-only section (0 videos)"
                         : `${count} existing ${mediaType === "image" ? "photos" : "videos"}`}
                     </span>
@@ -1192,7 +1206,7 @@ const PAIRED_FRANCHISE_SLOTS = {
           ) : activeSlots.length === 0 ? (
             selectedPage === "about" && mediaType === "image" ? (
               <div className="media-empty-state">
-                <div className="empty-icon-wrap" style={{ background: "rgba(255, 211, 0, 0.12)", color: "#ffd300" }}>
+                <div className="empty-icon-wrap" style={{ background: "rgba(255, 211, 0, 0.12)", color: "#f9e209" }}>
                   <VideoIcon size={36} />
                 </div>
                 <h3 className="empty-title">
@@ -1209,7 +1223,7 @@ const PAIRED_FRANCHISE_SLOTS = {
                     display: "inline-flex",
                     alignItems: "center",
                     gap: "8px",
-                    background: "#ffd300",
+                    background: "#f9e209",
                     color: "#09090b",
                     fontWeight: 700,
                     fontSize: "14px",
@@ -1228,7 +1242,7 @@ const PAIRED_FRANCHISE_SLOTS = {
               </div>
             ) : selectedPage === "reviews" && mediaType === "image" ? (
               <div className="media-empty-state">
-                <div className="empty-icon-wrap" style={{ background: "rgba(255, 211, 0, 0.12)", color: "#ffd300" }}>
+                <div className="empty-icon-wrap" style={{ background: "rgba(255, 211, 0, 0.12)", color: "#f9e209" }}>
                   <VideoIcon size={36} />
                 </div>
                 <h3 className="empty-title">
@@ -1245,7 +1259,7 @@ const PAIRED_FRANCHISE_SLOTS = {
                     display: "inline-flex",
                     alignItems: "center",
                     gap: "8px",
-                    background: "#ffd300",
+                    background: "#f9e209",
                     color: "#09090b",
                     fontWeight: 700,
                     fontSize: "14px",
@@ -1264,7 +1278,7 @@ const PAIRED_FRANCHISE_SLOTS = {
               </div>
             ) : (selectedPage === "placements" || selectedPage === "memories") && mediaType === "video" ? (
               <div className="media-empty-state">
-                <div className="empty-icon-wrap" style={{ background: "rgba(255, 211, 0, 0.12)", color: "#ffd300" }}>
+                <div className="empty-icon-wrap" style={{ background: "rgba(255, 211, 0, 0.12)", color: "#f9e209" }}>
                   <ImageIcon size={36} />
                 </div>
                 <h3 className="empty-title">
@@ -1281,7 +1295,7 @@ const PAIRED_FRANCHISE_SLOTS = {
                     display: "inline-flex",
                     alignItems: "center",
                     gap: "8px",
-                    background: "#ffd300",
+                    background: "#f9e209",
                     color: "#09090b",
                     fontWeight: 700,
                     fontSize: "14px",
@@ -1445,6 +1459,58 @@ const PAIRED_FRANCHISE_SLOTS = {
                           <UploadCloud size={15} />
                           <span>Change {slot.type === "image" ? "Photo" : "Video"}</span>
                         </button>
+
+                        {slot.page === "certificates" && (
+                          <button
+                            type="button"
+                            className="slot-edit-cert-btn"
+                            onClick={() => handleOpenEditCertModal(slot)}
+                            title="Edit Certificate details (Partner, Skills, Description, etc.)"
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "6px",
+                              padding: "8px 14px",
+                              borderRadius: "8px",
+                              fontSize: "0.8rem",
+                              fontWeight: "600",
+                              background: "rgba(246, 217, 107, 0.12)",
+                              color: "#f9e209",
+                              border: "1px solid rgba(246, 217, 107, 0.3)",
+                              cursor: "pointer",
+                              transition: "all 0.2s ease",
+                            }}
+                          >
+                            <Edit3 size={14} />
+                            <span>Edit Details</span>
+                          </button>
+                        )}
+
+                        {slot.page === "certificates" && (
+                          <button
+                            type="button"
+                            className="slot-delete-btn"
+                            onClick={() => handleDeleteCert(slot)}
+                            title="Delete certificate from vault"
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "6px",
+                              padding: "8px 14px",
+                              borderRadius: "8px",
+                              fontSize: "0.8rem",
+                              fontWeight: "600",
+                              background: "rgba(239, 68, 68, 0.12)",
+                              color: "#f87171",
+                              border: "1px solid rgba(239, 68, 68, 0.3)",
+                              cursor: "pointer",
+                              transition: "all 0.2s ease",
+                            }}
+                          >
+                            <Trash2 size={14} />
+                            <span>Delete</span>
+                          </button>
+                        )}
 
                         {isCustom && (
                           <button
@@ -1775,7 +1841,7 @@ const PAIRED_FRANCHISE_SLOTS = {
                     borderRadius: "999px",
                     fontSize: "0.8rem",
                     fontWeight: 600,
-                    color: "#ffd300",
+                    color: "#f9e209",
                     border: "1px solid rgba(255, 211, 0, 0.3)",
                   }}
                 >
@@ -1788,7 +1854,7 @@ const PAIRED_FRANCHISE_SLOTS = {
                 <div className="bulk-selected-preview-list">
                   <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.82rem", color: "#cbd5e1", marginBottom: "8px" }}>
                     <span>Selected ({bulkFiles.length} files):</span>
-                    <span style={{ color: "#ffd300" }}>Will replace slots 1 to {bulkFiles.length}</span>
+                    <span style={{ color: "#f9e209" }}>Will replace slots 1 to {bulkFiles.length}</span>
                   </div>
                   <div className="bulk-file-pill-grid">
                     {bulkFiles.map((file, idx) => (
@@ -1838,6 +1904,584 @@ const PAIRED_FRANCHISE_SLOTS = {
                     <>
                       <UploadCloud size={16} />
                       <span>Upload {bulkFiles.length > 0 ? `${bulkFiles.length} Photos` : "Photos"}</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+
+      {/* ==========================================================================
+          MODAL: Add New Verified Certificate (ImageKit Direct)
+          ========================================================================== */}
+      {addCertModalOpen && (
+        <div className="modal-backdrop" onClick={handleCloseAddCertModal}>
+          <div className="cert-modal-box" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <div className="modal-header-left">
+                <div className="modal-badge">
+                  <Award size={14} className="text-yellow-400" />
+                  <span>Credential Vault • Add Certificate</span>
+                </div>
+                <h3 className="modal-title">Add New Verified Certificate</h3>
+                <p className="modal-subtitle">
+                  Upload official partner certificate credentials directly to ImageKit CDN and publish to the live 3D Credential Vault.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                className="modal-close-btn"
+                onClick={handleCloseAddCertModal}
+                disabled={certUploading}
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmitAddCert} className="cert-modal-form">
+              {certModalError && (
+                <div className="modal-error-alert">
+                  <AlertCircle size={16} />
+                  <span>{certModalError}</span>
+                </div>
+              )}
+
+              <div className="cert-form-grid">
+                <div className="cert-form-group">
+                  <label className="cert-form-label">Certificate Title *</label>
+                  <input
+                    type="text"
+                    className="cert-form-input"
+                    placeholder="e.g. AWS Certified Solutions Architect"
+                    value={certFormData.title}
+                    onChange={(e) =>
+                      setCertFormData((prev) => ({ ...prev, title: e.target.value }))
+                    }
+                    required
+                  />
+                </div>
+
+                <div className="cert-form-group">
+                  <label className="cert-form-label">Partner / Organization *</label>
+                  <input
+                    type="text"
+                    className="cert-form-input"
+                    placeholder="e.g. AWS, Microsoft, Google, Adobe"
+                    value={certFormData.partner}
+                    onChange={(e) =>
+                      setCertFormData((prev) => ({ ...prev, partner: e.target.value }))
+                    }
+                    required
+                  />
+                </div>
+
+                <div className="cert-form-group">
+                  <label className="cert-form-label">Category *</label>
+                  <select
+                    className="cert-form-select"
+                    value={certFormData.category}
+                    onChange={(e) =>
+                      setCertFormData((prev) => ({ ...prev, category: e.target.value }))
+                    }
+                  >
+                    <option value="Global Tech">Global Tech</option>
+                    <option value="Creative & CAD">Creative & CAD</option>
+                    <option value="Industry & Hiring">Industry & Hiring</option>
+                    <option value="custom">+ Custom Category</option>
+                  </select>
+                </div>
+
+                {certFormData.category === "custom" && (
+                  <div className="cert-form-group">
+                    <label className="cert-form-label">Custom Category Name *</label>
+                    <input
+                      type="text"
+                      className="cert-form-input"
+                      placeholder="e.g. AI & Data Science"
+                      value={certFormData.customCategory}
+                      onChange={(e) =>
+                        setCertFormData((prev) => ({
+                          ...prev,
+                          customCategory: e.target.value,
+                        }))
+                      }
+                      required
+                    />
+                  </div>
+                )}
+
+                <div className="cert-form-group">
+                  <label className="cert-form-label">Credential / Cert ID</label>
+                  <input
+                    type="text"
+                    className="cert-form-input"
+                    placeholder="e.g. AWS-SAA-29184"
+                    value={certFormData.certId}
+                    onChange={(e) =>
+                      setCertFormData((prev) => ({ ...prev, certId: e.target.value }))
+                    }
+                  />
+                </div>
+
+                <div className="cert-form-group">
+                  <label className="cert-form-label">Accreditation / Issuer</label>
+                  <input
+                    type="text"
+                    className="cert-form-input"
+                    placeholder="e.g. Amazon Web Services Inc."
+                    value={certFormData.issuer}
+                    onChange={(e) =>
+                      setCertFormData((prev) => ({ ...prev, issuer: e.target.value }))
+                    }
+                  />
+                </div>
+
+                <div className="cert-form-group">
+                  <label className="cert-form-label">Skills Covered</label>
+                  <input
+                    type="text"
+                    className="cert-form-input"
+                    placeholder="e.g. Cloud Architecture, S3, EC2, VPC, Lambda"
+                    value={certFormData.skills}
+                    onChange={(e) =>
+                      setCertFormData((prev) => ({ ...prev, skills: e.target.value }))
+                    }
+                  />
+                </div>
+
+                <div className="cert-form-group full-width">
+                  <label className="cert-form-label">Industry Impact / Recognition</label>
+                  <input
+                    type="text"
+                    className="cert-form-input"
+                    placeholder="e.g. Globally recognized qualification for Cloud & DevOps engineers"
+                    value={certFormData.impact}
+                    onChange={(e) =>
+                      setCertFormData((prev) => ({ ...prev, impact: e.target.value }))
+                    }
+                  />
+                </div>
+
+                <div className="cert-form-group full-width">
+                  <label className="cert-form-label">Description / Summary</label>
+                  <textarea
+                    rows={3}
+                    className="cert-form-textarea"
+                    placeholder="Brief description of the certification, syllabus, and examination requirements..."
+                    value={certFormData.description}
+                    onChange={(e) =>
+                      setCertFormData((prev) => ({ ...prev, description: e.target.value }))
+                    }
+                  />
+                </div>
+              </div>
+
+              {/* Certificate Image Upload Section */}
+              <div className="cert-image-section">
+                <label className="cert-form-label" style={{ marginBottom: '10px', display: 'block' }}>
+                  Certificate Image (Upload File to ImageKit or Image URL) *
+                </label>
+
+                <input
+                  ref={certFileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      setCertFile(file);
+                      setCertFormData((prev) => ({ ...prev, url: '' }));
+                    }
+                  }}
+                  style={{ display: 'none' }}
+                />
+
+                {certFilePreview ? (
+                  <div className="cert-preview-wrap">
+                    <img
+                      src={certFilePreview}
+                      alt="Certificate Preview"
+                      className="cert-preview-img"
+                    />
+                    <div className="cert-preview-info">
+                      <span>{certFile?.name}</span>
+                      <span>({(certFile?.size / 1024).toFixed(0)} KB)</span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setCertFile(null);
+                          setCertFilePreview(null);
+                        }}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: '#ef4444',
+                          cursor: 'pointer',
+                          fontWeight: 700,
+                          fontSize: '0.78rem',
+                          marginLeft: '8px',
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div
+                    className="cert-dropzone"
+                    onClick={() => certFileInputRef.current?.click()}
+                  >
+                    <div className="cert-dropzone-inner">
+                      <UploadCloud size={30} className="text-yellow-400" />
+                      <p className="cert-dropzone-title">Click to upload certificate image</p>
+                      <p className="cert-dropzone-hint">PNG, JPG, WEBP recommended (Max 25MB)</p>
+                    </div>
+                  </div>
+                )}
+
+                <div style={{ marginTop: '12px', textAlign: 'center' }}>
+                  <span style={{ fontSize: '0.75rem', color: '#64748b' }}>— OR ENTER DIRECT IMAGE URL —</span>
+                </div>
+
+                <div style={{ marginTop: '8px' }}>
+                  <input
+                    type="url"
+                    className="cert-form-input"
+                    placeholder="https://ik.imagekit.io/... or https://..."
+                    value={certFormData.url}
+                    onChange={(e) => {
+                      setCertFormData((prev) => ({ ...prev, url: e.target.value }));
+                      if (e.target.value) {
+                        setCertFile(null);
+                        setCertFilePreview(null);
+                      }
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Progress */}
+              {certUploading && (
+                <div className="modal-progress-wrap" style={{ marginTop: '16px' }}>
+                  <div className="progress-text">
+                    <span>Uploading certificate to ImageKit CDN...</span>
+                    <span>{certUploadProgress}%</span>
+                  </div>
+                  <div className="progress-track">
+                    <div className="progress-fill" style={{ width: `${certUploadProgress}%` }} />
+                  </div>
+                </div>
+              )}
+
+              {/* Actions */}
+              <div className="modal-actions-row" style={{ marginTop: '20px' }}>
+                <button
+                  type="button"
+                  className="modal-cancel-btn"
+                  onClick={handleCloseAddCertModal}
+                  disabled={certUploading}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={certUploading || (!certFile && !certFormData.url.trim())}
+                  className="modal-submit-btn"
+                >
+                  {certUploading ? (
+                    <>
+                      <RefreshCw size={16} className="animate-spin" />
+                      <span>Publishing ({certUploadProgress}%)...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Plus size={16} />
+                      <span>Publish Certificate to Vault</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ==========================================================================
+          MODAL: Edit Certificate Details & Credentials
+          ========================================================================== */}
+      {editCertModalOpen && editCertSlot && (
+        <div className="modal-backdrop" onClick={handleCloseEditCertModal}>
+          <div className="cert-modal-box" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <div className="modal-header-left">
+                <div className="modal-badge">
+                  <Edit3 size={14} className="text-yellow-400" />
+                  <span>Credential Vault • Edit Certificate</span>
+                </div>
+                <h3 className="modal-title">Edit Certificate: {editCertSlot.title}</h3>
+                <p className="modal-subtitle">
+                  Update certificate information, skills covered, category, or replace the certificate image via ImageKit CDN.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                className="modal-close-btn"
+                onClick={handleCloseEditCertModal}
+                disabled={editCertUploading}
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmitEditCert} className="cert-modal-form">
+              {editCertModalError && (
+                <div className="modal-error-alert">
+                  <AlertCircle size={16} />
+                  <span>{editCertModalError}</span>
+                </div>
+              )}
+
+              <div className="cert-form-grid">
+                <div className="cert-form-group">
+                  <label className="cert-form-label">Certificate Title *</label>
+                  <input
+                    type="text"
+                    className="cert-form-input"
+                    value={editCertFormData.title}
+                    onChange={(e) =>
+                      setEditCertFormData((prev) => ({ ...prev, title: e.target.value }))
+                    }
+                    required
+                  />
+                </div>
+
+                <div className="cert-form-group">
+                  <label className="cert-form-label">Partner / Organization *</label>
+                  <input
+                    type="text"
+                    className="cert-form-input"
+                    value={editCertFormData.partner}
+                    onChange={(e) =>
+                      setEditCertFormData((prev) => ({ ...prev, partner: e.target.value }))
+                    }
+                    required
+                  />
+                </div>
+
+                <div className="cert-form-group">
+                  <label className="cert-form-label">Category *</label>
+                  <select
+                    className="cert-form-select"
+                    value={editCertFormData.category}
+                    onChange={(e) =>
+                      setEditCertFormData((prev) => ({ ...prev, category: e.target.value }))
+                    }
+                  >
+                    <option value="Global Tech">Global Tech</option>
+                    <option value="Creative & CAD">Creative & CAD</option>
+                    <option value="Industry & Hiring">Industry & Hiring</option>
+                    <option value="custom">+ Custom Category</option>
+                  </select>
+                </div>
+
+                {editCertFormData.category === "custom" && (
+                  <div className="cert-form-group">
+                    <label className="cert-form-label">Custom Category Name *</label>
+                    <input
+                      type="text"
+                      className="cert-form-input"
+                      value={editCertFormData.customCategory}
+                      onChange={(e) =>
+                        setEditCertFormData((prev) => ({
+                          ...prev,
+                          customCategory: e.target.value,
+                        }))
+                      }
+                      required
+                    />
+                  </div>
+                )}
+
+                <div className="cert-form-group">
+                  <label className="cert-form-label">Credential / Cert ID</label>
+                  <input
+                    type="text"
+                    className="cert-form-input"
+                    value={editCertFormData.certId}
+                    onChange={(e) =>
+                      setEditCertFormData((prev) => ({ ...prev, certId: e.target.value }))
+                    }
+                  />
+                </div>
+
+                <div className="cert-form-group">
+                  <label className="cert-form-label">Accreditation / Issuer</label>
+                  <input
+                    type="text"
+                    className="cert-form-input"
+                    value={editCertFormData.issuer}
+                    onChange={(e) =>
+                      setEditCertFormData((prev) => ({ ...prev, issuer: e.target.value }))
+                    }
+                  />
+                </div>
+
+                <div className="cert-form-group">
+                  <label className="cert-form-label">Skills Covered</label>
+                  <input
+                    type="text"
+                    className="cert-form-input"
+                    value={editCertFormData.skills}
+                    onChange={(e) =>
+                      setEditCertFormData((prev) => ({ ...prev, skills: e.target.value }))
+                    }
+                  />
+                </div>
+
+                <div className="cert-form-group full-width">
+                  <label className="cert-form-label">Industry Impact / Recognition</label>
+                  <input
+                    type="text"
+                    className="cert-form-input"
+                    value={editCertFormData.impact}
+                    onChange={(e) =>
+                      setEditCertFormData((prev) => ({ ...prev, impact: e.target.value }))
+                    }
+                  />
+                </div>
+
+                <div className="cert-form-group full-width">
+                  <label className="cert-form-label">Description / Summary</label>
+                  <textarea
+                    rows={3}
+                    className="cert-form-textarea"
+                    value={editCertFormData.description}
+                    onChange={(e) =>
+                      setEditCertFormData((prev) => ({ ...prev, description: e.target.value }))
+                    }
+                  />
+                </div>
+              </div>
+
+              {/* Certificate Image Replacement Section */}
+              <div className="cert-image-section">
+                <label className="cert-form-label" style={{ marginBottom: '10px', display: 'block' }}>
+                  Certificate Image (Leave blank to keep existing image)
+                </label>
+
+                {editCertFilePreview ? (
+                  <div className="cert-preview-wrap">
+                    <img
+                      src={editCertFilePreview}
+                      alt="New Preview"
+                      className="cert-preview-img"
+                    />
+                    <div className="cert-preview-info">
+                      <span>New File: {editCertFile?.name}</span>
+                      <span>({(editCertFile?.size / 1024).toFixed(0)} KB)</span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setEditCertFile(null);
+                          setEditCertFilePreview(null);
+                        }}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: '#ef4444',
+                          cursor: 'pointer',
+                          fontWeight: 700,
+                          fontSize: '0.78rem',
+                          marginLeft: '8px',
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    {editCertSlot.url && (
+                      <div style={{ textAlign: 'center', marginBottom: '12px' }}>
+                        <span style={{ fontSize: '0.75rem', color: '#94a3b8', display: 'block', marginBottom: '6px' }}>
+                          Current Image:
+                        </span>
+                        <img
+                          src={resolveMediaUrl(editCertSlot.url)}
+                          alt={editCertSlot.title}
+                          className="cert-existing-thumb"
+                        />
+                      </div>
+                    )}
+                    <div
+                      className="cert-dropzone"
+                      onClick={() => editCertFileInputRef.current?.click()}
+                    >
+                      <div className="cert-dropzone-inner">
+                        <UploadCloud size={26} className="text-yellow-400" />
+                        <p className="cert-dropzone-title">Click to replace image file</p>
+                        <p className="cert-dropzone-hint">Uploads new image directly to ImageKit CDN</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <input
+                  ref={editCertFileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      setEditCertFile(file);
+                    }
+                  }}
+                  style={{ display: 'none' }}
+                />
+              </div>
+
+              {/* Progress */}
+              {editCertUploading && (
+                <div className="modal-progress-wrap" style={{ marginTop: '16px' }}>
+                  <div className="progress-text">
+                    <span>Updating certificate on ImageKit CDN...</span>
+                    <span>{editCertUploadProgress}%</span>
+                  </div>
+                  <div className="progress-track">
+                    <div className="progress-fill" style={{ width: `${editCertUploadProgress}%` }} />
+                  </div>
+                </div>
+              )}
+
+              {/* Actions */}
+              <div className="modal-actions-row" style={{ marginTop: '20px' }}>
+                <button
+                  type="button"
+                  className="modal-cancel-btn"
+                  onClick={handleCloseEditCertModal}
+                  disabled={editCertUploading}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={editCertUploading}
+                  className="modal-submit-btn"
+                >
+                  {editCertUploading ? (
+                    <>
+                      <RefreshCw size={16} className="animate-spin" />
+                      <span>Saving ({editCertUploadProgress}%)...</span>
+                    </>
+                  ) : (
+                    <>
+                      <CheckCircle2 size={16} />
+                      <span>Save Changes</span>
                     </>
                   )}
                 </button>
