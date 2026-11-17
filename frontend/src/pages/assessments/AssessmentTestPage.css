@@ -4,6 +4,7 @@
   min-height: 100vh;
   background-color: #080603;
   color: #f4f4f5;
+  padding-top: 140px;
   padding-bottom: 5rem;
 }
 
@@ -466,4 +467,10 @@
 
 .test-review-item.incorrect {
   border-left: 4px solid #ef4444;
+}
+
+@media (max-width: 768px) {
+  .test-page-container {
+    padding-top: 115px;
+  }
 }

@@ -2,6 +2,7 @@ import React, { memo, useCallback, useState, useEffect } from 'react';
 import './Memories.css';
 import FlexCarousel from './components/FlexCarousel';
 import InfiniteSpiral from './components/InfiniteSpiral';
+import LifeAtThirdEyeReels from './components/LifeAtThirdEyeReels';
 import StrokeText from './components/StrokeText';
 import { fetchMedia } from '../../services/mediaApi';
 
@@ -223,11 +224,11 @@ function Memories() {
           SECTION 1: Yellow Background with Masked Heading
           ======================================================== */}
       <section className="sweet-memories-hero">
-        <div className="max-w-6xl mx-auto px-4 z-10 flex flex-col items-center">
+        <div className="max-w-6xl mx-auto px-4 z-10 flex flex-col items-center pt-2 sm:pt-4">
         
           {/* Masked Heading "SWEET MEMORIES" */}
           <h1
-            className="sweet-memories-masked-text text-5xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tight"
+            className="sweet-memories-masked-text text-5xl sm:text-7xl md:text-8xl lg:text-9xl tracking-wide"
             style={{
               backgroundImage: `url(${panoramicBg}), linear-gradient(135deg, #111111 0%, #333333 100%)`
             }}
@@ -288,7 +289,14 @@ function Memories() {
       </section>
 
       {/* ========================================================
-          SECTION 3: Celebration Heading & Infinite Spiral (28 Images)
+          SECTION 3: Life At ThirdEye In Action (Reels Showcase)
+          ======================================================== */}
+      <section className="sweet-memories-section text-center !py-4 overflow-hidden">
+        <LifeAtThirdEyeReels />
+      </section>
+
+      {/* ========================================================
+          SECTION 4: Celebration Heading & Infinite Spiral (28 Images)
           ======================================================== */}
       <section className="sweet-memories-section-alt text-center">
         <div className="max-w-6xl mx-auto px-4 mb-10">

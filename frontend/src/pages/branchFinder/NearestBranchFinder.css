@@ -4,7 +4,7 @@
   min-height: 100vh;
   background-color: #080603;
   color: #e5ded0;
-  padding-top: 5.5rem;
+  padding-top: 13.5rem;
   padding-bottom: 5rem;
   overflow-x: hidden;
 }
@@ -1180,6 +1180,9 @@
 }
 
 @media (max-width: 768px) {
+  .branch-finder-page {
+    padding-top: 10.5rem;
+  }
   .finder-title {
     font-size: 2rem;
   }

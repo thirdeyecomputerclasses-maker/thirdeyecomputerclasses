@@ -95,6 +95,14 @@ const DEFAULT_CENTRES = [
     mapUrl: "https://maps.app.goo.gl/9TK52jEhAvqV7x136",
     image: classroomSliceLeft,
   },
+  {
+    id: "malviya-nagar",
+    num: "11",
+    name: "Malviya Nagar",
+    address: "First Floor Sp-1, Apex Circle, Malviya Nagar Industrial Area, Malviya Nagar, Jaipur, Rajasthan 302017",
+    mapUrl: "https://maps.google.com/maps?q=26.854658126831055%2C75.82466125488281&z=17&hl=en",
+    image: classroomSliceRight,
+  },
 ];
 
 export default function NetworkCentres() {
@@ -110,7 +118,7 @@ export default function NetworkCentres() {
         data.forEach((slot) => {
           if (slot.slotKey?.startsWith("franchise_branch_")) {
             const num = parseInt(slot.slotKey.replace("franchise_branch_", ""), 10);
-            if (num >= 1 && num <= 10 && slot.url) {
+            if (num >= 1 && num <= 20 && slot.url) {
               if (!slot.isDefault) { branchMap[num] = slot.url; }
             }
           }

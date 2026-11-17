@@ -2,7 +2,7 @@
 
 .compare-page {
   min-height: 100vh;
-  padding: 135px 6% 90px;
+  padding: 210px 6% 90px;
   box-sizing: border-box;
   background:
     radial-gradient(circle at 15% 15%, rgba(246, 217, 107, 0.08), transparent 25%),
@@ -716,6 +716,9 @@
 }
 
 @media (max-width: 860px) {
+  .compare-page {
+    padding: 165px 4% 60px;
+  }
   .compare-cards-grid {
     grid-template-columns: 1fr;
   }

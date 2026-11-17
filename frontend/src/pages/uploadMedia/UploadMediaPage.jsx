@@ -59,7 +59,7 @@ const SUPPORTED_PAGES = [
     label: "Franchise",
     path: "/franchise",
     icon: "🏢",
-    desc: "Branches (10), Awards (7), Placement Drives (3), Partner Testimonials (5) & Reels (6 videos)",
+    desc: "Branches (11), Awards (7), Placement Drives (3), Partner Testimonials (5) & Branch Owner Video Testimonials",
   },
   {
     id: "placements",
@@ -73,7 +73,7 @@ const SUPPORTED_PAGES = [
     label: "Campus Memories",
     path: "/sweet-memories",
     icon: "📸",
-    desc: "Hero Backdrop, 7 Event Moments & 28 Celebration Spiral Photos (36 photos) — Photos only",
+    desc: "Hero Backdrop, 7 Event Moments, 28 Celebration Spiral Photos & 6 Life at ThirdEye Reels",
   },
   {
     id: "reviews",
@@ -147,6 +147,250 @@ export default function UploadMediaPage({ embedded = false }) {
   const [isDragOver, setIsDragOver] = useState(false);
 
   const fileInputRef = useRef(null);
+
+  // Branch Owner Video Testimonials Management State
+  const [addBranchVideoModalOpen, setAddBranchVideoModalOpen] = useState(false);
+  const [branchVideoFormData, setBranchVideoFormData] = useState({
+    ownerName: "",
+    branchName: "",
+    title: "",
+    quote: "",
+    badge: "Verified Partner",
+    rating: 5,
+    videoSourceType: "file",
+    videoFile: null,
+    videoUrl: "",
+    thumbSourceType: "file",
+    thumbFile: null,
+    thumbUrl: "",
+  });
+  const [branchVideoUploading, setBranchVideoUploading] = useState(false);
+  const [branchVideoUploadProgress, setBranchVideoUploadProgress] = useState(0);
+  const [branchVideoModalError, setBranchVideoModalError] = useState(null);
+
+  // Edit Branch Owner Video State
+  const [editBranchVideoModalOpen, setEditBranchVideoModalOpen] = useState(false);
+  const [editBranchVideoSlot, setEditBranchVideoSlot] = useState(null);
+  const [editBranchVideoFormData, setEditBranchVideoFormData] = useState({
+    ownerName: "",
+    branchName: "",
+    title: "",
+    quote: "",
+    badge: "",
+    rating: 5,
+    videoSourceType: "keep",
+    videoFile: null,
+    videoUrl: "",
+    thumbSourceType: "keep",
+    thumbFile: null,
+    thumbUrl: "",
+  });
+  const [editBranchVideoUploading, setEditBranchVideoUploading] = useState(false);
+  const [editBranchVideoUploadProgress, setEditBranchVideoUploadProgress] = useState(0);
+  const [editBranchVideoModalError, setEditBranchVideoModalError] = useState(null);
+
+  // Open / Close Add Branch Video Modal
+  const handleOpenAddBranchVideoModal = () => {
+    setBranchVideoFormData({
+      ownerName: "",
+      branchName: "",
+      title: "",
+      quote: "",
+      badge: "Verified Partner",
+      rating: 5,
+      videoSourceType: "file",
+      videoFile: null,
+      videoUrl: "",
+      thumbSourceType: "file",
+      thumbFile: null,
+      thumbUrl: "",
+    });
+    setBranchVideoModalError(null);
+    setBranchVideoUploadProgress(0);
+    setAddBranchVideoModalOpen(true);
+  };
+
+  const handleCloseAddBranchVideoModal = () => {
+    if (branchVideoUploading) return;
+    setAddBranchVideoModalOpen(false);
+  };
+
+  // Submit Add Branch Video
+  const handleSubmitAddBranchVideo = async (e) => {
+    e.preventDefault();
+    setBranchVideoModalError(null);
+
+    if (!branchVideoFormData.ownerName.trim()) {
+      setBranchVideoModalError("Please provide the Branch Owner's name.");
+      return;
+    }
+    if (!branchVideoFormData.branchName.trim()) {
+      setBranchVideoModalError("Please provide the Branch location/name.");
+      return;
+    }
+
+    if (branchVideoFormData.videoSourceType === "file" && !branchVideoFormData.videoFile) {
+      setBranchVideoModalError("Please select a video file to upload, or switch to Video URL.");
+      return;
+    }
+    if (branchVideoFormData.videoSourceType === "url" && !branchVideoFormData.videoUrl.trim()) {
+      setBranchVideoModalError("Please enter a valid video link (YouTube, Instagram Reel, or CDN URL).");
+      return;
+    }
+
+    setBranchVideoUploading(true);
+    setBranchVideoUploadProgress(0);
+
+    try {
+      const fd = new FormData();
+      fd.append("ownerName", branchVideoFormData.ownerName.trim());
+      fd.append("branchName", branchVideoFormData.branchName.trim());
+      fd.append("title", branchVideoFormData.title.trim() || `${branchVideoFormData.ownerName.trim()} — ${branchVideoFormData.branchName.trim()} Video Testimonial`);
+      fd.append("quote", branchVideoFormData.quote.trim());
+      fd.append("badge", branchVideoFormData.badge.trim() || "Verified Partner");
+      fd.append("rating", String(branchVideoFormData.rating || 5));
+
+      if (branchVideoFormData.videoSourceType === "file" && branchVideoFormData.videoFile) {
+        fd.append("file", branchVideoFormData.videoFile);
+      } else if (branchVideoFormData.videoUrl) {
+        fd.append("url", branchVideoFormData.videoUrl.trim());
+      }
+
+      if (branchVideoFormData.thumbSourceType === "file" && branchVideoFormData.thumbFile) {
+        fd.append("thumbnail", branchVideoFormData.thumbFile);
+      } else if (branchVideoFormData.thumbUrl) {
+        fd.append("thumbnailUrl", branchVideoFormData.thumbUrl.trim());
+      }
+
+      const created = await createBranchVideo(fd, (pct) => {
+        setBranchVideoUploadProgress(pct);
+      });
+
+      setSlots((prev) => [created, ...prev]);
+      setActionMessage({
+        type: "success",
+        text: `Branch Owner Video Testimonial for "${created.ownerName || created.title}" published successfully!`,
+      });
+      setTimeout(() => setActionMessage(null), 5000);
+      setAddBranchVideoModalOpen(false);
+    } catch (err) {
+      console.error("Error creating branch video:", err);
+      setBranchVideoModalError(err.message || "Failed to create branch video testimonial.");
+    } finally {
+      setBranchVideoUploading(false);
+    }
+  };
+
+  // Open / Close Edit Branch Video Modal
+  const handleOpenEditBranchVideoModal = (slot) => {
+    setEditBranchVideoSlot(slot);
+    setEditBranchVideoFormData({
+      ownerName: slot.ownerName || slot.title || "",
+      branchName: slot.branchName || "",
+      title: slot.title || "",
+      quote: slot.description || "",
+      badge: slot.badge || "Verified Partner",
+      rating: slot.rating || 5,
+      videoSourceType: "keep",
+      videoFile: null,
+      videoUrl: slot.url || "",
+      thumbSourceType: "keep",
+      thumbFile: null,
+      thumbUrl: slot.thumbnailUrl || "",
+    });
+    setEditBranchVideoModalError(null);
+    setEditBranchVideoUploadProgress(0);
+    setEditBranchVideoModalOpen(true);
+  };
+
+  const handleCloseEditBranchVideoModal = () => {
+    if (editBranchVideoUploading) return;
+    setEditBranchVideoModalOpen(false);
+    setEditBranchVideoSlot(null);
+  };
+
+  // Submit Edit Branch Video
+  const handleSubmitEditBranchVideo = async (e) => {
+    e.preventDefault();
+    if (!editBranchVideoSlot) return;
+    setEditBranchVideoModalError(null);
+
+    if (!editBranchVideoFormData.ownerName.trim()) {
+      setEditBranchVideoModalError("Please provide the Branch Owner's name.");
+      return;
+    }
+    if (!editBranchVideoFormData.branchName.trim()) {
+      setEditBranchVideoModalError("Please provide the Branch location/name.");
+      return;
+    }
+
+    setEditBranchVideoUploading(true);
+    setEditBranchVideoUploadProgress(0);
+
+    try {
+      const fd = new FormData();
+      fd.append("ownerName", editBranchVideoFormData.ownerName.trim());
+      fd.append("branchName", editBranchVideoFormData.branchName.trim());
+      fd.append("title", editBranchVideoFormData.title.trim() || `${editBranchVideoFormData.ownerName.trim()} — ${editBranchVideoFormData.branchName.trim()} Video Testimonial`);
+      fd.append("quote", editBranchVideoFormData.quote.trim());
+      fd.append("badge", editBranchVideoFormData.badge.trim() || "Verified Partner");
+      fd.append("rating", String(editBranchVideoFormData.rating || 5));
+
+      if (editBranchVideoFormData.videoSourceType === "file" && editBranchVideoFormData.videoFile) {
+        fd.append("file", editBranchVideoFormData.videoFile);
+      } else if (editBranchVideoFormData.videoSourceType === "url" && editBranchVideoFormData.videoUrl) {
+        fd.append("url", editBranchVideoFormData.videoUrl.trim());
+      }
+
+      if (editBranchVideoFormData.thumbSourceType === "file" && editBranchVideoFormData.thumbFile) {
+        fd.append("thumbnail", editBranchVideoFormData.thumbFile);
+      } else if (editBranchVideoFormData.thumbSourceType === "url" && editBranchVideoFormData.thumbUrl) {
+        fd.append("thumbnailUrl", editBranchVideoFormData.thumbUrl.trim());
+      }
+
+      const updated = await updateBranchVideo(
+        editBranchVideoSlot._id || editBranchVideoSlot.slotKey,
+        fd,
+        (pct) => setEditBranchVideoUploadProgress(pct)
+      );
+
+      setSlots((prev) =>
+        prev.map((s) => (s._id === updated._id || s.slotKey === updated.slotKey ? updated : s))
+      );
+      setActionMessage({
+        type: "success",
+        text: `Branch Owner Video for "${updated.ownerName || updated.title}" updated successfully!`,
+      });
+      setTimeout(() => setActionMessage(null), 5000);
+      setEditBranchVideoModalOpen(false);
+    } catch (err) {
+      console.error("Error updating branch video:", err);
+      setEditBranchVideoModalError(err.message || "Failed to update branch video testimonial.");
+    } finally {
+      setEditBranchVideoUploading(false);
+    }
+  };
+
+  // Delete Branch Owner Video Testimonial
+  const handleDeleteBranchVideo = async (slot) => {
+    if (!window.confirm(`Are you sure you want to permanently delete the video testimonial for "${slot.ownerName || slot.title}"?`)) {
+      return;
+    }
+
+    try {
+      await deleteBranchVideo(slot._id || slot.slotKey);
+      setSlots((prev) => prev.filter((s) => s._id !== slot._id && s.slotKey !== slot.slotKey));
+      setActionMessage({
+        type: "success",
+        text: `Branch Owner Video for "${slot.ownerName || slot.title}" has been deleted.`,
+      });
+      setTimeout(() => setActionMessage(null), 5000);
+    } catch (err) {
+      console.error("Error deleting branch video:", err);
+      alert(err.message || "Failed to delete branch video testimonial.");
+    }
+  };
+
 
   // Certificate Management State
   const [addCertModalOpen, setAddCertModalOpen] = useState(false);
@@ -1062,7 +1306,7 @@ const PAIRED_FRANCHISE_SLOTS = {
                         ? "Video-only section (6 videos)"
                         : page.id === "about" && mediaType === "image"
                         ? "Video-only section (1 video)"
-                        : (page.id === "placements" || page.id === "memories" || page.id === "certificates" || page.id === "team") && mediaType === "video"
+                        : (page.id === "placements" || page.id === "certificates" || page.id === "team") && mediaType === "video"
                         ? "Photo-only section (0 videos)"
                         : `${count} existing ${mediaType === "image" ? "photos" : "videos"}`}
                     </span>
@@ -1151,6 +1395,30 @@ const PAIRED_FRANCHISE_SLOTS = {
           )}
 
           {/* Special Celebration Banner & Bulk Upload Button for Campus Memories */}
+          
+          {/* Branch Owners Video Testimonials Action Banner */}
+          {selectedPage === "franchise" && mediaType === "video" && (
+            <div className="celebration-bulk-bar certificate-action-bar">
+              <div className="celebration-bulk-info">
+                <VideoIcon size={22} className="text-[#f9e209]" />
+                <div>
+                  <strong>Branch Owners Video Testimonials Hub</strong>
+                  <p>
+                    Manage authentic video testimonials of your franchise branch directors. Upload high-definition videos directly to ImageKit CDN, or embed YouTube / Instagram links with custom branch quotes &amp; milestones.
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                className="bulk-upload-btn add-cert-btn"
+                onClick={handleOpenAddBranchVideoModal}
+              >
+                <Plus size={16} />
+                <span>+ Add Branch Owner Video Testimonial</span>
+              </button>
+            </div>
+          )}
+
           
           {/* Certificate Management Action Banner */}
           {selectedPage === "certificates" && mediaType === "image" && (
@@ -1276,7 +1544,7 @@ const PAIRED_FRANCHISE_SLOTS = {
                   <span>Switch to Change Section Videos (6 Reviews)</span>
                 </button>
               </div>
-            ) : (selectedPage === "placements" || selectedPage === "memories") && mediaType === "video" ? (
+            ) : (selectedPage === "placements") && mediaType === "video" ? (
               <div className="media-empty-state">
                 <div className="empty-icon-wrap" style={{ background: "rgba(255, 211, 0, 0.12)", color: "#f9e209" }}>
                   <ImageIcon size={36} />
@@ -1422,6 +1690,30 @@ const PAIRED_FRANCHISE_SLOTS = {
 
                     {/* Slot Info & Content */}
                     <div className="slot-card-body">
+                      
+                      {/* Branch Video Specific Badges */}
+                      {(slot.section === "branch_testimonials" || slot.slotKey?.includes("branch_video")) && (
+                        <div className="slot-cert-meta-row" style={{ marginTop: '4px', marginBottom: '8px' }}>
+                          {slot.ownerName && (
+                            <span className="slot-cert-partner-pill">
+                              <UserCheck size={11} />
+                              {slot.ownerName}
+                            </span>
+                          )}
+                          {slot.branchName && (
+                            <span className="slot-cert-category-pill" style={{ color: '#f9e209', borderColor: 'rgba(249, 226, 9, 0.35)' }}>
+                              <MapPin size={11} style={{ display: 'inline', marginRight: '3px' }} />
+                              {slot.branchName}
+                            </span>
+                          )}
+                          {slot.badge && (
+                            <span className="slot-cert-id-pill" style={{ color: '#34d399', borderColor: 'rgba(52, 211, 153, 0.35)' }}>
+                              {slot.badge}
+                            </span>
+                          )}
+                        </div>
+                      )}
+
                       
                       {/* Certificate Specific Badges */}
                       {slot.page === "certificates" && (

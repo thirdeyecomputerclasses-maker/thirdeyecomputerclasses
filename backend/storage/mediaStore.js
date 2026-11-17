@@ -152,75 +152,115 @@ const INITIAL_SECTION_SLOTS = [
     isDefault: true,
   },
   {
-    slotKey: "franchise_reel_1",
+    slotKey: "franchise_branch_11",
     page: "franchise",
-    section: "instagram_reels",
-    type: "video",
-    title: "Instagram Reel 1 — Campus Life & Student Energy",
-    description: "Instagram reel #1 in the infinite scrolling middle-playing video carousel.",
-    url: "/assets/webreel.mp4",
-    defaultUrl: "/assets/webreel.mp4",
-    thumbnailUrl: "/src/assets/classroom_panoramic.png",
-    isDefault: true,
-  },
-  {
-    slotKey: "franchise_reel_2",
-    page: "franchise",
-    section: "instagram_reels",
-    type: "video",
-    title: "Instagram Reel 2 — Practical Lab & Student Projects",
-    description: "Instagram reel #2 in the infinite scrolling middle-playing video carousel.",
-    url: "/assets/webreel.mp4",
-    defaultUrl: "/assets/webreel.mp4",
-    thumbnailUrl: "/src/assets/classroom_slice_left.webp",
-    isDefault: true,
-  },
-  {
-    slotKey: "franchise_reel_3",
-    page: "franchise",
-    section: "instagram_reels",
-    type: "video",
-    title: "Instagram Reel 3 — Placement Celebrations & Offer Letters",
-    description: "Instagram reel #3 in the infinite scrolling middle-playing video carousel.",
-    url: "/assets/webreel.mp4",
-    defaultUrl: "/assets/webreel.mp4",
-    thumbnailUrl: "/src/assets/classroom_slice_center.webp",
-    isDefault: true,
-  },
-  {
-    slotKey: "franchise_reel_4",
-    page: "franchise",
-    section: "instagram_reels",
-    type: "video",
-    title: "Instagram Reel 4 — Masterclass & Industry Workshop",
-    description: "Instagram reel #4 in the infinite scrolling middle-playing video carousel.",
-    url: "/assets/webreel.mp4",
-    defaultUrl: "/assets/webreel.mp4",
+    section: "branches",
+    type: "image",
+    title: "Branch 11 — Malviya Nagar (Apex Circle)",
+    description: "Malviya Nagar center campus photo featured in the Running Centers 3D carousel.",
+    url: "/src/assets/classroom_slice_right.webp",
+    defaultUrl: "/src/assets/classroom_slice_right.webp",
     thumbnailUrl: "/src/assets/classroom_slice_right.webp",
     isDefault: true,
   },
+
+    // ------------------------------------------
+  // Franchise — Branch Owners Video Testimonials (6 Initial Slots)
+  // ------------------------------------------
   {
-    slotKey: "franchise_reel_5",
+    slotKey: "franchise_branch_video_1",
     page: "franchise",
-    section: "instagram_reels",
+    section: "branch_testimonials",
     type: "video",
-    title: "Instagram Reel 5 — Center Infrastructure & Tech Setup",
-    description: "Instagram reel #5 in the infinite scrolling middle-playing video carousel.",
+    title: "Maya Sharma — Jagatpura Branch Director Video Testimonial",
+    ownerName: "Maya Sharma",
+    branchName: "Jagatpura Branch",
+    badge: "250+ Students Enrolled",
+    rating: 5,
+    description: "I, Maya Sharma, the franchise owner of Thirdeye Computer Classes – Jagatpura Branch, am proud to share that our center is running highly successfully with quality education, modern facilities, and top placement support.",
     url: "/assets/webreel.mp4",
     defaultUrl: "/assets/webreel.mp4",
-    thumbnailUrl: "/src/assets/classroom_panoramic.png",
+    thumbnailUrl: "/src/assets/franchise/partner_maya_sharma.png",
     isDefault: true,
   },
   {
-    slotKey: "franchise_reel_6",
+    slotKey: "franchise_branch_video_2",
     page: "franchise",
-    section: "instagram_reels",
+    section: "branch_testimonials",
     type: "video",
-    title: "Instagram Reel 6 — Alumni Testimonials & Founder Vision",
-    description: "Instagram reel #6 in the infinite scrolling middle-playing video carousel.",
+    title: "Kapil Nitharwal — Vaishali Nagar Branch Director Video Testimonial",
+    ownerName: "Kapil Nitharwal",
+    branchName: "Vaishali Nagar Branch",
+    badge: "Top Performing Center 2024",
+    rating: 5,
+    description: "I am glad to share that our Vaishali Nagar center is running successfully with high student satisfaction, hands-on software labs, and corporate placement partnerships.",
     url: "/assets/webreel.mp4",
     defaultUrl: "/assets/webreel.mp4",
-    thumbnailUrl: "/src/assets/team_photo.webp",
+    thumbnailUrl: "/src/assets/franchise/partner_kapil_nitharwal.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "franchise_branch_video_3",
+    page: "franchise",
+    section: "branch_testimonials",
+    type: "video",
+    title: "Diya Saini — Sodala Branch Director Video Testimonial",
+    ownerName: "Diya Saini",
+    branchName: "Sodala Branch",
+    badge: "180+ Placed Students",
+    rating: 5,
+    description: "Proud to be part of the Thirdeye network. With continuous curriculum support, advanced practical labs, and high placement satisfaction, our Sodala center has scaled rapidly.",
+    url: "/assets/webreel.mp4",
+    defaultUrl: "/assets/webreel.mp4",
+    thumbnailUrl: "/src/assets/mentor_5.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "franchise_branch_video_4",
+    page: "franchise",
+    section: "branch_testimonials",
+    type: "video",
+    title: "Raj Gurjar — Jhotwara Branch Director Video Testimonial",
+    ownerName: "Raj Gurjar",
+    branchName: "Jhotwara Branch",
+    badge: "Excellence in Tech Training",
+    rating: 5,
+    description: "With expert faculty training, modern infrastructure, and a strong focus on practical learning, our center provides top computer and digital education.",
+    url: "/assets/webreel.mp4",
+    defaultUrl: "/assets/webreel.mp4",
+    thumbnailUrl: "/src/assets/franchise/partner_raj_gurjar.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "franchise_branch_video_5",
+    page: "franchise",
+    section: "branch_testimonials",
+    type: "video",
+    title: "Kushal Avasthi — Gopalpura Branch Director Video Testimonial",
+    ownerName: "Kushal Avasthi",
+    branchName: "Gopalpura Branch",
+    badge: "Fastest Growing Center",
+    rating: 5,
+    description: "ThirdEye's brand reputation and regular recruitment drives made our Gopalpura branch a thriving IT skill academy from month one.",
+    url: "/assets/webreel.mp4",
+    defaultUrl: "/assets/webreel.mp4",
+    thumbnailUrl: "/src/assets/franchise/partner_kushal_avasthi.png",
+    isDefault: true,
+  },
+  {
+    slotKey: "franchise_branch_video_6",
+    page: "franchise",
+    section: "branch_testimonials",
+    type: "video",
+    title: "Vartika Kumawat — Mansarovar Branch Director Video Testimonial",
+    ownerName: "Vartika Kumawat",
+    branchName: "Mansarovar Branch",
+    badge: "Flagship IT Academy",
+    rating: 5,
+    description: "ThirdEye Mansarovar sets high industry standards with hands-on AI tools, design suites, and exceptional mentor guidance.",
+    url: "/assets/webreel.mp4",
+    defaultUrl: "/assets/webreel.mp4",
+    thumbnailUrl: "/src/assets/franchise/partner_vartika_kumawat.png",
     isDefault: true,
   },
 
@@ -1086,6 +1126,82 @@ const INITIAL_SECTION_SLOTS = [
       defaultUrl: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600&q=80&auto=format&fit=crop",
       thumbnailUrl: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600&q=80&auto=format&fit=crop",
       isDefault: true
+  },
+
+  // ------------------------------------------
+  // Campus Memories — Life At ThirdEye In Action (6 Video Reels)
+  // ------------------------------------------
+  {
+    slotKey: "memories_reel_1",
+    page: "memories",
+    section: "instagram_reels",
+    type: "video",
+    title: "Life at ThirdEye Reel 1 — Student Coding Sprint",
+    description: "Instagram reel #1 in the Campus Memories cover-flow video showcase.",
+    url: "https://www.instagram.com/reel/Dd3pHKrq_Ci/?xtok=azY2d3p5Yzdnb2Zq",
+    defaultUrl: "https://www.instagram.com/reel/Dd3pHKrq_Ci/?xtok=azY2d3p5Yzdnb2Zq",
+    thumbnailUrl: "https://www.instagram.com/p/Dd3pHKrq_Ci/media/?size=l",
+    isDefault: true,
+  },
+  {
+    slotKey: "memories_reel_2",
+    page: "memories",
+    section: "instagram_reels",
+    type: "video",
+    title: "Life at ThirdEye Reel 2 — Lab Hands-on & Creative Rigging",
+    description: "Instagram reel #2 in the Campus Memories cover-flow video showcase.",
+    url: "https://www.instagram.com/reel/Dbrx3zqiI7S/?rpxt=MW9jYnVxbDJyMmQyMg==",
+    defaultUrl: "https://www.instagram.com/reel/Dbrx3zqiI7S/?rpxt=MW9jYnVxbDJyMmQyMg==",
+    thumbnailUrl: "https://www.instagram.com/p/Dbrx3zqiI7S/media/?size=l",
+    isDefault: true,
+  },
+  {
+    slotKey: "memories_reel_3",
+    page: "memories",
+    section: "instagram_reels",
+    type: "video",
+    title: "Life at ThirdEye Reel 3 — Placement Drive & Offer Letters",
+    description: "Instagram reel #3 in the Campus Memories cover-flow video showcase.",
+    url: "https://www.instagram.com/reel/DYo3rQbKnWs/?vrfl=MTJueHJxNG0yNjFzeg==",
+    defaultUrl: "https://www.instagram.com/reel/DYo3rQbKnWs/?vrfl=MTJueHJxNG0yNjFzeg==",
+    thumbnailUrl: "https://www.instagram.com/p/DYo3rQbKnWs/media/?size=l",
+    isDefault: true,
+  },
+  {
+    slotKey: "memories_reel_4",
+    page: "memories",
+    section: "instagram_reels",
+    type: "video",
+    title: "Life at ThirdEye Reel 4 — Masterclass & Industry Workshop",
+    description: "Instagram reel #4 in the Campus Memories cover-flow video showcase.",
+    url: "https://www.instagram.com/reel/DbZkDS6j1l-/?rpxt=MXJkN2hod3Y3eWpkZg==",
+    defaultUrl: "https://www.instagram.com/reel/DbZkDS6j1l-/?rpxt=MXJkN2hod3Y3eWpkZg==",
+    thumbnailUrl: "https://www.instagram.com/p/DbZkDS6j1l-/media/?size=l",
+    isDefault: true,
+  },
+  {
+    slotKey: "memories_reel_5",
+    page: "memories",
+    section: "instagram_reels",
+    type: "video",
+    title: "Life at ThirdEye Reel 5 — Campus Celebration & Cultural Night",
+    description: "Instagram reel #5 in the Campus Memories cover-flow video showcase.",
+    url: "https://www.instagram.com/reel/DdtkN9OKdAZ/?srtk=MTh1M2trYnVxeWFnag==",
+    defaultUrl: "https://www.instagram.com/reel/DdtkN9OKdAZ/?srtk=MTh1M2trYnVxeWFnag==",
+    thumbnailUrl: "https://www.instagram.com/p/DdtkN9OKdAZ/media/?size=l",
+    isDefault: true,
+  },
+  {
+    slotKey: "memories_reel_6",
+    page: "memories",
+    section: "instagram_reels",
+    type: "video",
+    title: "Life at ThirdEye Reel 6 — Alumni Success Stories",
+    description: "Instagram reel #6 in the Campus Memories cover-flow video showcase.",
+    url: "https://www.instagram.com/reel/DdoXYYxq7n5/?dlrf=a2FycTFrOTRwZmFo",
+    defaultUrl: "https://www.instagram.com/reel/DdoXYYxq7n5/?dlrf=a2FycTFrOTRwZmFo",
+    thumbnailUrl: "https://www.instagram.com/p/DdoXYYxq7n5/media/?size=l",
+    isDefault: true,
   },
 
   // ==========================================
@@ -2020,6 +2136,7 @@ class MediaStore {
         await Media.deleteMany({
           page: { $in: ["about", "franchise", "placements", "memories", "reviews", "team"] },
           slotKey: { $nin: validSlotKeys },
+          isCustom: { $ne: true },
         });
 
         // Fast bulkWrite for all 119 slots in a single round-trip
@@ -2455,7 +2572,114 @@ class MediaStore {
     }
     return deletedDoc;
   }
+
+  /**
+   * Create a new Branch Owner Video Testimonial
+   */
+  static async createBranchVideo(videoData) {
+    if (!getDBStatus()) {
+      await ensureConnected();
+    }
+    const slotKey = videoData.slotKey || `franchise_branch_video_${Date.now()}`;
+    const docData = {
+      page: "franchise",
+      section: "branch_testimonials",
+      slotKey,
+      type: "video",
+      title: videoData.title || `${videoData.ownerName || "Branch Owner"} — ${videoData.branchName || "Franchise"} Video Testimonial`,
+      description: videoData.description || videoData.quote || "",
+      url: videoData.url,
+      defaultUrl: videoData.url,
+      thumbnailUrl: videoData.thumbnailUrl || "",
+      fileId: videoData.fileId || "",
+      isDefault: false,
+      isCustom: true,
+      ownerName: videoData.ownerName || "",
+      branchName: videoData.branchName || "",
+      badge: videoData.badge || "Verified Partner",
+      rating: Number(videoData.rating) || 5,
+    };
+
+    let savedDoc;
+    if (getDBStatus()) {
+      savedDoc = await Media.create(docData);
+      savedDoc = savedDoc.toObject ? savedDoc.toObject() : savedDoc;
+    } else {
+      savedDoc = { _id: `custom-branch-video-${Date.now()}`, ...docData, createdAt: new Date(), updatedAt: new Date() };
+    }
+
+    inMemorySlots.push(savedDoc);
+    return sanitizeMedia(savedDoc);
+  }
+
+  /**
+   * Update Branch Owner Video Testimonial
+   */
+  static async updateBranchVideo(idOrSlotKey, updateData) {
+    if (!getDBStatus()) {
+      await ensureConnected();
+    }
+    const filter = String(idOrSlotKey).startsWith("franchise_branch_video_")
+      ? { slotKey: idOrSlotKey }
+      : { _id: idOrSlotKey };
+
+    const updateFields = {
+      updatedAt: new Date(),
+    };
+    if (updateData.title !== undefined) updateFields.title = updateData.title;
+    if (updateData.description !== undefined) updateFields.description = updateData.description;
+    if (updateData.ownerName !== undefined) updateFields.ownerName = updateData.ownerName;
+    if (updateData.branchName !== undefined) updateFields.branchName = updateData.branchName;
+    if (updateData.badge !== undefined) updateFields.badge = updateData.badge;
+    if (updateData.rating !== undefined) updateFields.rating = Number(updateData.rating);
+    if (updateData.url !== undefined) {
+      updateFields.url = updateData.url;
+      updateFields.isDefault = false;
+    }
+    if (updateData.thumbnailUrl !== undefined) updateFields.thumbnailUrl = updateData.thumbnailUrl;
+    if (updateData.fileId !== undefined) updateFields.fileId = updateData.fileId;
+
+    let updatedDoc = null;
+    if (getDBStatus()) {
+      updatedDoc = await Media.findOneAndUpdate(filter, { $set: updateFields }, { new: true, lean: true });
+    }
+
+    const memIdx = inMemorySlots.findIndex(
+      (s) => String(s._id) === String(idOrSlotKey) || s.slotKey === idOrSlotKey
+    );
+    if (memIdx !== -1) {
+      inMemorySlots[memIdx] = { ...inMemorySlots[memIdx], ...updateFields };
+      if (!updatedDoc) updatedDoc = inMemorySlots[memIdx];
+    }
+    return updatedDoc ? sanitizeMedia(updatedDoc) : null;
+  }
+
+  /**
+   * Delete custom Branch Owner Video Testimonial
+   */
+  static async deleteBranchVideo(idOrSlotKey) {
+    if (!getDBStatus()) {
+      await ensureConnected();
+    }
+    const filter = String(idOrSlotKey).startsWith("franchise_branch_video_")
+      ? { slotKey: idOrSlotKey }
+      : { _id: idOrSlotKey };
+
+    let deletedDoc = null;
+    if (getDBStatus()) {
+      deletedDoc = await Media.findOneAndDelete(filter);
+    }
+    const memIdx = inMemorySlots.findIndex(
+      (s) => String(s._id) === String(idOrSlotKey) || s.slotKey === idOrSlotKey
+    );
+    if (memIdx !== -1) {
+      const [removed] = inMemorySlots.splice(memIdx, 1);
+      if (!deletedDoc) deletedDoc = removed;
+    }
+    return deletedDoc;
+  }
 }
+
 
 module.exports = MediaStore;
 module.exports.INITIAL_SECTION_SLOTS = INITIAL_SECTION_SLOTS;

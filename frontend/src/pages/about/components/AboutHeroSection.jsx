@@ -13,7 +13,7 @@ const quickStats = [
 
 export default function AboutHeroSection({ onScrollToExplore }) {
   return (
-    <section className="relative z-10 pt-36 sm:pt-40 md:pt-44 pb-12 sm:pb-16 overflow-hidden flex flex-col justify-between bg-[#050505] text-white">
+    <section className="relative z-10 pt-44 sm:pt-48 md:pt-52 lg:pt-56 pb-12 sm:pb-16 overflow-hidden flex flex-col justify-between bg-[#050505] text-white">
       {/* Background Ambient Focal Glows */}
       <div className="absolute inset-0 bg-tech-grid opacity-50 pointer-events-none -z-10" />
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[450px] pointer-events-none -z-10 blur-[130px] opacity-35 bg-gradient-to-b from-[#f6d96b]/20 to-[#d97706]/10" />

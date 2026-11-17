@@ -11,7 +11,7 @@ export default function PayNowPage() {
   }, []);
 
   return (
-    <div className="pay-now-page relative min-h-screen bg-[#060503] text-white selection:bg-[#f6d96b] selection:text-black overflow-x-clip pt-28 sm:pt-32 pb-20">
+    <div className="pay-now-page relative min-h-screen bg-[#060503] text-white selection:bg-[#f6d96b] selection:text-black overflow-x-clip pt-44 sm:pt-48 md:pt-52 pb-20">
       {/* Background Golden Atmospheric Glows */}
       <div className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[750px] h-[400px] bg-gradient-to-r from-[#ffd35a]/15 via-[#f6d96b]/10 to-[#ffd35a]/15 blur-[160px] -z-10" />
       <div className="pointer-events-none absolute top-[700px] right-0 w-[450px] h-[350px] bg-[#d97706]/10 blur-[140px] -z-10" />

@@ -9,7 +9,7 @@
   min-height: 100vh;
   background-color: #0c0e14;
   color: #f3f4f6;
-  padding: 100px 20px 80px;
+  padding: 200px 20px 80px;
   overflow-x: hidden;
   font-family: inherit;
 }
@@ -1174,7 +1174,7 @@
 /* Responsive */
 @media (max-width: 768px) {
   .upload-media-page {
-    padding: 85px 14px 60px;
+    padding: 165px 14px 60px;
   }
 
   .dashboard-section {
@@ -1259,7 +1259,7 @@
   align-items: center;
   justify-content: center;
   min-height: 85vh;
-  padding: 130px 20px 80px;
+  padding: 165px 20px 80px;
 }
 
 .restricted-access-card {

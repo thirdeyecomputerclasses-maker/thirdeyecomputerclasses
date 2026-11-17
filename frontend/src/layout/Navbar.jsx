@@ -218,7 +218,7 @@ export default function Navbar() {
         </div>
 
         {/* MAIN NAVIGATION BAR */}
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-2 md:py-2.5">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-2.5 md:py-3">
           <div className="flex items-center justify-between gap-3">
             {/* ============================================================ */}
             {/* LEFT: Logo ONLY                                               */}
@@ -341,29 +341,7 @@ export default function Navbar() {
                           </div>
                         </Link>
 
-                        {/* 2. Apply for Certificate */}
-                        <a
-                          href="https://docs.google.com/forms/d/e/1FAIpQLSdDtLEpiKX4qeeR8YN2-HJ1jy9O7YvjaJh6HaalI7XTPyZ6aA/viewform"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          role="menuitem"
-                          className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#f6d96b]/10 group transition-all mt-1"
-                        >
-                          <div className="p-2 rounded-xl bg-[#16120b] border border-[#2a2217] text-[#f6d96b] group-hover:bg-[#f6d96b] group-hover:text-black transition-colors mt-0.5 shrink-0">
-                            <FileCheck className="w-4 h-4" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="text-sm font-semibold text-zinc-100 group-hover:text-[#f6d96b] transition-colors flex items-center gap-1.5">
-                              <span>Apply for Certificate</span>
-                              <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-[#f6d96b] shrink-0" />
-                            </div>
-                            <p className="text-xs text-zinc-400 line-clamp-2 leading-snug mt-0.5">
-                              Submit your final exam &amp; roll details
-                            </p>
-                          </div>
-                        </a>
-
-                        {/* 3. Free Skill Assessments */}
+                        {/* 2. Free Skill Assessments */}
                         <Link
                           to="/assessments"
                           role="menuitem"
@@ -854,16 +832,6 @@ export default function Navbar() {
                     <span>Our Certification</span>
                     <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500" />
                   </Link>
-                  <a
-                    href="https://docs.google.com/forms/d/e/1FAIpQLSdDtLEpiKX4qeeR8YN2-HJ1jy9O7YvjaJh6HaalI7XTPyZ6aA/viewform"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center justify-between p-2 rounded-lg text-xs text-zinc-300 hover:text-[#f6d96b] hover:bg-[#f6d96b]/10 transition-colors"
-                  >
-                    <span>Apply for Certificate</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500" />
-                  </a>
                   <Link
                     to="/assessments"
                     onClick={() => setMobileMenuOpen(false)}

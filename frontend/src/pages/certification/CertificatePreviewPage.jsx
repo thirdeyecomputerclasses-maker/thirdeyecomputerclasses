@@ -299,7 +299,7 @@ export default function CertificatePreviewPage() {
       <div className="cert-ambient-radial" aria-hidden="true" />
 
       {/* Header Section */}
-      <section className="cert-header-section pt-32 pb-8 sm:pt-36 sm:pb-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="cert-header-section pt-44 pb-8 sm:pt-48 md:pt-52 sm:pb-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-[#f6d96b]/15 text-[#f6d96b] border border-[#f6d96b]/30 mb-4 shadow-[0_0_20px_rgba(246,217,107,0.15)]">
             <Sparkles className="w-3.5 h-3.5" />

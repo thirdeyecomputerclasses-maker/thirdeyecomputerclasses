@@ -418,6 +418,218 @@ const deleteCertificate = async (req, res) => {
   }
 };
 
+
+const createBranchVideo = async (req, res) => {
+  try {
+    const files = req.files || {};
+    const videoFile = files.file ? files.file[0] : (req.file || null);
+    const thumbnailFile = files.thumbnail ? files.thumbnail[0] : null;
+
+    const {
+      ownerName,
+      branchName,
+      title,
+      description,
+      quote,
+      badge,
+      rating,
+      url,
+      thumbnailUrl,
+    } = req.body;
+
+    let videoUrl = url;
+    let videoFileId = "";
+    let finalThumbnailUrl = thumbnailUrl;
+
+    // Upload video file if provided
+    if (videoFile) {
+      if (isImageKitConfigured()) {
+        const uploadResult = await uploadFileToImageKit(
+          videoFile.buffer,
+          videoFile.originalname || "branch_video.mp4",
+          "/third_eye_branch_videos"
+        );
+        videoUrl = uploadResult.url;
+        videoFileId = uploadResult.fileId;
+      } else {
+        const mediaDir = path.join(__dirname, "../uploads/media");
+        if (!fs.existsSync(mediaDir)) {
+          fs.mkdirSync(mediaDir, { recursive: true });
+        }
+        const ext = path.extname(videoFile.originalname) || ".mp4";
+        const safeName = `branch_vid_${Date.now()}${ext}`;
+        fs.writeFileSync(path.join(mediaDir, safeName), videoFile.buffer);
+        videoUrl = `/uploads/media/${safeName}`;
+        videoFileId = `local-${Date.now()}`;
+      }
+    }
+
+    // Upload thumbnail file if provided
+    if (thumbnailFile) {
+      if (isImageKitConfigured()) {
+        const uploadResult = await uploadFileToImageKit(
+          thumbnailFile.buffer,
+          thumbnailFile.originalname || "branch_thumb.jpg",
+          "/third_eye_branch_thumbnails"
+        );
+        finalThumbnailUrl = uploadResult.url;
+      } else {
+        const mediaDir = path.join(__dirname, "../uploads/media");
+        if (!fs.existsSync(mediaDir)) {
+          fs.mkdirSync(mediaDir, { recursive: true });
+        }
+        const ext = path.extname(thumbnailFile.originalname) || ".jpg";
+        const safeName = `branch_thumb_${Date.now()}${ext}`;
+        fs.writeFileSync(path.join(mediaDir, safeName), thumbnailFile.buffer);
+        finalThumbnailUrl = `/uploads/media/${safeName}`;
+      }
+    }
+
+    if (!videoUrl) {
+      return res.status(400).json({ success: false, error: "A video file or video URL (ImageKit, YouTube, or Reel) is required." });
+    }
+
+    const created = await MediaStore.createBranchVideo({
+      ownerName,
+      branchName,
+      title: title || `${ownerName || "Branch Owner"} — ${branchName || "Franchise"} Video Testimonial`,
+      description: description || quote || "",
+      badge: badge || "Verified Partner",
+      rating: Number(rating) || 5,
+      url: videoUrl,
+      thumbnailUrl: finalThumbnailUrl || "",
+      fileId: videoFileId,
+    });
+
+    res.status(201).json({
+      success: true,
+      message: "Branch Owner Video Testimonial created successfully and uploaded to ImageKit",
+      data: created,
+    });
+  } catch (err) {
+    console.error("Error creating branch video testimonial:", err);
+    res.status(500).json({ success: false, error: "Failed to create branch video testimonial", message: err.message });
+  }
+};
+
+const updateBranchVideo = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const files = req.files || {};
+    const videoFile = files.file ? files.file[0] : (req.file || null);
+    const thumbnailFile = files.thumbnail ? files.thumbnail[0] : null;
+
+    const {
+      ownerName,
+      branchName,
+      title,
+      description,
+      quote,
+      badge,
+      rating,
+      url,
+      thumbnailUrl,
+    } = req.body;
+
+    const updateData = {};
+    if (ownerName !== undefined) updateData.ownerName = ownerName;
+    if (branchName !== undefined) updateData.branchName = branchName;
+    if (title !== undefined) updateData.title = title;
+    if (description !== undefined || quote !== undefined) updateData.description = description || quote;
+    if (badge !== undefined) updateData.badge = badge;
+    if (rating !== undefined) updateData.rating = Number(rating);
+    if (url) updateData.url = url;
+    if (thumbnailUrl !== undefined) updateData.thumbnailUrl = thumbnailUrl;
+
+    // Replace video file if uploaded
+    if (videoFile) {
+      if (isImageKitConfigured()) {
+        const uploadResult = await uploadFileToImageKit(
+          videoFile.buffer,
+          videoFile.originalname || "branch_video.mp4",
+          "/third_eye_branch_videos"
+        );
+        updateData.url = uploadResult.url;
+        updateData.fileId = uploadResult.fileId;
+      } else {
+        const mediaDir = path.join(__dirname, "../uploads/media");
+        if (!fs.existsSync(mediaDir)) {
+          fs.mkdirSync(mediaDir, { recursive: true });
+        }
+        const ext = path.extname(videoFile.originalname) || ".mp4";
+        const safeName = `branch_vid_${Date.now()}${ext}`;
+        fs.writeFileSync(path.join(mediaDir, safeName), videoFile.buffer);
+        updateData.url = `/uploads/media/${safeName}`;
+        updateData.fileId = `local-${Date.now()}`;
+      }
+    }
+
+    // Replace thumbnail file if uploaded
+    if (thumbnailFile) {
+      if (isImageKitConfigured()) {
+        const uploadResult = await uploadFileToImageKit(
+          thumbnailFile.buffer,
+          thumbnailFile.originalname || "branch_thumb.jpg",
+          "/third_eye_branch_thumbnails"
+        );
+        updateData.thumbnailUrl = uploadResult.url;
+      } else {
+        const mediaDir = path.join(__dirname, "../uploads/media");
+        if (!fs.existsSync(mediaDir)) {
+          fs.mkdirSync(mediaDir, { recursive: true });
+        }
+        const ext = path.extname(thumbnailFile.originalname) || ".jpg";
+        const safeName = `branch_thumb_${Date.now()}${ext}`;
+        fs.writeFileSync(path.join(mediaDir, safeName), thumbnailFile.buffer);
+        updateData.thumbnailUrl = `/uploads/media/${safeName}`;
+      }
+    }
+
+    const updated = await MediaStore.updateBranchVideo(id, updateData);
+    if (!updated) {
+      return res.status(404).json({ success: false, error: "Branch Video Testimonial not found" });
+    }
+
+    res.json({
+      success: true,
+      message: "Branch Owner Video Testimonial updated successfully",
+      data: updated,
+    });
+  } catch (err) {
+    console.error("Error updating branch video testimonial:", err);
+    res.status(500).json({ success: false, error: "Failed to update branch video testimonial", message: err.message });
+  }
+};
+
+const deleteBranchVideo = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const item = (await MediaStore.getById(id)) || (await MediaStore.getBySlotKey(id));
+    if (!item) {
+      return res.status(404).json({ success: false, error: "Branch Video Testimonial not found" });
+    }
+
+    if (item.fileId && isImageKitConfigured()) {
+      try {
+        await deleteFromImageKit(item.fileId);
+      } catch (e) {
+        console.warn("Could not delete branch video from ImageKit:", e.message);
+      }
+    }
+
+    const deleted = await MediaStore.deleteBranchVideo(id);
+    res.json({
+      success: true,
+      message: "Branch Owner Video Testimonial deleted successfully",
+      data: deleted,
+    });
+  } catch (err) {
+    console.error("Error deleting branch video testimonial:", err);
+    res.status(500).json({ success: false, error: "Failed to delete branch video testimonial", message: err.message });
+  }
+};
+
+
 module.exports = {
   batchUploadSlots,
   getMedia,
@@ -428,5 +640,8 @@ module.exports = {
   createCertificate,
   updateCertificate,
   deleteCertificate,
+  createBranchVideo,
+  updateBranchVideo,
+  deleteBranchVideo,
 };
 

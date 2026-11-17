@@ -58,7 +58,7 @@ const RECENT_STUDENTS = [
     avatar: s4,
     action: "claimed scholarship seat in",
     course: "Graphic & UI/UX Design",
-    location: "Malviya Nagar",
+    location: "Malviya Nagar Campus",
     timeAgo: "9 mins ago",
     badge: "Scholarship Awarded",
   },

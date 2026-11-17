@@ -11,7 +11,7 @@
   max-width: 100vw;
   width: 100%;
   box-sizing: border-box;
-  padding-top: 135px;
+  padding-top: 210px;
   padding-bottom: 90px;
 }
 
@@ -30,20 +30,20 @@
 /* Responsive Adaptations */
 @media (max-width: 1024px) {
   .course-details-page {
-    padding-top: 125px;
+    padding-top: 185px;
   }
 }
 
 @media (max-width: 768px) {
   .course-details-page {
-    padding-top: 115px;
+    padding-top: 165px;
     padding-bottom: 60px;
   }
 }
 
 @media (max-width: 480px) {
   .course-details-page {
-    padding-top: 105px;
+    padding-top: 155px;
     padding-bottom: 45px;
   }
 }

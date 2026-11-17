@@ -1,6 +1,6 @@
 .course-page {
   min-height: 100vh;
-  padding: 145px 6% 90px;
+  padding: 210px 6% 90px;
   box-sizing: border-box;
   background:
     radial-gradient(circle at 15% 15%, rgba(246, 217, 107, 0.08), transparent 25%),
@@ -496,7 +496,7 @@
 /* Responsive */
 @media (max-width: 900px) {
   .course-page {
-    padding: 120px 5% 70px;
+    padding: 165px 5% 70px;
   }
 
   .courses-heading {
@@ -536,6 +536,6 @@
 
 @media (max-width: 480px) {
   .course-page {
-    padding: 105px 4% 50px;
+    padding: 155px 4% 50px;
   }
 }

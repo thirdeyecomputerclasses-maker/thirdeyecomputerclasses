@@ -10,6 +10,9 @@ const {
   createCertificate,
   updateCertificate,
   deleteCertificate,
+  createBranchVideo,
+  updateBranchVideo,
+  deleteBranchVideo,
 } = require("../controllers/mediaController");
 
 const router = express.Router();
@@ -47,5 +50,16 @@ router.delete("/media/:id", deleteMedia);
 router.post("/media/certificate", upload.single("file"), createCertificate);
 router.put("/media/certificate/:id", upload.single("file"), updateCertificate);
 router.delete("/media/certificate/:id", deleteCertificate);
+
+
+// Branch Owner Video Testimonials routes
+const branchVideoUpload = upload.fields([
+  { name: "file", maxCount: 1 },
+  { name: "thumbnail", maxCount: 1 },
+]);
+
+router.post("/media/branch-video", branchVideoUpload, createBranchVideo);
+router.put("/media/branch-video/:id", branchVideoUpload, updateBranchVideo);
+router.delete("/media/branch-video/:id", deleteBranchVideo);
 
 module.exports = router;

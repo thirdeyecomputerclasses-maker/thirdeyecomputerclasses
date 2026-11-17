@@ -39,6 +39,7 @@ import { useEnquiry } from "../../context/EnquiryContext";
 import "./NearestBranchFinder.css";
 
 const POPULAR_LOCALITY_CHIPS = [
+  { label: "Malviya Nagar", query: "Malviya Nagar" },
   { label: "Sanganer (HQ)", query: "Sanganer" },
   { label: "Mansarovar", query: "Mansarovar" },
   { label: "Jagatpura", query: "Jagatpura" },
@@ -354,7 +355,7 @@ export default function NearestBranchFinder() {
                   setUserCoords(null);
                   setSearchInput(e.target.value);
                 }}
-                placeholder="Enter area PIN code (e.g. 302020) or Locality (e.g. Mansarovar, Jagatpura, Sanganer)..."
+                placeholder="Enter area PIN code (e.g. 302017, 302020) or Locality (e.g. Malviya Nagar, Mansarovar, Jagatpura)..."
                 aria-label="Search by PIN code or locality"
               />
 

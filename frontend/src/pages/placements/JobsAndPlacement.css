@@ -5,7 +5,7 @@
 
 .jobs-placement-page {
   min-height: 100vh;
-  padding: 145px 5% 100px;
+  padding: 210px 5% 100px;
   background-color: #070604;
   background:
     radial-gradient(circle at 18% 15%, rgba(255, 211, 0, 0.08), transparent 28%),
@@ -1620,7 +1620,7 @@
 
 @media (max-width: 768px) {
   .jobs-placement-page {
-    padding: 120px 4% 70px;
+    padding: 165px 4% 70px;
   }
 
   .jobs-cards-grid {
@@ -1676,7 +1676,7 @@
 
 @media (max-width: 480px) {
   .jobs-placement-page {
-    padding: 110px 4% 50px;
+    padding: 155px 4% 50px;
   }
 
   .jobs-hero-badge {

@@ -482,3 +482,159 @@ export async function deleteCertificate(id) {
   const data = await res.json();
   return data.data;
 }
+
+
+/**
+ * Create a new Branch Owner Video Testimonial with ImageKit CDN upload or direct video URL
+ */
+export async function createBranchVideo(formData, onProgress) {
+  if (onProgress && typeof XMLHttpRequest !== "undefined") {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", `${MEDIA_API}/branch-video`);
+
+      xhr.upload.onprogress = (e) => {
+        if (e.lengthComputable) {
+          const percent = Math.round((e.loaded / e.total) * 100);
+          onProgress(percent);
+        }
+      };
+
+      xhr.onload = () => {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try {
+            const data = JSON.parse(xhr.responseText);
+            const item = data.data;
+            if (item) {
+              item.url = resolveMediaUrl(item.url);
+              item.thumbnailUrl = resolveMediaUrl(item.thumbnailUrl || item.url);
+            }
+            resolve(item);
+          } catch (err) {
+            reject(err);
+          }
+        } else {
+          let errMsg = `Failed to create branch video testimonial (HTTP ${xhr.status})`;
+          try {
+            const errData = JSON.parse(xhr.responseText);
+            if (errData.error || errData.message) errMsg = errData.error || errData.message;
+          } catch {}
+          reject(new Error(errMsg));
+        }
+      };
+
+      xhr.onerror = () => reject(new Error("Network error during branch video creation"));
+      xhr.send(formData);
+    });
+  }
+
+  const res = await fetch(`${MEDIA_API}/branch-video`, {
+    method: "POST",
+    body: formData,
+  });
+
+  if (!res.ok) {
+    let errMsg = `Failed to create branch video testimonial (HTTP ${res.status})`;
+    try {
+      const data = await res.json();
+      if (data.error || data.message) errMsg = data.error || data.message;
+    } catch {}
+    throw new Error(errMsg);
+  }
+
+  const data = await res.json();
+  const item = data.data;
+  if (item) {
+    item.url = resolveMediaUrl(item.url);
+    item.thumbnailUrl = resolveMediaUrl(item.thumbnailUrl || item.url);
+  }
+  return item;
+}
+
+/**
+ * Update an existing Branch Owner Video Testimonial
+ */
+export async function updateBranchVideo(id, formData, onProgress) {
+  if (onProgress && typeof XMLHttpRequest !== "undefined") {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("PUT", `${MEDIA_API}/branch-video/${id}`);
+
+      xhr.upload.onprogress = (e) => {
+        if (e.lengthComputable) {
+          const percent = Math.round((e.loaded / e.total) * 100);
+          onProgress(percent);
+        }
+      };
+
+      xhr.onload = () => {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try {
+            const data = JSON.parse(xhr.responseText);
+            const item = data.data;
+            if (item) {
+              item.url = resolveMediaUrl(item.url);
+              item.thumbnailUrl = resolveMediaUrl(item.thumbnailUrl || item.url);
+            }
+            resolve(item);
+          } catch (err) {
+            reject(err);
+          }
+        } else {
+          let errMsg = `Failed to update branch video testimonial (HTTP ${xhr.status})`;
+          try {
+            const errData = JSON.parse(xhr.responseText);
+            if (errData.error || errData.message) errMsg = errData.error || errData.message;
+          } catch {}
+          reject(new Error(errMsg));
+        }
+      };
+
+      xhr.onerror = () => reject(new Error("Network error during branch video update"));
+      xhr.send(formData);
+    });
+  }
+
+  const res = await fetch(`${MEDIA_API}/branch-video/${id}`, {
+    method: "PUT",
+    body: formData,
+  });
+
+  if (!res.ok) {
+    let errMsg = `Failed to update branch video testimonial (HTTP ${res.status})`;
+    try {
+      const data = await res.json();
+      if (data.error || data.message) errMsg = data.error || data.message;
+    } catch {}
+    throw new Error(errMsg);
+  }
+
+  const data = await res.json();
+  const item = data.data;
+  if (item) {
+    item.url = resolveMediaUrl(item.url);
+    item.thumbnailUrl = resolveMediaUrl(item.thumbnailUrl || item.url);
+  }
+  return item;
+}
+
+/**
+ * Delete a Branch Owner Video Testimonial
+ */
+export async function deleteBranchVideo(id) {
+  const res = await fetch(`${MEDIA_API}/branch-video/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) {
+    let errMsg = `Failed to delete branch video testimonial (HTTP ${res.status})`;
+    try {
+      const data = await res.json();
+      if (data.error) errMsg = data.error;
+    } catch {}
+    throw new Error(errMsg);
+  }
+
+  const data = await res.json();
+  return data.data;
+}

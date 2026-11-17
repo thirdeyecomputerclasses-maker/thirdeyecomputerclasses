@@ -3,7 +3,7 @@ import "./Franchise.css";
 
 // Components inside components/ folder
 import FranchiseHero from "./components/FranchiseHero";
-import FranchiseInstagramReels from "./components/FranchiseInstagramReels";
+import BranchOwnerVideoTestimonials from "./components/BranchOwnerVideoTestimonials";
 import JoinHandsBrand from "./components/JoinHandsBrand";
 import FranchiseCourses from "./components/FranchiseCourses";
 import IndustryOverviewQA from "./components/IndustryOverviewQA";
@@ -35,9 +35,9 @@ export default function Franchise() {
         <FranchiseHero onOpenInquiry={scrollToInquiry} />
       </ScrollReveal>
 
-      {/* 2. Instagram Video & Reels Showcase (5-6 Videos) */}
+      {/* 2. Branch Owners Video Testimonials Showcase */}
       <ScrollReveal direction="up" delay={30} duration={700}>
-        <FranchiseInstagramReels />
+        <BranchOwnerVideoTestimonials onOpenInquiry={scrollToInquiry} />
       </ScrollReveal>
 
       {/* 3. Join Hands with Rajasthan's Leading IT Skill Development Brand */}

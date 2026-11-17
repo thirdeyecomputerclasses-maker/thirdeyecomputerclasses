@@ -16,7 +16,7 @@ import {
 
 export default function ExpansionTimeline() {
   // Default selected bar: Sodala (Newest 2026 branch)
-  const [activeBar, setActiveBar] = useState(9);
+  const [activeBar, setActiveBar] = useState(10);
 
   // Exact 10 Verified Branches + Vision 2028 Target in Chronological Order
   const barData = [
@@ -130,6 +130,18 @@ export default function ExpansionTimeline() {
       milestone: "Branch 10 — Sodala (Metro Corridor) • 2026 Newest Branch",
       desc: "ThirdEye's newest 2026 flagship branch on New Sanganer Road with ultra-modern smart labs, high-speed workstations, and direct metro connectivity.",
       location: "1st Floor, D.P. Colony, Near Vivek Vihar Metro Station, Sodala, Jaipur",
+      status: "Active Campus"
+    },
+    {
+      id: "malviya-nagar",
+      date: "2026",
+      branch: "Malviya Nagar",
+      count: 48,
+      heightPercent: 94,
+      isNew: true,
+      milestone: "Branch 11 — Malviya Nagar (Apex Circle) • 2026 Newest Branch",
+      desc: "ThirdEye's premier high-tech branch at Apex Circle, Malviya Nagar Industrial Area, equipped with modern coding pods, CAD/VFX workstations, and corporate placement cells.",
+      location: "First Floor Sp-1, Apex Circle, Malviya Nagar Industrial Area, Jaipur 302017",
       status: "Newest 2026 Launch"
     },
     {

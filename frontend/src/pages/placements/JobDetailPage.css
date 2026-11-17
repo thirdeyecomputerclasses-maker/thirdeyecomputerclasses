@@ -6,7 +6,7 @@
   min-height: 100vh;
   background-color: #090a0f;
   color: #f4f4f5;
-  padding: 130px 5% 90px;
+  padding: 210px 5% 90px;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -798,7 +798,7 @@
 
 @media (max-width: 768px) {
   .job-detail-page {
-    padding: 110px 4% 60px;
+    padding: 165px 4% 60px;
   }
 
   .job-detail-hero-card {

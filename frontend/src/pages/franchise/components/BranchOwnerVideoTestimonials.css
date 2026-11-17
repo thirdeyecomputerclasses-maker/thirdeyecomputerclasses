@@ -1,0 +1,547 @@
+/* ============================================================ */
+/* BRANCH OWNERS VIDEO TESTIMONIALS SECTION                    */
+/* ============================================================ */
+
+.branch-videos-section {
+  width: 100%;
+  padding: 70px 24px 90px;
+  position: relative;
+  box-sizing: border-box;
+  font-family: "Rajdhani", sans-serif;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .branch-videos-section {
+    padding: 45px 16px 65px;
+  }
+}
+
+.branch-videos-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Section Header ── */
+.branch-videos-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+
+.branch-videos-header-left {
+  max-width: 750px;
+}
+
+.branch-videos-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  background: rgba(249, 226, 9, 0.1);
+  border: 1px solid rgba(249, 226, 9, 0.35);
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #f9e209;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  box-shadow: 0 0 16px rgba(249, 226, 9, 0.15);
+}
+
+.branch-videos-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f9e209;
+  box-shadow: 0 0 8px #f9e209;
+  animation: branchPulse 2s infinite ease-in-out;
+}
+
+@keyframes branchPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+.branch-videos-title {
+  font-size: clamp(2rem, 3.8vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+}
+
+.branch-videos-title-highlight {
+  color: #f9e209;
+  text-shadow: 0 0 25px rgba(249, 226, 9, 0.35);
+}
+
+.branch-videos-subtitle {
+  font-size: 15px;
+  color: #a1a1aa;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 680px;
+}
+
+/* ── Header Controls & Stats ── */
+.branch-videos-header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.branch-videos-nav-arrows {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.branch-nav-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(24, 24, 27, 0.85);
+  border: 1px solid rgba(249, 226, 9, 0.3);
+  color: #f9e209;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.branch-nav-btn:hover:not(:disabled) {
+  background: #f9e209;
+  color: #000000;
+  border-color: #f9e209;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(249, 226, 9, 0.35);
+}
+
+.branch-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ── Trust Stats Ribbon ── */
+.branch-stats-ribbon {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 28px;
+  scrollbar-width: none;
+}
+
+.branch-stats-ribbon::-webkit-scrollbar {
+  display: none;
+}
+
+.branch-stat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(20, 20, 24, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 600;
+  color: #e4e4e7;
+  backdrop-filter: blur(8px);
+}
+
+.branch-stat-chip svg {
+  color: #f9e209;
+}
+
+/* ── Video Cards Grid / Carousel ── */
+.branch-videos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  position: relative;
+}
+
+@media (max-width: 1024px) {
+  .branch-videos-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .branch-videos-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
+/* ── Individual Video Card ── */
+.branch-video-card {
+  background: linear-gradient(180deg, rgba(28, 28, 33, 0.95) 0%, rgba(18, 18, 22, 0.98) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.branch-video-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(249, 226, 9, 0.5);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(249, 226, 9, 0.15);
+}
+
+/* ── Video Poster & Play Trigger ── */
+.branch-video-poster-box {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  position: relative;
+  background: #09090b;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.branch-video-poster-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s ease;
+}
+
+.branch-video-card:hover .branch-video-poster-img {
+  transform: scale(1.06);
+  filter: brightness(0.85);
+}
+
+.branch-video-poster-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.7) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.branch-play-button {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #f9e209;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 25px rgba(249, 226, 9, 0.6);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(0.95);
+}
+
+.branch-video-card:hover .branch-play-button {
+  transform: scale(1.1);
+  box-shadow: 0 0 35px rgba(249, 226, 9, 0.85);
+}
+
+.branch-play-button svg {
+  margin-left: 3px;
+}
+
+/* Corner Badges on Poster */
+.branch-badge-top-left {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: rgba(15, 15, 18, 0.85);
+  border: 1px solid rgba(249, 226, 9, 0.4);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #f9e209;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(6px);
+}
+
+.branch-badge-top-right {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #e4e4e7;
+  backdrop-filter: blur(6px);
+}
+
+/* ── Card Content Body ── */
+.branch-video-body {
+  padding: 20px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.branch-location-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.branch-location-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #f9e209;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.branch-rating-stars {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  color: #f9e209;
+}
+
+.branch-owner-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.branch-owner-role {
+  font-size: 13px;
+  color: #a1a1aa;
+  margin: 0 0 14px 0;
+  font-weight: 600;
+}
+
+.branch-quote-text {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #d4d4d8;
+  font-style: italic;
+  margin: 0 0 18px 0;
+  flex-grow: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Card Bottom CTA */
+.branch-card-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.branch-watch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #f9e209;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.branch-watch-btn:hover {
+  color: #ffffff;
+  transform: translateX(3px);
+}
+
+.branch-verified-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #10b981;
+}
+
+/* ============================================================ */
+/* CINEMATIC VIDEO MODAL                                       */
+/* ============================================================ */
+
+.branch-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(14px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: branchModalFadeIn 0.25s ease-out;
+}
+
+@keyframes branchModalFadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.branch-modal-window {
+  background: #141418;
+  border: 1px solid rgba(249, 226, 9, 0.35);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(249, 226, 9, 0.18);
+  border-radius: 24px;
+  max-width: 960px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.branch-modal-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.branch-modal-close-btn:hover {
+  background: #f9e209;
+  color: #000000;
+  border-color: #f9e209;
+  transform: rotate(90deg);
+}
+
+.branch-modal-video-wrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000000;
+  position: relative;
+}
+
+.branch-modal-native-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.branch-modal-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.branch-modal-info-bar {
+  padding: 24px 28px;
+  background: linear-gradient(180deg, #18181d 0%, #111115 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.branch-modal-info-left {
+  flex: 1;
+  min-width: 260px;
+}
+
+.branch-modal-owner-name {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+  text-transform: uppercase;
+}
+
+.branch-modal-branch-sub {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13.5px;
+  color: #f9e209;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.branch-modal-quote {
+  font-size: 14px;
+  color: #d4d4d8;
+  line-height: 1.55;
+  font-style: italic;
+  margin: 0;
+}
+
+.branch-modal-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #f9e209;
+  color: #000000;
+  font-weight: 800;
+  font-size: 13.5px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 18px rgba(249, 226, 9, 0.35);
+  white-space: nowrap;
+}
+
+.branch-modal-cta-btn:hover {
+  background: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.4);
+}
+
